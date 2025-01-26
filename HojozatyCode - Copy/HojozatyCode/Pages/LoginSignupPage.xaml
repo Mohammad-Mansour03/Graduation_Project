@@ -24,14 +24,14 @@
                        SemanticProperties.HeadingLevel="Level1"
                        FontSize="20"
                        FontFamily="Montserrat"
-                       TextColor="#553B8B"
+                       TextColor="#4F378A"
                        HorizontalOptions="Center" />
 
                 <VerticalStackLayout Spacing="30" Margin="0,50,0,0">
                     
                     <Button Text="Sign up"
                             SemanticProperties.Hint="Sign up for a new account"
-                            BackgroundColor="#553B8B"
+                            BackgroundColor="#4F378A"
                             TextColor="White"
                             FontFamily="Montserrat"
                             FontSize="16"
@@ -43,11 +43,11 @@
                     <Button Text="Login"
                             SemanticProperties.Hint="Login to your account"
                             BackgroundColor="Transparent"
-                            TextColor="#553B8B"
+                            TextColor="#4F378A"
                             FontSize="16"
                             CornerRadius="25"
                             HeightRequest="50"
-                            BorderColor="#553B8B"
+                            BorderColor="#4F378A"
                             BorderWidth="1"
                             Clicked="LogIn"
                             />
