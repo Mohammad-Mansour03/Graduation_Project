@@ -10,7 +10,7 @@
           ColumnDefinitions="20, *, 20">
        
         <!-- Close Icon -->
-        <ImageButton Source="close.png" 
+        <ImageButton Source="back_icon.png" 
                      Grid.Row="0" Grid.Column="0" 
                      HorizontalOptions="Start"
                      Padding="3"
@@ -33,21 +33,20 @@
                Margin="20"/>
 
         <!-- Form -->
-        <StackLayout Grid.Row="2" Grid.Column="1" Spacing="10">
+        <StackLayout Grid.Row="2" Grid.Column="1" Spacing="20">
             <!-- Email Entry -->
-            <Frame BackgroundColor="White"
-                   CornerRadius="15"
-                   Padding="0"
-                   HasShadow="True"
-                   HeightRequest="50"
-                   BorderColor="#D9D9D9">
+            <Border
+                Margin="0,20,0,0"
+                Background="White"
+                StrokeShape="RoundRectangle 20" 
+                StrokeThickness="1"
+                HeightRequest="60"
+                Padding="10">
 
-                <Entry Placeholder="Email" 
-                       FontSize="18" 
-                       TextColor="Black"
-                       Margin="10,0" 
-                 />
-            </Frame>
+                <Entry  Placeholder="Email" 
+                        FontSize="18" 
+                        TextColor="Black"/>
+            </Border>
             
             <!-- Password Entry with Frame -->
             <Frame BackgroundColor="White"

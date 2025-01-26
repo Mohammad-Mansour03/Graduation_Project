@@ -11,7 +11,7 @@
        ColumnDefinitions="20, *, 20">
 
         <!-- Close Icon -->
-        <ImageButton Source="close.png" 
+        <ImageButton Source="back_icon.png" 
                   Grid.Row="0" Grid.Column="0" 
                   HorizontalOptions="Start"
                   Padding="3"
