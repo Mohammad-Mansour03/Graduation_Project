@@ -47,21 +47,23 @@
                         FontSize="18" 
                         TextColor="Black"/>
             </Border>
-            
+
             <!-- Password Entry with Frame -->
-            <Frame BackgroundColor="White"
-                   CornerRadius="15"
-                   Padding="0"
-                   HasShadow="True"
-                   HeightRequest="50">
-                
+            <Border
+              Background="White"
+              StrokeShape="RoundRectangle 20" 
+              StrokeThickness="1"
+              HeightRequest="60"
+              Padding="10"
+             >
+
                 <Entry Placeholder="Password" 
                        FontSize="18" 
-                       TextColor="Black"
                        IsPassword="True"
-                       Margin="10,0" 
-                />
-            </Frame>
+                       TextColor="Black"
+                       />
+            </Border>
+
 
             <!-- Login Button -->
             <Button Text="log in" 
