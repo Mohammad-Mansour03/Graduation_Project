@@ -67,7 +67,6 @@
 
 
             <!-- Confirm Password Entry with Frame -->
-            <!-- Password Entry with Frame -->
             <Border
               Background="White"
               StrokeShape="RoundRectangle 20" 
@@ -77,18 +76,12 @@
              >
 
                 <Entry Placeholder="Confirm Password" 
-                      x:Name="pass"
                        FontSize="18" 
                        IsPassword="True"
                        TextColor="Black"
                        />
             </Border>
             
-            <ImageButton
-                Source="logo.png"
-                Clicked="ImageButton_Clicked"
-               />
-
             <!-- Login Button -->
             <Button Text="sign up" 
                  FontSize="18" 
