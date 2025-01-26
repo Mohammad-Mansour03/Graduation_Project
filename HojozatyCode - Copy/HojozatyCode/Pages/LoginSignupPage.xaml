@@ -16,7 +16,7 @@
                                  Padding="30,0" 
                                  VerticalOptions="Center">
 
-                <Image Source="logo.png"
+                <Image Source="https://i.ibb.co/gdtWZHz/h3.png"
                        HeightRequest="100"
                        HorizontalOptions="Center" />
 
