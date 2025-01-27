@@ -58,11 +58,19 @@
               Padding="10"
              >
 
-                <Entry Placeholder="Password" 
-                       FontSize="18" 
-                       IsPassword="True"
-                       TextColor="Black"
-                       />
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="PasswordEntry" 
+                           Placeholder="Password" 
+                           FontSize="18" 
+                           IsPassword="True"
+                           TextColor="Black"/>
+                    <ImageButton Source="eye_off_icon.png" 
+                                 x:Name="EyeIconButton"
+                                 WidthRequest="15" 
+                                 HeightRequest="15" 
+                                 Clicked="OnEyeIconClicked_Password"
+                                />
+                </StackLayout>
             </Border>
 
 
@@ -75,11 +83,20 @@
               Padding="10"
              >
 
-                <Entry Placeholder="Confirm Password" 
-                       FontSize="18" 
-                       IsPassword="True"
-                       TextColor="Black"
-                       />
+                <StackLayout Orientation="Horizontal" >
+                    <Entry x:Name="ConfirmPasswordEntry" 
+                           Placeholder="Confirm Password" 
+                           FontSize="18" 
+                           IsPassword="True"
+                           TextColor="Black"/>
+
+                    <ImageButton Source="eye_off_icon.png" 
+                                 x:Name="EyeIconButtonConfirm"
+                                 WidthRequest="15" 
+                                 HeightRequest="15" 
+                                 Clicked="OnEyeIconClickedConfirmPass"
+                                 BackgroundColor="Transparent"/>
+                </StackLayout>
             </Border>
             
             <!-- Login Button -->

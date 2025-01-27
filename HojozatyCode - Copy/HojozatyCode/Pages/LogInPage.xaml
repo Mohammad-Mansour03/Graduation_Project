@@ -57,11 +57,26 @@
               Padding="10"
              >
 
-                <Entry Placeholder="Password" 
-                       FontSize="18" 
-                       IsPassword="True"
-                       TextColor="Black"
-                       />
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="PasswordEntry" 
+                           Placeholder="Password" 
+                           FontSize="18" 
+                           IsPassword="True"
+                           TextColor="Black"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"
+                           />
+                    
+                    <ImageButton Source="view.png" 
+                                 x:Name="EyeIconButton" 
+                                 WidthRequest="450"
+                                 HeightRequest="30"
+                                 Margin="0,0,10,0"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="End"
+                                 Clicked="EyeIconButton_Clicked"     
+                                 />
+                </StackLayout>
             </Border>
 
 
