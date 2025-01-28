@@ -58,7 +58,7 @@
               Padding="10"
              >
 
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Spacing="200">
                     <Entry x:Name="PasswordEntry" 
                            Placeholder="Password" 
                            FontSize="18" 
@@ -83,7 +83,7 @@
               Padding="10"
              >
 
-                <StackLayout Orientation="Horizontal" >
+                <StackLayout Orientation="Horizontal" Spacing="130" >
                     <Entry x:Name="ConfirmPasswordEntry" 
                            Placeholder="Confirm Password" 
                            FontSize="18" 
@@ -92,10 +92,11 @@
 
                     <ImageButton Source="eye_off_icon.png" 
                                  x:Name="EyeIconButtonConfirm"
-                                 WidthRequest="15" 
-                                 HeightRequest="15" 
+                                 WidthRequest="30" 
+                                 HeightRequest="30" 
                                  Clicked="OnEyeIconClickedConfirmPass"
-                                 BackgroundColor="Transparent"/>
+                                 
+                                />
                 </StackLayout>
             </Border>
             
