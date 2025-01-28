@@ -15,10 +15,33 @@
                 FontAttributes="Bold"
                 HorizontalOptions="Center" />
 
-            <!-- Full Name -->
+            <!-- First Name -->
             <VerticalStackLayout Spacing="5">
                 <Label 
-                    Text="Fullname"
+                    Text="First Name"
+                    TextColor="#666666"
+                    FontSize="14"/>
+                <Entry 
+                    Placeholder="Enter fullname"
+                    PlaceholderColor="#CCCCCC"
+                    BackgroundColor="#FAFAFA"/>
+            </VerticalStackLayout>
+
+            <!-- Middle Name -->
+            <VerticalStackLayout Spacing="5">
+                <Label 
+                    Text="Middle Name"
+                    TextColor="#666666"
+                    FontSize="14"/>
+                <Entry 
+                    Placeholder="Enter fullname"
+                    PlaceholderColor="#CCCCCC"
+                    BackgroundColor="#FAFAFA"/>
+            </VerticalStackLayout>
+            <!-- Last Name -->
+            <VerticalStackLayout Spacing="5">
+                <Label 
+                    Text="Last Name"
                     TextColor="#666666"
                     FontSize="14"/>
                 <Entry 
@@ -30,23 +53,27 @@
             <!-- Phone Number -->
             <VerticalStackLayout Spacing="5">
                 <Label 
-                    Text="phone number"
+                    Text="Phone Number"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Frame 
-                    Padding="0"
-                    BorderColor="#FF4444"
-                    HasShadow="False">
-                    <Entry 
-                        Text="Typing |"
-                        TextColor="#666666"/>
-                </Frame>
-                <Label 
-                    Text="Error message informing me of a problem"
-                    TextColor="#FF4444"
-                    FontSize="12"/>
+                <Entry 
+                    Placeholder="Enter phone number"
+                    PlaceholderColor="#CCCCCC"
+                    BackgroundColor="#FAFAFA"/>
             </VerticalStackLayout>
+            
+            <!-- age -->
+            <VerticalStackLayout Spacing="5">
+                <Label 
+                    Text="Age"
+                    TextColor="#666666"
+                    FontSize="14"/>
+                <Entry 
+                    Placeholder="Enter age"
+                    PlaceholderColor="#CCCCCC"
+                    BackgroundColor="#FAFAFA"/>
 
+            </VerticalStackLayout>
             <!-- Remember Me -->
             <HorizontalStackLayout Spacing="10">
                 <CheckBox 
@@ -82,7 +109,9 @@
                     BackgroundColor="Transparent"
                     TextColor="#6750A4"
                     BorderColor="#6750A4"
-                    BorderWidth="1"/>
+                    BorderWidth="1"
+                    Clicked="OnCancelClicked"
+                    />
                 
                 <Button
                     Text="Next"
