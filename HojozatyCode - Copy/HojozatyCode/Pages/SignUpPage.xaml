@@ -20,7 +20,7 @@
                   BackgroundColor="Transparent"
                   WidthRequest="40" 
                   HeightRequest="90" 
-                   Clicked="ReturnToThePrevious"/>
+                  Clicked="ReturnToThePrevious"/>
 
         <!-- Title -->
         <Label Text="Sign up" 
@@ -108,7 +108,8 @@
                  CornerRadius="25"
                  HeightRequest="50"
                  HorizontalOptions="Fill" 
-                 Margin="0,15"/>
+                 Margin="0,15"
+                 Clicked ="SignUp"/>
         </StackLayout>
 
         <!-- Divider -->

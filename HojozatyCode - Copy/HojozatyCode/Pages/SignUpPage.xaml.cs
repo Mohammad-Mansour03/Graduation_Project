@@ -36,4 +36,9 @@ public partial class SignUpPage : ContentPage
 		EyeIconButtonConfirm.Source = isVisibleConfirmPassword ? "eye_on_icon.png" : "eye_off_icon.png";
     }
 
+	private async void SignUp(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
+	}
+
 }

@@ -8,7 +8,7 @@
             Routing.RegisterRoute(nameof(Pages.LoginSignupPage),typeof(Pages.LoginSignupPage));
             Routing.RegisterRoute(nameof(Pages.LogInPage),typeof(Pages.LogInPage));
             Routing.RegisterRoute(nameof(Pages.SignUpPage),typeof(Pages.SignUpPage));
-
+            Routing.RegisterRoute(nameof(Pages.ProfileInfo),typeof(Pages.ProfileInfo));
         }
         
     }
