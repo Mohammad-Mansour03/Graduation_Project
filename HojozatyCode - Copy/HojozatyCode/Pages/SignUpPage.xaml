@@ -92,11 +92,10 @@
 
                     <ImageButton Source="eye_off_icon.png" 
                                  x:Name="EyeIconButtonConfirm"
-                                 WidthRequest="30" 
-                                 HeightRequest="30" 
+                                 WidthRequest="15" 
+                                 HeightRequest="15" 
                                  Clicked="OnEyeIconClickedConfirmPass"
-                                 
-                                />
+                                 />
                 </StackLayout>
             </Border>
             
