@@ -27,4 +27,5 @@ public partial class LogInPage : ContentPage
 
 		EyeIconButton.Source = isVisiblePassword ? "eye_on_icon.png" : "eye_off_icon.png";
 	}
+
 }

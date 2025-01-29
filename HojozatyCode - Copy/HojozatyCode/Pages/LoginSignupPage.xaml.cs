@@ -16,4 +16,9 @@ public partial class LoginSignupPage : ContentPage
 	{
 		await Shell.Current.GoToAsync(nameof(Pages.LogInPage));
 	}
+
+	private async void ContinueAsGuest(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+    }
 }

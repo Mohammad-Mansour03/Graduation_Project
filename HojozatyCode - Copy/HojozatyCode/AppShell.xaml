@@ -3,13 +3,16 @@
     x:Class="HojozatyCode.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:HojozatyCode"
-    Shell.FlyoutBehavior="Flyout"
+    xmlns:local="clr-namespace:HojozatyCode.Pages"
+    Shell.FlyoutBehavior="Disabled"
     Title="HojozatyCode">
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:Pages.LoginSignupPage}"
-        Route="Pages.LoginSignupPage" 
-      /> 
+        ContentTemplate="{DataTemplate local:HomePage}"
+        Shell.TabBarIsVisible="False" />
+
+
+
+
 
 </Shell>
