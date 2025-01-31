@@ -21,10 +21,16 @@
                     Text="First Name"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Entry 
-                    Placeholder="Enter fullname"
-                    PlaceholderColor="#CCCCCC"
-                    BackgroundColor="#FAFAFA"/>
+                <Frame 
+                    BackgroundColor="#FAFAFA"
+                    CornerRadius="10"
+                    Padding="0">
+                    <Entry 
+                        Placeholder="Enter Firstname"
+                        PlaceholderColor="#CCCCCC"
+                        x:Name="FirstNameEntry"
+                        BackgroundColor="Transparent"/>
+                </Frame>
             </VerticalStackLayout>
 
             <!-- Middle Name -->
@@ -33,21 +39,32 @@
                     Text="Middle Name"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Entry 
-                    Placeholder="Enter fullname"
-                    PlaceholderColor="#CCCCCC"
-                    BackgroundColor="#FAFAFA"/>
+                <Frame 
+                    BackgroundColor="#FAFAFA"
+                    CornerRadius="10"
+                    Padding="0">
+                    <Entry 
+                        Placeholder="Enter Middle name"
+                        PlaceholderColor="#CCCCCC"
+                        BackgroundColor="Transparent"/>
+                </Frame>
             </VerticalStackLayout>
+
             <!-- Last Name -->
             <VerticalStackLayout Spacing="5">
                 <Label 
                     Text="Last Name"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Entry 
-                    Placeholder="Enter fullname"
-                    PlaceholderColor="#CCCCCC"
-                    BackgroundColor="#FAFAFA"/>
+                <Frame 
+                    BackgroundColor="#FAFAFA"
+                    CornerRadius="10"
+                    Padding="0">
+                    <Entry 
+                        Placeholder="Enter Lastname"
+                        PlaceholderColor="#CCCCCC"
+                        BackgroundColor="Transparent"/>
+                </Frame>
             </VerticalStackLayout>
 
             <!-- Phone Number -->
@@ -56,24 +73,34 @@
                     Text="Phone Number"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Entry 
-                    Placeholder="Enter phone number"
-                    PlaceholderColor="#CCCCCC"
-                    BackgroundColor="#FAFAFA"/>
+                <Frame 
+                    BackgroundColor="#FAFAFA"
+                    CornerRadius="10"
+                    Padding="0">
+                    <Entry 
+                        Placeholder="Enter phone number"
+                        PlaceholderColor="#CCCCCC"
+                        BackgroundColor="Transparent"/>
+                </Frame>
             </VerticalStackLayout>
             
-            <!-- age -->
+            <!-- Age -->
             <VerticalStackLayout Spacing="5">
                 <Label 
                     Text="Age"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Entry 
-                    Placeholder="Enter age"
-                    PlaceholderColor="#CCCCCC"
-                    BackgroundColor="#FAFAFA"/>
-
+                <Frame 
+                    BackgroundColor="#FAFAFA"
+                    CornerRadius="10"
+                    Padding="0">
+                    <Entry 
+                        Placeholder="Enter age"
+                        PlaceholderColor="#CCCCCC"
+                        BackgroundColor="Transparent"/>
+                </Frame>
             </VerticalStackLayout>
+
             <!-- Remember Me -->
             <HorizontalStackLayout Spacing="10">
                 <CheckBox 
@@ -110,14 +137,14 @@
                     TextColor="#6750A4"
                     BorderColor="#6750A4"
                     BorderWidth="1"
-                    Clicked="OnCancelClicked"
-                    />
+                    Clicked="OnCancelClicked"/>
                 
                 <Button
                     Text="Next"
                     Grid.Column="1"
                     BackgroundColor="#6750A4"
-                    TextColor="White"/>
+                    TextColor="White"
+                    Clicked="OnNextClicked" />
             </Grid>
 
         </VerticalStackLayout>

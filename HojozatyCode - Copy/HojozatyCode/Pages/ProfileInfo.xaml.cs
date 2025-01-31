@@ -10,6 +10,12 @@ public partial class ProfileInfo : ContentPage
 
     private async void OnCancelClicked(object sender, EventArgs e)
     {
-      await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
+      await Shell.Current.GoToAsync(nameof(LoginSignupPage));
+    }
+
+    private async void OnNextClicked(object sender, EventArgs e)
+    {
+      await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+      
     }
 }
