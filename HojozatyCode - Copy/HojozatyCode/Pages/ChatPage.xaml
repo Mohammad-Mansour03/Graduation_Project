@@ -3,10 +3,138 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ChatPage"
              Title="ChatPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+      <!-- Header -->
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Padding="16,8" BackgroundColor="White">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" 
+                        Text="👤"
+                        FontSize="20"
+                        TextColor="#6B46C1"
+                        BackgroundColor="Transparent"/>
+                
+                <StackLayout Grid.Column="1" Orientation="Vertical" Margin="16,0">
+                    <Label Text="OWNER" 
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Label Text="Active 19m ago"
+                           TextColor="Gray"
+                           FontSize="12"/>
+                </StackLayout>
+                
+                <Button Grid.Column="2"
+                        Text="ⓘ"
+                        FontSize="20"
+                        TextColor="#6B46C1"
+                        BackgroundColor="Transparent"/>
+            </Grid>
+        </Grid>
+
+        <!-- Chat Messages -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="16" Spacing="16">
+                
+                <!-- Template Card -->
+                <Frame BackgroundColor="#f8f9fa" 
+                       CornerRadius="12"
+                       Padding="16"
+                       HasShadow="False">
+                    <VerticalStackLayout>
+                        <Image Source="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_22.jpg-gFTIW9Lozwa4RaopIwmxviHyMUft8m.jpeg"
+                               HeightRequest="120"
+                               Aspect="AspectFill"/>
+                        <Label Text="BRIX Templates | Premium"
+                               FontAttributes="Bold"
+                               Margin="0,8"/>
+                        <Label Text="Webflow Templates &amp; UI Kits"
+                               TextColor="Gray"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Voice Message -->
+                <Frame BackgroundColor="#6B46C1"
+                       CornerRadius="24"
+                       Padding="16,8"
+                       HasShadow="False">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Button Text="▶"
+                                TextColor="White"
+                                BackgroundColor="Transparent"/>
+                        <Frame Grid.Column="1"
+                               BackgroundColor="White"
+                               Opacity="0.3"
+                               HeightRequest="24"
+                               CornerRadius="12">
+                            <!-- Waveform visualization would go here -->
+                        </Frame>
+                        <Label Grid.Column="2"
+                               Text="14:37"
+                               TextColor="White"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Text Message -->
+                <Label Text="Thanks! I found this template"
+                       Padding="16,8"
+                       BackgroundColor="#f8f9fa"
+                       HorizontalOptions="Start"/>
+
+                <!-- Link Message -->
+                <Frame BackgroundColor="#f8f9fa"
+                       CornerRadius="12"
+                       Padding="16"
+                       HasShadow="False">
+                    <Label Text="https://corporationtemplate.webflow.io"
+                           TextColor="#6B46C1"/>
+                </Frame>
+
+                <!-- Reply Messages -->
+                <Frame BackgroundColor="#6B46C1"
+                       Padding="16,8"
+                       CornerRadius="20"
+                       HorizontalOptions="End"
+                       HasShadow="False">
+                    <Label Text="Yes, we offer web design and web development services!"
+                           TextColor="White"/>
+                </Frame>
+
+                <Frame BackgroundColor="#6B46C1"
+                       Padding="16,8"
+                       CornerRadius="20"
+                       HorizontalOptions="End"
+                       HasShadow="False">
+                    <Label Text="I'll share with you a PDF that includes all the information about our services! You can find more information on our"
+                           TextColor="White"/>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Input Bar -->
+        <Grid Grid.Row="2" 
+              ColumnDefinitions="Auto,Auto,*,Auto,Auto"
+              Padding="16,8"
+              ColumnSpacing="8"
+              BackgroundColor="White">
+            <Button Grid.Column="0"
+                    Text="📷"
+                    BackgroundColor="Transparent"/>
+            <Button Grid.Column="1"
+                    Text="🖼"
+                    BackgroundColor="Transparent"/>
+            <Frame Grid.Column="2"
+                   BackgroundColor="#f8f9fa"
+                   Padding="16,8"
+                   CornerRadius="20">
+                <Entry Text="Message"
+                       TextColor="Gray"
+                       VerticalOptions="Center"/>
+            </Frame>
+            <Button Grid.Column="3"
+                    Text="🎤"
+                    BackgroundColor="Transparent"/>
+            <Button Grid.Column="4"
+                    Text="➤"
+                    BackgroundColor="#6B46C1"/>
+        </Grid>
+    </Grid>
 </ContentPage>
