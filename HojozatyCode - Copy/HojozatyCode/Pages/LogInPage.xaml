@@ -4,6 +4,7 @@
              x:Class="HojozatyCode.Pages.LogInPage"
              Title="LogInPage"
              Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
              BackgroundColor="#ECE6F0"
              >
     <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 

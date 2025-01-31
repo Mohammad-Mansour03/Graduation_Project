@@ -6,4 +6,14 @@ public partial class HomePage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(LogInPage));
+	}
+
+	private async void Back(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(LoginSignupPage));
+	}
 }

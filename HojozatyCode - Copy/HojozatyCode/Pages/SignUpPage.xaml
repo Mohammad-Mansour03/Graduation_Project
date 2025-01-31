@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.SignUpPage"
              Title="SignUp"
+             Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#ECE6F0">
     

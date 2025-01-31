@@ -10,7 +10,8 @@ public partial class LoginSignupPage : ContentPage
 	private async void SignUp(object sender, EventArgs e)
 	{
 		await Shell.Current.GoToAsync(nameof(Pages.SignUpPage));
-    }
+		
+	}
 
 	private async void LogIn(object sender, EventArgs e)
 	{
@@ -20,5 +21,6 @@ public partial class LoginSignupPage : ContentPage
 	private async void ContinueAsGuest(object sender, EventArgs e)
 	{
 		await Shell.Current.GoToAsync(nameof(Pages.HomePage));
-    }
+	}
+
 }

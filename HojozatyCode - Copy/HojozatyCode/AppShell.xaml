@@ -3,13 +3,38 @@
     x:Class="HojozatyCode.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:HojozatyCode.Pages"
-    Shell.FlyoutBehavior="Disabled"
+    xmlns:local="clr-namespace:HojozatyCode"
+    xmlns:pages="clr-namespace:HojozatyCode.Pages"
+    Shell.TabBarBackgroundColor="#F3EDF7"
+    Shell.TabBarTitleColor="#1D1B20"
+    Shell.TabBarUnselectedColor="#49454F"
+    Shell.TabBarForegroundColor="#65558F"
     Title="HojozatyCode">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate local:HomePage}"
-        Shell.TabBarIsVisible="False" />
+ 
+    <TabBar>
+        <Tab Title="Home" Icon="home_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
+        </Tab>
+        <Tab Title="Chat"  Icon="chat_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:ChatPage}" />
+        </Tab>
+        <Tab Title="Favoruite" Icon="favourite_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />
+        </Tab>
+        <Tab Title="AddSpace" Icon="add_space_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:AddSpacePage }" />
+        </Tab>
+        <Tab Title="Account" Icon="account_icon_1.png" >
+            <ShellContent ContentTemplate="{DataTemplate pages:AccountPage}" />
+        </Tab>
+    </TabBar>
+    
+    <!--<ShellContent
+     Route="LoginSignupPage" ContentTemplate="{DataTemplate pages:LoginSignupPage}"
+    />-->
+
+
 
 
 

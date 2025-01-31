@@ -11,19 +11,41 @@
             <!-- Header Section -->
             <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" >
                 <VerticalStackLayout>
-                    <Label Text="What are you planning in " FontSize="18" FontAttributes="Bold"/>
-                    <Label Text="Jordan?" FontSize="18" FontAttributes="Bold" TextColor="#4F378A" />
+                   <!--Back icon-->
+                    <ImageButton Source="back_icon.png"
+                             HeightRequest="30" WidthRequest="30"
+                             VerticalOptions="Center" 
+                             HorizontalOptions="Start"
+                             Padding="5"
+                             Margin="-15,-10,0,0"
+                                 Clicked="Back"/>
+                    
+                    <!--The Header Content-->
+                    <Label Text="What are you planning in " 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           Margin="0,30,0,0"/>
+                    <Label Text="Jordan?" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="#4F378A" />
                 </VerticalStackLayout>
-                <VerticalStackLayout>
-                <Image Source="notification_icon.png" HeightRequest="30" WidthRequest="30"
-                       HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"/>
-             
-                <Image Source="account_icon.png" HeightRequest="30" WidthRequest="30"
-                       HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"/>
-             
-                </VerticalStackLayout>
+                
+                <!--Notification and profile icons-->
+                <HorizontalStackLayout Spacing="10" 
+                                       VerticalOptions="Start" 
+                                       HorizontalOptions="End">
+                    <Image Source="notification_icon.png" 
+                           HeightRequest="30" 
+                           WidthRequest="30"/>
+                    
+                    <Image Source="account_icon.png" 
+                           HeightRequest="30"
+                           WidthRequest="30"/>
+                </HorizontalStackLayout>
             </Grid>
 
+            <!--The Search for activity-->
             <Border   Margin="0,20,0,0"
                       Background="#ECE6EE"
                       StrokeShape="RoundRectangle 30" 
@@ -32,61 +54,144 @@
                       WidthRequest="390"
                       Padding="10" >
                 <HorizontalStackLayout Spacing="10">
-                    <Image Source="search_icon.png" HeightRequest="35" />
-                    <Entry PlaceholderColor="#25232B"  Placeholder="Enter your activity" FontSize="18"/>
+                    <Image Source="search_icon.png" 
+                           HeightRequest="35" />
+                    <Entry PlaceholderColor="#25232B"  
+                           Placeholder="Enter your activity" 
+                           FontSize="18"/>
                 </HorizontalStackLayout>
             </Border>
 
+            <!--The Activites types (Wedding , Meeting , Funeral , More)-->
             <ScrollView Orientation="Horizontal">
                 <HorizontalStackLayout Spacing="10" Padding="0,10">
-                    <Border StrokeShape="RoundRectangle 12" WidthRequest="100" HeightRequest="100" BackgroundColor="#ECE6EE" Padding="5" >
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                            <Image Source="wedding_icon.png" WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="wedding" FontSize="14" HorizontalOptions="Center"/>
+                
+                    <!--Wedding Activity-->
+                    <Border StrokeShape="RoundRectangle 12" 
+                            WidthRequest="100" 
+                            HeightRequest="100"
+                            BackgroundColor="#ECE6EE"
+                            Padding="5"
+                            >
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center" 
+                                             Spacing="5">
+                            <Image Source="wedding_icon.png"
+                                   WidthRequest="50"
+                                   HeightRequest="50"/>
+                            <Label Text="wedding" 
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                        
+                        <!--Event to navigate to weeding page-->
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Border.GestureRecognizers>
+                   
+                    </Border>
+
+                    <!--Meeting Activity-->
+                    <Border StrokeShape="RoundRectangle 12"
+                            WidthRequest="100" 
+                            HeightRequest="100" 
+                            BackgroundColor="#ECE6EE"
+                            Padding="5" >
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="5">
+                            <Image Source="meeting_icon.png"
+                                   WidthRequest="50"
+                                   HeightRequest="50"/>
+                            <Label Text="Meeting" 
+                                   FontSize="14"
+                                   HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border StrokeShape="RoundRectangle 12" WidthRequest="100" HeightRequest="100" BackgroundColor="#ECE6EE" Padding="5" >
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                            <Image Source="meeting_icon.png" WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="Meeting" FontSize="14" HorizontalOptions="Center"/>
+                    <!--Funeral Activity-->
+                    <Border StrokeShape="RoundRectangle 12"
+                            WidthRequest="100" 
+                            HeightRequest="100"
+                            BackgroundColor="#ECE6EE"
+                            Padding="5">
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="5">
+                            <Image Source="funeral_icon.png" 
+                                   WidthRequest="50"
+                                   HeightRequest="50"/>
+                            <Label Text="Funeral"
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border StrokeShape="RoundRectangle 12" WidthRequest="100" HeightRequest="100" BackgroundColor="#ECE6EE" Padding="5" >
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                            <Image Source="funeral_icon.png" WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="Funeral" FontSize="14" HorizontalOptions="Center"/>
+                    <!--More Activities-->
+                    <Border StrokeShape="RoundRectangle 12" 
+                            WidthRequest="100" 
+                            HeightRequest="100" 
+                            BackgroundColor="#ECE6EE"
+                            Padding="5" >
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="5">
+                            <Image Source="more_icon.png"
+                                   WidthRequest="50" 
+                                   HeightRequest="50"/>
+                            <Label Text="more"
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Border>
-
-                    <Border StrokeShape="RoundRectangle 12" WidthRequest="100" HeightRequest="100" BackgroundColor="#ECE6EE" Padding="5" >
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                            <Image Source="more_icon.png" WidthRequest="50" HeightRequest="50"/>
-                            <Label Text="more" FontSize="14" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Border>
+                    
                 </HorizontalStackLayout>
             </ScrollView>
             
             <!-- Inspiration Section -->
-            <Border StrokeShape="RoundRectangle 12" BackgroundColor="#FFE1DE" Padding="15">
+            <Border StrokeShape="RoundRectangle 12"
+                    BackgroundColor="#FFE1DE"
+                    Padding="15">
                 <Grid>
                     <!-- Main Content -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="Find new inspiration" FontSize="16" FontAttributes="Bold"/>
-                        <Label Text="Not sure what to book?" FontSize="12"/>
-                        <Button Text="Explore" BackgroundColor="#E85C4A" TextColor="White" 
-                    CornerRadius="30" HorizontalOptions="Start" WidthRequest="90" 
-                    Margin="0,15,0,0"/>
+                        <Label Text="Find new inspiration"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+                        <Label Text="Not sure what to book?"
+                               FontSize="12"/>
+                      
+                        <!--Explore Button-->
+                        <Button Text="Explore" 
+                                BackgroundColor="#E85C4A" 
+                                TextColor="White" 
+                                CornerRadius="30" 
+                                HorizontalOptions="Start"
+                                WidthRequest="90" 
+                                Margin="0,15,0,0"/>
                     </VerticalStackLayout>
 
                     <!-- Image Positioned to the Right -->
-                    <Image Source="flower.png" WidthRequest="100" HeightRequest="100" 
-               HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,-20,-50"/>
+                    <Image Source="flower.png"
+                           WidthRequest="100" 
+                           HeightRequest="100" 
+                           HorizontalOptions="End" 
+                           VerticalOptions="Center" 
+                           Margin="0,0,-20,-50"/>
                 </Grid>
             </Border>
 
+            <!--The Spaces That have higher rated-->
+            <Label
+                Text="Spaces Have Higher Rated"
+                TextColor="Black"
+                FontFamily="Montserrat"
+                Margin="10,0,0,0"
+                FontSize="14"
+                FontAttributes="Bold"
+                />
+
+            <!--The Castle Hotel (Space1)-->
             <Border StrokeShape="RoundRectangle 15"  >
                 <Grid>
                     <!-- Background Image -->
@@ -151,6 +256,7 @@
                 </Grid>
             </Border>
             
+            <!--Meeting Space (Second Space)-->
             <Border StrokeShape="RoundRectangle 15"  >
                 <Grid>
                     <!-- Background Image -->
@@ -215,6 +321,7 @@
                 </Grid>
             </Border>        
             
+            <!--Farm Space (Third Space)-->
             <Border StrokeShape="RoundRectangle 15"  >
                 <Grid>
                     <!-- Background Image -->

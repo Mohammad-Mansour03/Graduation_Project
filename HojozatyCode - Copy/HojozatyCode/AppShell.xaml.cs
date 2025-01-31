@@ -1,4 +1,6 @@
-﻿namespace HojozatyCode
+﻿using HojozatyCode.Pages;
+
+namespace HojozatyCode
 {
     public partial class AppShell : Shell
     {
@@ -14,8 +16,11 @@
             Routing.RegisterRoute(nameof(Pages.FavouritePage),typeof(Pages.FavouritePage));
             Routing.RegisterRoute(nameof(Pages.AccountPage),typeof(Pages.AccountPage));
             Routing.RegisterRoute(nameof(Pages.AddSpacePage),typeof(Pages.AddSpacePage));
-         
-        }
 
-    }
+			GoToAsync(nameof(Pages.LoginSignupPage));
+
+
+		}
+
+	}
 }
