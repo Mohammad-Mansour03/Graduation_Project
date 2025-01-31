@@ -17,7 +17,7 @@
             <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
         </Tab>
         <Tab Title="Chat"  Icon="chat_icon.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:ChatPage}" />
+            <ShellContent ContentTemplate="{DataTemplate pages:ChatList}" />
         </Tab>
         <Tab Title="Favoruite" Icon="favourite_icon.png">
             <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />
