@@ -90,7 +90,7 @@
                                MaxLines="1"/>
 
                         <!-- Unread Messages Indicator -->
-                        <Frame Grid.Row="0"
+                        <Frame Grid.Row="1"
                                Grid.Column="2"
                                IsVisible="True"
                                BackgroundColor="#6B4CE6"
