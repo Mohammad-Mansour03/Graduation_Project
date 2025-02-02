@@ -29,7 +29,8 @@
                         Placeholder="Enter Firstname"
                         PlaceholderColor="#CCCCCC"
                         x:Name="FirstNameEntry"
-                        BackgroundColor="Transparent"/>
+                        BackgroundColor="Transparent"
+                        TextColor="Black"/>
                 </Frame>
             </VerticalStackLayout>
 
@@ -46,7 +47,8 @@
                     <Entry 
                         Placeholder="Enter Middle name"
                         PlaceholderColor="#CCCCCC"
-                        BackgroundColor="Transparent"/>
+                        BackgroundColor="Transparent"
+                        TextColor="Black"/>
                 </Frame>
             </VerticalStackLayout>
 
@@ -63,7 +65,8 @@
                     <Entry 
                         Placeholder="Enter Lastname"
                         PlaceholderColor="#CCCCCC"
-                        BackgroundColor="Transparent"/>
+                        BackgroundColor="Transparent"
+                        TextColor="Black"/>
                 </Frame>
             </VerticalStackLayout>
 
@@ -80,7 +83,8 @@
                     <Entry 
                         Placeholder="Enter phone number"
                         PlaceholderColor="#CCCCCC"
-                        BackgroundColor="Transparent"/>
+                        BackgroundColor="Transparent"
+                        TextColor="Black"/>
                 </Frame>
             </VerticalStackLayout>
             
@@ -97,7 +101,8 @@
                     <Entry 
                         Placeholder="Enter age"
                         PlaceholderColor="#CCCCCC"
-                        BackgroundColor="Transparent"/>
+                        BackgroundColor="Transparent"
+                        TextColor="Black"/>
                 </Frame>
             </VerticalStackLayout>
 
