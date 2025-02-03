@@ -3,15 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ChatPage"
              Title="ChatPage">
-      <!-- Header -->
+    <!-- Header -->
     <Grid RowDefinitions="Auto,*,Auto">
         <Grid Padding="16,8" BackgroundColor="White">
             <Grid ColumnDefinitions="Auto,*,Auto">
-                <Button Grid.Column="0" 
-                        Text="👤"
-                        FontSize="20"
-                        TextColor="#6B46C1"
-                        BackgroundColor="Transparent"/>
+                <ImageButton Grid.Column="0" 
+                             Source="https://cdn4.iconfinder.com/data/icons/linecon/512/photo-256.png"
+                             BackgroundColor="Transparent"/>
                 
                 <StackLayout Grid.Column="1" Orientation="Vertical" Margin="16,0">
                     <Label Text="OWNER" 
@@ -22,11 +20,9 @@
                            FontSize="12"/>
                 </StackLayout>
                 
-                <Button Grid.Column="2"
-                        Text="ⓘ"
-                        FontSize="20"
-                        TextColor="#6B46C1"
-                        BackgroundColor="Transparent"/>
+                <!-- <ImageButton Grid.Column="2"
+                             Source="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_info_outline_48px-256.png"
+                             BackgroundColor="Transparent"/> -->
             </Grid>
         </Grid>
 
@@ -35,10 +31,9 @@
             <VerticalStackLayout Padding="16" Spacing="16">
                 
                 <!-- Template Card -->
-                <Frame BackgroundColor="#f8f9fa" 
-                       CornerRadius="12"
-                       Padding="16"
-                       HasShadow="False">
+                <Border BackgroundColor="#f8f9fa" 
+                        StrokeShape="RoundRectangle 12"
+                        Padding="16">
                     <VerticalStackLayout>
                         <Image Source="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_22.jpg-gFTIW9Lozwa4RaopIwmxviHyMUft8m.jpeg"
                                HeightRequest="120"
@@ -49,29 +44,28 @@
                         <Label Text="Webflow Templates &amp; UI Kits"
                                TextColor="Gray"/>
                     </VerticalStackLayout>
-                </Frame>
+                </Border>
 
                 <!-- Voice Message -->
-                <Frame BackgroundColor="#6B46C1"
-                       CornerRadius="24"
-                       Padding="16,8"
-                       HasShadow="False">
+                <Border BackgroundColor="#6B46C1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="16,8">
                     <Grid ColumnDefinitions="Auto,*,Auto">
-                        <Button Text="▶"
-                                TextColor="White"
+                        <ImageButton 
+                                Source="https://cdn2.iconfinder.com/data/icons/css-vol-2/24/play-button-512.png"
                                 BackgroundColor="Transparent"/>
-                        <Frame Grid.Column="1"
-                               BackgroundColor="White"
-                               Opacity="0.3"
-                               HeightRequest="24"
-                               CornerRadius="12">
+                        <Border Grid.Column="1"
+                                BackgroundColor="White"
+                                Opacity="0.3"
+                                HeightRequest="24"
+                                StrokeShape="RoundRectangle 12">
                             <!-- Waveform visualization would go here -->
-                        </Frame>
+                        </Border>
                         <Label Grid.Column="2"
                                Text="14:37"
                                TextColor="White"/>
                     </Grid>
-                </Frame>
+                </Border>
 
                 <!-- Text Message -->
                 <Label Text="Thanks! I found this template"
@@ -80,61 +74,60 @@
                        HorizontalOptions="Start"/>
 
                 <!-- Link Message -->
-                <Frame BackgroundColor="#f8f9fa"
-                       CornerRadius="12"
-                       Padding="16"
-                       HasShadow="False">
+                <!-- <Border BackgroundColor="#f8f9fa"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="16">
                     <Label Text="https://corporationtemplate.webflow.io"
                            TextColor="#6B46C1"/>
-                </Frame>
+                </Border> -->
 
                 <!-- Reply Messages -->
-                <Frame BackgroundColor="#6B46C1"
-                       Padding="16,8"
-                       CornerRadius="20"
-                       HorizontalOptions="End"
-                       HasShadow="False">
+                <Border BackgroundColor="#6B46C1"
+                        Padding="16,8"
+                        StrokeShape="RoundRectangle 20"
+                        HorizontalOptions="End">
                     <Label Text="Yes, we offer web design and web development services!"
                            TextColor="White"/>
-                </Frame>
+                </Border>
 
-                <Frame BackgroundColor="#6B46C1"
-                       Padding="16,8"
-                       CornerRadius="20"
-                       HorizontalOptions="End"
-                       HasShadow="False">
+                <Border BackgroundColor="#6B46C1"
+                        Padding="16,8"
+                        StrokeShape="RoundRectangle 20"
+                        HorizontalOptions="End">
                     <Label Text="I'll share with you a PDF that includes all the information about our services! You can find more information on our"
                            TextColor="White"/>
-                </Frame>
+                </Border>
             </VerticalStackLayout>
         </ScrollView>
 
         <!-- Input Bar -->
         <Grid Grid.Row="2" 
               ColumnDefinitions="Auto,Auto,*,Auto,Auto"
-              Padding="16,8"
+              Padding="10,8"
               ColumnSpacing="8"
-              BackgroundColor="White">
-            <Button Grid.Column="0"
-                    Text="📷"
-                    BackgroundColor="Transparent"/>
-            <Button Grid.Column="1"
-                    Text="🖼"
-                    BackgroundColor="Transparent"/>
-            <Frame Grid.Column="2"
+              BackgroundColor="#c0bbc4">
+            <ImageButton Grid.Column="0"
+                         Source="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/picture-256.png"
+                         HeightRequest="24"
+                         BackgroundColor="Transparent"/>
+            <ImageButton Grid.Column="1"
+                        HeightRequest="24"
+                         Source="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-mic-outline-256.png"
+                         BackgroundColor="Transparent"/>
+            <Border Grid.Column="2"
                    BackgroundColor="#f8f9fa"
                    Padding="16,8"
-                   CornerRadius="20">
+                   StrokeShape="RoundRectangle 20">
                 <Entry Text="Message"
                        TextColor="Gray"
                        VerticalOptions="Center"/>
-            </Frame>
-            <Button Grid.Column="3"
-                    Text="🎤"
-                    BackgroundColor="Transparent"/>
-            <Button Grid.Column="4"
-                    Text="➤"
-                    BackgroundColor="#6B46C1"/>
+            </Border>
+            
+            <ImageButton Grid.Column="4"
+                         CornerRadius="12"
+                         WidthRequest="24"
+                         Source="https://cdn4.iconfinder.com/data/icons/multimedia-75/512/multimedia-42-256.png"
+                         BackgroundColor="#6B46C1"/>
         </Grid>
     </Grid>
 </ContentPage>
