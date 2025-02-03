@@ -19,20 +19,14 @@
                                  Padding="30,0" 
                                  VerticalOptions="Center">
 
-<<<<<<< HEAD
-                <!--The Logo Image-->
-=======
                 <!-- Logo Image -->
->>>>>>> b97a1b956f7931ba387741bb45083314a0c8c7fd
+
                 <Image Source="https://i.ibb.co/gdtWZHz/h3.png"
                        HeightRequest="100"
                        HorizontalOptions="Center" />
 
-<<<<<<< HEAD
+
                 <!--Text under the logo-->
-=======
-                <!-- Page Title -->
->>>>>>> b97a1b956f7931ba387741bb45083314a0c8c7fd
                 <Label Text="The Future of Reservations"
                        SemanticProperties.HeadingLevel="Level1"
                        FontSize="20"
@@ -40,17 +34,12 @@
                        TextColor="#4F378A"
                        HorizontalOptions="Center" />
 
-<<<<<<< HEAD
-                <!--The Sign up and Log in Buttons-->
-                <VerticalStackLayout Spacing="30" Margin="0,50,0,0">
-                    
-                    <!--Sign up button-->
-=======
+
+
                 <!-- Buttons for Sign up and Login -->
                 <VerticalStackLayout Spacing="30" Margin="0,50,0,0">
                     
                     <!-- Sign up Button -->
->>>>>>> b97a1b956f7931ba387741bb45083314a0c8c7fd
                     <Button Text="Sign up"
                             SemanticProperties.Hint="Sign up for a new account"
                             BackgroundColor="#4F378A"
@@ -62,11 +51,8 @@
                             Clicked="SignUp"
                             />
 
-<<<<<<< HEAD
-                    <!--Log in button-->
-=======
+
                     <!-- Login Button -->
->>>>>>> b97a1b956f7931ba387741bb45083314a0c8c7fd
                     <Button Text="Login"
                             SemanticProperties.Hint="Login to your account"
                             BackgroundColor="Transparent"
@@ -83,13 +69,9 @@
             </VerticalStackLayout>
         </ScrollView>
 
-<<<<<<< HEAD
-        <!--Continue as Guest button-->
-        <!--<Button Grid.Row="1"
-=======
-        <!-- Continue as Guest Button -->
+
+        <!-- Continue as Guest Button --><!--
         <Button Grid.Row="1"
->>>>>>> b97a1b956f7931ba387741bb45083314a0c8c7fd
                 Text="Continue as Guest"
                 SemanticProperties.Hint="Continue without logging in"
                 BackgroundColor="#65558F"

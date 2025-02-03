@@ -93,7 +93,7 @@
                     Margin="0,15"/>
         </StackLayout>
 
-        <!-- Divider --><!--
+         <!--Divider--> 
         <StackLayout Grid.Row="3" Grid.Column="1" Margin ="50" Spacing="15">
             <BoxView 
                 HeightRequest="1"
@@ -107,27 +107,27 @@
             
         </StackLayout>
 
-        --><!-- Social Login Buttons --><!--
+         <!--Social Login Buttons 
         <StackLayout Grid.Row="4" Grid.Column="1"
                      Orientation="Horizontal" 
                      Spacing="60"
                      HorizontalOptions="Center">
             
-            --><!--Facebook--><!--
+            Facebook
             <ImageButton
                 Source="facebook_icon.png"
                 WidthRequest="15"
                 HeightRequest="15"
              />
             
-            --><!--Google--><!--
+            Google
             <ImageButton
                 Source="google_icon.png"
                 WidthRequest="15"
                 HeightRequest="15"
              />
 
-            --><!--Apple--><!--
+            Apple
             <ImageButton
                 Source="apple_icon.png"
                 WidthRequest="15"
@@ -136,10 +136,10 @@
         </StackLayout>-->
         
         <!--Don't have an account-->
-        <StackLayout Grid.Row="3" Grid.Column="1"
+        <StackLayout Grid.Row="4" Grid.Column="1"
                  VerticalOptions="Center"
                  HorizontalOptions="Center"
-                Margin="0,20,0,0"
+                
         >
             <Label Text="Don't have an account?"
                FontSize="14" 
