@@ -13,7 +13,8 @@
                 Text="Profile info"
                 FontSize="24"
                 FontAttributes="Bold"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" 
+                TextColor="Black"/>
 
             <!-- First Name -->
             <VerticalStackLayout Spacing="5">
