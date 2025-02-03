@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ChatList"
              Title="ChatPage">
+    
+    <!--Chating Lists-->
     <ContentPage.Resources>
         <x:Array x:Key="DummyChats" Type="{x:Type x:Object}">
             <x:String>Chat 1</x:String>

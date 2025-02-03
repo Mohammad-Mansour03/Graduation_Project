@@ -17,13 +17,17 @@
 
             <!-- First Name -->
             <VerticalStackLayout Spacing="5">
+                <!--First Name Label-->
                 <Label 
                     Text="First Name"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Frame 
+                
+                <!--First Name Entry-->
+                <Border 
                     BackgroundColor="#FAFAFA"
-                    CornerRadius="10"
+                    StrokeShape="RoundRectangle 10" 
+                    StrokeThickness="1"
                     Padding="0">
                     <Entry 
                         Placeholder="Enter Firstname"
@@ -31,96 +35,119 @@
                         x:Name="FirstNameEntry"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
-                </Frame>
+                </Border>
             </VerticalStackLayout>
 
             <!-- Middle Name -->
             <VerticalStackLayout Spacing="5">
+             <!--Middle Name label-->
                 <Label 
                     Text="Middle Name"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Frame 
+               
+                <!--Middle Name entry-->
+                <Border 
                     BackgroundColor="#FAFAFA"
-                    CornerRadius="10"
+                    StrokeShape="RoundRectangle 10" 
+                    StrokeThickness="1"
                     Padding="0">
                     <Entry 
                         Placeholder="Enter Middle name"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
-                </Frame>
+                </Border>
             </VerticalStackLayout>
 
             <!-- Last Name -->
             <VerticalStackLayout Spacing="5">
+              
+                <!--Last Name Label-->
                 <Label 
                     Text="Last Name"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Frame 
+                
+                <!--Last Name Entry-->
+                <Border 
                     BackgroundColor="#FAFAFA"
-                    CornerRadius="10"
+                    StrokeShape="RoundRectangle 10" 
+                    StrokeThickness="1"
                     Padding="0">
                     <Entry 
                         Placeholder="Enter Lastname"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
-                </Frame>
+                </Border>
             </VerticalStackLayout>
 
             <!-- Phone Number -->
             <VerticalStackLayout Spacing="5">
+                
+                <!--Phone number label-->
                 <Label 
                     Text="Phone Number"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Frame 
+                
+                <!--Phone number Entry-->
+                <Border 
                     BackgroundColor="#FAFAFA"
-                    CornerRadius="10"
+                    StrokeShape="RoundRectangle 10" 
+                    StrokeThickness="1"
                     Padding="0">
                     <Entry 
                         Placeholder="Enter phone number"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
-                </Frame>
+                </Border>
             </VerticalStackLayout>
             
             <!-- Age -->
             <VerticalStackLayout Spacing="5">
+                
+                <!--Age Label-->
                 <Label 
                     Text="Age"
                     TextColor="#666666"
                     FontSize="14"/>
-                <Frame 
+                
+                <!--Age Entry-->
+                <Border
                     BackgroundColor="#FAFAFA"
-                    CornerRadius="10"
+                    StrokeShape="RoundRectangle 10" 
+                    StrokeThickness="1"   
                     Padding="0">
                     <Entry 
                         Placeholder="Enter age"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
-                </Frame>
+                </Border>
             </VerticalStackLayout>
 
-            <!-- Remember Me -->
+            <!-- Remember Me --><!--
             <HorizontalStackLayout Spacing="10">
                 <CheckBox 
                     Color="#6750A4"/>
                 <Label 
                     Text="Remember me"
                     VerticalOptions="Center"/>
-            </HorizontalStackLayout>
+            </HorizontalStackLayout>-->
 
             <!-- Gender Selection -->
             <VerticalStackLayout Spacing="15">
+                
+                <!--Female Radio button-->
                 <RadioButton 
                     Content="female"
                     GroupName="gender"
                     TextColor="#666666"/>
+
+                <!--Male Radio button-->
                 <RadioButton 
                     Content="male"
                     GroupName="gender"
@@ -135,6 +162,7 @@
                 VerticalOptions="EndAndExpand"
                 Margin="0,40,0,0">
                 
+                <!--Cancel Button-->
                 <Button
                     Text="Cancel"
                     Grid.Column="0"
@@ -144,6 +172,7 @@
                     BorderWidth="1"
                     Clicked="OnCancelClicked"/>
                 
+                <!--Next Button-->
                 <Button
                     Text="Next"
                     Grid.Column="1"

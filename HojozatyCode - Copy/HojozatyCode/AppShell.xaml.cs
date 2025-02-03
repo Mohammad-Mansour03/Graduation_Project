@@ -20,7 +20,6 @@ namespace HojozatyCode
 
 			GoToAsync(nameof(Pages.LoginSignupPage));
 
-
 		}
 
 	}
