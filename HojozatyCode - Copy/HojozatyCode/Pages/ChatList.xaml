@@ -17,7 +17,7 @@
         <!-- Header -->
         <Grid Grid.Row="0" 
               Padding="16,8" 
-              BackgroundColor="White"
+              BackgroundColor="DimGrey"
               ColumnDefinitions="*,Auto">
             
             <Label Grid.Column="0"
