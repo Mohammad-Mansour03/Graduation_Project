@@ -72,6 +72,7 @@
                             HeightRequest="100"
                             BackgroundColor="#ECE6EE"
                             Padding="5"
+                           
                             >
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center" 
@@ -79,9 +80,11 @@
                             <Image Source="wedding_icon.png"
                                    WidthRequest="50"
                                    HeightRequest="50"/>
-                            <Label Text="wedding" 
+                            <Label Text="Wedding" 
                                    FontSize="14" 
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   TextColor="black"
+                                   FontAttributes="Bold"/>
                         </VerticalStackLayout>
                         
                         <!--Event to navigate to weeding page-->
@@ -105,7 +108,9 @@
                                    HeightRequest="50"/>
                             <Label Text="Meeting" 
                                    FontSize="14"
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   TextColor="black"
+                                   FontAttributes="Bold"/>
                         </VerticalStackLayout>
                     </Border>
 
@@ -123,7 +128,9 @@
                                    HeightRequest="50"/>
                             <Label Text="Funeral"
                                    FontSize="14" 
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   TextColor="black"
+                                   FontAttributes="Bold"/>
                         </VerticalStackLayout>
                     </Border>
 
@@ -141,7 +148,9 @@
                                    HeightRequest="50"/>
                             <Label Text="more"
                                    FontSize="14" 
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   TextColor="black"
+                                   FontAttributes="Bold"/>
                         </VerticalStackLayout>
                     </Border>
                     
