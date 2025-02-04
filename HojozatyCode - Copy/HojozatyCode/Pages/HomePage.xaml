@@ -192,11 +192,11 @@
 
             <!--The Spaces That have higher rated-->
             <Label
-                Text="Spaces Have Higher Rated"
-                TextColor="Black"
+                Text="Top Picks"
+                TextColor="White"
                 FontFamily="Montserrat"
                 Margin="10,0,0,0"
-                FontSize="14"
+                FontSize="22"
                 FontAttributes="Bold"
                 />
 
