@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ProfileInfo"
+             x:DataType="viewModels:ProfileInfoViewModel"
              Title="ProfileInfo"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#ECE6F0">
+    
+    <ContentPage.BindingContext>
+        <viewModels:ProfileInfoViewModel />
+    </ContentPage.BindingContext>
+    
     <ScrollView>
         <VerticalStackLayout Padding="20,40,20,20" Spacing="20">
             
@@ -171,7 +178,7 @@
                     TextColor="#6750A4"
                     BorderColor="#6750A4"
                     BorderWidth="1"
-                    Clicked="OnCancelClicked"/>
+                    Command="{Binding CancelCommand}"/>
                 
                 <!--Next Button-->
                 <Button
@@ -179,7 +186,7 @@
                     Grid.Column="1"
                     BackgroundColor="#6750A4"
                     TextColor="White"
-                    Clicked="OnNextClicked" />
+                    Command="{Binding NextCommand}"/>
             </Grid>
 
         </VerticalStackLayout>
