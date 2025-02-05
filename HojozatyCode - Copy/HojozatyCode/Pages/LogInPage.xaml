@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.LogInPage"
+             x:DataType="viewModels:LogInViewModel"
              Title="LogInPage"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#ECE6F0"
-             >
+             BackgroundColor="#ECE6F0">
+    
+    <ContentPage.BindingContext>
+        <viewModels:LogInViewModel />
+    </ContentPage.BindingContext>
     
     <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 
           ColumnDefinitions="20, *, 20">
@@ -21,7 +26,7 @@
                      BackgroundColor="Transparent"
                      WidthRequest="40" 
                      HeightRequest="90"
-                     Clicked="ReturnToThePrevious"/>
+                     Command="{Binding ReturnToThePreviousCommand}"/>
 
         <!-- Log in Text -->
         <Label Text="Log in" 
@@ -34,7 +39,7 @@
                TextColor="Black" 
                Margin="20"/>
 
-        <!-- The Email and Passwird entries -->
+        <!-- The Email and Password entries -->
         <StackLayout Grid.Row="2" Grid.Column="1" Spacing="20">
          
             <!-- Email Entry -->
@@ -66,20 +71,16 @@
                     <Entry x:Name="PasswordEntry" 
                            Placeholder="Password" 
                            FontSize="18" 
-                           IsPassword="True"
-                           TextColor="Black"
-                           />
+                           IsPassword="{Binding IsVisiblePassword, Converter={StaticResource InverseBooleanConverter}}"
+                           TextColor="Black"/>
                     
                     <!--The eye password icon-->
-                    <ImageButton Source="eye_off_icon.png" 
-                                 x:Name="EyeIconButton" 
+                    <ImageButton Source="{Binding IsVisiblePassword, Converter={StaticResource BooleanToImageConverter}, ConverterParameter='eye_on_icon.png,eye_off_icon.png'}" 
                                  WidthRequest="15"
                                  HeightRequest="15"
-                                 Clicked="EyeIconButton_Clicked"     
-                                 />
+                                 Command="{Binding TogglePasswordVisibilityCommand}"/>
                 </StackLayout>
             </Border>
-
 
             <!-- Login Button -->
             <Button Text="log in" 
@@ -90,7 +91,8 @@
                     CornerRadius="25"
                     HeightRequest="50"
                     HorizontalOptions="Fill" 
-                    Margin="0,15"/>
+                    Margin="0,15"
+                    Command="{Binding LogInCommand}"/>
         </StackLayout>
 
          <!--Divider--> 
@@ -138,9 +140,7 @@
         <!--Don't have an account-->
         <StackLayout Grid.Row="4" Grid.Column="1"
                  VerticalOptions="Center"
-                 HorizontalOptions="Center"
-                
-        >
+                 HorizontalOptions="Center">
             <Label Text="Don't have an account?"
                FontSize="14" 
                TextColor="#49454F" 
@@ -153,7 +153,7 @@
                 BackgroundColor="Transparent" 
                 TextColor="#4F378A" 
                 HorizontalOptions="Center"
-                Clicked="SignUp"/>
+                Command="{Binding SignUpCommand}"/>
             
         </StackLayout>
     </Grid>

@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.SignUpPage"
              Title="SignUp"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:DataType="viewModels:SignUpViewModel"
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#ECE6F0">
     
+    <ContentPage.BindingContext>
+        <viewModels:SignUpViewModel xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels" />
+    </ContentPage.BindingContext>
     
     <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 
        ColumnDefinitions="20, *, 20">
@@ -21,7 +26,7 @@
                   BackgroundColor="Transparent"
                   WidthRequest="40" 
                   HeightRequest="90" 
-                  Clicked="ReturnToThePrevious"/>
+                  Command="{Binding ReturnToThePreviousCommand}"/>
 
         <!-- Sign up title -->
         <Label Text="Sign up" 
@@ -65,15 +70,14 @@
                     <Entry x:Name="PasswordEntry" 
                            Placeholder="Password" 
                            FontSize="18" 
-                           IsPassword="True"
+                           IsPassword="{Binding IsVisiblePassword, Converter={StaticResource InverseBooleanConverter}}"
                            TextColor="Black"/>
                     
                     <!--Eye icon for password-->
-                    <ImageButton Source="eye_off_icon.png" 
-                                 x:Name="EyeIconButton"
+                    <ImageButton Source="{Binding IsVisiblePassword, Converter={StaticResource BooleanToImageConverter}, ConverterParameter='eye_on_icon.png,eye_off_icon.png'}" 
                                  WidthRequest="15" 
                                  HeightRequest="15" 
-                                 Clicked="OnEyeIconClicked_Password"
+                                 Command="{Binding TogglePasswordVisibilityCommand}"
                                 />
                 </StackLayout>
             </Border>
@@ -92,15 +96,14 @@
                     <Entry x:Name="ConfirmPasswordEntry" 
                            Placeholder="Confirm Password" 
                            FontSize="18" 
-                           IsPassword="True"
+                           IsPassword="{Binding IsVisibleConfirmPassword, Converter={StaticResource InverseBooleanConverter}}"
                            TextColor="Black"/>
 
                     <!--Eye icon for confirm password-->
-                    <ImageButton Source="eye_off_icon.png" 
-                                 x:Name="EyeIconButtonConfirm"
+                    <ImageButton Source="{Binding IsVisibleConfirmPassword, Converter={StaticResource BooleanToImageConverter}, ConverterParameter='eye_on_icon.png,eye_off_icon.png'}" 
                                  WidthRequest="15" 
                                  HeightRequest="15" 
-                                 Clicked="OnEyeIconClickedConfirmPass"
+                                 Command="{Binding ToggleConfirmPasswordVisibilityCommand}"
                                  />
                 </StackLayout>
             </Border>
@@ -115,7 +118,7 @@
                  HeightRequest="50"
                  HorizontalOptions="Fill" 
                  Margin="0,15"
-                 Clicked ="SignUp"/>
+                 Command="{Binding SignUpCommand}"/>
         </StackLayout>
 
          <!--Divider--> 
@@ -178,7 +181,7 @@
                 BackgroundColor="Transparent" 
                 TextColor="#4F378A" 
                 HorizontalOptions="Center"
-                Clicked="LogIn"/>
+                Command="{Binding LogInCommand}"/>
 
         </StackLayout>
     </Grid>

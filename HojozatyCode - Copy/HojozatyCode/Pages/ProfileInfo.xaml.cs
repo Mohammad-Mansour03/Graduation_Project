@@ -1,21 +1,13 @@
-namespace HojozatyCode.Pages;
+using HojozatyCode.ViewModels;
 
-
-public partial class ProfileInfo : ContentPage
+namespace HojozatyCode.Pages
 {
-    public ProfileInfo()
+    public partial class ProfileInfo : ContentPage
     {
-        InitializeComponent();
-    }
-
-    private async void OnCancelClicked(object sender, EventArgs e)
-    {
-      await Shell.Current.GoToAsync(nameof(LoginSignupPage));
-    }
-
-    private async void OnNextClicked(object sender, EventArgs e)
-    {
-      await Shell.Current.GoToAsync(nameof(Pages.HomePage));
-      
+        public ProfileInfo()
+        {
+            InitializeComponent();
+            BindingContext = new ProfileInfoViewModel();
+        }
     }
 }
