@@ -7,10 +7,14 @@ namespace HojozatyCode.ViewModels
     public partial class SignUpViewModel : ObservableObject
     {
         [ObservableProperty]
-        private bool isVisiblePassword = false;
+        private bool isHiddenPassword = true;
 
         [ObservableProperty]
-        private bool isVisibleConfirmPassword = false;
+        private bool isHiddenConfirmPassword = true;
+
+        public string EyeIconPasswordSource => IsHiddenPassword ? "eye_off_icon.png" : "eye_on_icon.png";
+    
+        public string EyeIconConfirmPasswordSource => IsHiddenConfirmPassword ? "eye_off_icon.png" : "eye_on_icon.png";
 
         [RelayCommand]
         private async Task LogInAsync()
@@ -27,13 +31,21 @@ namespace HojozatyCode.ViewModels
         [RelayCommand]
         private void TogglePasswordVisibility()
         {
-            IsVisiblePassword = !IsVisiblePassword;
+            //Toggle Visibility
+            IsHiddenPassword = !IsHiddenPassword;
+
+            //Notfiy the UI that the eye password changed
+            OnPropertyChanged(nameof(EyeIconPasswordSource));
         }
 
         [RelayCommand]
         private void ToggleConfirmPasswordVisibility()
         {
-            IsVisibleConfirmPassword = !IsVisibleConfirmPassword;
+            //Toggle Visibility
+            IsHiddenConfirmPassword = !IsHiddenConfirmPassword;
+
+            //Notify that the eye confirm password changed
+            OnPropertyChanged(nameof(EyeIconConfirmPasswordSource));
         }
 
         [RelayCommand]

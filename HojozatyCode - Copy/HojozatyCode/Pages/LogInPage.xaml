@@ -65,21 +65,23 @@
               Padding="10"
              >
 
-                <StackLayout Orientation="Horizontal" Spacing="200">
+                <Grid ColumnDefinitions="*,Auto">
                     
                     <!--The Password Entry-->
                     <Entry x:Name="PasswordEntry" 
                            Placeholder="Password" 
                            FontSize="18" 
-                           IsPassword="{Binding IsVisiblePassword, Converter={StaticResource InverseBooleanConverter}}"
-                           TextColor="Black"/>
+                           IsPassword="{Binding IsHiddenPassword,Mode=TwoWay}"
+                           TextColor="Black"
+                           Grid.Column="0"/>
                     
                     <!--The eye password icon-->
-                    <ImageButton Source="{Binding IsVisiblePassword, Converter={StaticResource BooleanToImageConverter}, ConverterParameter='eye_on_icon.png,eye_off_icon.png'}" 
+                    <ImageButton Source="{Binding EyeIconSource}" 
                                  WidthRequest="15"
                                  HeightRequest="15"
+                                 Grid.Column="1"
                                  Command="{Binding TogglePasswordVisibilityCommand}"/>
-                </StackLayout>
+                </Grid>
             </Border>
 
             <!-- Login Button -->

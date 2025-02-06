@@ -18,10 +18,11 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(Pages.LogInPage));
         }
 
-        [RelayCommand]
-        private async Task ContinueAsGuestAsync()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.HomePage));
-        }
+        //continue as guest command
+        //[relaycommand]
+        //private async task continueasguestasync()
+        //{
+        //    await shell.current.gotoasync(nameof(pages.homepage));
+        //}
     }
 }

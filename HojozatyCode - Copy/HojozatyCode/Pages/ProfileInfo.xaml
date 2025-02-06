@@ -38,7 +38,8 @@
                     StrokeThickness="1"
                     Padding="0">
                     <Entry 
-                        Placeholder="Enter Firstname"
+                        Placeholder="Enter First name"
+                        Text="{Binding FirstName}"
                         PlaceholderColor="#CCCCCC"
                         x:Name="FirstNameEntry"
                         BackgroundColor="Transparent"
@@ -62,6 +63,7 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter Middle name"
+                        Text="{Binding MiddleName}"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
@@ -85,6 +87,7 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter Lastname"
+                        Text="{Binding LastName}"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
@@ -108,9 +111,11 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter phone number"
+                        Text="{Binding PhoneNumber}"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
-                        TextColor="Black"/>
+                        TextColor="Black"
+                        Keyboard="Telephone"/>
                 </Border>
             </VerticalStackLayout>
             
@@ -131,9 +136,12 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter age"
+                        Text="{Binding Age}"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
-                        TextColor="Black"/>
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        />
                 </Border>
             </VerticalStackLayout>
 
@@ -153,13 +161,14 @@
                 <RadioButton 
                     Content="female"
                     GroupName="gender"
-                    TextColor="#666666"/>
+                    TextColor="#666666"
+                    IsChecked="{Binding IsFemale}"/>
 
                 <!--Male Radio button-->
                 <RadioButton 
                     Content="male"
                     GroupName="gender"
-                    IsChecked="True"
+                    IsChecked="{Binding IsMale}"
                     TextColor="#666666"/>
             </VerticalStackLayout>
 

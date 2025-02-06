@@ -66,20 +66,22 @@
               Padding="10"
              >
                 <!--Password entry-->
-                <StackLayout Orientation="Horizontal" Spacing="200">
+                <Grid ColumnDefinitions="*,Auto">
                     <Entry x:Name="PasswordEntry" 
                            Placeholder="Password" 
                            FontSize="18" 
-                           IsPassword="{Binding IsVisiblePassword, Converter={StaticResource InverseBooleanConverter}}"
-                           TextColor="Black"/>
+                           IsPassword="{Binding IsHiddenPassword , Mode=TwoWay}"
+                           TextColor="Black"
+                           Grid.Column="0"/>
                     
                     <!--Eye icon for password-->
-                    <ImageButton Source="{Binding IsVisiblePassword, Converter={StaticResource BooleanToImageConverter}, ConverterParameter='eye_on_icon.png,eye_off_icon.png'}" 
+                    <ImageButton Source="{Binding EyeIconPasswordSource}" 
                                  WidthRequest="15" 
                                  HeightRequest="15" 
                                  Command="{Binding TogglePasswordVisibilityCommand}"
-                                />
-                </StackLayout>
+                                 Grid.Column="1"
+                                 />
+                </Grid>
             </Border>
 
 
@@ -92,20 +94,22 @@
               Padding="10"
              >
                  <!--Confirm Password entry-->
-                <StackLayout Orientation="Horizontal" Spacing="130" >
+                <Grid ColumnDefinitions="*,Auto" >
                     <Entry x:Name="ConfirmPasswordEntry" 
                            Placeholder="Confirm Password" 
                            FontSize="18" 
-                           IsPassword="{Binding IsVisibleConfirmPassword, Converter={StaticResource InverseBooleanConverter}}"
-                           TextColor="Black"/>
+                           IsPassword="{Binding IsHiddenConfirmPassword,Mode=TwoWay}"
+                           TextColor="Black"
+                           Grid.Column="0"/>
 
                     <!--Eye icon for confirm password-->
-                    <ImageButton Source="{Binding IsVisibleConfirmPassword, Converter={StaticResource BooleanToImageConverter}, ConverterParameter='eye_on_icon.png,eye_off_icon.png'}" 
+                    <ImageButton Source="{Binding EyeIconConfirmPasswordSource}" 
                                  WidthRequest="15" 
                                  HeightRequest="15" 
                                  Command="{Binding ToggleConfirmPasswordVisibilityCommand}"
+                                Grid.Column="1"
                                  />
-                </StackLayout>
+                </Grid>
             </Border>
             
             <!-- Sign up Button -->
