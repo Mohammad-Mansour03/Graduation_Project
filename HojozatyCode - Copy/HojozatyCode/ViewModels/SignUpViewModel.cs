@@ -27,7 +27,7 @@ namespace HojozatyCode.ViewModels
         public string EyeIconConfirmPasswordSource => IsHiddenConfirmPassword ? "eye_off_icon.png" : "eye_on_icon.png";
 
         [ObservableProperty]
-        private string confirmPassword = string.Empty;
+        private string confirmPassword;
 
         [ObservableProperty]
         private string errorMessage;
@@ -81,20 +81,28 @@ namespace HojozatyCode.ViewModels
                 //     return;
                 // }
 
-                // Check if passwords match
-                if (User.Password != ConfirmPassword)
+                // Check email 
+                if (User.Email == null)
                 {
-                    ErrorMessage = "Passwords do not match";
-                    return;
-                }
-                
-                // Check email pattern
-                if (!Regex.IsMatch(User.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                {
-                    ErrorMessage = "Invalid email format";
+                    ErrorMessage = "Please Enter your email";
                     return;
                 }
 
+                else
+                if (!Regex.IsMatch(User.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    ErrorMessage = "Please Enter Valid email";
+                    return;
+                }
+
+                else
+                if (User.Password == null)
+                {
+                    ErrorMessage = "Please enter your password";
+                    return;
+                }
+
+                else
                 // Check password pattern
                 if (!Regex.IsMatch(User.Password, @"^.{8,}$"))
                 {
@@ -102,16 +110,25 @@ namespace HojozatyCode.ViewModels
                     return;
                 }
 
+                if (ConfirmPassword == null) 
+                {
+                    ErrorMessage = "Please enter confirm password";
+                    return;
+                }
+
+                else 
+				// Check if passwords match
+				if (!User.Password.Equals(ConfirmPassword))
+                {
+                    ErrorMessage = "Passwords doesn't not match";
+                    return;
+                }
+                
                 var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(User.Email, User.Password);
+             
                 if (response.User != null)
                 {
-                    User.Id = response.User.Id;
-                    User.DateCreated = DateTime.UtcNow;
-                    // Hash the password before saving
-                    User.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
-                    // Save additional user information to Supabase
-                    await SupabaseConfig.SupabaseClient.From<User>().Insert(User);
-                    await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+                    await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
                 }
                 else
                 {

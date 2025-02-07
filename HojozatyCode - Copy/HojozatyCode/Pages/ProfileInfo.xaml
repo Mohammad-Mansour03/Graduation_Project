@@ -39,7 +39,7 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter First name"
-                        Text="{Binding FirstName}"
+                        Text="{Binding User.FirstName}"
                         PlaceholderColor="#CCCCCC"
                         x:Name="FirstNameEntry"
                         BackgroundColor="Transparent"
@@ -63,7 +63,7 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter Middle name"
-                        Text="{Binding MiddleName}"
+                        Text="{Binding User.MiddleName}"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
@@ -87,7 +87,7 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter Lastname"
-                        Text="{Binding LastName}"
+                        Text="{Binding User.LastName}"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"/>
@@ -111,7 +111,7 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter phone number"
-                        Text="{Binding PhoneNumber}"
+                        Text="{Binding User.Phone}"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"
@@ -136,7 +136,7 @@
                     Padding="0">
                     <Entry 
                         Placeholder="Enter age"
-                        Text="{Binding Age}"
+                        Text="bgfb"
                         PlaceholderColor="#CCCCCC"
                         BackgroundColor="Transparent"
                         TextColor="Black"
@@ -162,13 +162,13 @@
                     Content="female"
                     GroupName="gender"
                     TextColor="#666666"
-                    IsChecked="{Binding IsFemale}"/>
+                    IsChecked="{Binding User.Gender}"/>
 
                 <!--Male Radio button-->
                 <RadioButton 
                     Content="male"
                     GroupName="gender"
-                    IsChecked="{Binding IsMale}"
+                    IsChecked="{Binding User.Gender}"
                     TextColor="#666666"/>
             </VerticalStackLayout>
 
