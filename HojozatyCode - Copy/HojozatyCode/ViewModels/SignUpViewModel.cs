@@ -17,11 +17,6 @@ namespace HojozatyCode.ViewModels
         [ObservableProperty]
         private bool isHiddenConfirmPassword = true;
 
-        [ObservableProperty]
-        private User user = new User();
-
-        public List<string> GenderOptions { get; } = new List<string> { "Male", "Female", "Other" };
-
         public string EyeIconPasswordSource => IsHiddenPassword ? "eye_off_icon.png" : "eye_on_icon.png";
     
         public string EyeIconConfirmPasswordSource => IsHiddenConfirmPassword ? "eye_off_icon.png" : "eye_on_icon.png";
@@ -32,7 +27,17 @@ namespace HojozatyCode.ViewModels
         [ObservableProperty]
         private string errorMessage;
 
-        [RelayCommand]
+
+        [ObservableProperty]
+        private string emailF;
+
+        [ObservableProperty]
+        private string passwordF;
+        
+        [ObservableProperty]
+        private string confirmPasswordF;
+
+		[RelayCommand]
         private async Task LogInAsync()
         {
             await Shell.Current.GoToAsync(nameof(Pages.LogInPage));
@@ -65,38 +70,26 @@ namespace HojozatyCode.ViewModels
         }
 
         [RelayCommand]
-		[Obsolete]
 		private async Task SignUpAsync()
         {
             try
-            {
-                // // Validate the user input
-                // var validationContext = new ValidationContext(User);
-                // var validationResults = new List<ValidationResult>();
-                // bool isValid = Validator.TryValidateObject(User, validationContext, validationResults, true);
-
-                // if (!isValid)
-                // {
-                //     ErrorMessage = string.Join("\n", validationResults.Select(r => r.ErrorMessage));
-                //     return;
-                // }
-
+            { 
                 // Check email 
-                if (User.Email == null)
+                if (EmailF == null)
                 {
                     ErrorMessage = "Please Enter your email";
                     return;
                 }
 
                 else
-                if (!Regex.IsMatch(User.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                if (!Regex.IsMatch(EmailF, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 {
                     ErrorMessage = "Please Enter Valid email";
                     return;
                 }
 
                 else
-                if (User.Password == null)
+                if (PasswordF == null)
                 {
                     ErrorMessage = "Please enter your password";
                     return;
@@ -104,13 +97,13 @@ namespace HojozatyCode.ViewModels
 
                 else
                 // Check password pattern
-                if (!Regex.IsMatch(User.Password, @"^.{8,}$"))
+                if (!Regex.IsMatch(PasswordF, @"^.{8,}$"))
                 {
                     ErrorMessage = "Password must be at least 8 characters long";
                     return;
                 }
 
-                if (ConfirmPassword == null) 
+                if (ConfirmPasswordF == null) 
                 {
                     ErrorMessage = "Please enter confirm password";
                     return;
@@ -118,13 +111,13 @@ namespace HojozatyCode.ViewModels
 
                 else 
 				// Check if passwords match
-				if (!User.Password.Equals(ConfirmPassword))
+				if (!PasswordF.Equals(ConfirmPasswordF))
                 {
                     ErrorMessage = "Passwords doesn't not match";
                     return;
                 }
                 
-                var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(User.Email, User.Password);
+                var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(EmailF, PasswordF);
              
                 if (response.User != null)
                 {
@@ -133,14 +126,14 @@ namespace HojozatyCode.ViewModels
                 else
                 {
                     // Handle error
-                    await Application.Current.MainPage.DisplayAlert("Sign Up Failed", 
+                    await Shell.Current.DisplayAlert("Sign Up Failed", 
                         "An error occurred during sign up. Please try again.", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Handle exception
-                await Application.Current.MainPage.DisplayAlert("Sign Up Failed", ex.Message, "OK");
+                await Shell.Current.DisplayAlert("Sign Up Failed", ex.Message, "OK");
             }
         }
     }

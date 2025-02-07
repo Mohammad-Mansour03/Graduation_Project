@@ -53,7 +53,7 @@
                 <Entry  Placeholder="Email" 
                         FontSize="18" 
                         TextColor="Black"
-                        Text="{Binding User.Email}"/>
+                        Text="{Binding EmailF}"/>
             </Border>
 
             <!-- Password Entry -->
@@ -70,7 +70,7 @@
                            FontSize="18" 
                            IsPassword="{Binding IsHiddenPassword , Mode=TwoWay}"
                            TextColor="Black"
-                           Text="{Binding User.Password}"
+                           Text="{Binding PasswordF}"
                            Grid.Column="0"/>
                     <ImageButton Source="{Binding EyeIconPasswordSource}" 
                                  WidthRequest="15" 
@@ -94,7 +94,7 @@
                            FontSize="18" 
                            IsPassword="{Binding IsHiddenConfirmPassword,Mode=TwoWay}"
                            TextColor="Black"
-                           Text="{Binding ConfirmPassword}"
+                           Text="{Binding ConfirmPasswordF}"
                            Grid.Column="0"/>
                     <ImageButton Source="{Binding EyeIconConfirmPasswordSource}" 
                                  WidthRequest="15" 
