@@ -10,183 +10,277 @@
              BackgroundColor="#ECE6F0">
     
     <ContentPage.BindingContext>
-        <viewModels:SignUpViewModel xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels" />
+        <viewModels:SignUpViewModel />
     </ContentPage.BindingContext>
     
-    <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 
-       ColumnDefinitions="20, *, 20">
+    <ScrollView>
+        <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 
+              ColumnDefinitions="20, *, 20">
 
-        <!-- Close Icon -->
-        <ImageButton Source="back_icon.png" 
-                  Grid.Row="0" Grid.Column="0" 
-                  HorizontalOptions="Start"
-                  Padding="3"
-                  Margin="10"
-                  VerticalOptions="Start" 
-                  BackgroundColor="Transparent"
-                  WidthRequest="40" 
-                  HeightRequest="90" 
-                  Command="{Binding ReturnToThePreviousCommand}"/>
+            <!-- Close Icon -->
+            <ImageButton Source="back_icon.png" 
+                         Grid.Row="0" Grid.Column="0" 
+                         HorizontalOptions="Start"
+                         Padding="3"
+                         Margin="10"
+                         VerticalOptions="Start" 
+                         BackgroundColor="Transparent"
+                         WidthRequest="40" 
+                         HeightRequest="90" 
+                         Command="{Binding ReturnToThePreviousCommand}"/>
 
-        <!-- Sign up title -->
-        <Label Text="Sign up" 
-            FontSize="36" 
-            FontAttributes="Bold"
-            FontFamily="Montserrat"
-            Grid.Row="1" Grid.Column="1" 
-            HorizontalOptions="Center" 
-            VerticalOptions="Center"
-            TextColor="Black" 
-            Margin="20"/>
+            <!-- Sign up title -->
+            <Label Text="Sign up" 
+                   FontSize="36" 
+                   FontAttributes="Bold"
+                   FontFamily="Montserrat"
+                   Grid.Row="1" Grid.Column="1" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   TextColor="Black" 
+                   Margin="20"/>
 
-        <!-- The Email and passwords entries -->
-        <StackLayout Grid.Row="2" Grid.Column="1" Spacing="20">
+            <!-- The Email and passwords entries -->
+            <StackLayout Grid.Row="2" Grid.Column="1" Spacing="20">
+               
+                <!--First Name Entry-->
+                <Label Text="First Name" FontSize="18" TextColor="Black" />
+                <Border
+                    Margin="0,5,0,0"
+                    Background="White"
+                    StrokeShape="RoundRectangle 20" 
+                    StrokeThickness="1"
+                    HeightRequest="60"
+                    Padding="10">
+                    <Entry  Placeholder="First Name" 
+                            FontSize="18" 
+                            TextColor="Black"
+                            Text="{Binding User.FirstName}"/>
+                </Border>
+
+                <!--Middle Name Entry-->
+                <Label Text="Middle Name" FontSize="18" TextColor="Black" />
+                <Border
+                    Margin="0,5,0,0"
+                    Background="White"
+                    StrokeShape="RoundRectangle 20" 
+                    StrokeThickness="1"
+                    HeightRequest="60"
+                    Padding="10">
+                    <Entry  Placeholder="Middle Name" 
+                            FontSize="18" 
+                            TextColor="Black"
+                            Text="{Binding User.MiddleName}"/>
+                </Border>
+
+                <!--Last Name Entry-->
+                <Label Text="Last Name" FontSize="18" TextColor="Black" />
+                <Border
+                    Margin="0,5,0,0"
+                    Background="White"
+                    StrokeShape="RoundRectangle 20" 
+                    StrokeThickness="1"
+                    HeightRequest="60"
+                    Padding="10">
+                    <Entry  Placeholder="Last Name" 
+                            FontSize="18" 
+                            TextColor="Black"
+                            Text="{Binding User.LastName}"/>
+                </Border>
+
+                <!--Email Entry-->
+                <Label Text="Email" FontSize="18" TextColor="Black" />
+                <Border
+                    Margin="0,5,0,0"
+                    Background="White"
+                    StrokeShape="RoundRectangle 20" 
+                    StrokeThickness="1"
+                    HeightRequest="60"
+                    Padding="10">
+                    <Entry  Placeholder="Email" 
+                            FontSize="18" 
+                            TextColor="Black"
+                            Text="{Binding User.Email}"/>
+                </Border>
+
+                <!--Phone Entry-->
+                <Label Text="Phone" FontSize="18" TextColor="Black" />
+                <Border
+                    Margin="0,5,0,0"
+                    Background="White"
+                    StrokeShape="RoundRectangle 20" 
+                    StrokeThickness="1"
+                    HeightRequest="60"
+                    Padding="10">
+                    <Entry  Placeholder="Phone" 
+                            FontSize="18" 
+                            TextColor="Black"
+                            Text="{Binding User.Phone}"/>
+                </Border>
+
+                <!--Age Entry-->
+                <Label Text="Age" FontSize="18" TextColor="Black" />
+                <Border
+                    Margin="0,5,0,0"
+                    Background="White"
+                    StrokeShape="RoundRectangle 20" 
+                    StrokeThickness="1"
+                    HeightRequest="60"
+                    Padding="10">
+                    <Entry  Placeholder="Age" 
+                            FontSize="18" 
+                            TextColor="Black"
+                            Keyboard="Numeric"
+                            Text="{Binding User.Age}"/>
+                </Border>
+
+                <!--Gender Entry-->
+                <Label Text="Gender" FontSize="18" TextColor="Black" />
+                <Border
+                    Margin="0,5,0,0"
+                    Background="White"
+                    StrokeShape="RoundRectangle 20" 
+                    StrokeThickness="1"
+                    HeightRequest="60"
+                    Padding="10">
+                    <Picker ItemsSource="{Binding GenderOptions}" 
+                            SelectedItem="{Binding User.Gender}" 
+                            Title="Select Gender" 
+                            FontSize="18" 
+                            TextColor="Black"/>
+                </Border>
+
+                <!-- Password Entry -->
+                <Label Text="Password" FontSize="18" TextColor="Black" />
+                <Border
+                  Background="White"
+                  StrokeShape="RoundRectangle 20" 
+                  StrokeThickness="1"
+                  HeightRequest="60"
+                  Padding="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry x:Name="PasswordEntry" 
+                               Placeholder="Password" 
+                               FontSize="18" 
+                               IsPassword="{Binding IsHiddenPassword , Mode=TwoWay}"
+                               TextColor="Black"
+                               Text="{Binding User.Password}"
+                               Grid.Column="0"/>
+                        <ImageButton Source="{Binding EyeIconPasswordSource}" 
+                                     WidthRequest="15" 
+                                     HeightRequest="15" 
+                                     Command="{Binding TogglePasswordVisibilityCommand}"
+                                     Grid.Column="1"/>
+                    </Grid>
+                </Border>
+
+                <!-- Confirm Password Entry -->
+                <Label Text="Confirm Password" FontSize="18" TextColor="Black" />
+                <Border
+                  Background="White"
+                  StrokeShape="RoundRectangle 20" 
+                  StrokeThickness="1"
+                  HeightRequest="60"
+                  Padding="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry x:Name="ConfirmPasswordEntry" 
+                               Placeholder="Confirm Password" 
+                               FontSize="18" 
+                               IsPassword="{Binding IsHiddenConfirmPassword,Mode=TwoWay}"
+                               TextColor="Black"
+                               Text="{Binding ConfirmPassword}"
+                               Grid.Column="0"/>
+                        <ImageButton Source="{Binding EyeIconConfirmPasswordSource}" 
+                                     WidthRequest="15" 
+                                     HeightRequest="15" 
+                                     Command="{Binding ToggleConfirmPasswordVisibilityCommand}"
+                                     Grid.Column="1"/>
+                    </Grid>
+                </Border>
+
+                <!-- Error Message -->
+                <Label Text="{Binding ErrorMessage}" 
+                       FontSize="14" 
+                       TextColor="Red" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+                
+                <!-- Sign up Button -->
+                <Button Text="sign up" 
+                     FontSize="18" 
+                     FontAttributes="Bold"
+                     BackgroundColor="#4F378A" 
+                     TextColor="White" 
+                     CornerRadius="25"
+                     HeightRequest="50"
+                     HorizontalOptions="Fill" 
+                     Margin="0,15"
+                     Command="{Binding SignUpCommand}"/>
+            </StackLayout>
+
+             <!--Divider--> 
+            <StackLayout Grid.Row="3" Grid.Column="1" Margin ="50" Spacing="15">
+                <BoxView 
+                 HeightRequest="1"
+                 WidthRequest="380"
+                 BackgroundColor="#CAC4D0" 
+                 HorizontalOptions="Fill" />
+                <Label Text="Or" 
+                    FontSize="16" 
+                    TextColor="#49454F" 
+                    HorizontalOptions="Center" />
+
+            </StackLayout>
+
+             <!--Social Login Buttons 
+            <StackLayout Grid.Row="4" Grid.Column="1"
+                      Orientation="Horizontal" 
+                      Spacing="60"
+                      HorizontalOptions="Center">
            
-            <!--Email Entry-->
-            <Border
-                Margin="0,20,0,0"
-                Background="White"
-                StrokeShape="RoundRectangle 20" 
-                StrokeThickness="1"
-                HeightRequest="60"
-                Padding="10">
+                Facebook
+                <ImageButton
+                 Source="facebook_icon.png"
+                 WidthRequest="15"
+                 HeightRequest="15"
+              />
+                
+                 Google
+                <ImageButton
+                 Source="google_icon.png"
+                 WidthRequest="15"
+                 HeightRequest="15"
+              />
+                
+                Apple
+                <ImageButton
+                 Source="apple_icon.png"
+                 WidthRequest="15"
+                 HeightRequest="15"
+              />
 
-                <Entry  Placeholder="Email" 
-                        FontSize="18" 
-                        TextColor="Black"/>
-            </Border>
-
-
-            <!-- Password Entry -->
-            <Border
-              Background="White"
-              StrokeShape="RoundRectangle 20" 
-              StrokeThickness="1"
-              HeightRequest="60"
-              Padding="10"
-             >
-                <!--Password entry-->
-                <Grid ColumnDefinitions="*,Auto">
-                    <Entry x:Name="PasswordEntry" 
-                           Placeholder="Password" 
-                           FontSize="18" 
-                           IsPassword="{Binding IsHiddenPassword , Mode=TwoWay}"
-                           TextColor="Black"
-                           Grid.Column="0"/>
-                    
-                    <!--Eye icon for password-->
-                    <ImageButton Source="{Binding EyeIconPasswordSource}" 
-                                 WidthRequest="15" 
-                                 HeightRequest="15" 
-                                 Command="{Binding TogglePasswordVisibilityCommand}"
-                                 Grid.Column="1"
-                                 />
-                </Grid>
-            </Border>
-
-
-            <!-- Confirm Password Entry -->
-            <Border
-              Background="White"
-              StrokeShape="RoundRectangle 20" 
-              StrokeThickness="1"
-              HeightRequest="60"
-              Padding="10"
-             >
-                 <!--Confirm Password entry-->
-                <Grid ColumnDefinitions="*,Auto" >
-                    <Entry x:Name="ConfirmPasswordEntry" 
-                           Placeholder="Confirm Password" 
-                           FontSize="18" 
-                           IsPassword="{Binding IsHiddenConfirmPassword,Mode=TwoWay}"
-                           TextColor="Black"
-                           Grid.Column="0"/>
-
-                    <!--Eye icon for confirm password-->
-                    <ImageButton Source="{Binding EyeIconConfirmPasswordSource}" 
-                                 WidthRequest="15" 
-                                 HeightRequest="15" 
-                                 Command="{Binding ToggleConfirmPasswordVisibilityCommand}"
-                                Grid.Column="1"
-                                 />
-                </Grid>
-            </Border>
+            </StackLayout>-->
             
-            <!-- Sign up Button -->
-            <Button Text="sign up" 
-                 FontSize="18" 
-                 FontAttributes="Bold"
-                 BackgroundColor="#4F378A" 
-                 TextColor="White" 
-                 CornerRadius="25"
-                 HeightRequest="50"
-                 HorizontalOptions="Fill" 
-                 Margin="0,15"
-                 Command="{Binding SignUpCommand}"/>
-        </StackLayout>
+            <!--Already have an account-->
+            <StackLayout Grid.Row="4" Grid.Column="1"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center">
+                <Label Text="Already have an account"
+                   FontSize="14" 
+                   TextColor="#49454F" 
+                   HorizontalOptions="Center" />
+                
+                <!--Log in button-->
+                <Button Text="Log in" 
+                    FontSize="14" 
+                    FontAttributes="Bold"
+                    BackgroundColor="Transparent" 
+                    TextColor="#4F378A" 
+                    HorizontalOptions="Center"
+                    Command="{Binding LogInCommand}"/>
 
-         <!--Divider--> 
-        <StackLayout Grid.Row="3" Grid.Column="1" Margin ="50" Spacing="15">
-            <BoxView 
-             HeightRequest="1"
-             WidthRequest="380"
-             BackgroundColor="#CAC4D0" 
-             HorizontalOptions="Fill" />
-            <Label Text="Or" 
-                FontSize="16" 
-                TextColor="#49454F" 
-                HorizontalOptions="Center" />
-
-        </StackLayout>
-
-         <!--Social Login Buttons 
-        <StackLayout Grid.Row="4" Grid.Column="1"
-                  Orientation="Horizontal" 
-                  Spacing="60"
-                  HorizontalOptions="Center">
-       
-            Facebook
-            <ImageButton
-             Source="facebook_icon.png"
-             WidthRequest="15"
-             HeightRequest="15"
-          />
-            
-             Google
-            <ImageButton
-             Source="google_icon.png"
-             WidthRequest="15"
-             HeightRequest="15"
-          />
-            
-            Apple
-            <ImageButton
-             Source="apple_icon.png"
-             WidthRequest="15"
-             HeightRequest="15"
-          />
-
-        </StackLayout>-->
-        
-        <!--Already have an account-->
-        <StackLayout Grid.Row="4" Grid.Column="1"
-                 VerticalOptions="Center"
-                 HorizontalOptions="Center"
-                >
-            <Label Text="Already have an account"
-               FontSize="14" 
-               TextColor="#49454F" 
-               HorizontalOptions="Center" />
-            
-            <!--Log in button-->
-            <Button Text="Log in" 
-                FontSize="14" 
-                FontAttributes="Bold"
-                BackgroundColor="Transparent" 
-                TextColor="#4F378A" 
-                HorizontalOptions="Center"
-                Command="{Binding LogInCommand}"/>
-
-        </StackLayout>
-    </Grid>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

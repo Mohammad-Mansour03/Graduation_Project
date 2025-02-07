@@ -1,4 +1,6 @@
 ﻿using HojozatyCode.Pages;
+using HojozatyCode.Services;
+using System.Threading.Tasks;
 
 namespace HojozatyCode
 {
@@ -7,7 +9,12 @@ namespace HojozatyCode
         public App()
         {
             InitializeComponent();
+            InitializeSupabaseAsync();
+        }
 
+        private async void InitializeSupabaseAsync()
+        {
+            await SupabaseConfig.InitializeAsync();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
