@@ -2,13 +2,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
-using Supabase;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using BCrypt.Net; // Add this namespace
+using System.Text.RegularExpressions;
+
 
 namespace HojozatyCode.ViewModels
 {
@@ -74,21 +70,35 @@ namespace HojozatyCode.ViewModels
         {
             try
             {
-                // Validate the user input
-                var validationContext = new ValidationContext(User);
-                var validationResults = new List<ValidationResult>();
-                bool isValid = Validator.TryValidateObject(User, validationContext, validationResults, true);
+                // // Validate the user input
+                // var validationContext = new ValidationContext(User);
+                // var validationResults = new List<ValidationResult>();
+                // bool isValid = Validator.TryValidateObject(User, validationContext, validationResults, true);
 
-                if (!isValid)
-                {
-                    ErrorMessage = string.Join("\n", validationResults.Select(r => r.ErrorMessage));
-                    return;
-                }
+                // if (!isValid)
+                // {
+                //     ErrorMessage = string.Join("\n", validationResults.Select(r => r.ErrorMessage));
+                //     return;
+                // }
 
                 // Check if passwords match
                 if (User.Password != ConfirmPassword)
                 {
                     ErrorMessage = "Passwords do not match";
+                    return;
+                }
+                
+                // Check email pattern
+                if (!Regex.IsMatch(User.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    ErrorMessage = "Invalid email format";
+                    return;
+                }
+
+                // Check password pattern
+                if (!Regex.IsMatch(User.Password, @"^.{8,}$"))
+                {
+                    ErrorMessage = "Password must be at least 8 characters long";
                     return;
                 }
 
