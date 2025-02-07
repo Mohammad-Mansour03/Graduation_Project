@@ -17,7 +17,7 @@ namespace HojozatyCode
             await SupabaseConfig.InitializeAsync();
         }
 
-        protected override Window CreateWindow(IActivationState? activationState)
+        protected override Window CreateWindow(IActivationState activationState)
         {
             return new Window(new AppShell());
         }

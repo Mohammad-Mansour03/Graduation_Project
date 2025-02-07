@@ -5,7 +5,7 @@ namespace HojozatyCode.Services
 {
     public static class SupabaseConfig
     {
-        public static Client? SupabaseClient { get; private set; }
+        public static Client SupabaseClient { get; private set; }
 
         public static async Task InitializeAsync()
         {

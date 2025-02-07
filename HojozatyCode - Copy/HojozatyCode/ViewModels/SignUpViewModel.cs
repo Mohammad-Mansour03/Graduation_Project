@@ -14,6 +14,7 @@ namespace HojozatyCode.ViewModels
 {
     public partial class SignUpViewModel : ObservableObject
     {
+
         [ObservableProperty]
         private bool isHiddenPassword = true;
 
@@ -30,7 +31,7 @@ namespace HojozatyCode.ViewModels
         public string EyeIconConfirmPasswordSource => IsHiddenConfirmPassword ? "eye_off_icon.png" : "eye_on_icon.png";
 
         [ObservableProperty]
-        private string confirmPassword;
+        private string confirmPassword = string.Empty;
 
         [ObservableProperty]
         private string errorMessage;
@@ -68,14 +69,15 @@ namespace HojozatyCode.ViewModels
         }
 
         [RelayCommand]
-        private async Task SignUpAsync()
+		[Obsolete]
+		private async Task SignUpAsync()
         {
             try
             {
                 // Validate the user input
-                var validationContext = new ValidationContext(user);
+                var validationContext = new ValidationContext(User);
                 var validationResults = new List<ValidationResult>();
-                bool isValid = Validator.TryValidateObject(user, validationContext, validationResults, true);
+                bool isValid = Validator.TryValidateObject(User, validationContext, validationResults, true);
 
                 if (!isValid)
                 {
@@ -84,27 +86,28 @@ namespace HojozatyCode.ViewModels
                 }
 
                 // Check if passwords match
-                if (user.Password != ConfirmPassword)
+                if (User.Password != ConfirmPassword)
                 {
                     ErrorMessage = "Passwords do not match";
                     return;
                 }
 
-                var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(user.Email, user.Password);
+                var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(User.Email, User.Password);
                 if (response.User != null)
                 {
-                    user.Id = response.User.Id;
-                    user.DateCreated = DateTime.UtcNow;
+                    User.Id = response.User.Id;
+                    User.DateCreated = DateTime.UtcNow;
                     // Hash the password before saving
-                    user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                    User.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
                     // Save additional user information to Supabase
-                    await SupabaseConfig.SupabaseClient.From<User>().Insert(user);
+                    await SupabaseConfig.SupabaseClient.From<User>().Insert(User);
                     await Shell.Current.GoToAsync(nameof(Pages.HomePage));
                 }
                 else
                 {
                     // Handle error
-                    await Application.Current.MainPage.DisplayAlert("Sign Up Failed", "An error occurred during sign up. Please try again.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Sign Up Failed", 
+                        "An error occurred during sign up. Please try again.", "OK");
                 }
             }
             catch (Exception ex)
