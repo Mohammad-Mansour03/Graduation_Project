@@ -11,7 +11,8 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 </ResourceDictionary.MergedDictionaries>
                   <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
-           
+                  <converters:GenderToBooleanConverter x:Key="GenderToBooleanConverter"/>
+              
         </ResourceDictionary>
     </Application.Resources>
 </Application>

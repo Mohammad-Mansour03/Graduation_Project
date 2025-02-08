@@ -53,7 +53,8 @@
 
                 <Entry  Placeholder="Email" 
                         FontSize="18" 
-                        TextColor="Black"/>
+                        TextColor="Black"
+                        Text="{Binding EmailL}"/>
             </Border>
 
             <!-- Password Entry -->
@@ -73,7 +74,8 @@
                            FontSize="18" 
                            IsPassword="{Binding IsHiddenPassword,Mode=TwoWay}"
                            TextColor="Black"
-                           Grid.Column="0"/>
+                           Grid.Column="0"
+                           Text="{Binding PasswordL}"/>
                     
                     <!--The eye password icon-->
                     <ImageButton Source="{Binding EyeIconSource}" 

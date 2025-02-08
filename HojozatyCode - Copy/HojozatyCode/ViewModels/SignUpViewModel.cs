@@ -121,7 +121,12 @@ namespace HojozatyCode.ViewModels
              
                 if (response.User != null)
                 {
-                    await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
+                    var session = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailF, PasswordF);
+
+                    if (session != null)
+                    {
+                        await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
+                    }
                 }
                 else
                 {

@@ -31,9 +31,9 @@ namespace HojozatyCode.Models
         [Column("phone")]
         public string PhoneC { get; set; }
 
-        //[Required(ErrorMessage = "Password is required")]
-        //[Column("password")]
-        //public string Password { get; set; }
+        //[required(errormessage = "password is required")]
+        //[column("password")]
+        //public string password { get; set; }
 
         [Required(ErrorMessage = "Age is required")]
         [Range(1, 120, ErrorMessage = "Age must be between 1 and 120")]
