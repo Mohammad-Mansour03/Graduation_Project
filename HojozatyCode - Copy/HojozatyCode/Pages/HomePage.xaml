@@ -172,9 +172,8 @@
                                    WidthRequest="50" 
                                    HeightRequest="50"/>
                             <Label Text="Cultural Events"
-                                   FontSize="14" 
+                                   FontSize="13" 
                                    HorizontalOptions="Center"
-                             
                                    TextColor="black"
                                    FontAttributes="Bold"/>
                         </VerticalStackLayout>
