@@ -46,8 +46,15 @@ namespace HojozatyCode.ViewModels
         [RelayCommand]
         private async Task NavigateToExplore()
         {
-            Console.WriteLine("Explore button clicked!"); // Debug log
-            await Shell.Current.GoToAsync(nameof(Pages.ExplorePage));
+            try
+            {
+                await Shell.Current.GoToAsync(nameof(Pages.ExplorePage));
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+                Console.WriteLine($"Navigation Error: {ex.Message}");
+            }
         }
     }
 }
