@@ -3,7 +3,7 @@
              x:Class="HojozatyCode.Pages.ExplorePage"
              Title="ExplorePage">
 	<ScrollView>
-		<VerticalStackLayout Padding="20" Spacing="20">
+		<VerticalStackLayout Padding="12" Spacing="90">
 
 			<!-- Location Section -->
 			<VerticalStackLayout>
@@ -23,57 +23,37 @@
 			</VerticalStackLayout>
 
 			<!-- Activity Section -->
-			<VerticalStackLayout>
-				<Label Text="Activity"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       TextColor="#333" />
-				<Grid ColumnDefinitions="*, *, *"
-                      RowSpacing="10"
-                      ColumnSpacing="10">
-					<Button Text="Formal" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="0" />
-					<Button Text="Casual" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="1" />
-					<Button Text="Professional" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="2" />
-					<Button Text="Indoor" Style="{StaticResource FilterButtonStyle}" Grid.Row="1" Grid.Column="0" />
-					<Button Text="Outdoor" Style="{StaticResource FilterButtonStyle}" Grid.Row="1" Grid.Column="1" />
-					<Button Text="Conference" Style="{StaticResource FilterButtonStyle}" Grid.Row="1" Grid.Column="2" />
-					<Button Text="Celebration" Style="{StaticResource FilterButtonStyle}" Grid.Row="2" Grid.Column="0" />
-					<Button Text="Entertainment" Style="{StaticResource FilterButtonStyle}" Grid.Row="2" Grid.Column="1" />
-				</Grid>
-			</VerticalStackLayout>
+            <Label Text="Activity" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <VerticalStackLayout>
+                <RadioButton GroupName="Activity" Content="Formal"/>
+                <RadioButton GroupName="Activity" Content="Casual"/>
+                <RadioButton GroupName="Activity" Content="Professional"/>
+                <RadioButton GroupName="Activity" Content="Indoor"/>
+                <RadioButton GroupName="Activity" Content="Outdoor"/>
+                <RadioButton GroupName="Activity" Content="Conference"/>
+                <RadioButton GroupName="Activity" Content="Celebration"/>
+                <RadioButton GroupName="Activity" Content="Entertainment"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
 
 			<!-- Duration Section -->
-			<VerticalStackLayout>
-				<Label Text="Duration"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       TextColor="#333" />
-				<Grid ColumnDefinitions="*, *, *, *"
-                      RowSpacing="10"
-                      ColumnSpacing="10">
-					<Button Text="Hourly" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="0" />
-					<Button Text="Full-Day" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="1" />
-					<Button Text="Half-Day" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="2" />
-					<Button Text="Long-Term" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="3" />
-				</Grid>
-			</VerticalStackLayout>
+        <<Label Text="Duration" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <VerticalStackLayout>
+                <RadioButton GroupName="Duration" Content="Hourly"/>
+                <RadioButton GroupName="Duration" Content="Full-Day"/>
+                <RadioButton GroupName="Duration" Content="Half-Day"/>
+                <RadioButton GroupName="Duration" Content="Long-Term"/>
+            </VerticalStackLayout>
 
-			<!-- Size/Capacity Section -->
-			<VerticalStackLayout>
-				<Label Text="Size/Capacity"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       TextColor="#333" />
-				<Grid ColumnDefinitions="*, *, *"
-                      RowSpacing="10"
-                      ColumnSpacing="10">
-					<Button Text="Small (10-50)" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="0" />
-					<Button Text="Medium (50-200)" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="1" />
-					<Button Text="Large (200+)" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="2" />
-				</Grid>
-			</VerticalStackLayout>
+            <!-- Size/Capacity Section -->
+            <Label Text="Size/Capacity" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <VerticalStackLayout>
+                <RadioButton GroupName="Size" Content="Small (10-50)"/>
+                <RadioButton GroupName="Size" Content="Medium (50-200)"/>
+                <RadioButton GroupName="Size" Content="Large (200+)"/>
+            </VerticalStackLayout>
 
-			<!-- Apply Button -->
+            <!-- Apply Button -->
 			<Button Text="Apply"
                     BackgroundColor="#333"
                     TextColor="White"
