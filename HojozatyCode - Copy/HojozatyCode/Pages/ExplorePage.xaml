@@ -1,66 +1,138 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ExplorePage"
-             Title="ExplorePage">
+             Title="Explore"
+             BackgroundColor="#F5F5F5">
+
     <ScrollView>
-        <VerticalStackLayout Padding="12" Spacing="20">
+        <VerticalStackLayout Padding="20,16" Spacing="24">
 
             <!-- Location Section -->
-            <VerticalStackLayout>
+            <VerticalStackLayout Spacing="8">
                 <Label Text="Location"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       TextColor="#333" />
-                <Frame BackgroundColor="#EEE"
-                       CornerRadius="10"
-                       Padding="10"
-                       HasShadow="False"
-                       BorderColor="#CCC">
-                    <Label Text="Amman"
-                           FontSize="14"
-                           TextColor="#666" />
-                </Frame>
+                       Style="{StaticResource SectionHeaderStyle}"/>
+                <Border Stroke="#E0E0E0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="White"
+                        Padding="16,12">
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="location_pin.png"
+                               HeightRequest="20"
+                               WidthRequest="20"/>
+                        <Label Text="Amman"
+                               FontSize="16"
+                               TextColor="#424242"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
             </VerticalStackLayout>
 
             <!-- Activity Section -->
-            <Label Text="Activity" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
-            <VerticalStackLayout>
-                <RadioButton GroupName="Activity" Content="Formal"/>
-                <RadioButton GroupName="Activity" Content="Casual"/>
-                <RadioButton GroupName="Activity" Content="Professional"/>
-                <RadioButton GroupName="Activity" Content="Indoor"/>
-                <RadioButton GroupName="Activity" Content="Outdoor"/>
-                <RadioButton GroupName="Activity" Content="Conference"/>
-                <RadioButton GroupName="Activity" Content="Celebration"/>
-                <RadioButton GroupName="Activity" Content="Entertainment"/>
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Activity" 
+                       Style="{StaticResource SectionHeaderStyle}"/>
+                <FlexLayout Wrap="Wrap" AlignItems="Start" JustifyContent="Start">
+                    <!-- Activity Items -->
+                    <Border Style="{StaticResource FilterChipStyle}">
+                        <HorizontalStackLayout Spacing="8" Padding="16,10">
+                            <CheckBox Color="#2196F3"/>
+                            <Label Text="Formal" FontSize="14" TextColor="#424242"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <Border Style="{StaticResource FilterChipStyle}">
+                        <HorizontalStackLayout Spacing="8" Padding="16,10">
+                            <CheckBox Color="#2196F3"/>
+                            <Label Text="Casual" FontSize="14" TextColor="#424242"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <Border Style="{StaticResource FilterChipStyle}">
+                        <HorizontalStackLayout Spacing="8" Padding="16,10">
+                            <CheckBox Color="#2196F3"/>
+                            <Label Text="Professional" FontSize="14" TextColor="#424242"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <!-- Add remaining activity items similarly -->
+                </FlexLayout>
             </VerticalStackLayout>
 
             <!-- Duration Section -->
-            <Label Text="Duration" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
-            <VerticalStackLayout>
-                <RadioButton GroupName="Duration" Content="Hourly"/>
-                <RadioButton GroupName="Duration" Content="Full-Day"/>
-                <RadioButton GroupName="Duration" Content="Half-Day"/>
-                <RadioButton GroupName="Duration" Content="Long-Term"/>
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Duration" 
+                       Style="{StaticResource SectionHeaderStyle}"/>
+                <FlexLayout Wrap="Wrap" AlignItems="Start" JustifyContent="Start">
+                    <Border Style="{StaticResource FilterChipStyle}">
+                        <HorizontalStackLayout Spacing="8" Padding="16,10">
+                            <CheckBox Color="#2196F3"/>
+                            <Label Text="Hourly" FontSize="14" TextColor="#424242"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <!-- Add other duration items similarly -->
+                </FlexLayout>
             </VerticalStackLayout>
 
             <!-- Size/Capacity Section -->
-            <Label Text="Size/Capacity" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
-            <VerticalStackLayout>
-                <RadioButton GroupName="Size" Content="Small (10-50)"/>
-                <RadioButton GroupName="Size" Content="Medium (50-200)"/>
-                <RadioButton GroupName="Size" Content="Large (200+)"/>
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Size/Capacity" 
+                       Style="{StaticResource SectionHeaderStyle}"/>
+                <FlexLayout Wrap="Wrap" AlignItems="Start" JustifyContent="Start">
+                    <Border Style="{StaticResource FilterChipStyle}">
+                        <HorizontalStackLayout Spacing="8" Padding="16,10">
+                            <CheckBox Color="#2196F3"/>
+                            <Label Text="Small (10-50)" FontSize="14" TextColor="#424242"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <!-- Add other size items similarly -->
+                </FlexLayout>
             </VerticalStackLayout>
 
             <!-- Apply Button -->
-            <Button Text="Apply"
-                    BackgroundColor="#333"
-                    TextColor="White"
-                    FontSize="16"
-                    CornerRadius="10"
-                    HeightRequest="50"
-                    HorizontalOptions="FillAndExpand" />
+            <Button Text="Apply Filters"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Margin="0,20"/>
 
         </VerticalStackLayout>
     </ScrollView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Section Header Style -->
+            <Style x:Key="SectionHeaderStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="#212121"/>
+            </Style>
+
+            <!-- Filter Chip Style -->
+            <Style x:Key="FilterChipStyle" TargetType="Border">
+                <Setter Property="Margin" Value="0,0,8,8"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="Stroke" Value="#E0E0E0"/>
+                <Setter Property="StrokeThickness" Value="1"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
+            </Style>
+
+            <!-- Primary Button Style -->
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#2196F3"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#1976D2"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 </ContentPage>
