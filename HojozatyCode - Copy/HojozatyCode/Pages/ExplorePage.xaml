@@ -2,27 +2,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ExplorePage"
              Title="ExplorePage">
-	<ScrollView>
-		<VerticalStackLayout Padding="12" Spacing="90">
+    <ScrollView>
+        <VerticalStackLayout Padding="12" Spacing="20">
 
-			<!-- Location Section -->
-			<VerticalStackLayout>
-				<Label Text="Location"
+            <!-- Location Section -->
+            <VerticalStackLayout>
+                <Label Text="Location"
                        FontSize="16"
                        FontAttributes="Bold"
                        TextColor="#333" />
-				<Frame BackgroundColor="#EEE"
+                <Frame BackgroundColor="#EEE"
                        CornerRadius="10"
                        Padding="10"
                        HasShadow="False"
                        BorderColor="#CCC">
-					<Label Text="Amman"
+                    <Label Text="Amman"
                            FontSize="14"
                            TextColor="#666" />
-				</Frame>
-			</VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
 
-			<!-- Activity Section -->
+            <!-- Activity Section -->
             <Label Text="Activity" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
             <VerticalStackLayout>
                 <RadioButton GroupName="Activity" Content="Formal"/>
@@ -34,10 +34,9 @@
                 <RadioButton GroupName="Activity" Content="Celebration"/>
                 <RadioButton GroupName="Activity" Content="Entertainment"/>
             </VerticalStackLayout>
-        </VerticalStackLayout>
 
-			<!-- Duration Section -->
-        <<Label Text="Duration" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <!-- Duration Section -->
+            <Label Text="Duration" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
             <VerticalStackLayout>
                 <RadioButton GroupName="Duration" Content="Hourly"/>
                 <RadioButton GroupName="Duration" Content="Full-Day"/>
@@ -54,13 +53,14 @@
             </VerticalStackLayout>
 
             <!-- Apply Button -->
-			<Button Text="Apply"
+            <Button Text="Apply"
                     BackgroundColor="#333"
                     TextColor="White"
                     FontSize="16"
                     CornerRadius="10"
                     HeightRequest="50"
                     HorizontalOptions="FillAndExpand" />
-		</VerticalStackLayout>
-	</ScrollView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
