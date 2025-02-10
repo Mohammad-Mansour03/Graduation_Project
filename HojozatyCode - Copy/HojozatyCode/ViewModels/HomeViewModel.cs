@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace HojozatyCode.ViewModels
 {
@@ -41,6 +40,14 @@ namespace HojozatyCode.ViewModels
                 await Shell.Current.DisplayAlert("Error", $"Error fetching venues: {ex.Message}", "OK");
                 Console.WriteLine($"Error fetching venues: {ex.Message}");
             }
+        }
+
+        // Navigation Command
+        [RelayCommand]
+        private async Task NavigateToExplore()
+        {
+            Console.WriteLine("Explore button clicked!"); // Debug log
+            await Shell.Current.GoToAsync(nameof(Pages.ExplorePage));
         }
     }
 }

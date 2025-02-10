@@ -236,12 +236,13 @@
                       
                         <!--Explore Button-->
                         <Button Text="Explore" 
-                                BackgroundColor="#E85C4A" 
-                                TextColor="White" 
-                                CornerRadius="30" 
-                                HorizontalOptions="Start"
-                                WidthRequest="90" 
-                                Margin="0,15,0,0"/>
+                         BackgroundColor="#E85C4A" 
+                            TextColor="White" 
+                            CornerRadius="30" 
+                            HorizontalOptions="Start"
+                            WidthRequest="90" 
+                           Margin="0,15,0,0"
+                           Command="{Binding NavigateToExploreCommand}"/>
                     </VerticalStackLayout>
 
                     <!-- Image Positioned to the Right -->
