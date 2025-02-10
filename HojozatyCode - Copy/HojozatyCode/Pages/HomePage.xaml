@@ -78,9 +78,7 @@
                             WidthRequest="100" 
                             HeightRequest="100"
                             BackgroundColor="#ECE6EE"
-                            Padding="5"
-                           
-                            >
+                            Padding="5">
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center" 
                                              Spacing="5">
@@ -98,7 +96,6 @@
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToLogInPageCommand}"/>
                         </Border.GestureRecognizers>
-                   
                     </Border>
 
                     <!--Meeting Activity-->
@@ -106,7 +103,7 @@
                             WidthRequest="100" 
                             HeightRequest="100" 
                             BackgroundColor="#ECE6EE"
-                            Padding="5" >
+                            Padding="5">
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
@@ -146,7 +143,7 @@
                             WidthRequest="100" 
                             HeightRequest="100" 
                             BackgroundColor="#ECE6EE"
-                            Padding="5" >
+                            Padding="5">
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
@@ -204,203 +201,61 @@
                 FontFamily="Montserrat"
                 Margin="10,0,0,0"
                 FontSize="22"
-                FontAttributes="Bold"
-                />
+                FontAttributes="Bold"/>
 
-            <!--The Castle Hotel (Space1)-->
-            <Border StrokeShape="RoundRectangle 15"  >
-                <Grid>
-                    <!-- Background Image -->
-                    <Image Source="hotel.jpg"
-                       Aspect="AspectFill"
-                       HeightRequest="192"
-                       WidthRequest="363"
-                      />
-
-                    <!-- Dark overlay for better contrast -->
-                    <BoxView BackgroundColor="Black"
-                     Opacity="0.3"
-                     CornerRadius="15"/>
-
-                    <!-- Hotel Name -->
-                    <Label Text="The Castle Hotel"
-                           TextColor="White"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           Margin="15,15,0,0"
-                           HorizontalOptions="Start"
-                           VerticalOptions="Start"/>
-
-                    <!-- Wedding Icon (Top-Right) -->
-                    <Image Source="wedding_icon_2.png"
-                           WidthRequest="25"
-                           HeightRequest="25"
-                           Margin="0,15,15,0"
-                           HorizontalOptions="End"
-                           VerticalOptions="Start"/>
-
-                    <!-- Price Tag -->
-                    <Border BackgroundColor="#493971"
-                            StrokeShape="RoundRectangle 10"
-                            Padding="10"
-                            Margin="-50,0,0,-100"
-                            HorizontalOptions="StartAndExpand"
-                            VerticalOptions="CenterAndExpand">
-                        <Label Text="From 1800$/2Hr"
-                               TextColor="White"
-                               Padding="50,0,10,0"     
-                               FontSize="15"/>
-                    </Border>
-
-                    <!-- Rating Section -->
-                    <HorizontalStackLayout HorizontalOptions="End"
-                                           VerticalOptions="End"
-                                           Margin="0,0,10,10">
-
-                        <Label Text="5.0"
-                               TextColor="White"
-                               FontSize="14"/>
-
-                        <Label Text="★"
-                       TextColor="Gold"
-                       FontSize="14"/>
-
-                        <Label Text="(2 ratings)"
-                               TextColor="White"
-                               FontSize="14"/>
-                    </HorizontalStackLayout>
-                </Grid>
-            </Border>
-            
-            <!--Meeting Space (Second Space)-->
-            <Border StrokeShape="RoundRectangle 15"  >
-                <Grid>
-                    <!-- Background Image -->
-                    <Image Source="meeting_place.jpg"
-                       Aspect="AspectFill"
-                       HeightRequest="192"
-                       WidthRequest="363"
-                      />
-
-                    <!-- Dark overlay for better contrast -->
-                    <BoxView BackgroundColor="Black"
-                     Opacity="0.3"
-                     CornerRadius="15"/>
-
-                    <!-- Hotel Name -->
-                    <Label Text="Zain bent al husain"
-                           TextColor="White"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           Margin="15,15,0,0"
-                           HorizontalOptions="Start"
-                           VerticalOptions="Start"/>
-
-                    <!-- Wedding Icon (Top-Right) -->
-                    <Image Source="meeting_icon_2.png"
-                           WidthRequest="25"
-                           HeightRequest="25"
-                           Margin="0,15,15,0"
-                           HorizontalOptions="End"
-                           VerticalOptions="Start"/>
-
-                    <!-- Price Tag -->
-                    <Border BackgroundColor="#493971"
-                            StrokeShape="RoundRectangle 10"
-                            Padding="10"
-                            Margin="-50,0,0,-100"
-                            HorizontalOptions="StartAndExpand"
-                            VerticalOptions="CenterAndExpand">
-                        <Label Text="From 25$/1Hr"
-                               TextColor="White"
-                               Padding="50,0,10,0"     
-                               FontSize="15"/>
-                    </Border>
-
-                    <!-- Rating Section -->
-                    <HorizontalStackLayout HorizontalOptions="End"
-                                           VerticalOptions="End"
-                                           Margin="0,0,10,10">
-
-                        <Label Text="5.0"
-                               TextColor="White"
-                               FontSize="14"/>
-
-                        <Label Text="★"
-                       TextColor="Gold"
-                       FontSize="14"/>
-
-                        <Label Text="(2 ratings)"
-                               TextColor="White"
-                               FontSize="14"/>
-                    </HorizontalStackLayout>
-                </Grid>
-            </Border>        
-            
-            <!--Farm Space (Third Space)-->
-            <Border StrokeShape="RoundRectangle 15"  >
-                <Grid>
-                    <!-- Background Image -->
-                    <Image Source="farm_place.jpg"
-                       Aspect="AspectFill"
-                       HeightRequest="192"
-                       WidthRequest="363"
-                      />
-
-                    <!-- Dark overlay for better contrast -->
-                    <BoxView BackgroundColor="Black"
-                     Opacity="0.3"
-                     CornerRadius="15"/>
-
-                    <!-- Hotel Name -->
-                    <Label Text="Ayla Farm"
-                           TextColor="White"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           Margin="15,15,0,0"
-                           HorizontalOptions="Start"
-                           VerticalOptions="Start"/>
-
-                    <!-- Wedding Icon (Top-Right) -->
-                    <Image Source="entertainment_icon.png"
-                           WidthRequest="25"
-                           HeightRequest="25"
-                           Margin="0,15,15,0"
-                           HorizontalOptions="End"
-                           VerticalOptions="Start"/>
-
-                    <!-- Price Tag -->
-                    <Border BackgroundColor="#493971"
-                            StrokeShape="RoundRectangle 10"
-                            Padding="10"
-                            Margin="-50,0,0,-100"
-                            HorizontalOptions="StartAndExpand"
-                            VerticalOptions="CenterAndExpand">
-                        <Label Text="From 180$/12Hr"
-                               TextColor="White"
-                               Padding="50,0,10,0"     
-                               FontSize="15"/>
-                    </Border>
-
-                    <!-- Rating Section -->
-                    <HorizontalStackLayout HorizontalOptions="End"
-                                           VerticalOptions="End"
-                                           Margin="0,0,10,10">
-
-                        <Label Text="5.0"
-                               TextColor="White"
-                               FontSize="14"/>
-
-                        <Label Text="★"
-                       TextColor="Gold"
-                       FontSize="14"/>
-
-                        <Label Text="(2 ratings)"
-                               TextColor="White"
-                               FontSize="14"/>
-                    </HorizontalStackLayout>
-                </Grid>
-            </Border>
+            <!-- Venues List -->
+            <CollectionView ItemsSource="{Binding TopVenues}"
+                            Margin="16,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,8"
+                                Padding="0"
+                                StrokeShape="RoundRectangle 12">
+                            <Grid RowDefinitions="Auto,Auto">
+                                <Grid>
+                                    <Image Source="meeting_place.jpg"
+                                           Aspect="AspectFill"
+                                           HeightRequest="200"/>
+                                    <ImageButton Source="heart_icon.png"
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ToggleFavoriteCommand}"
+                                                 CommandParameter="{Binding}"
+                                                 HorizontalOptions="End"
+                                                 Margin="16"/>
+                                </Grid>
+                                <Grid Grid.Row="1" Padding="16" RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                                    <Label Text="{Binding VenueName}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="Black"/>
+                                    <Label Grid.Row="1"
+                                           Text="{Binding Location}"
+                                           TextColor="Gray"/>
+                                    
+                                    <StackLayout Grid.Column="1" Grid.RowSpan="2">
+                                        <Label Text="{Binding InitialPrice, StringFormat='From {0}JD/hr'}"
+                                               HorizontalOptions="End"
+                                               TextColor="Black"/>
+                                        <HorizontalStackLayout Spacing="4">
+                                            <Image Source="capacity_icon.png"
+                                                   HeightRequest="16"/>
+                                            <Label Text="{Binding Capacity}"
+                                                   TextColor="Black"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Spacing="4">
+                                            <Image Source="star_icon.png"
+                                                   HeightRequest="16"/>
+                                            <Label Text="{Binding Rating}"
+                                                   TextColor="Black"/>
+                                            <Label Text="{Binding Reviews, StringFormat='({0})'}"
+                                                   TextColor="Gray"/>
+                                        </HorizontalStackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
         </StackLayout>
     </ScrollView>
