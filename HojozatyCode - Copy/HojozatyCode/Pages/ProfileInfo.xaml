@@ -162,14 +162,14 @@
                     Content="female"
                     GroupName="gender"
                     TextColor="#666666"
-                    IsChecked="{Binding User.Gender, 
+                    IsChecked="{Binding GenderP, 
                     Converter={StaticResource GenderToBooleanConverter}, ConverterParameter=Female}"/>
 
                 <!--Male Radio button-->
                 <RadioButton 
                     Content="male"
                     GroupName="gender"
-                   IsChecked="{Binding User.Gender, 
+                   IsChecked="{Binding GenderP, 
                     Converter={StaticResource GenderToBooleanConverter}, ConverterParameter=Male}"
                     TextColor="#666666"/>
             </VerticalStackLayout>

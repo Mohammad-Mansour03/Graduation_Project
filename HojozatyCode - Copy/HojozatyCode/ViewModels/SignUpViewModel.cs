@@ -11,44 +11,55 @@ namespace HojozatyCode.ViewModels
     public partial class SignUpViewModel : ObservableObject
     {
 
+        //Properety to Check if the password hidden or not
         [ObservableProperty]
         private bool isHiddenPassword = true;
 
-        [ObservableProperty]
+
+		//Properety to Check if the confirm password hidden or not
+		[ObservableProperty]
         private bool isHiddenConfirmPassword = true;
 
-        public string EyeIconPasswordSource => IsHiddenPassword ? "eye_off_icon.png" : "eye_on_icon.png";
-    
-        public string EyeIconConfirmPasswordSource => IsHiddenConfirmPassword ? "eye_off_icon.png" : "eye_on_icon.png";
 
-        [ObservableProperty]
-        private string confirmPassword;
+		//Properety to Check what the eye icon appear
+		public string EyeIconPasswordSource => IsHiddenPassword ? "eye_off_icon.png" : "eye_on_icon.png";
 
+
+		//Properety to Check what the eye icon appear
+		public string EyeIconConfirmPasswordSource => IsHiddenConfirmPassword ? "eye_off_icon.png" : "eye_on_icon.png";
+
+        //Properety to soter the error that appear to the user
         [ObservableProperty]
         private string errorMessage;
 
-
+        //Properety to store the email that user entered
         [ObservableProperty]
         private string emailF;
 
+        //Properety to store the password that user entered
         [ObservableProperty]
         private string passwordF;
-        
-        [ObservableProperty]
+
+
+		//Properety to Store the confirm password that user entered
+		[ObservableProperty]
         private string confirmPasswordF;
 
+        //Command to navigate you to the log in page
 		[RelayCommand]
         private async Task LogInAsync()
         {
             await Shell.Current.GoToAsync(nameof(Pages.LogInPage));
         }
 
+        //Command to navigate you to the log in sign up page (By the previous arrow)
         [RelayCommand]
         private async Task ReturnToThePreviousAsync()
         {
             await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
         }
 
+        //Method to change the password state 
         [RelayCommand]
         private void TogglePasswordVisibility()
         {
@@ -59,7 +70,9 @@ namespace HojozatyCode.ViewModels
             OnPropertyChanged(nameof(EyeIconPasswordSource));
         }
 
-        [RelayCommand]
+
+		//Method to change the password state 
+		[RelayCommand]
         private void ToggleConfirmPasswordVisibility()
         {
             //Toggle Visibility
@@ -69,25 +82,28 @@ namespace HojozatyCode.ViewModels
             OnPropertyChanged(nameof(EyeIconConfirmPasswordSource));
         }
 
+        //Command the have the Sign Up logic and add the user to the database 
         [RelayCommand]
 		private async Task SignUpAsync()
         {
             try
             { 
-                // Check email 
+                // Check if email null 
                 if (EmailF == null)
                 {
                     ErrorMessage = "Please Enter your email";
                     return;
                 }
 
+                //Check if the email that user entered has right format
                 else
-                if (!Regex.IsMatch(EmailF, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                if (!Regex.IsMatch(EmailF, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$"))
                 {
                     ErrorMessage = "Please Enter Valid email";
                     return;
                 }
 
+                //Check if the Password is null
                 else
                 if (PasswordF == null)
                 {
@@ -95,14 +111,17 @@ namespace HojozatyCode.ViewModels
                     return;
                 }
 
-                else
-                // Check password pattern
-                if (!Regex.IsMatch(PasswordF, @"^.{8,}$"))
+
+				// Check password pattern
+				else
+				if (!Regex.IsMatch(PasswordF, @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$"))
                 {
-                    ErrorMessage = "Password must be at least 8 characters long";
+                    ErrorMessage = "Password must be at least 8 characters long\nAt least on capital letter\nAt least one small letter"
+                        + "\nAt least one number\nAt least one special character";
                     return;
                 }
 
+                //Check if the confirm password is null
                 if (ConfirmPasswordF == null) 
                 {
                     ErrorMessage = "Please enter confirm password";
@@ -110,15 +129,17 @@ namespace HojozatyCode.ViewModels
                 }
 
                 else 
-				// Check if passwords match
+				// Check if Confirm Password match the Password
 				if (!PasswordF.Equals(ConfirmPasswordF))
                 {
-                    ErrorMessage = "Passwords doesn't not match";
+                    ErrorMessage = "The Confirm Password doesn't match Password";
                     return;
                 }
                 
+                //Store the User in the database (Email and Password)
                 var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(EmailF, PasswordF);
-             
+                
+                //If the user already tored navigate the user to the profile info page
                 if (response.User != null)
                 {
                     var session = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailF, PasswordF);

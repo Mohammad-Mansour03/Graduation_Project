@@ -96,6 +96,7 @@
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToLogInPageCommand}"/>
                         </Border.GestureRecognizers>
+                        
                     </Border>
 
                     <!--Meeting Activity-->

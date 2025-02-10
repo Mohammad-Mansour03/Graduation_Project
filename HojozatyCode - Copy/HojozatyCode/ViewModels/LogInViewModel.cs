@@ -7,31 +7,41 @@ namespace HojozatyCode.ViewModels
 {
     public partial class LogInViewModel : ObservableObject
     {
-        [ObservableProperty]
+		//Properety to Check if the password hidden or not
+		[ObservableProperty]
         private bool isHiddenPassword = true;
         
+        //Properety to sotre the User email
         [ObservableProperty]
         private string emailL;
-        
-        [ObservableProperty]
+
+		//Properety to sotre the User password
+		[ObservableProperty]
         private string passwordL;
 
         //Property to change eye icon dynamically
        public string EyeIconSource => IsHiddenPassword ? "eye_off_icon.png":"eye_on_icon.png";
 
-        [RelayCommand]
+		//Properety to soter the error that appear to the user
+		[ObservableProperty]
+		private string errorMessage;
+
+		//Commant to navigate you to the Sign up Page
+		[RelayCommand]
         private async Task SignUpAsync()
         {
             await Shell.Current.GoToAsync(nameof(Pages.SignUpPage));
         }
 
+        //Command to navigate you to the Login Sign up page (For the Previous arrow)
         [RelayCommand]
         private async Task ReturnToThePreviousAsync()
         {
             await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
         }
 
-        [RelayCommand]
+        //Method to change the password state 
+		[RelayCommand]
         private void TogglePasswordVisibility()
         {
             //Toggle visibility
@@ -42,11 +52,26 @@ namespace HojozatyCode.ViewModels
 
         }
 
+        //Make the Login logic for the program
         [RelayCommand]
         private async Task LogInAsync()
         {
 			try
 			{
+				//Check if the Email is null
+				if (EmailL == null)
+				{
+					ErrorMessage = "Please Enter your email";
+					return;
+				}
+
+				//Check if the Password is null	
+				if (PasswordL == null) 
+				{
+					ErrorMessage = "Please Enter your password";
+					return;
+				}
+				
 				// Try signing in with email and password
 				var response = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailL, PasswordL);
 
@@ -63,10 +88,10 @@ namespace HojozatyCode.ViewModels
 				}
 			}
 		
-			catch (Exception ex)
+			catch (Exception )
 			{
 				// Catch other generic exceptions
-				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+				await Shell.Current.DisplayAlert("Error", "Invalid email or password." , "OK");
 			}
 		}
     }
