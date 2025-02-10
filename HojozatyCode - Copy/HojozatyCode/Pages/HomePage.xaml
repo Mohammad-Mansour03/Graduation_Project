@@ -93,9 +93,9 @@
                         </VerticalStackLayout>
                         
                         <!--Event to navigate to weeding page-->
-                        <Border.GestureRecognizers>
+                        <!--<Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToLogInPageCommand}"/>
-                        </Border.GestureRecognizers>
+                        </Border.GestureRecognizers>-->
                         
                     </Border>
 
@@ -139,7 +139,7 @@
                         </VerticalStackLayout>
                     </Border>
 
-                    <!--More Activities-->
+                    <!--Photography Activity-->
                     <Border StrokeShape="RoundRectangle 12" 
                             WidthRequest="100" 
                             HeightRequest="100" 
@@ -148,17 +148,77 @@
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
-                            <Image Source="more_icon.png"
+                            <Image Source="photography_icon.png"
                                    WidthRequest="50" 
                                    HeightRequest="50"/>
-                            <Label Text="more"
+                            <Label Text="Photography"
                                    FontSize="14" 
                                    HorizontalOptions="Center"
                                    TextColor="black"
                                    FontAttributes="Bold"/>
                         </VerticalStackLayout>
                     </Border>
-                    
+
+                    <!--Cultural Events Activity-->
+                    <Border StrokeShape="RoundRectangle 12" 
+                            WidthRequest="100" 
+                            HeightRequest="100" 
+                            BackgroundColor="#ECE6EE"
+                            Padding="5">
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="5">
+                            <Image Source="cultural_icon.png"
+                                   WidthRequest="50" 
+                                   HeightRequest="50"/>
+                            <Label Text="Cultural Events"
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"
+                             
+                                   TextColor="black"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!--Entertainment Social Activity-->
+                    <Border StrokeShape="RoundRectangle 12" 
+                            WidthRequest="100" 
+                            HeightRequest="100" 
+                            BackgroundColor="#ECE6EE"
+                            Padding="5">
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="5">
+                            <Image Source="entertainment_icon_2.png"
+                                   WidthRequest="50" 
+                                   HeightRequest="50"/>
+                            <Label Text="Entertainment Social"
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"
+                                   TextColor="black"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!--Sports Activity-->
+                    <Border StrokeShape="RoundRectangle 12" 
+                            WidthRequest="100" 
+                            HeightRequest="100" 
+                            BackgroundColor="#ECE6EE"
+                            Padding="5">
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="5">
+                            <Image Source="sports_icon.png"
+                                   WidthRequest="50" 
+                                   HeightRequest="50"/>
+                            <Label Text="Sport"
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"
+                                   TextColor="black"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Border>
                 </HorizontalStackLayout>
             </ScrollView>
             
