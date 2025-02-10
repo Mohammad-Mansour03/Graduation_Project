@@ -1,0 +1,86 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HojozatyCode.Pages.ExplorePage"
+             Title="Explore">
+	<ScrollView>
+		<VerticalStackLayout Padding="20" Spacing="20">
+
+			<!-- Location Section -->
+			<VerticalStackLayout>
+				<Label Text="Location"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="#333" />
+				<Frame BackgroundColor="#EEE"
+                       CornerRadius="10"
+                       Padding="10"
+                       HasShadow="False"
+                       BorderColor="#CCC">
+					<Label Text="Amman"
+                           FontSize="14"
+                           TextColor="#666" />
+				</Frame>
+			</VerticalStackLayout>
+
+			<!-- Activity Section -->
+			<VerticalStackLayout>
+				<Label Text="Activity"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="#333" />
+				<Grid ColumnDefinitions="*, *, *"
+                      RowSpacing="10"
+                      ColumnSpacing="10">
+					<Button Text="Formal" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="0" />
+					<Button Text="Casual" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="1" />
+					<Button Text="Professional" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="2" />
+					<Button Text="Indoor" Style="{StaticResource FilterButtonStyle}" Grid.Row="1" Grid.Column="0" />
+					<Button Text="Outdoor" Style="{StaticResource FilterButtonStyle}" Grid.Row="1" Grid.Column="1" />
+					<Button Text="Conference" Style="{StaticResource FilterButtonStyle}" Grid.Row="1" Grid.Column="2" />
+					<Button Text="Celebration" Style="{StaticResource FilterButtonStyle}" Grid.Row="2" Grid.Column="0" />
+					<Button Text="Entertainment" Style="{StaticResource FilterButtonStyle}" Grid.Row="2" Grid.Column="1" />
+				</Grid>
+			</VerticalStackLayout>
+
+			<!-- Duration Section -->
+			<VerticalStackLayout>
+				<Label Text="Duration"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="#333" />
+				<Grid ColumnDefinitions="*, *, *, *"
+                      RowSpacing="10"
+                      ColumnSpacing="10">
+					<Button Text="Hourly" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="0" />
+					<Button Text="Full-Day" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="1" />
+					<Button Text="Half-Day" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="2" />
+					<Button Text="Long-Term" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="3" />
+				</Grid>
+			</VerticalStackLayout>
+
+			<!-- Size/Capacity Section -->
+			<VerticalStackLayout>
+				<Label Text="Size/Capacity"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="#333" />
+				<Grid ColumnDefinitions="*, *, *"
+                      RowSpacing="10"
+                      ColumnSpacing="10">
+					<Button Text="Small (10-50)" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="0" />
+					<Button Text="Medium (50-200)" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="1" />
+					<Button Text="Large (200+)" Style="{StaticResource FilterButtonStyle}" Grid.Row="0" Grid.Column="2" />
+				</Grid>
+			</VerticalStackLayout>
+
+			<!-- Apply Button -->
+			<Button Text="Apply"
+                    BackgroundColor="#333"
+                    TextColor="White"
+                    FontSize="16"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand" />
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>
