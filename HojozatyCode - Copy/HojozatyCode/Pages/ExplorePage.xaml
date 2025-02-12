@@ -21,7 +21,7 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
-            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,10"/>
+           
 
             <!-- Activity Section -->
             <Label Text="Activity" Style="{StaticResource SectionHeaderStyle}" FontSize="20" FontAttributes="Bold"/>
@@ -65,7 +65,7 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
-            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,10"/>
+          
 
             <!-- Duration Section -->
             <Label Text="Duration" Style="{StaticResource SectionHeaderStyle}" FontSize="20" FontAttributes="Bold" VerticalTextAlignment="Justify"/>
@@ -106,7 +106,7 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
-            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,10"/>
+         
 
             <!-- Size/Capacity Section -->
             <Label Text="Size/Capacity" Style="{StaticResource SectionHeaderStyle}" FontSize="20" FontAttributes="Bold" VerticalTextAlignment="Justify"/>
@@ -137,7 +137,7 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
-            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,10"/>
+         
 
             <!-- Apply Button -->
             <Button Text="Apply" BackgroundColor="Black" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="12" HeightRequest="50" WidthRequest="200" Margin="0,20"/>
