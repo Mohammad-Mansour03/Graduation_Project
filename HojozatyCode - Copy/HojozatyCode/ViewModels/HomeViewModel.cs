@@ -8,11 +8,10 @@ namespace HojozatyCode.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
-		[RelayCommand]
-		private async Task ReturnToThePreviousAsync()
-		{
-			await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
-		}
-
-	}
+        [RelayCommand]
+        private async Task NavigateBack()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
+        }
+    }
 }
