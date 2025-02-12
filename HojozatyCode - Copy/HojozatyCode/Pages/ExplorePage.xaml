@@ -1,219 +1,79 @@
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ExplorePage"
              Title="Explore"
              BackgroundColor="#F5F5F5">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="24,20" Spacing="24"
-                             HorizontalOptions="Center"
-                             VerticalOptions="Center">
+    <VerticalStackLayout Padding="24,10" Spacing="16">
 
-            <!-- Location Section -->
-            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                <Label Text="Location"
-                       Style="{StaticResource SectionHeaderStyle}"
-                       HorizontalOptions="Center"/>
-                
-                <Border Style="{StaticResource FilterChipStyle}">
-                    <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                        <CheckBox Color="Black" VerticalOptions="Center"/>
-                        <Label Text="Amman" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                    </HorizontalStackLayout>
-                </Border>
-                
+        <!-- 🔹 Header with Back Button & Title -->
+        <Grid ColumnDefinitions="40, *, 40">
+            <Button Text="←" FontSize="24" BackgroundColor="Transparent"
+                    HorizontalOptions="Start"/>
+            <Label Text="Explore" FontSize="24" FontAttributes="Bold"
+                   HorizontalOptions="Start" VerticalOptions="Center"
+                   TextColor="#212121"/>
+        </Grid>
+
+        <ScrollView>
+            <VerticalStackLayout Padding="0,10" Spacing="24">
+
+                <!-- Location Section -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Location"
+                           Style="{StaticResource SectionHeaderStyle}"/>
+
+                    <Border Style="{StaticResource FilterChipStyle}">
+                        <HorizontalStackLayout Spacing="8" Padding="16,10">
+                            <CheckBox Color="Black" VerticalOptions="Center"/>
+                            <Label Text="Amman" FontSize="12" TextColor="#424242" FontAttributes="Bold"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- 🔹 Modern Divider -->
+                <Border BackgroundColor="#E0E0E0" StrokeThickness="0" HeightRequest="2" 
+                        Margin="0,10" WidthRequest="100%" HorizontalOptions="Fill" 
+                        StrokeShape="RoundRectangle 2"/>
+
+                <!-- Activity Section -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Activity" 
+                           Style="{StaticResource SectionHeaderStyle}"/>
+                    <FlexLayout Wrap="Wrap" AlignItems="Center">
+                        <Border Style="{StaticResource FilterChipStyle}">
+                            <HorizontalStackLayout Spacing="8" Padding="16,10">
+                                <CheckBox Color="Black" VerticalOptions="Center"/>
+                                <Label Text="Formal" FontSize="12" TextColor="#424242" FontAttributes="Bold"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                        <Border Style="{StaticResource FilterChipStyle}">
+                            <HorizontalStackLayout Spacing="8" Padding="16,10">
+                                <CheckBox Color="Black" VerticalOptions="Center"/>
+                                <Label Text="Casual" FontSize="12" TextColor="#424242" FontAttributes="Bold"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </FlexLayout>
+                </VerticalStackLayout>
+
+                <!-- 🔹 Modern Divider -->
+                <Border BackgroundColor="#E0E0E0" StrokeThickness="0" HeightRequest="2" 
+                        Margin="0,10" WidthRequest="100%" HorizontalOptions="Fill" 
+                        StrokeShape="RoundRectangle 2"/>
+
+                <!-- Apply Button -->
+                <Button Text="Apply"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Margin="0,20"/>
+
             </VerticalStackLayout>
+        </ScrollView>
 
-            <!-- Activity Section -->
-            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                <Label Text="Activity" 
-                       Style="{StaticResource SectionHeaderStyle}"
-                       HorizontalOptions="Center"/>
-                <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
-                    <!-- Activity Items -->
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Formal" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-                                   VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Casual" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Professional" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Indoor" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/> 
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Outdoor" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Conference" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-                                   VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Celebration" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-                                   VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-                    
-                    
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Entertainment" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-                    
-                    
-                </FlexLayout>
-            </VerticalStackLayout>
-
-            <!-- Duration Section -->
-            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                <Label Text="Duration" 
-                       Style="{StaticResource SectionHeaderStyle}"
-                       HorizontalOptions="Center"/>
-                <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Hourly" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-                                   VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Full-Day" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Half-Day" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Long-Term" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-               VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-                </FlexLayout>
-            </VerticalStackLayout>
-
-            <!-- Size/Capacity Section -->
-            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                <Label Text="Size/Capacity" 
-                       Style="{StaticResource SectionHeaderStyle}"
-                       HorizontalOptions="Center"/>
-                <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Small (10-50)" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-                                   VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Meduim(50-200)" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-                VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-
-                    <Border Style="{StaticResource FilterChipStyle}">
-                        <HorizontalStackLayout Spacing="8" Padding="16,10"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-                            <CheckBox Color="Black" VerticalOptions="Center"/>
-                            <Label Text="Large(200+)" FontSize="12" TextColor="#424242" FontAttributes="Bold"
-                VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </Border>
-                </FlexLayout>
-            </VerticalStackLayout>
-
-            <!-- Apply Button -->
-            <Button Text="Apply"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Margin="0,20"
-                    WidthRequest="200"
-                    HorizontalOptions="Center"/>
-
-        </VerticalStackLayout>
-    </ScrollView>
+    </VerticalStackLayout>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -222,6 +82,7 @@
                 <Setter Property="FontSize" Value="18"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="#212121"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
             </Style>
 
             <!-- Filter Chip Style -->
@@ -241,7 +102,7 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="CornerRadius" Value="12"/>
                 <Setter Property="HeightRequest" Value="50"/>
-                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Fill"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
