@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels;assembly=HojozatyCode"
+             x:Class="HojozatyCode.Pages.NotificationsPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
+             Title="Notifications Page">
+    
+    <ContentPage.BindingContext>
+        <viewModels:NotificationsViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header -->
+        <Grid Grid.Row="0" 
+              Padding="16" 
+              ColumnDefinitions="Auto,*"
+              BackgroundColor="White">
+            <ImageButton Source="back_icon.png"
+                        HeightRequest="24"
+                        WidthRequest="24"
+                        Command="{Binding GoBackCommand}"/>
+            <Label Grid.Column="1"
+                   Text="Notifications"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+        </Grid>
+
+        <!-- Notifications List -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Notifications}"
+                        Margin="16,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="16,8" 
+                          ColumnDefinitions="Auto,Auto,*,Auto"
+                          RowDefinitions="Auto,Auto">
+                        <!-- Status Indicator -->
+                        <Ellipse Fill="{Binding StatusColor}"
+                                HeightRequest="8"
+                                WidthRequest="8"
+                                VerticalOptions="Center"
+                                Margin="0,0,8,0"/>
+
+                        <!-- Icon -->
+                        <Image Grid.Column="1"
+                               Source="{Binding IconSource}"
+                               HeightRequest="24"
+                               WidthRequest="24"
+                               Margin="0,0,12,0"/>
+
+                        <!-- Content -->
+                        <VerticalStackLayout Grid.Column="2" Spacing="4">
+                            <Label Text="{Binding Title}"
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding Subtitle}"
+                                   TextColor="Gray"
+                                   FontSize="14"/>
+                        </VerticalStackLayout>
+
+                        <!-- Timestamp -->
+                        <Label Grid.Column="3"
+                               Text="{Binding Timestamp, StringFormat='{0:h:mm tt}'}"
+                               TextColor="Gray"
+                               FontSize="12"
+                               VerticalOptions="Start"/>
+
+                        <!-- Tap Gesture -->
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
+                                Path=BindingContext.NotificationTappedCommand}"
+                                CommandParameter="{Binding}"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
