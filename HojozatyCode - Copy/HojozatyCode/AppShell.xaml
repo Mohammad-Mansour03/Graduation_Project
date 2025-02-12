@@ -34,6 +34,6 @@
     <!--<ShellContent
      Route="LoginSignupPage" ContentTemplate="{DataTemplate pages:LoginSignupPage}"
     />-->
-    <ShellContent Route="ExplorePage" ContentTemplate="{DataTemplate pages:ExplorePage}" />
+  
 
 </Shell>
