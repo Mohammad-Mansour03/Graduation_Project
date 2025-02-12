@@ -16,6 +16,7 @@
             Routing.RegisterRoute(nameof(Pages.AccountPage), typeof(Pages.AccountPage));
             Routing.RegisterRoute(nameof(Pages.AddSpacePage), typeof(Pages.AddSpacePage));
             Routing.RegisterRoute(nameof(Pages.ExplorePage), typeof(Pages.ExplorePage));
+            Routing.RegisterRoute(nameof(Pages.EditProfile), typeof(Pages.EditProfile));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
         }

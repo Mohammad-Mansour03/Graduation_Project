@@ -42,13 +42,15 @@
                 <HorizontalStackLayout Spacing="10" 
                                        VerticalOptions="Start" 
                                        HorizontalOptions="End">
-                    <Image Source="notification_icon.png" 
+                    <ImageButton Source="notification_icon.png" 
                            HeightRequest="30" 
-                           WidthRequest="30"/>
+                           WidthRequest="30"
+                          />
                     
-                    <Image Source="account_icon.png" 
+                    <ImageButton Source="account_icon.png" 
                            HeightRequest="30"
-                           WidthRequest="30"/>
+                           WidthRequest="30"
+                           Command="{Binding GoToAccountCommand}"/>
                 </HorizontalStackLayout>
             </Grid>
 
@@ -242,7 +244,7 @@
                             HorizontalOptions="Start"
                             WidthRequest="90" 
                            Margin="0,15,0,0"
-                           Command="{Binding NavigateToExploreCommand}"/>
+                           Command="{Binding GoToExploreCommand}"/>
                     </VerticalStackLayout>
 
                     <!-- Image Positioned to the Right -->

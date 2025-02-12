@@ -12,6 +12,18 @@ namespace HojozatyCode.ViewModels
         private async Task NavigateBack()
         {
             await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
+        }     
+        
+        [RelayCommand]
+        private async Task GoToExplore()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.ExplorePage));
+        }
+        
+        [RelayCommand]
+        private async Task GoToAccount()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.AccountPage));
         }
     }
 }
