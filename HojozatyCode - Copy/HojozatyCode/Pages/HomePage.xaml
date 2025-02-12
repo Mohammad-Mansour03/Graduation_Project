@@ -45,7 +45,8 @@
                     <ImageButton Source="notification_icon.png" 
                            HeightRequest="30" 
                            WidthRequest="30"
-                          />
+                           Command="{Binding NavigateToNotificationsCommand}"
+                           />
                     
                     <ImageButton Source="account_icon.png" 
                            HeightRequest="30"

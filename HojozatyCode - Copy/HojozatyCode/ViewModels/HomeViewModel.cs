@@ -1,9 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
-using HojozatyCode.Services;
 using System.Collections.ObjectModel;
-
+using HojozatyCode.Pages;
 namespace HojozatyCode.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
@@ -25,5 +24,26 @@ namespace HojozatyCode.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(Pages.AccountPage));
         }
+
+        // Navigate to notification
+        [RelayCommand]
+        private async Task NavigateToNotifications()
+        {
+            try
+            {
+                await Shell.Current.GoToAsync(nameof(Pages.NotificationsPage));
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+                Console.WriteLine($"Navigation Error: {ex.Message}");
+            }
+        }
+
+    //      [RelayCommand]
+    // private async Task NavigateToSpaceTypeSelection()
+    // {
+    //     await Shell.Current.GoToAsync(nameof(SpaceTypeSelectionPage));
+    // }
     }
 }
