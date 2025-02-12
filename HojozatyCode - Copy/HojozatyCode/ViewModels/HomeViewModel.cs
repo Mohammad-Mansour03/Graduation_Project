@@ -56,5 +56,35 @@ namespace HojozatyCode.ViewModels
                 Console.WriteLine($"Navigation Error: {ex.Message}");
             }
         }
-    }
+
+		// Navigate to the profile page
+		[RelayCommand]
+		private async Task NavigateToProfile()
+		{
+			try
+			{
+				await Shell.Current.GoToAsync(nameof(Pages.ProfilePage));
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+				Console.WriteLine($"Navigation Error: {ex.Message}");
+			}
+		}
+
+		// Navigate to the profile page
+		[RelayCommand]
+		private async Task NavigateBackCommand()
+		{
+			try
+			{
+				await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+				Console.WriteLine($"Navigation Error: {ex.Message}");
+			}
+		}
+	}
 }
