@@ -23,7 +23,7 @@
                 <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />
             </Tab>
             <Tab Title="AddSpace" Icon="add_space_icon.png">
-                <ShellContent ContentTemplate="{DataTemplate pages:AddSpacePage}" />
+                <ShellContent ContentTemplate="{DataTemplate pages:SpaceTypeSelectionPage}" />
             </Tab>
             <Tab Title="Account" Icon="account_icon_1.png">
                 <ShellContent ContentTemplate="{DataTemplate pages:AccountPage}" />
