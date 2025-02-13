@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.SpaceInformationPage"
+             Title="Add Information About Your Space">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <Label 
+                Text="Add Information About Your Space"
+                FontSize="32"
+                FontAttributes="Bold"/>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Owner Name" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Entry Placeholder="Input"
+                           Text="{Binding OwnerName}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Space Name" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Entry Placeholder="Input"
+                           Text="{Binding SpaceName}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="City" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Entry Placeholder="Input"
+                           Text="{Binding City}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Address" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Entry Placeholder="Input"
+                           Text="{Binding Address}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Type of space" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Picker SelectedItem="{Binding SpaceType}">
+                        <Picker.Items>
+                            <x:String>Farm</x:String>
+                            <x:String>Hall</x:String>
+                            <x:String>Meeting Room</x:String>
+                            <x:String>Studio</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Description" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Editor Placeholder="Input"
+                            HeightRequest="100"
+                            Text="{Binding Description}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Next"
+                    BackgroundColor="#673AB7"
+                    TextColor="White"
+                    CornerRadius="5"
+                    HeightRequest="50"
+                    Margin="0,20,0,0"
+                    Command="{Binding NavigateToSpacePicturesCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

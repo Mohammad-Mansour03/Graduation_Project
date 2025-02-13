@@ -17,6 +17,10 @@
             Routing.RegisterRoute(nameof(Pages.AddSpacePage), typeof(Pages.AddSpacePage));
             Routing.RegisterRoute(nameof(Pages.ExplorePage), typeof(Pages.ExplorePage));
             Routing.RegisterRoute(nameof(Pages.EditProfile), typeof(Pages.EditProfile));
+            Routing.RegisterRoute(nameof(Pages.NotificationsPage), typeof(Pages.NotificationsPage));
+            Routing.RegisterRoute(nameof(Pages.SpaceInformationPage), typeof(Pages.SpaceInformationPage));
+            Routing.RegisterRoute(nameof(Pages.SpacePicturesPage), typeof(Pages.SpacePicturesPage));
+            Routing.RegisterRoute(nameof(Pages.SpaceTypeSelectionPage), typeof(Pages.SpaceTypeSelectionPage));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
         }
