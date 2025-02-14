@@ -28,6 +28,18 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
+        <!--! back icon-->
+        
+        <ImageButton Source="back_icon.png"
+               Grid.Row="0"
+               Grid.Column="0"
+               HeightRequest="35"
+               WidthRequest="35"
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Margin="0,0,10,0"
+               Command="{Binding GoBackCommand}"/>
+
         <!-- Title (Account) -->
         <Label Text="Account"
                Grid.Row="0"
@@ -35,7 +47,7 @@
                FontSize="24"
                FontAttributes="Bold"
                VerticalOptions="Center"
-               Padding="0,0,10,0"
+               Padding="50,0,10,0"
                FontFamily="Title Page"
                TextColor="#4F378A"
                />

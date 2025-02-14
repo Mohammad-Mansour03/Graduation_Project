@@ -114,10 +114,9 @@ namespace HojozatyCode.ViewModels
 
 				// Check password pattern
 				else
-				if (!Regex.IsMatch(PasswordF, @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$"))
+				if (!Regex.IsMatch(PasswordF, @"^.{8,}$"))
                 {
-                    ErrorMessage = "Password must be at least 8 characters long\nAt least on capital letter\nAt least one small letter"
-                        + "\nAt least one number\nAt least one special character";
+                    ErrorMessage = "Password must be at least 8 characters long";
                     return;
                 }
 

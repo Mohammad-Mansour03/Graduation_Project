@@ -15,5 +15,12 @@ namespace HojozatyCode.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(Pages.EditProfile));
         }
+
+        [RelayCommand]  
+        private async Task GoBack(){
+            await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+        } 
     }
+
+    
 }
