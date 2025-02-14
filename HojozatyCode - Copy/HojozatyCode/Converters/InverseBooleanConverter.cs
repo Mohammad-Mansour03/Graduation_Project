@@ -9,7 +9,7 @@ namespace HojozatyCode.Converters
    {
 		//Converter inverts the boolean value (true becomes false and false beomes true)
 		//used for the IsPassword property of the Entry field
-		public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+		public object Convert(object value, Type targetType, object? parameter, CultureInfo culture)
        {
            if (value is bool boolValue)//Check if the value is boolean
            {
@@ -18,7 +18,7 @@ namespace HojozatyCode.Converters
            return false;//Default to false if the value is not boolean
        }
 
-       public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+       public object ConvertBack(object value, Type targetType, object? parameter, CultureInfo culture)
        {
            throw new NotImplementedException();//isn't used 
        }

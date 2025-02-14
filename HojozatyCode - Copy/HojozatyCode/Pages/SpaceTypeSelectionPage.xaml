@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.SpaceTypeSelectionPage"
+             Title="What Kind Of Space Would you Like to Add">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <Label 
+                Text="What Kind Of Space Would you Like to Add"
+                FontSize="32"
+                FontAttributes="Bold"
+                LineBreakMode="WordWrap"/>
+
+            <Border Stroke="LightGray" Padding="15" Margin="0,10,0,0">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Work/Meeting Space" 
+                           VerticalOptions="Center"/>
+                    <CheckBox Grid.Column="1" 
+                             Color="#673AB7"
+                             IsChecked="{Binding SpaceType, Converter={StaticResource StringToBoolConverter}, ConverterParameter='Work/Meeting Space'}"/>
+                </Grid>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Wedding" 
+                           VerticalOptions="Center"/>
+                    <CheckBox Grid.Column="1" 
+                             Color="#673AB7"
+                             IsChecked="{Binding SpaceType, Converter={StaticResource StringToBoolConverter}, ConverterParameter='Wedding'}"/>
+                </Grid>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Health" 
+                           VerticalOptions="Center"/>
+                    <CheckBox Grid.Column="1" 
+                             Color="#673AB7"
+                             IsChecked="{Binding SpaceType, Converter={StaticResource StringToBoolConverter}, ConverterParameter='Health'}"/>
+                </Grid>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Entertainment" 
+                           VerticalOptions="Center"/>
+                    <CheckBox Grid.Column="1" 
+                             Color="#673AB7"
+                             IsChecked="{Binding SpaceType, Converter={StaticResource StringToBoolConverter}, ConverterParameter='Entertainment'}"/>
+                </Grid>
+            </Border>
+
+            <Button Text="Next"
+                    BackgroundColor="#673AB7"
+                    TextColor="White"
+                    CornerRadius="5"
+                    HeightRequest="50"
+                    Margin="0,20,0,0"
+                    Command="{Binding NavigateToSpaceInformationCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.SpacePicturesPage"
+             Title="Add Pictures Of Your Space">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <Label 
+                Text="Add Pictures Of Your Space"
+                FontSize="32"
+                FontAttributes="Bold"/>
+
+            <Image Source="video_camera.png"
+                   HeightRequest="100"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"/>
+
+            <Grid RowDefinitions="Auto,Auto,Auto"
+                  ColumnDefinitions="*,*,*"
+                  RowSpacing="15"
+                  ColumnSpacing="15">
+
+                <!-- First Row -->
+                <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[0], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[1], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[2], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+
+                <!-- Second Row -->
+                <Border Grid.Row="1" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[3], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[4], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[5], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+
+                <!-- Third Row -->
+                <Border Grid.Row="2" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[6], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[7], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
+                    <ImageButton Source="{Binding SelectedImages[8], TargetNullValue='camera.png'}"
+                                Command="{Binding AddImageCommand}"
+                                Aspect="AspectFill"
+                                HeightRequest="100"/>
+                </Border>
+            </Grid>
+
+            <Button Text="Save"
+                    BackgroundColor="#673AB7"
+                    TextColor="White"
+                    CornerRadius="5"
+                    HeightRequest="50"
+                    Margin="0,20,0,0"
+                    Command="{Binding SaveSpaceCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

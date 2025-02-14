@@ -15,6 +15,11 @@ namespace HojozatyCode
     		builder.Logging.AddDebug();
 #endif
 
+        
+        builder.Services.AddTransient<AddSpaceViewModel>();
+        builder.Services.AddTransient<Pages.SpaceTypeSelectionPage>();
+        builder.Services.AddTransient<Pages.SpaceInformationPage>();
+
             return builder.Build();
         }
     }
