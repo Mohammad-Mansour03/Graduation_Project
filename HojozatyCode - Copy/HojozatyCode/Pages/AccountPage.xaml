@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.AccountPage"
+             x:DataType="viewModels:AccountPageViewModel"
              Shell.NavBarIsVisible="False"
              Title="AccountPage"
              >
+
+
+    <ContentPage.BindingContext>
+        <viewModels:AccountPageViewModel />
+    </ContentPage.BindingContext>
+
 
     <!-- Main Layout -->
     <Grid Padding="20">
@@ -29,17 +37,19 @@
                VerticalOptions="Center"
                Padding="0,0,10,0"
                FontFamily="Title Page"
-               TextColor="#4F378A"/>
+               TextColor="#4F378A"
+               />
 
         <!-- Profile Icon (Top Right) -->
-        <Image Source="profile_icon.png"
+        <ImageButton Source="profile_icon.png"
                Grid.Row="0"
                Grid.Column="1"
                HeightRequest="35"
                WidthRequest="35"
                HorizontalOptions="End"
                VerticalOptions="Center"
-               Margin="0,0,10,0"/>
+               Margin="0,0,10,0"
+               Command="{Binding GoToEditProfileCommand}"/>
 
         <!-- Main List of Options -->
         <VerticalStackLayout Spacing="20" Margin="10,60,10,0" Grid.Row="1">
