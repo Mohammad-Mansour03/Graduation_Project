@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using HojozatyCode.ViewModels; // Add this line if CategoryVenuesViewModel is in the ViewModels namespace
 
 namespace HojozatyCode
 {
@@ -19,7 +20,8 @@ namespace HojozatyCode
         builder.Services.AddTransient<AddSpaceViewModel>();
         builder.Services.AddTransient<Pages.SpaceTypeSelectionPage>();
         builder.Services.AddTransient<Pages.SpaceInformationPage>();
-
+        builder.Services.AddTransient<Pages.CategoryVenuesPage>();
+        builder.Services.AddTransient<CategoryVenuesViewModel>();
             return builder.Build();
         }
     }
