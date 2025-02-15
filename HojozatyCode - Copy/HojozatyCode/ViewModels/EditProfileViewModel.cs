@@ -7,6 +7,7 @@ using Supabase.Postgrest;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HojozatyCode.ViewModels
@@ -34,6 +35,18 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string phoneNumber;
 
+		//Properety to sotre the user age
+		[ObservableProperty]
+		private int age;
+
+		//Properety to sotre the user gender
+		[ObservableProperty]
+		private string gender;
+		
+		//Properety to sotre the error
+		[ObservableProperty]
+		private string errorMessage;
+
 		public EditProfileViewModel()
 		{
 			LoadUserData();
@@ -58,7 +71,9 @@ namespace HojozatyCode.ViewModels
 					LastName = response.LastNameC;
 					Email = response.EmailC;
 					PhoneNumber = response.PhoneC;
-				}
+					Age = response.AgeC;
+					Gender = response.GenderC;
+				};
 			}
 
 		}//The end of Load User Command
@@ -68,6 +83,7 @@ namespace HojozatyCode.ViewModels
 		{
 			try
 			{
+				
 				var client = SupabaseConfig.SupabaseClient;
 
 				var userId = client.Auth.CurrentUser?.Id;
@@ -78,6 +94,12 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 
+				if (!IsValidEmail(Email)) 
+				{
+					Shell.Current.DisplayAlert("Error", "Please Enter Valid Email", "Ok");
+					return;
+				}
+
 				var updatedUser = new User
 				{
 					UserIdC = Guid.Parse(userId),
@@ -85,7 +107,9 @@ namespace HojozatyCode.ViewModels
 					MiddleNameC = MiddleName,
 					LastNameC = LastName,
 					EmailC = Email,
-					PhoneC = PhoneNumber
+					PhoneC = PhoneNumber,
+					AgeC = Age,
+					GenderC = Gender
 				};
 
 				var response = await client.From<User>()
@@ -104,5 +128,16 @@ namespace HojozatyCode.ViewModels
 
 		}
 
+		private bool IsValidEmail(string email) 
+		{
+			return  Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$");
+		}
+
+
+		[RelayCommand]
+		private async Task CloseEditProfile() 
+		{
+			await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+		}
 	}
 }
