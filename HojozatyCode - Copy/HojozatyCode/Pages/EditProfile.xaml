@@ -15,11 +15,20 @@
         <!--<Button Text="Edit Photo" />-->
 
         <Entry Text="{Binding FirstName}" Placeholder="First Name"/>
+        <Entry Text="{Binding MiddleName}" Placeholder="Middle Name"/>
         <Entry Text="{Binding LastName}" Placeholder="Last Name"/>
         <Entry Text="{Binding Email}" IsReadOnly="True"/>
         <Entry Text="{Binding PhoneNumber}" Placeholder="Phone Number"/>
 
-        <Button Text="Save" Command="{Binding SaveProfileCommand}"/>
+        <HorizontalStackLayout>
+            <Button Text="Save" Command="{Binding SaveUserDataCommand}" WidthRequest="150" HeightRequest="25" Margin="25" BackgroundColor="#4F378A"/>
+
+            <Button Text="Cancel" Command="{Binding SaveUserDataCommand}" WidthRequest="150" HeightRequest="25" BackgroundColor="#4F378A"/>
+        </HorizontalStackLayout>
+        
     </StackLayout>
+
+
+
 
 </ContentPage>
