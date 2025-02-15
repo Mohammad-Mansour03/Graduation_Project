@@ -82,6 +82,11 @@
                             HeightRequest="100"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding NavigateToCategoryCommand}" 
+                                CommandParameter="Wedding"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center" 
                                              Spacing="5">
@@ -94,12 +99,6 @@
                                    TextColor="black"
                                    FontAttributes="Bold"/>
                         </VerticalStackLayout>
-                        
-                        <!--Event to navigate to weeding page-->
-                        <!--<Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavigateToLogInPageCommand}"/>
-                        </Border.GestureRecognizers>-->
-                        
                     </Border>
 
                     <!--Meeting Activity-->
@@ -108,6 +107,11 @@
                             HeightRequest="100" 
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding NavigateToCategoryCommand}" 
+                                CommandParameter="Meeting"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
@@ -128,6 +132,11 @@
                             HeightRequest="100"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding NavigateToCategoryCommand}" 
+                                CommandParameter="Funeral"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
@@ -148,6 +157,11 @@
                             HeightRequest="100" 
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding NavigateToCategoryCommand}" 
+                                CommandParameter="Photography"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
@@ -168,6 +182,11 @@
                             HeightRequest="100" 
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding NavigateToCategoryCommand}" 
+                                CommandParameter="Cultural Events"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
@@ -188,6 +207,11 @@
                             HeightRequest="100" 
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding NavigateToCategoryCommand}" 
+                                CommandParameter="Entertainment Social"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">
@@ -208,6 +232,11 @@
                             HeightRequest="100" 
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding NavigateToCategoryCommand}" 
+                                CommandParameter="Sport"/>
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
                                              Spacing="5">

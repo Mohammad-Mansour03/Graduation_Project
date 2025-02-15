@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HojozatyCode.Pages.CategoryVenuesPage"
+             Title="{Binding CategoryName}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <Label Text="{Binding CategoryName}"
+                   FontSize="24"
+                   FontAttributes="Bold"/>
+
+            <CollectionView ItemsSource="{Binding Venues}"
+                          EmptyView="No venues found for this category">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 15" 
+                                Margin="0,0,0,20">
+                            <Grid>
+                                <!-- Background Image -->
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="192"
+                                       WidthRequest="363"/>
+
+                                <!-- Dark overlay -->
+                                <BoxView BackgroundColor="Black"
+                                         Opacity="0.3"
+                                         CornerRadius="15"/>
+
+                                <!-- Venue Name -->
+                                <Label Text="{Binding VenueName}"
+                                       TextColor="White"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Margin="15,15,0,0"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Start"/>
+
+                                <!-- Price Tag -->
+                                <Border BackgroundColor="#493971"
+                                        StrokeShape="RoundRectangle 10"
+                                        Padding="10"
+                                        Margin="-50,0,0,-100"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
+                                           TextColor="White"
+                                           Padding="50,0,10,0"     
+                                           FontSize="15"/>
+                                </Border>
+
+                                <!-- Rating Section -->
+                                <HorizontalStackLayout HorizontalOptions="End"
+                                                       VerticalOptions="End"
+                                                       Margin="0,0,10,10">
+                                    <Label Text="{Binding Rating}"
+                                           TextColor="White"
+                                           FontSize="14"/>
+                                    <Label Text="★"
+                                           TextColor="Gold"
+                                           FontSize="14"/>
+                                    <Label Text="{Binding RatingCount, StringFormat='({0} ratings)'}"
+                                           TextColor="White"
+                                           FontSize="14"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
