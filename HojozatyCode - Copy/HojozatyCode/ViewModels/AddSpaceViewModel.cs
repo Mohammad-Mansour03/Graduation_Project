@@ -87,6 +87,12 @@ public partial class AddSpaceViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task GoToHome()
+    {
+        await Shell.Current.GoToAsync(nameof(HomePage));
+    }
+
+    [RelayCommand]
     private async Task NavigateToServicesPage()
     {
         await Shell.Current.GoToAsync(nameof(ServicesPage));

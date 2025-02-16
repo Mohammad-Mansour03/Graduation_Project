@@ -4,7 +4,7 @@ namespace HojozatyCode.Pages;
 
 public partial class SuccessPage : ContentPage
 {
-    public SuccessPage(HomeViewModel viewModel)
+    public SuccessPage(AddSpaceViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

@@ -24,12 +24,7 @@ namespace HojozatyCode.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(Pages.AccountPage));
         }
-
-        [RelayCommand]
-        private async Task GoToHome()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.HomePage));
-        }
+        
 
         // Navigate to notification
         [RelayCommand]
