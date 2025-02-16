@@ -96,7 +96,7 @@ namespace HojozatyCode.ViewModels
 
 				if (!IsValidEmail(Email)) 
 				{
-					Shell.Current.DisplayAlert("Error", "Please Enter Valid Email", "Ok");
+					await Shell.Current.DisplayAlert("Error", "Please Enter Valid Email", "Ok");
 					return;
 				}
 
