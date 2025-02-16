@@ -3,8 +3,7 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ServicesPage"
              x:DataType="viewModels:HomeViewModel"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True"
+
              Title="ServicesPage">
 
     <VerticalStackLayout Padding="20" Spacing="15">
@@ -91,7 +90,8 @@
                 FontSize="18"
                 CornerRadius="10"
                 HeightRequest="50"
-                VerticalOptions="End"/>
+                VerticalOptions="End"
+                Command="{Binding NavigateToSpacePoliciesPageCommand}"/>
 
     </VerticalStackLayout>
 

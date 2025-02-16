@@ -1,0 +1,63 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.ReviewPage"
+             Title="ReviewPage">
+
+
+
+
+    <ScrollView>
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Review Your Submission" 
+                   FontSize="32" 
+                   FontAttributes="Bold" 
+                   TextColor="Black"/>
+
+        <!-- Space Type -->
+        <Label Text="Space Type:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding SpaceType}" FontSize="16"/>
+
+        <!-- Owner Name -->
+        <Label Text="Owner Name:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding OwnerName}" FontSize="16"/>
+
+        <!-- Space Name -->
+        <Label Text="Space Name:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding SpaceName}" FontSize="16"/>
+
+        <!-- City -->
+        <Label Text="City:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding City}" FontSize="16"/>
+
+        <!-- Address -->
+        <Label Text="Address:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding Address}" FontSize="16"/>
+
+        <!-- Type of Space -->
+        <Label Text="Type of Space:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding SpaceType}" FontSize="16"/>
+
+        <!-- Description -->
+        <Label Text="Description:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding Description}" FontSize="16"/>
+
+        <!-- Services Provided -->
+        <Label Text="Services Provided:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding Services}" FontSize="16"/>
+
+        <!-- Policies -->
+        <Label Text="Policies:" FontSize="18" FontAttributes="Bold"/>
+        <Label Text="{Binding Policies}" FontSize="16"/>
+
+        <!-- Submit Button -->
+        <Button Text="Submit"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    FontSize="18"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Command="{Binding SubmitCommand}"/>
+    </VerticalStackLayout>
+</ScrollView>
+</ContentPage>
