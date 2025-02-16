@@ -25,6 +25,7 @@
             Routing.RegisterRoute(nameof(Pages.CategoryVenuesPage), typeof(Pages.CategoryVenuesPage));
             Routing.RegisterRoute(nameof(Pages.SpacePolicies), typeof(Pages.SpacePolicies));
             Routing.RegisterRoute(nameof(Pages.ReviewPage), typeof(Pages.ReviewPage));
+            Routing.RegisterRoute(nameof(Pages.SuccessPage), typeof(Pages.SuccessPage));
 
 
             GoToAsync(nameof(Pages.LoginSignupPage));

@@ -57,7 +57,7 @@
                     FontSize="18"
                     CornerRadius="10"
                     HeightRequest="50"
-                    Command="{Binding SubmitCommand}"/>
+                    Command="{Binding NavigateToSuccessPageCommand}"/>
     </VerticalStackLayout>
 </ScrollView>
 </ContentPage>

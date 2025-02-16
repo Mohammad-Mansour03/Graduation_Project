@@ -68,6 +68,12 @@ public partial class AddSpaceViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task NavigateToSuccessPage()
+    {
+        await Shell.Current.GoToAsync(nameof(SuccessPage));
+    }
+
+    [RelayCommand]
     private async Task NavigateToSpacePictures()
     {
         await Shell.Current.GoToAsync(nameof(SpacePicturesPage));
