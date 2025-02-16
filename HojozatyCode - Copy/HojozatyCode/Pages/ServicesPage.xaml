@@ -1,0 +1,98 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.ServicesPage"
+             x:DataType="viewModels:HomeViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
+             Title="ServicesPage">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Header Text -->
+        <Label Text="What Services do you provide?" 
+               FontSize="24" 
+               FontAttributes="Bold"
+               TextColor="Black"/>
+
+        <!-- Services List -->
+        <VerticalStackLayout Spacing="10">
+
+            <!-- Wifi -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="Wifi" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Parking -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="Parking" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Catering -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="Catering" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- A/C -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="A/C" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Elevator -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="Elevator" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Projector -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="Projector" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Sound System -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="Sound System" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Bathroom Access -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                    <Entry Text="Bathroom Access" IsReadOnly="True" Margin="5"/>
+                </Frame>
+                <CheckBox Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+
+        </VerticalStackLayout>
+
+        <!-- Next Button -->
+        <Button Text="Next"
+                BackgroundColor="Purple"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="10"
+                HeightRequest="50"
+                VerticalOptions="End"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>
