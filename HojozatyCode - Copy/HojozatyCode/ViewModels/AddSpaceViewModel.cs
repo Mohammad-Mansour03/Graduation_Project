@@ -68,6 +68,12 @@ public partial class AddSpaceViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task NavigateToServicesPage()
+    {
+        await Shell.Current.GoToAsync(nameof(ServicesPage));
+    }
+
+    [RelayCommand]
     private async Task AddImage()
     {
         try

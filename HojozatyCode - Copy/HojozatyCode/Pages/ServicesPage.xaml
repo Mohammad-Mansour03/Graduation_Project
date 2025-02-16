@@ -20,65 +20,65 @@
 
             <!-- Wifi -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="Wifi" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
             <!-- Parking -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="Parking" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
             <!-- Catering -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="Catering" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
             <!-- A/C -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="A/C" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
             <!-- Elevator -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="Elevator" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
             <!-- Projector -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="Projector" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
             <!-- Sound System -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="Sound System" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
             <!-- Bathroom Access -->
             <Grid ColumnDefinitions="*,Auto">
-                <Frame Padding="0" CornerRadius="5" BorderColor="Gray" HeightRequest="50">
+                <Border Stroke="Gray" StrokeShape="RoundRectangle 5" HeightRequest="50">
                     <Entry Text="Bathroom Access" IsReadOnly="True" Margin="5"/>
-                </Frame>
+                </Border>
                 <CheckBox Grid.Column="1" VerticalOptions="Center"/>
             </Grid>
 
@@ -86,7 +86,7 @@
 
         <!-- Next Button -->
         <Button Text="Next"
-                BackgroundColor="Purple"
+                BackgroundColor="#673AB7"
                 TextColor="White"
                 FontSize="18"
                 CornerRadius="10"
