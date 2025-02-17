@@ -25,7 +25,7 @@ namespace HojozatyCode
         builder.Services.AddTransient<Pages.ServicesPage>();
         builder.Services.AddTransient<Pages.SpacePicturesPage>();
         builder.Services.AddTransient<Pages.EditProfile>();
-        builder.Services.AddTransient<Pages.ExplorePage>();
+        //builder.Services.AddTransient<Pages.ExplorePage>();
         
         
             return builder.Build();

@@ -1,12 +1,13 @@
 using HojozatyCode.ViewModels;
 
-namespace HojozatyCode.Pages;
-
-public partial class SpaceInformationPage : ContentPage
+namespace HojozatyCode.Pages
 {
-    public SpaceInformationPage(AddSpaceViewModel viewModel)
+    public partial class SpaceInformationPage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = viewModel;
+        public SpaceInformationPage(AddSpaceViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
+        }
     }
 }
