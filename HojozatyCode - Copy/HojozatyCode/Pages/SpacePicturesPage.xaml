@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.SpacePicturesPage"
+             x:DataType="viewModels:AddSpaceViewModel"
              Title="Add Pictures Of Your Space">
 
     <ScrollView>
@@ -24,60 +25,69 @@
 
                 <!-- First Row -->
                 <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[0], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[0], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="0"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[1], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[1], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="1"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[2], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[2], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="2"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
 
                 <!-- Second Row -->
                 <Border Grid.Row="1" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[3], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[3], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="3"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[4], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[4], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="4"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[5], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[5], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="5"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
 
                 <!-- Third Row -->
                 <Border Grid.Row="2" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[6], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[6], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="6"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="2" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[7], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[7], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="7"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="2" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[8], TargetNullValue='camera.png'}"
+                    <ImageButton Source="{Binding SelectedImages[8], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
+                                CommandParameter="8"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
