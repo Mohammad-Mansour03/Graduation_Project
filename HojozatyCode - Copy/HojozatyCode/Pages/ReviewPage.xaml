@@ -2,55 +2,86 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ReviewPage"
-             Title="ReviewPage">
+             Title="Space Details">
 
 
 
 
     <ScrollView>
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Review Your Submission" 
-                   FontSize="32" 
-                   FontAttributes="Bold" 
-                   TextColor="Black"/>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- Space Type -->
+            <Label Text="Type Of Space"
+       FontSize="32"
+       FontAttributes="Bold"
+       TextColor="Black"/>
+            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                    <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+                </Border>
+            </Grid>
+            <Label Text="{Binding SpaceType}" FontSize="16"/>
 
-        <!-- Space Type -->
-        <Label Text="Space Type:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding SpaceType}" FontSize="16"/>
+            <Label Text="Space Information"
+            FontSize="32"
+            FontAttributes="Bold"
+            TextColor="Black"/>
+            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5"/>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
 
-        <!-- Owner Name -->
-        <Label Text="Owner Name:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding OwnerName}" FontSize="16"/>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
 
-        <!-- Space Name -->
-        <Label Text="Space Name:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding SpaceName}" FontSize="16"/>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
 
-        <!-- City -->
-        <Label Text="City:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding City}" FontSize="16"/>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
 
-        <!-- Address -->
-        <Label Text="Address:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding Address}" FontSize="16"/>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
 
-        <!-- Type of Space -->
-        <Label Text="Type of Space:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding SpaceType}" FontSize="16"/>
+            <!-- Servicies -->
+            <Label Text="Your Services"
+            FontSize="32"
+            FontAttributes="Bold"
+            TextColor="Black"/>
+                <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5"/>
 
-        <!-- Description -->
-        <Label Text="Description:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding Description}" FontSize="16"/>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
 
-        <!-- Services Provided -->
-        <Label Text="Services Provided:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding Services}" FontSize="16"/>
+            <!-- Policies -->
+            <Label Text="Space Policies"
+            FontSize="32"
+        FontAttributes="Bold"
+        TextColor="Black"/>
+            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5"/>
 
-        <!-- Policies -->
-        <Label Text="Policies:" FontSize="18" FontAttributes="Bold"/>
-        <Label Text="{Binding Policies}" FontSize="16"/>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
+            <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+                <Entry Text="{Binding }"  IsReadOnly="True" Margin="5"/>
+            </Border>
 
-        <!-- Submit Button -->
+            <!-- Submit Button -->
         <Button Text="Submit"
                     BackgroundColor="Green"
                     TextColor="White"
