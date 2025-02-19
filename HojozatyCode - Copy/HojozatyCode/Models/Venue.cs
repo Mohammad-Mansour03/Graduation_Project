@@ -41,5 +41,8 @@ namespace HojozatyCode.Models
 
         [Column("initial_price")]
         public double InitialPrice { get; set; }
+
+        [Column("image_url")]
+        public string ImageUrl { get; set; } // URL to the venue image in the bucket
     }
 }

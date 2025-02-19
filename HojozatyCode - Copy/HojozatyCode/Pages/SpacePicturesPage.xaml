@@ -13,11 +13,6 @@
                 FontSize="32"
                 FontAttributes="Bold"/>
 
-            <Image Source="video_camera.png"
-                   HeightRequest="100"
-                   Aspect="AspectFit"
-                   HorizontalOptions="Center"/>
-
             <Grid RowDefinitions="Auto,Auto,Auto"
                   ColumnDefinitions="*,*,*"
                   RowSpacing="15"
@@ -25,21 +20,21 @@
 
                 <!-- First Row -->
                 <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[0], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[0], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="0"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[1], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[1], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="1"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[2], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[2], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="2"
                                 Aspect="AspectFill"
@@ -48,21 +43,21 @@
 
                 <!-- Second Row -->
                 <Border Grid.Row="1" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[3], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[3], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="3"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[4], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[4], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="4"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[5], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[5], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="5"
                                 Aspect="AspectFill"
@@ -71,21 +66,21 @@
 
                 <!-- Third Row -->
                 <Border Grid.Row="2" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[6], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[6], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="6"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="2" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[7], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[7], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="7"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
                 <Border Grid.Row="2" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding SelectedImages[8], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                    <ImageButton Source="{Binding ImagePreviewSources[8], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="8"
                                 Aspect="AspectFill"
@@ -100,6 +95,9 @@
                     HeightRequest="50"
                     Margin="0,20,0,0"
                     Command="{Binding NavigateToServicesPageCommand}"/>
+
+            <!-- ActivityIndicator to show loading state -->
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
