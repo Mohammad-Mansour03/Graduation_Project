@@ -25,6 +25,7 @@ namespace HojozatyCode
         builder.Services.AddTransient<Pages.ServicesPage>();
         builder.Services.AddTransient<Pages.SpacePicturesPage>();
         builder.Services.AddTransient<Pages.EditProfile>();
+        builder.Services.AddSingleton<AddSpaceViewModel>(); // for managing the state of the AddSpaceViewModel across the app lifecycle 
         //builder.Services.AddTransient<Pages.ExplorePage>();
         
         
