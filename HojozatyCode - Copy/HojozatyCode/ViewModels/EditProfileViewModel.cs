@@ -43,9 +43,7 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string gender;
 		
-		//Properety to sotre the error
-		[ObservableProperty]
-		private string errorMessage;
+
 
 		public EditProfileViewModel()
 		{
