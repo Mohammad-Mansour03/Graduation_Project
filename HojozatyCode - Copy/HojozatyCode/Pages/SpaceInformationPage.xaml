@@ -55,10 +55,40 @@
 
             <Border Stroke="LightGray" Padding="15">
                 <VerticalStackLayout Spacing="5">
+                    <Label Text="Phone" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Entry Placeholder="Input"
+                           Text="{Binding Phone}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Email" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Entry Placeholder="Input"
+                           Text="{Binding Email}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Initial Price" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                    <Entry Placeholder="Input"
+                           Text="{Binding InitialPrice}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="5">
                     <Label Text="Type of space" 
                            FontSize="14"
                            TextColor="Gray"/>
-                    <Picker SelectedItem="{Binding SpaceType}">
+                    <Picker SelectedItem="{Binding Category}">
                         <Picker.Items>
                             <x:String>Farm</x:String>
                             <x:String>Hall</x:String>

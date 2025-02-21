@@ -18,45 +18,69 @@ namespace HojozatyCode.Services
         /// </summary>
         /// <param name="venue">The venue model to save.</param>
         /// <param name="images">A list of images to upload.</param>
+        /// <param name="categoryName">The name of the category to save.</param>
+        /// <param name="categoryDescription">The description of the category to save.</param>
         /// <returns>True if the operation succeeds; otherwise, false.</returns>
-        public static async Task<bool> CreateVenueAsync(Venue venue, List<FileResult> images)
+        public static async Task<bool> CreateVenueAsync(Venue venue, List<FileResult> images, string categoryName, string categoryDescription)
+{
+    if (venue == null)
+        throw new ArgumentNullException(nameof(venue));
+
+    try
+    {
+        // Upload all images and collect their public URLs
+        List<string> imageUrls = await UploadImagesAsync(venue.VenueId, images);
+
+        if (imageUrls.Count > 0)
         {
-            if (venue == null)
-                throw new ArgumentNullException(nameof(venue));
-
-            try
-            {
-                // Upload all images and collect their public URLs
-                List<string> imageUrls = await UploadImagesAsync(venue.VenueId, images);
-
-                if (imageUrls.Count > 0)
-                {
-                    // Combine URLs into a comma-separated string (or change this logic as needed)
-                    venue.ImageUrl = string.Join(",", imageUrls);
-                    Console.WriteLine($"Collected image URLs: {venue.ImageUrl}");
-                }
-
-                // Insert the venue record into the Supabase database
-                var response = await SupabaseConfig.SupabaseClient
-                    .From<Venue>()
-                    .Insert(venue);
-
-                if (response == null || response.Models.Count == 0)
-                {
-                    Console.WriteLine("Failed to insert the venue record.");
-                    return false;
-                }
-
-                Console.WriteLine($"Venue created successfully with ID: {venue.VenueId}");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in CreateVenueAsync: {ex.Message}");
-                return false;
-            }
+            // Combine URLs into a comma-separated string (or change this logic as needed)
+            venue.ImageUrl = string.Join(",", imageUrls);
+            Console.WriteLine($"Collected image URLs: {venue.ImageUrl}");
         }
 
+        // Insert the venue record into the Supabase database
+        var venueResponse = await SupabaseConfig.SupabaseClient
+            .From<Venue>()
+            .Insert(venue);
+
+        if (venueResponse == null || venueResponse.Models.Count == 0)
+        {
+            Console.WriteLine("Failed to insert the venue record.");
+            return false;
+        }
+
+        // Retrieve the inserted Venue to confirm the VenueId
+        var insertedVenue = venueResponse.Models[0];
+        Console.WriteLine($"Venue created successfully with ID: {insertedVenue.VenueId}");
+
+        // Save the category with the correct VenueId
+        var category = new Category
+        {
+            CategoryId = Guid.NewGuid(),
+            VenueId = insertedVenue.VenueId, // Use the VenueId from the inserted Venue
+            Name = categoryName,
+            Description = categoryDescription
+        };
+
+        var categoryResponse = await SupabaseConfig.SupabaseClient
+            .From<Category>()
+            .Insert(category);
+
+        if (categoryResponse == null || categoryResponse.Models.Count == 0)
+        {
+            Console.WriteLine("Failed to insert the category record.");
+            return false;
+        }
+
+        Console.WriteLine($"Category created successfully with ID: {category.CategoryId}");
+        return true;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error in CreateVenueAsync: {ex.Message}");
+        return false;
+    }
+}
         /// <summary>
         /// Uploads a list of images for the given venue.
         /// </summary>
@@ -93,58 +117,58 @@ namespace HojozatyCode.Services
         /// <param name="venueId">The venue ID (used for file naming).</param>
         /// <returns>The public URL of the uploaded image, or null if the upload fails.</returns>
         private static async Task<string> UploadImageAsync(FileResult image, Guid venueId)
-{
-    if (image == null)
-    {
-        Console.WriteLine("Image is null.");
-        return null;
-    }
-
-    try
-    {
-        // Generate a unique filename using the venue ID and current timestamp
-        string extension = Path.GetExtension(image.FileName)?.ToLower() ?? ".jpg";
-        string fileName = $"{venueId}_{DateTime.UtcNow.Ticks}{extension}";
-
-        // Read the file data into a byte array
-        using var stream = await image.OpenReadAsync();
-        using var memoryStream = new MemoryStream();
-        await stream.CopyToAsync(memoryStream);
-        memoryStream.Position = 0;
-        byte[] fileBytes = memoryStream.ToArray();
-
-        Console.WriteLine($"Uploading image with filename: {fileName}");
-
-        // Prepare upload options (including proper content type)
-        var fileOptions = new Supabase.Storage.FileOptions
         {
-            ContentType = GetContentType(extension),
-            Upsert = true
-        };
+            if (image == null)
+            {
+                Console.WriteLine("Image is null.");
+                return null;
+            }
 
-        // Upload the image to the specified bucket
-        var uploadResult = await SupabaseConfig.SupabaseClient.Storage
-            .From(BUCKET_NAME)
-            .Upload(fileBytes, fileName, fileOptions);
+            try
+            {
+                // Generate a unique filename using the venue ID and current timestamp
+                string extension = Path.GetExtension(image.FileName)?.ToLower() ?? ".jpg";
+                string fileName = $"{venueId}_{DateTime.UtcNow.Ticks}{extension}";
 
-        if (uploadResult != null)
-        {
-            string publicUrl = $"{STORAGE_URL}{fileName}";
-            Console.WriteLine($"Successfully uploaded image: {publicUrl}");
-            return publicUrl;
+                // Read the file data into a byte array
+                using var stream = await image.OpenReadAsync();
+                using var memoryStream = new MemoryStream();
+                await stream.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+                byte[] fileBytes = memoryStream.ToArray();
+
+                Console.WriteLine($"Uploading image with filename: {fileName}");
+
+                // Prepare upload options (including proper content type)
+                var fileOptions = new Supabase.Storage.FileOptions
+                {
+                    ContentType = GetContentType(extension),
+                    Upsert = true
+                };
+
+                // Upload the image to the specified bucket
+                var uploadResult = await SupabaseConfig.SupabaseClient.Storage
+                    .From(BUCKET_NAME)
+                    .Upload(fileBytes, fileName, fileOptions);
+
+                if (uploadResult != null)
+                {
+                    string publicUrl = $"{STORAGE_URL}{fileName}";
+                    Console.WriteLine($"Successfully uploaded image: {publicUrl}");
+                    return publicUrl;
+                }
+                else
+                {
+                    Console.WriteLine("Upload result was null.");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error uploading image: {ex.Message}");
+                return null;
+            }
         }
-        else
-        {
-            Console.WriteLine("Upload result was null.");
-            return null;
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error uploading image: {ex.Message}");
-        return null;
-    }
-}
 
         /// <summary>
         /// Returns the MIME content type based on the file extension.

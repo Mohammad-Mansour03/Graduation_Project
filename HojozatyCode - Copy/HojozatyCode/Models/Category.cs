@@ -11,7 +11,7 @@ namespace HojozatyCode.Models
         public Guid CategoryId { get; set; } = Guid.NewGuid(); // Default to gen_random_uuid()
 
         [Column("venue_id")]
-        public Guid? VenueId { get; set; } // Foreign key relation to Venue.venue_id
+        public Guid VenueId { get; set; } // Foreign key relation to Venue.venue_id
 
         [Column("name")]
         public string Name { get; set; }
