@@ -26,10 +26,25 @@ namespace HojozatyCode.ViewModels
         private string address;
 
         [ObservableProperty]
+        private string category; // Changed from SpaceType to Category
+
+        [ObservableProperty]
         private string spaceType;
 
         [ObservableProperty]
         private string description;
+
+        [ObservableProperty]
+         private string email;
+
+        [ObservableProperty]
+         private string phone;
+
+        [ObservableProperty]
+         private int capacity;
+
+         [ObservableProperty]
+         private double initialPrice;
 
         [ObservableProperty]
         private ObservableCollection<FileResult> selectedImages;
@@ -60,10 +75,10 @@ namespace HojozatyCode.ViewModels
         [RelayCommand]
         private async Task NavigateToSpaceInformationAsync()
         {
-            // Validate if SpaceType is selected
+            // Validate if Category is selected
             if (string.IsNullOrWhiteSpace(SpaceType))
             {
-                await Shell.Current.DisplayAlert("Validation Error", "Please select a space type.", "OK");
+                await Shell.Current.DisplayAlert("Validation Error", "Please select a category.", "OK");
                 return;
             }
 
@@ -122,7 +137,7 @@ namespace HojozatyCode.ViewModels
             // Validate required fields
             if (string.IsNullOrWhiteSpace(SpaceName) ||
                 string.IsNullOrWhiteSpace(Description) ||
-                string.IsNullOrWhiteSpace(SpaceType) ||
+                string.IsNullOrWhiteSpace(Category) || // Changed from SpaceType to Category
                 string.IsNullOrWhiteSpace(City) ||
                 string.IsNullOrWhiteSpace(Address))
             {
@@ -150,21 +165,21 @@ namespace HojozatyCode.ViewModels
                     OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
                     VenueName = SpaceName,
                     Description = Description,
-                    Type = SpaceType,
-                    Capacity = 100, // Adjust as needed
+                    Type = Category, // Changed from SpaceType to Category
+                    Capacity = Capacity, // the number may be stored wrong in the database
                     Location = $"{City}, {Address}",
-                    VenueContactPhone = "1234567890", // Example value
-                    VenueEmail = "example@example.com", // Example value
-                    InitialPrice = 1000 // Example value
+                    VenueContactPhone = Phone, // Example value
+                    VenueEmail = Email, // Example value
+                    InitialPrice = InitialPrice // the number may be stored wrong in the database
                 };
 
                 Console.WriteLine($"Creating venue with ID: {venue.VenueId}");
 
-                // Save venue with uploaded images
-                bool success = await VenueService.CreateVenueAsync(venue, imagesToUpload);
+                // Save venue with uploaded images and category
+                bool success = await VenueService.CreateVenueAsync(venue, imagesToUpload, Category, Description);
                 if (success)
                 {
-                    await Shell.Current.DisplayAlert("Success", "Venue created successfully!", "OK");
+                    await Shell.Current.DisplayAlert("Success", "Venue and category created successfully!", "OK");
                     await Shell.Current.GoToAsync(nameof(SuccessPage));
                 }
                 else
