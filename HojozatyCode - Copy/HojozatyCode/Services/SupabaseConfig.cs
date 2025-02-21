@@ -1,7 +1,6 @@
 using HojozatyCode.Models;
 using Supabase;
 using System.Threading.Tasks;
-using static Supabase.Postgrest.Constants;
 
 namespace HojozatyCode.Services
 {
@@ -22,7 +21,5 @@ namespace HojozatyCode.Services
             SupabaseClient = new Client(url, key, options);
             await SupabaseClient.InitializeAsync();
         }
-
-	
-	}
+    }
 }

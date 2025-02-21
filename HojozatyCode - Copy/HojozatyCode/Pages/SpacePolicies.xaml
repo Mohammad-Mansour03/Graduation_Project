@@ -94,11 +94,10 @@
 
 
             <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50" >
-                    
-                    <Entry Text="Maximum Capacity" IsReadOnly="True" Margin="5"/>
-                </Border>
-                <Entry x:Name="MaximumCapacityInput" Grid.Column="1" VerticalOptions="Center" Placeholder="Input" />
+                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
+        <Entry Text="Maximum Capacity" IsReadOnly="True" Margin="5"/>
+            </Border>
+    <Entry x:Name="MaximumCapacityInput" Grid.Column="1" VerticalOptions="Center" Placeholder="Input" Text="{Binding Capacity}"/>
             </Grid>
 
             <!-- Review Button -->
