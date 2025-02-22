@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels;assembly=HojozatyCode"
              x:Class="HojozatyCode.Pages.NotificationsPage"
-             Shell.NavBarIsVisible="False"
+             Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="True"
-             Title="Notifications Page">
+             Title="Notifications">
 
     <ContentPage.BindingContext>
         <viewModels:NotificationsViewModel />
@@ -17,30 +17,7 @@
               Padding="16" 
               ColumnDefinitions="Auto,*"
               BackgroundColor="White">
-            <ImageButton Source="back_icon.png"
-                     HeightRequest="30" WidthRequest="30"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Start"
-                     Padding="5"
-                     Margin="-15,10,0,0"
-                     Command="{Binding GoBackCommand}"/>
         </Grid>
-
-        <!-- Notifications Label -->
-        <Label Grid.Row="1"
-               Text="Notifications"
-               FontSize="25"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               Margin="0,10,0,5"/>
-
-        <!-- Divider (Now correctly placed under Notifications label) -->
-        <BoxView Grid.Row="2"
-                 HeightRequest="1"
-                 BackgroundColor="Gray"
-                 HorizontalOptions="Fill"
-                 Opacity="0.5"
-                 Margin="0,0,0,10"/>
 
         <!-- Notifications List -->
         <CollectionView Grid.Row="3"
