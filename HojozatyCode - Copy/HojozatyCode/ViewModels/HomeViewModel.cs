@@ -7,24 +7,27 @@ namespace HojozatyCode.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
+        //Command for back icon (Navigate me to the Login and Signup page)
         [RelayCommand]
         private async Task NavigateBack()
         {
             await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
-        }     
-        
+        }
+
+        //Navigate me to the Explore page
         [RelayCommand]
         private async Task GoToExplore()
         {
             await Shell.Current.GoToAsync(nameof(Pages.ExplorePage));
         }
-        
+
+        //Navigate me to the Account Page
         [RelayCommand]
         private async Task GoToAccount()
         {
             await Shell.Current.GoToAsync(nameof(Pages.AccountPage));
         }
-        
+
 
         // Navigate to notification
         [RelayCommand]
@@ -37,32 +40,35 @@ namespace HojozatyCode.ViewModels
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
-                Console.WriteLine($"Navigation Error: {ex.Message}");
+                return;
             }
         }
 
-       [RelayCommand]
-private async Task NavigateToCategory(string category)
-{
-    try
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            { "Category", category }
-        };
-        await Shell.Current.GoToAsync($"{nameof(CategoryVenuesPage)}", true, parameters);
-    }
-    catch (Exception ex)
-    {
-        await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
-        Console.WriteLine($"Navigation Error: {ex.Message}");
-    }
-}
 
-    //      [RelayCommand]
-    // private async Task NavigateToSpaceTypeSelection()
-    // {
-    //     await Shell.Current.GoToAsync(nameof(SpaceTypeSelectionPage));
-    // }
+        //For what??????
+        //       [RelayCommand]
+        //private async Task NavigateToCategory(string category)
+        //{
+        //    try
+        //    {
+        //        var parameters = new Dictionary<string, object>
+        //        {
+        //            { "Category", category }
+        //        };
+        //        await Shell.Current.GoToAsync($"{nameof(CategoryVenuesPage)}", true, parameters);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+        //        Console.WriteLine($"Navigation Error: {ex.Message}");
+        //    }
+        //}
+
+        //    //      [RelayCommand]
+        //    // private async Task NavigateToSpaceTypeSelection()
+        //    // {
+        //    //     await Shell.Current.GoToAsync(nameof(SpaceTypeSelectionPage));
+        //    // }
+        //    }
     }
 }

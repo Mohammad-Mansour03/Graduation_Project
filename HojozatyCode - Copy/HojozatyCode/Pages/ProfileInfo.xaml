@@ -145,14 +145,6 @@
                 </Border>
             </VerticalStackLayout>
 
-            <!-- Remember Me --><!--
-            <HorizontalStackLayout Spacing="10">
-                <CheckBox 
-                    Color="#6750A4"/>
-                <Label 
-                    Text="Remember me"
-                    VerticalOptions="Center"/>
-            </HorizontalStackLayout>-->
 
             <!-- Gender Selection -->
             <VerticalStackLayout Spacing="15">
@@ -173,6 +165,14 @@
                     Converter={StaticResource GenderToBooleanConverter}, ConverterParameter=Male}"
                     TextColor="#666666"/>
             </VerticalStackLayout>
+
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}" 
+           FontSize="14" 
+           TextColor="Red" 
+           HorizontalOptions="Center" 
+           VerticalOptions="Center" 
+           IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
 
             <!-- Buttons -->
             <Grid 

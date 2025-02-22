@@ -20,7 +20,7 @@ namespace HojozatyCode.ViewModels
         private string passwordL;
 
         //Property to change eye icon dynamically
-       public string EyeIconSource => IsHiddenPassword ? "eye_off_icon.png":"eye_on_icon.png";
+        public string EyeIconSource => IsHiddenPassword ? "eye_off_icon.png":"eye_on_icon.png";
 
 		//Properety to soter the error that appear to the user
 		[ObservableProperty]
@@ -91,7 +91,7 @@ namespace HojozatyCode.ViewModels
 			catch (Exception )
 			{
 				// Catch other generic exceptions
-				await Shell.Current.DisplayAlert("Error", "Invalid email or password." , "OK");
+				await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password." , "OK");
 			}
 		}
     }

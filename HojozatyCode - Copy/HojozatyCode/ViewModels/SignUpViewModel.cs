@@ -28,7 +28,7 @@ namespace HojozatyCode.ViewModels
 		//Properety to Check what the eye icon appear
 		public string EyeIconConfirmPasswordSource => IsHiddenConfirmPassword ? "eye_off_icon.png" : "eye_on_icon.png";
 
-        //Properety to soter the error that appear to the user
+        //Properety to store the error that appear to the user
         [ObservableProperty]
         private string errorMessage;
 

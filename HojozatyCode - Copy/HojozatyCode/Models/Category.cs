@@ -14,9 +14,9 @@ namespace HojozatyCode.Models
         public Guid VenueId { get; set; } // Foreign key relation to Venue.venue_id
 
         [Column("name")]
-        public string Name { get; set; }
+        public string Name { get; set; }//The name stores the venue category
 
         [Column("description")]
-        public string Description { get; set; }
+        public string Description { get; set; }//Store the description for this category
     }
 }

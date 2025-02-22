@@ -1,3 +1,4 @@
+//Enumaration type to store the notification types
 public enum NotificationType
 {
     NewBooking,

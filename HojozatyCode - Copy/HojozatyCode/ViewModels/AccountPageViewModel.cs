@@ -10,12 +10,14 @@ namespace HojozatyCode.ViewModels
 {
     public partial class AccountPageViewModel : ObservableObject
     {
+        //Navigte me to the Edit Profile Page
         [RelayCommand]
         private async Task GoToEditProfile() 
         {
             await Shell.Current.GoToAsync(nameof(Pages.EditProfile));
         }
 
+        //Navigate me to the Home Page
         [RelayCommand]  
         private async Task GoBack(){
             await Shell.Current.GoToAsync(nameof(Pages.HomePage));

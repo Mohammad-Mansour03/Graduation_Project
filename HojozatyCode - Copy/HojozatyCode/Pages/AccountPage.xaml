@@ -5,22 +5,22 @@
              x:Class="HojozatyCode.Pages.AccountPage"
              x:DataType="viewModels:AccountPageViewModel"
              Shell.NavBarIsVisible="False"
-             Title="AccountPage"
-             >
-
+             Title="AccountPage">
 
     <ContentPage.BindingContext>
         <viewModels:AccountPageViewModel />
     </ContentPage.BindingContext>
 
-
     <!-- Main Layout -->
     <Grid Padding="20">
 
-        <!-- Profile Icon at the Top Right -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Icons Row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Title Row -->
             <RowDefinition Height="*"/>
+            <!-- Content Row -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -28,111 +28,86 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <!--! back icon-->
-        
+        <!-- Back Icon -->
         <ImageButton Source="back_icon.png"
-               Grid.Row="0"
-               Grid.Column="0"
-               HeightRequest="15"
-               WidthRequest="15"
-               HorizontalOptions="Start"
-               VerticalOptions="Center"
-               Margin="0,0,10,0"
-               Command="{Binding GoBackCommand}"/>
+                     HeightRequest="30" WidthRequest="30"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Start"
+                     Padding="5"
+                     Margin="-15,10,0,0"
+                     Command="{Binding GoBackCommand}"/>
+
+        <!-- Profile Icon -->
+        <ImageButton Source="profile_icon.png"
+                     Grid.Column="1"
+                     HeightRequest="35"
+                     WidthRequest="35"
+                     HorizontalOptions="End"
+                     VerticalOptions="Center"
+                     Margin="0,0,10,0"
+                     Command="{Binding GoToEditProfileCommand}"/>
 
         <!-- Title (Account) -->
         <Label Text="Account"
-               Grid.Row="0"
-               Grid.Column="0"
+               Grid.Row="1"
+               Grid.ColumnSpan="2"
                FontSize="24"
                FontAttributes="Bold"
+               HorizontalOptions="Center"
                VerticalOptions="Center"
-               Padding="50,0,10,0"
+               Padding="0,10,0,10"
+               Margin="-35,10,10,10"
                FontFamily="Title Page"
-               TextColor="#4F378A"
-               />
-
-        <!-- Profile Icon (Top Right) -->
-        <ImageButton Source="profile_icon.png"
-               Grid.Row="0"
-               Grid.Column="1"
-               HeightRequest="35"
-               WidthRequest="35"
-               HorizontalOptions="End"
-               VerticalOptions="Center"
-               Margin="0,0,10,0"
-               Command="{Binding GoToEditProfileCommand}"/>
+               TextColor="#4F378A"/>
 
         <!-- Main List of Options -->
-        <VerticalStackLayout Spacing="20" Margin="10,60,10,0" Grid.Row="1">
-            <!-- A vertical layout to space out the account menu items, 
-                 with margins to adjust positioning -->
+        <VerticalStackLayout Spacing="20" Margin="10,20,10,0" Grid.Row="2">
 
             <!-- My Spaces -->
-            <Border  Padding="15"  StrokeShape="RoundRectangle 10" 
-                     StrokeThickness="1" >
-              
+            <Border   Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1" >
                 <HorizontalStackLayout>
                     <Image Source="my_space_icon.png" WidthRequest="20" HeightRequest="20"/>
-                    <!-- Icon for "Add a space" -->
                     <Label Text="My Spaces" FontSize="18" Margin="20,0,0,0"/>
-                    <!-- Label with text "Add a space" next to the icon -->
                 </HorizontalStackLayout>
-
             </Border>
 
             <!-- Add a Space -->
-            <Border  Padding="15" StrokeShape="RoundRectangle 10" 
-                     StrokeThickness="1">
+            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
                 <HorizontalStackLayout>
                     <Image Source="add_space_icon_2.png" WidthRequest="20" HeightRequest="20"/>
-                    <!-- Icon for "Add a space" -->
                     <Label Text="Add A Space" FontSize="18" Margin="20,0,0,0"/>
-                    <!-- Label with text "Add a space" next to the icon -->
                 </HorizontalStackLayout>
             </Border>
 
             <!-- Favorites -->
-            <Border StrokeShape="RoundRectangle 10" 
-                     StrokeThickness="1" Padding="15" >
+            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
                 <HorizontalStackLayout>
                     <Image Source="favourite_icon_2.png" WidthRequest="20" HeightRequest="20"/>
-                    <!-- Heart icon for Favorites -->
                     <Label Text="Favourites" FontSize="18" Margin="20,0,0,0"/>
-                    <!-- "Favorites" label -->
                 </HorizontalStackLayout>
             </Border>
 
             <!-- Payment Methods -->
-            <Border StrokeShape="RoundRectangle 10" 
-                     StrokeThickness="1" Padding="15" >
+            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
                 <HorizontalStackLayout>
                     <Image Source="payment_icon.png" WidthRequest="20" HeightRequest="20"/>
-                    <!-- Icon for Payment Methods -->
                     <Label Text="Payments Methods" FontSize="18" Margin="20,0,0,0"/>
-                    <!-- "Payments Methods" label -->
                 </HorizontalStackLayout>
             </Border>
 
             <!-- Notifications -->
-            <Border StrokeShape="RoundRectangle 10" 
-                     StrokeThickness="1" Padding="15">
+            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
                 <HorizontalStackLayout>
                     <Image Source="notification_icon_2.png" WidthRequest="20" HeightRequest="20"/>
-                    <!-- Notification bell icon -->
                     <Label Text="Notifications" FontSize="18" Margin="20,0,0,0"/>
-                    <!-- "Notifications" label -->
                 </HorizontalStackLayout>
             </Border>
 
             <!-- Logout -->
-            <Border StrokeShape="RoundRectangle 10" 
-                     StrokeThickness="1" Padding="15" >
+            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
                 <HorizontalStackLayout>
                     <Image Source="logout_icon.png" WidthRequest="20" HeightRequest="20"/>
-                    <!-- Logout icon -->
                     <Label Text="Logout" FontSize="18" TextColor="Red" Margin="20,0,0,0"/>
-                    <!-- "Logout" label in red to indicate danger (logout action) -->
                 </HorizontalStackLayout>
             </Border>
         </VerticalStackLayout>
@@ -140,5 +115,3 @@
     </Grid>
 
 </ContentPage>
-
-

@@ -16,7 +16,7 @@
     <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 
           ColumnDefinitions="20, *, 20">
        
-        <!-- Close Icon -->
+        <!-- Back Icon -->
         <ImageButton Source="back_icon.png" 
                      Grid.Row="0" Grid.Column="0" 
                      HorizontalOptions="Start"
@@ -120,35 +120,7 @@
                    HorizontalOptions="Center" />
             
         </StackLayout>
-
-         <!--Social Login Buttons 
-        <StackLayout Grid.Row="4" Grid.Column="1"
-                     Orientation="Horizontal" 
-                     Spacing="60"
-                     HorizontalOptions="Center">
-            
-            Facebook
-            <ImageButton
-                Source="facebook_icon.png"
-                WidthRequest="15"
-                HeightRequest="15"
-             />
-            
-            Google
-            <ImageButton
-                Source="google_icon.png"
-                WidthRequest="15"
-                HeightRequest="15"
-             />
-
-            Apple
-            <ImageButton
-                Source="apple_icon.png"
-                WidthRequest="15"
-                HeightRequest="15"
-             />
-        </StackLayout>-->
-        
+   
         <!--Don't have an account-->
         <StackLayout Grid.Row="4" Grid.Column="1"
                  VerticalOptions="Center"

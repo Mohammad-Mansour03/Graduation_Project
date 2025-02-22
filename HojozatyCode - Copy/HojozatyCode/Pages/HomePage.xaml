@@ -18,22 +18,25 @@
             <!-- Header Section -->
             <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" >
                 <VerticalStackLayout>
+                    
                    <!--Back icon-->
                     <ImageButton Source="back_icon.png"
                              HeightRequest="30" WidthRequest="30"
                              VerticalOptions="Center" 
                              HorizontalOptions="Start"
                              Padding="5"
-                             Margin="-15,-10,0,0"
+                             Margin="-15,10,0,0"
                              Command="{Binding NavigateBackCommand}"/>
                     
                     <!--The Header Content-->
                     <Label Text="What are you planning in " 
                            FontSize="18" 
                            FontAttributes="Bold"
-                           Margin="0,30,0,0"/>
+                           HorizontalOptions="Center"
+                           Margin="0,40,0,0"/>
                     <Label Text="Jordan?" 
                            FontSize="18" 
+                           HorizontalOptions="Center"
                            FontAttributes="Bold" 
                            TextColor="#4F378A" />
                 </VerticalStackLayout>
@@ -45,17 +48,19 @@
                     <ImageButton Source="notification_icon.png" 
                            HeightRequest="30" 
                            WidthRequest="30"
+                           Margin="10,10,0,0"
                            Command="{Binding NavigateToNotificationsCommand}"
                            />
                     
                     <ImageButton Source="account_icon.png" 
                            HeightRequest="30"
                            WidthRequest="30"
+                           Margin="10,10,0,0"
                            Command="{Binding GoToAccountCommand}"/>
                 </HorizontalStackLayout>
             </Grid>
 
-            <!--The Search for activity-->
+            <!--The Search for activity--><!--
             <Border   Margin="0,20,0,0"
                       Background="#ECE6EE"
                       StrokeShape="RoundRectangle 30" 
@@ -70,7 +75,7 @@
                            Placeholder="Enter your activity" 
                            FontSize="18"/>
                 </HorizontalStackLayout>
-            </Border>
+            </Border>-->
 
             <!--The Activites types (Wedding , Meeting , Funeral , More)-->
             <ScrollView Orientation="Horizontal">
@@ -82,11 +87,13 @@
                             HeightRequest="100"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
+                        
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer 
                                 Command="{Binding NavigateToCategoryCommand}" 
                                 CommandParameter="Wedding"/>
                         </Border.GestureRecognizers>
+                        
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center" 
                                              Spacing="5">
@@ -277,7 +284,7 @@
                            Command="{Binding GoToExploreCommand}"/>
                     </VerticalStackLayout>
 
-                    <!-- Image Positioned to the Right -->
+                    <!--Flower Image Positioned to the Right -->
                     <Image Source="flower.png"
                            WidthRequest="100" 
                            HeightRequest="100" 

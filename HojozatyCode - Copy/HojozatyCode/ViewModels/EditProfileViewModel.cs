@@ -43,13 +43,13 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string gender;
 		
-
-
+		//The Constructor to make fitching for user data
 		public EditProfileViewModel()
 		{
 			LoadUserData();
 		}
 
+		//This Method to return the user data
 		private async void LoadUserData()
 		{
 			var client = SupabaseConfig.SupabaseClient;
@@ -76,6 +76,7 @@ namespace HojozatyCode.ViewModels
 
 		}//The end of Load User Command
 
+		//This Method to Save the new user data
 		[RelayCommand]
 		private async Task SaveUserData() 
 		{
@@ -126,12 +127,13 @@ namespace HojozatyCode.ViewModels
 
 		}
 
+		//Method to validate the email
 		private bool IsValidEmail(string email) 
 		{
 			return  Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$");
 		}
 
-
+		//Method to navigate to the home page when click on the cancel button
 		[RelayCommand]
 		private async Task CloseEditProfile() 
 		{

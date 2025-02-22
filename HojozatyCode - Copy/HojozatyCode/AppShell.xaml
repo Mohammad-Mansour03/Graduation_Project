@@ -13,21 +13,27 @@
 
  
         <TabBar>
+    
             <Tab Title="Home" Icon="home_icon.png">
                 <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
             </Tab>
+    
             <Tab Title="Chat" Icon="chat_icon.png">
                 <ShellContent ContentTemplate="{DataTemplate pages:ChatList}" />
             </Tab>
+            
             <Tab Title="Favourite" Icon="favourite_icon.png">
                 <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />
             </Tab>
+            
             <Tab Title="AddSpace" Icon="add_space_icon.png">
                 <ShellContent ContentTemplate="{DataTemplate pages:SpaceTypeSelectionPage}" />
             </Tab>
+            
             <Tab Title="Account" Icon="account_icon_1.png">
                 <ShellContent ContentTemplate="{DataTemplate pages:AccountPage}" />
             </Tab>
+        
         </TabBar>
     
     

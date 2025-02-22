@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
+using System.Text.RegularExpressions;
 
 
 namespace HojozatyCode.ViewModels
@@ -33,6 +34,10 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		string genderP;
 
+		//Properety to soter the error that appear to the user
+		[ObservableProperty]
+		private string errorMessage;
+
 		//The command to Go out from the profile info page
 		[RelayCommand]
         private async Task CancelAsync()
@@ -54,6 +59,44 @@ namespace HojozatyCode.ViewModels
 					await Shell.Current.DisplayAlert("Error", "User not authenticated.", "OK");
 					return;
 				}
+
+				if (FirstNameP == null) 
+				{
+					ErrorMessage = "Please Enter The First Name";
+					return;
+				}
+
+				if (LastNameP == null)
+				{
+					ErrorMessage = "Please Enter The Last Name";
+					return;
+				}
+
+				if (PhoneP == null) 
+				{
+					ErrorMessage = "Please Enter The Phone Number";
+					return;
+				}
+
+				if (!Regex.IsMatch(PhoneP, @"^(?:\+962|0)7[789]\d{7}$"))
+				{
+					ErrorMessage = "Please Enter Valid Phone Number";
+					return;
+				}
+
+				if (AgeP < 18 || AgeP > 85) 
+				{
+					ErrorMessage = "The Age Must be between 18 and 85";
+					return;
+				}
+
+				if (GenderP == null) 
+				{
+					ErrorMessage = "Please Enter The Gender";
+					return;
+				}
+
+
 
 				//Make the user object to store the user information and saved it in the database
 				var newUserProfile = new User
