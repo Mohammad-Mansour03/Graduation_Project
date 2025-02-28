@@ -4,10 +4,11 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.SpacePicturesPage"
              x:DataType="viewModels:AddSpaceViewModel"
-             Title="Add Pictures Of Your Space">
+             Title="Your Space Pictures">
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
+            <!--The Space Pictures Caption-->
             <Label 
                 Text="Add Pictures Of Your Space"
                 FontSize="32"
@@ -19,22 +20,37 @@
                   ColumnSpacing="15">
 
                 <!-- First Row -->
-                <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[0], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                <Border Grid.Row="0" 
+                        Grid.Column="0" 
+                        Stroke="LightGray"
+                        StrokeThickness="1">
+                    <ImageButton Source="{Binding ImagePreviewSources[0],
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="0"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
-                <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[1], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                
+                <Border Grid.Row="0" 
+                        Grid.Column="1" 
+                        Stroke="LightGray" 
+                        StrokeThickness="1">
+                    <ImageButton Source="{Binding ImagePreviewSources[1],
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="1"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
-                <Border Grid.Row="0" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[2], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="2" 
+                    Stroke="LightGray" 
+                    StrokeThickness="1">
+                    <ImageButton Source="{Binding ImagePreviewSources[2],
+                                TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="2"
                                 Aspect="AspectFill"
@@ -42,62 +58,96 @@
                 </Border>
 
                 <!-- Second Row -->
-                <Border Grid.Row="1" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[3], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                <Border Grid.Row="1" 
+                        Grid.Column="0"
+                        Stroke="LightGray"
+                        StrokeThickness="1">
+                    <ImageButton Source="{Binding ImagePreviewSources[3],
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
                                 Command="{Binding AddImageCommand}"
                                 CommandParameter="3"
                                 Aspect="AspectFill"
                                 HeightRequest="100"/>
                 </Border>
-                <Border Grid.Row="1" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[4], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="4"
-                                Aspect="AspectFill"
-                                HeightRequest="100"/>
+                
+                <Border Grid.Row="1" 
+                        Grid.Column="1" 
+                        Stroke="LightGray"
+                        StrokeThickness="1">
+                    <ImageButton Source="{Binding ImagePreviewSources[4],
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="4"
+                                 Aspect="AspectFill"
+                                 HeightRequest="100"/>
                 </Border>
-                <Border Grid.Row="1" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[5], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="5"
-                                Aspect="AspectFill"
-                                HeightRequest="100"/>
+                
+                <Border Grid.Row="1" 
+                        Grid.Column="2" 
+                        Stroke="LightGray"
+                        StrokeThickness="1">
+                    
+                    <ImageButton Source="{Binding ImagePreviewSources[5], 
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="5"
+                                 Aspect="AspectFill"
+                                 HeightRequest="100"/>
                 </Border>
 
                 <!-- Third Row -->
-                <Border Grid.Row="2" Grid.Column="0" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[6], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="6"
-                                Aspect="AspectFill"
-                                HeightRequest="100"/>
+                <Border Grid.Row="2" 
+                        Grid.Column="0" 
+                        Stroke="LightGray" 
+                        StrokeThickness="1">
+                   
+                    <ImageButton Source="{Binding ImagePreviewSources[6], 
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="6"
+                                 Aspect="AspectFill"
+                                 HeightRequest="100"/>
                 </Border>
-                <Border Grid.Row="2" Grid.Column="1" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[7], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="7"
-                                Aspect="AspectFill"
-                                HeightRequest="100"/>
+                
+                <Border Grid.Row="2" 
+                        Grid.Column="1"
+                        Stroke="LightGray" 
+                        StrokeThickness="1">
+                    
+                    <ImageButton Source="{Binding ImagePreviewSources[7],
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="7"
+                                 Aspect="AspectFill"
+                                 HeightRequest="100"/>
                 </Border>
-                <Border Grid.Row="2" Grid.Column="2" Stroke="LightGray" StrokeThickness="1">
-                    <ImageButton Source="{Binding ImagePreviewSources[8], TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="8"
-                                Aspect="AspectFill"
-                                HeightRequest="100"/>
+                
+                <Border Grid.Row="2" 
+                        Grid.Column="2" 
+                        Stroke="LightGray" 
+                        StrokeThickness="1">
+                    <ImageButton Source="{Binding ImagePreviewSources[8], 
+                                 TargetNullValue='https://cdn1.iconfinder.com/data/icons/image-manipulations/100/13-1024.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="8"
+                                 Aspect="AspectFill"
+                                 HeightRequest="100"/>
                 </Border>
+                
             </Grid>
 
             <Button Text="Next"
                     BackgroundColor="#673AB7"
                     TextColor="White"
-                    CornerRadius="5"
-                    HeightRequest="50"
+                    CornerRadius="25"
+                    HeightRequest="25"
+                    WidthRequest="150"
                     Margin="0,20,0,0"
                     Command="{Binding NavigateToServicesPageCommand}"/>
 
             <!-- ActivityIndicator to show loading state -->
-            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
+            <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                               IsVisible="{Binding IsLoading}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

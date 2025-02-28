@@ -4,86 +4,98 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.SpaceInformationPage"
              x:DataType="viewModels:AddSpaceViewModel"
-             Title="Add Information About Your Space">
+             Title="Space Information">
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
+            <!--The Page Caption-->
             <Label 
                 Text="Add Information About Your Space"
                 FontSize="32"
                 FontAttributes="Bold"/>
 
-            <Border Stroke="LightGray" Padding="15">
+            <!--Owner Name-->
+            <Border Stroke="LightGray" 
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
+
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Owner Name" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Entry Placeholder="Input"
+                    <Entry Placeholder="Owner Name"
                            Text="{Binding OwnerName}"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+           <!--Space Name-->
+            <Border Stroke="LightGray" 
+                     Padding="10"
+                     Margin="0,10,0,0" 
+                     StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Space Name" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Entry Placeholder="Input"
+                    <Entry Placeholder="Space Name"
                            Text="{Binding SpaceName}"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+            <!--Space City-->
+            <Border Stroke="LightGray" 
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="City" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Entry Placeholder="Input"
+                    <Entry Placeholder="City"
                            Text="{Binding City}"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+            <!--Space Address-->
+            <Border Stroke="LightGray" 
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Address" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Entry Placeholder="Input"
+                    <Entry Placeholder="Address"
                            Text="{Binding Address}"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+            <!--Space Phone-->
+            <Border Stroke="LightGray" 
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Phone" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Entry Placeholder="Input"
+                    <Entry Placeholder="Venue Phone"
                            Text="{Binding Phone}"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+            <!--Space Email-->
+            <Border Stroke="LightGray" 
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Email" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Entry Placeholder="Input"
+                    <Entry Placeholder="Email"
                            Text="{Binding Email}"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+            <Border Stroke="LightGray" 
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Initial Price" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Entry Placeholder="Input"
+                    <Entry Placeholder="Initial Price"
                            Text="{Binding InitialPrice}"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+            <!--Type of Space-->
+            <Border Stroke="LightGray"  
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Type of space" 
                            FontSize="14"
@@ -99,22 +111,25 @@
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="LightGray" Padding="15">
+            <!--Space Description-->
+            <Border Stroke="LightGray"  
+                    Padding="10"
+                    Margin="0,10,0,0" 
+                    StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Description" 
-                           FontSize="14"
-                           TextColor="Gray"/>
-                    <Editor Placeholder="Input"
+                    <Editor Placeholder="Description"
                             HeightRequest="100"
                             Text="{Binding Description}"/>
                 </VerticalStackLayout>
             </Border>
 
+            <!--The next button-->
             <Button Text="Next"
                     BackgroundColor="#673AB7"
                     TextColor="White"
-                    CornerRadius="5"
-                    HeightRequest="50"
+                    CornerRadius="25"
+                    HeightRequest="25"
+                    WidthRequest="150"
                     Margin="0,20,0,0"
                     Command="{Binding NavigateToSpacePicturesCommand}"/>
         </VerticalStackLayout>
