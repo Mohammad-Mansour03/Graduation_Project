@@ -43,32 +43,25 @@ namespace HojozatyCode.ViewModels
                 return;
             }
         }
+       
+        [RelayCommand]
+        private async Task NavigateToCategory(string category)
+        {
+            try
+            {
+                var parameters = new Dictionary<string, object>
+                {
+                    { "Category", category }
+                };
+                await Shell.Current.GoToAsync($"{nameof(CategoryVenuesPage)}", true, parameters);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+                Console.WriteLine($"Navigation Error: {ex.Message}");
+            }
+        }
 
 
-        //For what??????
-        //       [RelayCommand]
-        //private async Task NavigateToCategory(string category)
-        //{
-        //    try
-        //    {
-        //        var parameters = new Dictionary<string, object>
-        //        {
-        //            { "Category", category }
-        //        };
-        //        await Shell.Current.GoToAsync($"{nameof(CategoryVenuesPage)}", true, parameters);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
-        //        Console.WriteLine($"Navigation Error: {ex.Message}");
-        //    }
-        //}
-
-        //    //      [RelayCommand]
-        //    // private async Task NavigateToSpaceTypeSelection()
-        //    // {
-        //    //     await Shell.Current.GoToAsync(nameof(SpaceTypeSelectionPage));
-        //    // }
-        //    }
     }
 }

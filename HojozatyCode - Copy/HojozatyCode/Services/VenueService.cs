@@ -51,7 +51,7 @@ namespace HojozatyCode.Services
 
         // Retrieve the inserted Venue to confirm the VenueId
         var insertedVenue = venueResponse.Models[0];
-        Console.WriteLine($"Venue created successfully with ID: {insertedVenue.VenueId}");
+       // Console.WriteLine($"Venue created successfully with ID: {insertedVenue.VenueId}");
 
         // Save the category with the correct VenueId
         var category = new Category

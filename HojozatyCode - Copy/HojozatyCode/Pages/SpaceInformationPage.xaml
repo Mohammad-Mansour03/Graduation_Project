@@ -14,19 +14,7 @@
                 FontSize="32"
                 FontAttributes="Bold"/>
 
-            <!--Owner Name-->
-            <Border Stroke="LightGray" 
-                    Padding="10"
-                    Margin="0,10,0,0" 
-                    StrokeShape="RoundRectangle 15">
-
-                <VerticalStackLayout Spacing="5">
-                    <Entry Placeholder="Owner Name"
-                           Text="{Binding OwnerName}"/>
-                </VerticalStackLayout>
-            </Border>
-
-           <!--Space Name-->
+            <!--Space Name-->
             <Border Stroke="LightGray" 
                      Padding="10"
                      Margin="0,10,0,0" 

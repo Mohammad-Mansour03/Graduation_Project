@@ -165,7 +165,7 @@ namespace HojozatyCode.ViewModels
                     OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
                     VenueName = SpaceName,
                     Description = Description,
-                    Type = Category, // Changed from SpaceType to Category
+                    Type = SpaceType, // Changed from SpaceType to Category
                     Capacity = Capacity, // the number may be stored wrong in the database
                     Location = $"{City}, {Address}",
                     VenueContactPhone = Phone, // Example value
