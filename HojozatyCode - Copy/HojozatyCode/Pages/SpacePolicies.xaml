@@ -5,6 +5,7 @@
              x:Class="HojozatyCode.Pages.SpacePolicies"
              Title="SpacePolicies">
     <ScrollView>
+        
         <VerticalStackLayout Padding="20" Spacing="15">
 
             <!-- Header -->
@@ -22,19 +23,23 @@
 
             
                 <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
-                    <Entry Text="Visa/Mastercard" IsReadOnly="True" Margin="5"/>
+              
+                 <!--Visa/Master Card-->
+                <Border Stroke="Black"
+                        StrokeShape="RoundRectangle 15" 
+                        HeightRequest="50">
+                    
+                    <Entry Text="Visa/Mastercard" 
+                           IsReadOnly="True"
+                           Margin="5"/>
                     </Border>
-                <CheckBox x:Name="VisaMasterCardCheckBox" Grid.Column="1" VerticalOptions="Center"/>
+                    
+                <CheckBox x:Name="VisaMasterCardCheckBox"
+                          Grid.Column="1" 
+                          VerticalOptions="Center"
+                          Color="#65558F"/>
+             
                 </Grid>
-
-
-            <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50" >
-                    <Entry Text="Cash" IsReadOnly="True" Margin="5"/>
-                </Border>
-                <CheckBox x:Name="CashCheckBox" Grid.Column="1" VerticalOptions="Center"/>
-            </Grid>
 
             <!-- Cancellation Policy Section -->
             <Label Text="Cancellation Policy"
@@ -46,26 +51,48 @@
 
 
             <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
-                    <Entry Text="Flexible" IsReadOnly="True" Margin="5"/>
+                <Border Stroke="Black" 
+                        StrokeShape="RoundRectangle 15" 
+                        HeightRequest="50">
+                    <Entry Text="Flexible"
+                           IsReadOnly="True" 
+                           Margin="5"/>
                 </Border>
-                <CheckBox x:Name="FlexibleCheckBox" Grid.Column="1" VerticalOptions="Center"/>
+                <CheckBox x:Name="FlexibleCheckBox"
+                          Grid.Column="1" 
+                          VerticalOptions="Center"
+                          Color="#65558F"/>
             </Grid>
 
 
             <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
-                    <Entry Text="Moderate" IsReadOnly="True" Margin="5"/>
+                <Border Stroke="Black"
+                        StrokeShape="RoundRectangle 15"
+                        HeightRequest="50">
+                    <Entry Text="Moderate" 
+                           IsReadOnly="True"
+                           Margin="5"/>
                 </Border>
-                <CheckBox x:Name="ModerateCheckBox" Grid.Column="1" VerticalOptions="Center"/>
+                <CheckBox x:Name="ModerateCheckBox"
+                          Grid.Column="1" 
+                          VerticalOptions="Center"
+                          Color="#65558F"/>
             </Grid>
 
 
             <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
-                    <Entry Text="Strict" IsReadOnly="True" Margin="5"/>
+                <Border Stroke="Black" 
+                        StrokeShape="RoundRectangle 15" 
+                        HeightRequest="50">
+                    <Entry Text="Strict" 
+                           IsReadOnly="True" 
+                           Margin="5"/>
                 </Border>
-                <CheckBox  x:Name="StrictCheckBox" Grid.Column="1" VerticalOptions="Center"/>
+              
+                <CheckBox  x:Name="StrictCheckBox" 
+                           Grid.Column="1" 
+                           VerticalOptions="Center"
+                           Color="#65558F"/>
             </Grid>
 
             <!-- House Rules Section -->
@@ -75,35 +102,92 @@
                    TextColor="Black"
                    Margin="0,10,0,0"/>
 
-
+            <!--No Smoking-->
             <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
-                    <Entry Text="No Smoking" IsReadOnly="True" Margin="5"/>
+                <Border Stroke="Black" 
+                        StrokeShape="RoundRectangle 15"
+                        HeightRequest="50">
+                
+                    <Entry Text="No Smoking" 
+                           IsReadOnly="True" 
+                           Margin="5"/>
+               
                 </Border>
-                <CheckBox x:Name="NoSmokingCheckBox" Grid.Column="1" VerticalOptions="Center"/>
+                
+                <CheckBox x:Name="NoSmokingCheckBox" 
+                          Grid.Column="1" 
+                          VerticalOptions="Center"
+                          Color="#65558F"/>
+            </Grid>
+
+            <!--No Pets-->
+            <Grid ColumnDefinitions="*,Auto">
+                <Border Stroke="Black" 
+                        StrokeShape="RoundRectangle 15" 
+                        HeightRequest="50">
+                    
+                    <Entry Text="No Pets" 
+                           IsReadOnly="True" 
+                           Margin="5"/>
+                </Border>
+                <CheckBox x:Name="NoPetsCheckBox"
+                          Grid.Column="1" 
+                          VerticalOptions="Center"
+                          Color="#65558F"/>
             </Grid>
 
 
+            
             <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
-                    <Entry Text="No Pets" IsReadOnly="True" Margin="5"/>
+                <Border Stroke="Black" 
+                        StrokeShape="RoundRectangle 15" 
+                        HeightRequest="50"
+                        WidthRequest="250"
+                        HorizontalOptions="Start">
+                    
+        
+                    <Entry Text="Maximum Capacity" 
+                           IsReadOnly="True"
+                           Margin="5"/>
+            
                 </Border>
-                <CheckBox x:Name="NoPetsCheckBox" Grid.Column="1" VerticalOptions="Center"/>
+
+                <Border Stroke="Gray" 
+                        StrokeShape="RoundRectangle 15" 
+                        HeightRequest="50"
+                        HorizontalOptions="CenterAndExpand"
+                        Margin="250,0,0,0"
+                        >
+                    <Entry Placeholder="Max Capacity"
+                           Text="{Binding MaxCapacity}"
+                           Margin="5"
+                           Keyboard="Numeric"/>
+
+                </Border>
+                
+                
             </Grid>
-
-
-
+        
             <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" StrokeShape="RoundRectangle 8" HeightRequest="50">
-        <Entry Text="Maximum Capacity" IsReadOnly="True" Margin="5"/>
-            </Border>
-    <Entry x:Name="MaximumCapacityInput" Grid.Column="1" VerticalOptions="Center" Placeholder="Input" Text="{Binding Capacity}"/>
+           
+                <Border Stroke="Black" 
+                        StrokeShape="RoundRectangle 15" 
+                        HeightRequest="50"
+                        WidthRequest="250"
+                        HorizontalOptions="Start">
+
+                    <Entry Placeholder="Add House Rule"
+                           Text="{Binding ExtraHouseRule}"
+                           Margin="5"/>
+
+                </Border>
+
             </Grid>
 
             <!-- Review Button -->
             <Grid Margin="0,20,0,0">
                 <Button Text="Review"
-                        BackgroundColor="Purple"
+                        BackgroundColor="#4F378A"
                         TextColor="White"
                         FontSize="22"
                         CornerRadius="25"

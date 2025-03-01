@@ -81,13 +81,22 @@
                 </VerticalStackLayout>
             </Border>
 
+            <!--Initial Price-->
             <Border Stroke="LightGray" 
                     Padding="10"
                     Margin="0,10,0,0" 
                     StrokeShape="RoundRectangle 15">
                 <VerticalStackLayout Spacing="5">
+                    
+                    <Label 
+                        Text="Initial Price" 
+                        FontSize="14"
+                        TextColor="Gray"
+                        />
+                    
                     <Entry Placeholder="Initial Price"
                            Text="{Binding InitialPrice}"/>
+           
                 </VerticalStackLayout>
             </Border>
 
@@ -96,10 +105,12 @@
                     Padding="10"
                     Margin="0,10,0,0" 
                     StrokeShape="RoundRectangle 15">
+               
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Type of space" 
                            FontSize="14"
                            TextColor="Gray"/>
+                
                     <Picker SelectedItem="{Binding Category}">
                         <Picker.Items>
                             <x:String>Farm</x:String>
@@ -108,7 +119,9 @@
                             <x:String>Studio</x:String>
                         </Picker.Items>
                     </Picker>
+                
                 </VerticalStackLayout>
+          
             </Border>
 
             <!--Space Description-->
@@ -116,10 +129,13 @@
                     Padding="10"
                     Margin="0,10,0,0" 
                     StrokeShape="RoundRectangle 15">
+            
                 <VerticalStackLayout Spacing="5">
+                
                     <Editor Placeholder="Description"
                             HeightRequest="100"
                             Text="{Binding Description}"/>
+                
                 </VerticalStackLayout>
             </Border>
 
@@ -132,6 +148,9 @@
                     WidthRequest="150"
                     Margin="0,20,0,0"
                     Command="{Binding NavigateToSpacePicturesCommand}"/>
+ 
         </VerticalStackLayout>
+  
     </ScrollView>
+
 </ContentPage>
