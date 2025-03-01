@@ -51,7 +51,7 @@
 
             <!-- Submit Button -->
             <Button Text="Submit"
-                    BackgroundColor="Green"
+                    BackgroundColor="#4F378A"
                     TextColor="White"
                     FontSize="18"
                     CornerRadius="10"
