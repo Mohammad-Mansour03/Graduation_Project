@@ -116,11 +116,11 @@ namespace HojozatyCode.ViewModels
         private async Task NavigateToServicesPageAsync()
         {
             // Validate if at least one image is selected
-            //if (!SelectedImages.Any(x => x != null))
-            //{
-            //    await Shell.Current.DisplayAlert("Validation", "Please select at least one image.", "OK");
-            //    return;
-            //}
+            if (!SelectedImages.Any(x => x != null))
+            {
+                await Shell.Current.DisplayAlert("Validation", "Please select at least one image.", "OK");
+                return;
+            }
 
             // Navigate to ServicesPage
             await Shell.Current.GoToAsync(nameof(ServicesPage));
