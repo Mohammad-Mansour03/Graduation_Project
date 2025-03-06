@@ -55,5 +55,12 @@ namespace HojozatyCode.Models
         //To store the all images for the venue
         [Column("image_url")]
         public string ImageUrl { get; set; } // URL to the venue image in the bucket
+
+        // Add status field
+        [Column("status")]
+        public string Status { get; set; }
+
+        // Property to get the list of image URLs
+        public List<string> ImageUrls => string.IsNullOrEmpty(ImageUrl) ? new List<string>() : new List<string>(ImageUrl.Split(','));
     }
 }

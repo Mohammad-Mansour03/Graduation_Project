@@ -170,7 +170,8 @@ namespace HojozatyCode.ViewModels
                     Location = $"{City}, {Address}",
                     VenueContactPhone = Phone, // Example value
                     VenueEmail = Email, // Example value
-                    InitialPrice = InitialPrice // the number may be stored wrong in the database
+                    InitialPrice = InitialPrice, // the number may be stored wrong in the database
+                    Status = "Pending" // Set status to pending
                 };
 
                 Console.WriteLine($"Creating venue with ID: {venue.VenueId}");
@@ -179,7 +180,7 @@ namespace HojozatyCode.ViewModels
                 bool success = await VenueService.CreateVenueAsync(venue, imagesToUpload, Category, Description);
                 if (success)
                 {
-                    await Shell.Current.DisplayAlert("Success", "Venue and category created successfully!", "OK");
+                    await Shell.Current.DisplayAlert("Success", "Venue created successfully and is pending approval!", "OK");
                     await Shell.Current.GoToAsync(nameof(SuccessPage));
                 }
                 else

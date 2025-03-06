@@ -45,22 +45,34 @@
                 <HorizontalStackLayout Spacing="10" 
                                        VerticalOptions="Start" 
                                        HorizontalOptions="End">
+
+                                       <!-- Admin Button -->
+            <Button Text="Admin Approval"
+                    BackgroundColor="#4F378A"
+                    TextColor="White"
+                    Command="{Binding NavigateToAdminApprovalCommand}"
+                    HorizontalOptions="Center"
+                    Margin="0,20,0,0"/>
                     <ImageButton Source="notification_icon.png" 
                            HeightRequest="30" 
                            WidthRequest="30"
                            Margin="10,10,0,0"
-                           Command="{Binding NavigateToNotificationsCommand}"
-                           />
+                           Command="{Binding NavigateToNotificationsCommand}"/>
                     
                     <ImageButton Source="account_icon.png" 
                            HeightRequest="30"
                            WidthRequest="30"
                            Margin="10,10,0,0"
                            Command="{Binding GoToAccountCommand}"/>
+
+                           
                 </HorizontalStackLayout>
             </Grid>
 
-            <!--The Search for activity--><!--
+            
+
+            <!--The Search for activity-->
+            <!--
             <Border   Margin="0,20,0,0"
                       Background="#ECE6EE"
                       StrokeShape="RoundRectangle 30" 
@@ -75,7 +87,8 @@
                            Placeholder="Enter your activity" 
                            FontSize="18"/>
                 </HorizontalStackLayout>
-            </Border>-->
+            </Border>
+            -->
 
             <!--The Activites types (Wedding , Meeting , Funeral , More)-->
             <ScrollView Orientation="Horizontal">
