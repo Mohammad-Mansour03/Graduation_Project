@@ -62,6 +62,10 @@ namespace HojozatyCode.ViewModels
             }
         }
 
-
+         [RelayCommand]
+        private async Task NavigateToAdminApprovalAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.AdminApprovalPage));
+        }
     }
 }

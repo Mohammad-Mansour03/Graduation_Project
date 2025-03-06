@@ -183,5 +183,90 @@ namespace HojozatyCode.Services
                 _ => "application/octet-stream",
             };
         }
+
+        /// <summary>
+        /// Fetches the list of venues with a pending status.
+        /// </summary>
+        /// <returns>A list of pending venues.</returns>
+        public static async Task<List<Venue>> GetPendingVenuesAsync()
+        {
+            try
+            {
+                var response = await SupabaseConfig.SupabaseClient
+                    .From<Venue>()
+                    .Where(v => v.Status == "Pending")
+                    .Get();
+                Console.WriteLine($"Fetched {response.Models.Count} pending venues.");
+                Console.WriteLine($"Venue details: {response.Models[0].VenueName}");
+                return response.Models;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching pending venues: {ex.Message}");
+                return new List<Venue>();
+            }
+        }
+
+        /// <summary>
+        /// Updates the status of a venue.
+        /// </summary>
+        /// <param name="venue">The venue to update.</param>
+        /// <returns>True if the operation succeeds; otherwise, false.</returns>
+        // public static async Task<bool> UpdateVenueStatusAsync(Venue venue)
+        // {
+        //     try
+        //     {
+        //         var response = await SupabaseConfig.SupabaseClient
+        //             .From<Venue>()
+        //             .Update(venue);
+
+        //         return response.Models.Count > 0;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         Console.WriteLine($"Error updating venue status: {ex.Message}");
+        //         return false;
+        //     }
+        // }
+
+        // /// <summary>
+        // /// Deletes a venue.
+        // /// </summary>
+        // /// <param name="venue">The venue to delete.</param>
+        // /// <returns>True if the operation succeeds; otherwise, false.</returns>
+        // public static async Task<bool> DeleteVenueAsync(Venue venue)
+        // {
+        //     if (venue == null)
+        //     {
+        //         Console.WriteLine("Venue is null.");
+        //         return false;
+        //     }
+
+        //     try
+        //     {
+        //         var response = await SupabaseConfig.SupabaseClient
+        //             .From<Venue>()
+        //             .Delete(venue);
+
+        //         if (response == null)
+        //         {
+        //             Console.WriteLine("Response from Supabase is null.");
+        //             return false;
+        //         }
+
+        //         if (response.Models == null)
+        //         {
+        //             Console.WriteLine("Response.Models is null.");
+        //             return false;
+        //         }
+
+        //         return response.Models.Count > 0;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         Console.WriteLine($"Error deleting venue: {ex.Message}");
+        //         return false;
+        //     }
+        // }
     }
 }
