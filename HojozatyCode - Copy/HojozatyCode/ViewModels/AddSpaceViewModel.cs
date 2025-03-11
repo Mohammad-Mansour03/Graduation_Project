@@ -29,6 +29,10 @@ namespace HojozatyCode.ViewModels
         private string category; // Changed from SpaceType to Category
 
         [ObservableProperty]
+        private ObservableCollection<string> selectedSpaceTypes;
+
+        // Keep the old property for backward compatibility and database storage
+        [ObservableProperty]
         private string spaceType;
 
         [ObservableProperty]
@@ -60,7 +64,8 @@ namespace HojozatyCode.ViewModels
         {
             SelectedImages = new ObservableCollection<FileResult>();
             ImagePreviewSources = new ObservableCollection<ImageSource>();
-
+            SelectedSpaceTypes = new ObservableCollection<string>();
+            
             // Initialize with 9 empty slots for images
             for (int i = 0; i < 9; i++)
             {
@@ -75,10 +80,10 @@ namespace HojozatyCode.ViewModels
         [RelayCommand]
         private async Task NavigateToSpaceInformationAsync()
         {
-            // Validate if Category is selected
-            if (string.IsNullOrWhiteSpace(SpaceType))
+            // Validate if at least one space type is selected
+            if (SelectedSpaceTypes.Count == 0)
             {
-                await Shell.Current.DisplayAlert("Validation Error", "Please select a category.", "OK");
+                await Shell.Current.DisplayAlert("Validation Error", "Please select at least one space type.", "OK");
                 return;
             }
 
@@ -165,7 +170,7 @@ namespace HojozatyCode.ViewModels
                     OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
                     VenueName = SpaceName,
                     Description = Description,
-                    Type = SpaceType, // Changed from SpaceType to Category
+                    Type = SpaceType, // This will contain all selected types as a comma-separated string
                     Capacity = Capacity, // the number may be stored wrong in the database
                     Location = $"{City}, {Address}",
                     VenueContactPhone = Phone, // Example value
@@ -251,6 +256,37 @@ namespace HojozatyCode.ViewModels
 
             var stream = await file.OpenReadAsync();
             return ImageSource.FromStream(() => stream);
+        }
+
+        #endregion
+
+        #region Space Type Commands
+
+        [RelayCommand]
+        private void ToggleSpaceType(string spaceTypeValue)
+        {
+            if (spaceTypeValue == null)
+                return;
+                
+            if (SelectedSpaceTypes.Contains(spaceTypeValue))
+            {
+                SelectedSpaceTypes.Remove(spaceTypeValue);
+            }
+            else
+            {
+                SelectedSpaceTypes.Add(spaceTypeValue);
+            }
+            
+            // Update the spaceType string property for database storage
+            SpaceType = string.Join(", ", SelectedSpaceTypes);
+            
+            // Force UI update by creating a new instance of the collection
+            SelectedSpaceTypes = new ObservableCollection<string>(SelectedSpaceTypes);
+        }
+
+        public bool IsSpaceTypeSelected(string spaceTypeValue)
+        {
+            return SelectedSpaceTypes.Contains(spaceTypeValue);
         }
 
         #endregion

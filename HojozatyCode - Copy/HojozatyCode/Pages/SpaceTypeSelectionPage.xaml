@@ -2,8 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:converters="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.SpaceTypeSelectionPage"
              Title="Space Kind">
+
+    <!-- Add the converter to resources -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToImageConverter x:Key="BoolToImageConverter" />
+            
+            <!-- Style for checkbox-like imagebuttons -->
+            <Style x:Key="CheckboxButtonStyle" TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Aspect" Value="AspectFit" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
@@ -25,11 +44,11 @@
                     <Label Text="Work/Meeting Space" 
                            VerticalOptions="Center"/>
                     
-                    <CheckBox Grid.Column="1" 
-                             Color="#4F378A"
-                             IsChecked="{Binding SpaceType, 
-                                         Converter={StaticResource StringToBoolConverter},
-                                         ConverterParameter='Work/Meeting Space'}"/>
+                    <ImageButton Grid.Column="1" 
+                                Style="{StaticResource CheckboxButtonStyle}"
+                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Work/Meeting Space'}"
+                                Command="{Binding ToggleSpaceTypeCommand}"
+                                CommandParameter="Work/Meeting Space"/>
                 </Grid>
             
             </Border>
@@ -45,11 +64,11 @@
                     <Label Text="Wedding" 
                            VerticalOptions="Center"/>
                  
-                    <CheckBox Grid.Column="1" 
-                             Color="#4F378A"
-                             IsChecked="{Binding SpaceType, 
-                                        Converter={StaticResource StringToBoolConverter}, 
-                                        ConverterParameter='Wedding'}"/>
+                    <ImageButton Grid.Column="1" 
+                                Style="{StaticResource CheckboxButtonStyle}"
+                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Wedding'}"
+                                Command="{Binding ToggleSpaceTypeCommand}"
+                                CommandParameter="Wedding"/>
                 </Grid>
           
             </Border>
@@ -64,11 +83,11 @@
                     <Label Text="Funeral" 
                            VerticalOptions="Center"/>
                     
-                    <CheckBox Grid.Column="1" 
-                             Color="#4F378A"
-                             IsChecked="{Binding SpaceType, 
-                                        Converter={StaticResource StringToBoolConverter}, 
-                                        ConverterParameter='Funeral'}"/>
+                    <ImageButton Grid.Column="1" 
+                                Style="{StaticResource CheckboxButtonStyle}"
+                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Funeral'}"
+                                Command="{Binding ToggleSpaceTypeCommand}"
+                                CommandParameter="Funeral"/>
                 </Grid>
                 
             </Border>
@@ -83,11 +102,11 @@
                     <Label Text="Entertainment" 
                            VerticalOptions="Center"/>
                     
-                    <CheckBox Grid.Column="1" 
-                             Color="#4F378A"
-                             IsChecked="{Binding SpaceType, 
-                                         Converter={StaticResource StringToBoolConverter},
-                                         ConverterParameter='Entertainment'}"/>
+                    <ImageButton Grid.Column="1" 
+                                Style="{StaticResource CheckboxButtonStyle}"
+                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Entertainment'}"
+                                Command="{Binding ToggleSpaceTypeCommand}"
+                                CommandParameter="Entertainment"/>
                 </Grid>
             </Border>   
             
@@ -101,11 +120,11 @@
                     <Label Text="Photography" 
                            VerticalOptions="Center"/>
                     
-                    <CheckBox Grid.Column="1" 
-                             Color="#4F378A"
-                             IsChecked="{Binding SpaceType, 
-                                         Converter={StaticResource StringToBoolConverter},
-                                         ConverterParameter='Photography'}"/>
+                    <ImageButton Grid.Column="1" 
+                                Style="{StaticResource CheckboxButtonStyle}"
+                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Photography'}"
+                                Command="{Binding ToggleSpaceTypeCommand}"
+                                CommandParameter="Photography"/>
                 </Grid>
             </Border>          
             
@@ -119,15 +138,15 @@
                     <Label Text="Cultural Events" 
                            VerticalOptions="Center"/>
                     
-                    <CheckBox Grid.Column="1" 
-                             Color="#4F378A"
-                             IsChecked="{Binding SpaceType, 
-                                         Converter={StaticResource StringToBoolConverter},
-                                         ConverterParameter='Cultural Events'}"/>
+                    <ImageButton Grid.Column="1" 
+                                Style="{StaticResource CheckboxButtonStyle}"
+                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Cultural Events'}"
+                                Command="{Binding ToggleSpaceTypeCommand}"
+                                CommandParameter="Cultural Events"/>
                 </Grid>
             </Border> 
             
-            <!--Sports Sapce-->
+            <!--Sports Space-->
             <Border Stroke="LightGray" 
                     Padding="15"
                     StrokeShape="RoundRectangle 15">
@@ -137,13 +156,19 @@
                     <Label Text="Sports" 
                            VerticalOptions="Center"/>
                     
-                    <CheckBox Grid.Column="1" 
-                             Color="#4F378A"
-                             IsChecked="{Binding SpaceType, 
-                                         Converter={StaticResource StringToBoolConverter},
-                                         ConverterParameter='Sports'}"/>
+                    <ImageButton Grid.Column="1" 
+                                Style="{StaticResource CheckboxButtonStyle}"
+                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Sports'}"
+                                Command="{Binding ToggleSpaceTypeCommand}"
+                                CommandParameter="Sports"/>
                 </Grid>
             </Border>
+
+            <!-- Add this right before the Next button -->
+            <Label Text="{Binding SpaceType}" 
+                   FontSize="Small" 
+                   TextColor="Gray" 
+                   Margin="0,10,0,0"/>
 
             <!--The Next button-->
             <Button Text="Next"
