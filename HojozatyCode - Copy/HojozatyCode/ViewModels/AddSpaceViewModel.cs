@@ -258,33 +258,78 @@ namespace HojozatyCode.ViewModels
             return ImageSource.FromStream(() => stream);
         }
 
-        #endregion
+		#endregion
 
-        #region Space Type Commands
+		#region Space Type Commands
 
-        [RelayCommand]
-        private void ToggleSpaceType(string spaceTypeValue)
-        {
-            if (spaceTypeValue == null)
-                return;
-                
-            if (SelectedSpaceTypes.Contains(spaceTypeValue))
-            {
-                SelectedSpaceTypes.Remove(spaceTypeValue);
-            }
-            else
-            {
-                SelectedSpaceTypes.Add(spaceTypeValue);
-            }
-            
-            // Update the spaceType string property for database storage
-            SpaceType = string.Join(", ", SelectedSpaceTypes);
-            
-            // Force UI update by creating a new instance of the collection
-            SelectedSpaceTypes = new ObservableCollection<string>(SelectedSpaceTypes);
-        }
+		[RelayCommand]
+		private async Task ToggleSpaceType(string spaceTypeValue)
+		{
+			if (spaceTypeValue == null)
+				return;
 
-        public bool IsSpaceTypeSelected(string spaceTypeValue)
+			// Define categories
+			var exclusiveTypes = new HashSet<string> { "Funeral", "Photography", "Sports" };
+			var groupTypes = new HashSet<string> { "Wedding", "Work/Meeting Space", "Cultural Events", "Entertainment" };
+
+			if (exclusiveTypes.Contains(spaceTypeValue))
+			{
+				// If an exclusive type is selected but the user has already selected a group type, show an alert
+				if (SelectedSpaceTypes.Any(type => groupTypes.Contains(type)))
+				{
+					await Shell.Current.DisplayAlert(
+						"Invalid Selection",
+						"You cannot select 'Funeral', 'Photography', or 'Sports' with other types.",
+						"OK"
+					);
+					return; // Stop execution to prevent invalid selection
+				}
+
+				// If the type is already selected, remove it from the list (toggle it)
+				if (SelectedSpaceTypes.Contains(spaceTypeValue))
+				{
+					SelectedSpaceTypes.Remove(spaceTypeValue);
+				}
+				else
+				{
+					// Otherwise, clear previous selections and add the exclusive type
+					SelectedSpaceTypes.Clear();
+					SelectedSpaceTypes.Add(spaceTypeValue);
+				}
+			}
+			else if (groupTypes.Contains(spaceTypeValue))
+			{
+				// If the user has already selected an exclusive type, show an alert
+				if (SelectedSpaceTypes.Any(type => exclusiveTypes.Contains(type)))
+				{
+					await Shell.Current.DisplayAlert(
+						"Invalid Selection",
+						"You cannot select 'Weeding', 'Meeting', 'Cultural Events', or 'Entertainment' with 'Funeral', 'Photography', or 'Sports'.",
+						"OK"
+					);
+					return; // Stop execution to prevent invalid selection
+				}
+
+				// If the group type is already selected, remove it (toggle it)
+				if (SelectedSpaceTypes.Contains(spaceTypeValue))
+				{
+					SelectedSpaceTypes.Remove(spaceTypeValue);
+				}
+				else
+				{
+					// Otherwise, add the group type to the list
+					SelectedSpaceTypes.Add(spaceTypeValue);
+				}
+			}
+
+			// Update the spaceType string property for database storage
+			SpaceType = string.Join(", ", SelectedSpaceTypes);
+
+			// Notify the UI to reflect changes without recreating the ObservableCollection
+			OnPropertyChanged(nameof(SelectedSpaceTypes));
+		}
+
+		public bool IsSpaceTypeSelected(string spaceTypeValue)
         {
             return SelectedSpaceTypes.Contains(spaceTypeValue);
         }

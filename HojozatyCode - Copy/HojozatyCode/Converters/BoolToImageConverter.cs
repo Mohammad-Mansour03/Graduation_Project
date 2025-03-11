@@ -14,7 +14,7 @@ namespace HojozatyCode.Converters
             {
                 bool isSelected = collection.Contains(spaceType);
                 Debug.WriteLine($"Space type: {spaceType}, IsSelected: {isSelected}");
-                return isSelected ? "checkbox_checked.png" : "checkbox_unchecked.png";
+                return isSelected ? "checkbox.png" : "checkbox_unchecked.png";
             }
             
             return "checkbox_unchecked.png";
