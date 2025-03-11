@@ -61,6 +61,6 @@ namespace HojozatyCode.Models
         public string Status { get; set; }
 
         // Property to get the list of image URLs
-        public List<string> ImageUrls => string.IsNullOrEmpty(ImageUrl) ? new List<string>() : new List<string>(ImageUrl.Split(','));
+        //public List<string> ImageUrls => string.IsNullOrEmpty(ImageUrl) ? new List<string>() : new List<string>(ImageUrl.Split(','));
     }
 }
