@@ -118,16 +118,10 @@
                     <Label Text="Category" 
                            FontSize="14"
                            TextColor="Gray"/>
-                
-                    <Picker SelectedItem="{Binding Category}">
-                        <Picker.Items>
-                            <x:String>Farm</x:String>
-                            <x:String>Hall</x:String>
-                            <x:String>Meeting Room</x:String>
-                            <x:String>Studio</x:String>
-                        </Picker.Items>
-                    </Picker>
-                
+
+                    <Picker ItemsSource="{Binding AvailableCategories}"
+                            SelectedItem="{Binding Category}"/>
+
                 </VerticalStackLayout>
           
             </Border>

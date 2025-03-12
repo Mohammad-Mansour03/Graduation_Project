@@ -26,6 +26,38 @@ namespace HojozatyCode.ViewModels
 		private string spaceType;
 
 		//(Space Information Page)
+		private readonly Dictionary<string, List<string>> SpaceTypeCategories = new()
+{
+	{ "Wedding", new List<string> { "Halls", "Farms", "Hotels", "Outdoors" } },
+	{ "Entertainment", new List<string> { "Farms", "Adventure Spots", "WorkShops" } },
+	{ "Work/Meeting Space", new List<string> { "ClassRooms/Office Spaces", "Farms", "Outdoor Space" , "Majls" } },
+	{ "Funeral", new List<string> { "Diwan", "Dedicated Funeral Halls" } },
+	{ "Photography", new List<string> { "Photography Studios", "Outdoor Photography Spaces" , "Product Photography Spaces" } },
+	{ "Sports", new List<string> { "Staduim" } },
+	{ "Cultural Events", new List<string> { "Farms", "Majls", "Cultrual Evening Venues" , "Theaters and Cultural halls" } }
+};
+
+		private void UpdateAvailableCategories()
+		{
+			var selectedCategories = new HashSet<string>();
+
+			foreach (var spaceType in SelectedSpaceTypes)
+			{
+				if (SpaceTypeCategories.TryGetValue(spaceType, out var categories))
+				{
+					foreach (var category in categories)
+					{
+						selectedCategories.Add(category);
+					}
+				}
+			}
+
+			AvailableCategories = new ObservableCollection<string>(selectedCategories);
+		}
+
+		[ObservableProperty]
+		private ObservableCollection<string> availableCategories = new();
+
 		//Properety to store the venue owner
 		[ObservableProperty]
         private string ownerName;
@@ -98,14 +130,20 @@ namespace HojozatyCode.ViewModels
 			SelectedImages = new ObservableCollection<FileResult>();
            
             ImagePreviewSources = new ObservableCollection<ImageSource>();
-            
-            // Initialize with 9 empty slots for images
-            for (int i = 0; i < 9; i++)
+
+
+			// Initialize with 9 empty slots for images
+			for (int i = 0; i < 9; i++)
             {
                 SelectedImages.Add(null);
                 ImagePreviewSources.Add(null);
             }
         }
+
+
+
+
+
 
         #region Navigation Commands
 
@@ -460,6 +498,8 @@ namespace HojozatyCode.ViewModels
 
 			// Update the spaceType string property for database storage
 			SpaceType = string.Join(", ", SelectedSpaceTypes);
+
+			UpdateAvailableCategories();
 
 			// Notify the UI to reflect changes without recreating the ObservableCollection
 			OnPropertyChanged(nameof(SelectedSpaceTypes));
