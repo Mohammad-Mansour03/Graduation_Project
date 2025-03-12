@@ -7,64 +7,97 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using HojozatyCode.Pages;
+using static Microsoft.Maui.ApplicationModel.Permissions;
+using System.Text.RegularExpressions;
 
 namespace HojozatyCode.ViewModels
 {
     public partial class AddSpaceViewModel : ObservableObject
     {
-        // Automatically generated properties using [ObservableProperty]
-        [ObservableProperty]
+        //(SpaceSelcetion Page)
+		//Collection Properety to sotre Collection of spaces types the user
+		//Can choose for one space
+		[ObservableProperty]
+		private ObservableCollection<string> selectedSpaceTypes;
+
+		// Properety to sotre the all spaces type in specific format inside 
+		//the database table (type1, type2, ...)
+		[ObservableProperty]
+		private string spaceType;
+
+		//(Space Information Page)
+		//Properety to store the venue owner
+		[ObservableProperty]
         private string ownerName;
 
+        //Properety to store the space name
         [ObservableProperty]
         private string spaceName;
 
+        //Properety to store the City venue
         [ObservableProperty]
         private string city;
 
+        //Properety to sotre the Venue Address 
+        //=====>>> You must using Map API to store the Address
         [ObservableProperty]
         private string address;
 
-        [ObservableProperty]
-        private string category; // Changed from SpaceType to Category
+		//Properety to store the Venue Phone
+		[ObservableProperty]
+		private string phone;
 
-        [ObservableProperty]
-        private ObservableCollection<string> selectedSpaceTypes;
+		//Properety to store the Venue email
+		[ObservableProperty]
+		private string email;
 
-        // Keep the old property for backward compatibility and database storage
-        [ObservableProperty]
-        private string spaceType;
+		//Properety to store the Venue initial price
+		[ObservableProperty]
+		private string initialPrice;
 
-        [ObservableProperty]
-        private string description;
+		//Properety to store the Venue initial price
+		[ObservableProperty]
+		private double initialPriceValue;
 
-        [ObservableProperty]
-         private string email;
+		//Properety to sotre the Cateogry of the Space
+		[ObservableProperty]
+        private string category;
 
-        [ObservableProperty]
-         private string phone;
+		//Properety to store the Venue description
+		[ObservableProperty]
+		private string description;
 
-        [ObservableProperty]
+		//Properety to store the error that appear to the user
+		[ObservableProperty]
+		private string errorMessage;
+
+
+		//Properety to store the Venue Capacity
+		[ObservableProperty]
          private int capacity;
 
-         [ObservableProperty]
-         private double initialPrice;
-
+        //Collection Properety to store the venue images
         [ObservableProperty]
         private ObservableCollection<FileResult> selectedImages;
 
+        //?????
         [ObservableProperty]
         private ObservableCollection<ImageSource> imagePreviewSources;
 
+        //??????
         [ObservableProperty]
         private bool isLoading;
 
-        // Constructor to initialize the collections and set up initial values
+        // Constructor to initialize the collections
+        // and set up initial values
         public AddSpaceViewModel()
         {
-            SelectedImages = new ObservableCollection<FileResult>();
+
+			SelectedSpaceTypes = new ObservableCollection<string>();
+
+			SelectedImages = new ObservableCollection<FileResult>();
+           
             ImagePreviewSources = new ObservableCollection<ImageSource>();
-            SelectedSpaceTypes = new ObservableCollection<string>();
             
             // Initialize with 9 empty slots for images
             for (int i = 0; i < 9; i++)
@@ -83,7 +116,8 @@ namespace HojozatyCode.ViewModels
             // Validate if at least one space type is selected
             if (SelectedSpaceTypes.Count == 0)
             {
-                await Shell.Current.DisplayAlert("Validation Error", "Please select at least one space type.", "OK");
+                await Shell.Current.DisplayAlert("Validation Error", 
+                    "Please select at least one space type.", "OK");
                 return;
             }
 
@@ -91,8 +125,98 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(SpaceInformationPage));
         }
 
-        // Command to navigate to the ReviewPage
+        // Command to navigate to the SpacePicturesPage
         [RelayCommand]
+        private async Task NavigateToSpacePicturesAsync()
+        {
+            //Check if the Space name is null
+            if (String.IsNullOrEmpty(SpaceName)) 
+            {
+                ErrorMessage = "Please Enter The Space Name";
+                return;
+            }
+            
+            //Check if the City is null
+            if (String.IsNullOrEmpty(City)) 
+            {
+                ErrorMessage = "Please Enter The Venue City";
+                return;
+            }     
+
+            //Check if the Address is null            
+            if (String.IsNullOrEmpty(Address)) 
+            {
+                ErrorMessage = "Please Enter The Venue Address";
+                return;
+            }
+            
+            //Check if the Phone is null
+            if (String.IsNullOrEmpty(Phone)) 
+            {
+				ErrorMessage = "Please Enter The Venue Phone";
+                return;
+            }
+
+            //Check if the Phone number has Correct format
+            else
+			if (!Regex.IsMatch(Phone, @"^(?:\+962|0)7[789]\d{7}$"))
+			{
+				ErrorMessage = "Please Enter Valid Phone Number";
+				return;
+			}
+
+            //Check if the email is null
+            if (String.IsNullOrEmpty(Email)) 
+            {
+                ErrorMessage = "Please Enter Your Venue Email";
+                return;
+            }
+
+            //Check if the Venue email has correct format
+			else 
+            if (!Regex.IsMatch(Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$"))
+			{
+				ErrorMessage = "Please Enter Valid email";
+				return;
+			}
+
+            //Check if the Initial price is null
+            if (String.IsNullOrEmpty(InitialPrice)) 
+            {
+                ErrorMessage = "Please Enter your initial price";
+                return;
+			}
+
+            else
+            {
+				InitialPriceValue = Convert.ToDouble(InitialPrice);
+			}
+
+            //Check if the User Enter Valid initial price
+            if (InitialPriceValue < 0) 
+            {
+                ErrorMessage = "Please Enter a valid initial price";
+                return;
+            }
+
+            //Check if the Category is null
+            if (String.IsNullOrEmpty(Category)) 
+            {
+                ErrorMessage = "Please Enter Your Space Category";
+                return;
+            }
+
+            //Check if the Description is null
+            if (String.IsNullOrEmpty(Description)) 
+            {
+                ErrorMessage = "Please Enter Description for Your Venue";
+                return;
+            }
+
+			await Shell.Current.GoToAsync(nameof(SpacePicturesPage));
+        }
+		// Command to navigate to the ReviewPage
+		[RelayCommand]
         private async Task NavigateToReviewPageAsync() =>
             await Shell.Current.GoToAsync(nameof(ReviewPage));
 
@@ -105,11 +229,6 @@ namespace HojozatyCode.ViewModels
         [RelayCommand]
         private async Task NavigateToSuccessPageAsync() =>
             await Shell.Current.GoToAsync(nameof(SuccessPage));
-
-        // Command to navigate to the SpacePicturesPage
-        [RelayCommand]
-        private async Task NavigateToSpacePicturesAsync() =>
-            await Shell.Current.GoToAsync(nameof(SpacePicturesPage));
 
         // Command to navigate to the HomePage
         [RelayCommand]
@@ -142,7 +261,7 @@ namespace HojozatyCode.ViewModels
             // Validate required fields
             if (string.IsNullOrWhiteSpace(SpaceName) ||
                 string.IsNullOrWhiteSpace(Description) ||
-                string.IsNullOrWhiteSpace(Category) || // Changed from SpaceType to Category
+                string.IsNullOrWhiteSpace(Category) || 
                 string.IsNullOrWhiteSpace(City) ||
                 string.IsNullOrWhiteSpace(Address))
             {
@@ -151,17 +270,22 @@ namespace HojozatyCode.ViewModels
             }
 
             // Collect non-null images
-            var imagesToUpload = SelectedImages.Where(img => img != null).ToList();
+            var imagesToUpload = SelectedImages
+                                .Where(img => img != null).ToList();
+          
             if (!imagesToUpload.Any())
             {
-                await Shell.Current.DisplayAlert("Warning", "Please select at least one image.", "OK");
+                await Shell.Current.DisplayAlert("Warning",
+                    "Please select at least one image.", "OK");
                 return;
             }
 
             try
             {
-                IsLoading = true;
-                await Shell.Current.DisplayAlert("Processing", "Saving your venue and uploading images. Please wait...", "OK");
+                //IsLoading = true;
+                //await Shell.Current.DisplayAlert("Processing",
+                //      "Saving your venue and uploading images.
+                //      Please wait...", "OK");
 
                 // Create a new venue object
                 var venue = new Venue
@@ -172,30 +296,37 @@ namespace HojozatyCode.ViewModels
                     Description = Description,
                     Type = SpaceType, // This will contain all selected types as a comma-separated string
                     Capacity = Capacity, // the number may be stored wrong in the database
-                    Location = $"{City}, {Address}",
+                    Location = $"{City}, {Address}",//Find way to store it by map
                     VenueContactPhone = Phone, // Example value
                     VenueEmail = Email, // Example value
-                    InitialPrice = InitialPrice, // the number may be stored wrong in the database
+                    InitialPrice = InitialPriceValue, // the number may be stored wrong in the database
                     Status = "Pending" // Set status to pending
                 };
 
-                Console.WriteLine($"Creating venue with ID: {venue.VenueId}");
+                //Console.WriteLine($"Creating venue with ID: {venue.VenueId}");
 
                 // Save venue with uploaded images and category
-                bool success = await VenueService.CreateVenueAsync(venue, imagesToUpload, Category, Description);
+                bool success = await VenueService
+                                    .CreateVenueAsync(venue, imagesToUpload,
+                                    Category, Description);
+              
                 if (success)
                 {
-                    await Shell.Current.DisplayAlert("Success", "Venue created successfully and is pending approval!", "OK");
+                    await Shell.Current.DisplayAlert("Success", 
+                        "Venue created successfully and is pending approval!", "OK");
+              
                     await Shell.Current.GoToAsync(nameof(SuccessPage));
                 }
+                
                 else
                 {
-                    await Shell.Current.DisplayAlert("Error", "Failed to create venue.", "OK");
+                    await Shell.Current.DisplayAlert("Error", 
+                        "Failed to create venue.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving venue: {ex.Message}");
+                //Console.WriteLine($"Error saving venue: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
@@ -219,21 +350,26 @@ namespace HojozatyCode.ViewModels
 
                 if (result != null)
                 {
-                    if (int.TryParse(index, out int idx) && idx >= 0 && idx < SelectedImages.Count)
+                    if (int.TryParse(index, out int idx) && 
+                        idx >= 0 && idx < SelectedImages.Count)
                     {
                         SelectedImages[idx] = result;
 
                         // Create an image preview
                         var stream = await result.OpenReadAsync();
-                        ImagePreviewSources[idx] = ImageSource.FromStream(() => stream);
+                        ImagePreviewSources[idx] = ImageSource.FromStream
+                                                                (() => stream);
                         OnPropertyChanged(nameof(ImagePreviewSources));
                     }
+
                     else
                     {
-                        await Shell.Current.DisplayAlert("Error", "Invalid image index.", "OK");
+                        await Shell.Current.DisplayAlert("Error", 
+                            "Invalid image index.", "OK");
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Error", ex.Message, "OK");

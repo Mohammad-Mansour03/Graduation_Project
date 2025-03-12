@@ -6,7 +6,7 @@
              x:Class="HojozatyCode.Pages.SpaceTypeSelectionPage"
              Title="Space Kind">
 
-    <!-- Add the converter to resources -->
+    <!-- Add the converter to resources (Convert Between the Check boxes)-->
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BoolToImageConverter x:Key="BoolToImageConverter" />
@@ -41,12 +41,16 @@
                 
                 <Grid ColumnDefinitions="*,Auto">
                 
+                    <!--Work/Meeting Space label-->
                     <Label Text="Work/Meeting Space" 
                            VerticalOptions="Center"/>
                     
+                    <!--Work/Meeting Space Checkbox-->
                     <ImageButton Grid.Column="1" 
                                 Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Work/Meeting Space'}"
+                                Source="{Binding SelectedSpaceTypes,
+                                Converter={StaticResource BoolToImageConverter},
+                                ConverterParameter='Work/Meeting Space'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
                                 CommandParameter="Work/Meeting Space"/>
                 </Grid>
@@ -61,12 +65,16 @@
                 
                 <Grid ColumnDefinitions="*,Auto">
                     
+                  <!--Wedding Space label-->
                     <Label Text="Wedding" 
                            VerticalOptions="Center"/>
                  
+                    <!--Wedding Space Checkbox-->
                     <ImageButton Grid.Column="1" 
                                 Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Wedding'}"
+                                Source="{Binding SelectedSpaceTypes, 
+                                Converter={StaticResource BoolToImageConverter},
+                                ConverterParameter='Wedding'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
                                 CommandParameter="Wedding"/>
                 </Grid>
@@ -80,12 +88,16 @@
               
                 <Grid ColumnDefinitions="*,Auto">
                 
+                    <!--Funeral Space label-->
                     <Label Text="Funeral" 
                            VerticalOptions="Center"/>
                     
+                    <!--Funeral Space Checkbox-->
                     <ImageButton Grid.Column="1" 
                                 Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Funeral'}"
+                                Source="{Binding SelectedSpaceTypes,
+                                Converter={StaticResource BoolToImageConverter},
+                                ConverterParameter='Funeral'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
                                 CommandParameter="Funeral"/>
                 </Grid>
@@ -99,15 +111,20 @@
                 
                 <Grid ColumnDefinitions="*,Auto">
                 
+                    <!--Entertainment Space Label-->
                     <Label Text="Entertainment" 
                            VerticalOptions="Center"/>
                     
+                    <!--Entertainment Space Checkbox-->
                     <ImageButton Grid.Column="1" 
                                 Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Entertainment'}"
+                                Source="{Binding SelectedSpaceTypes,
+                                Converter={StaticResource BoolToImageConverter},
+                                ConverterParameter='Entertainment'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
                                 CommandParameter="Entertainment"/>
                 </Grid>
+                
             </Border>   
             
             <!--Photography Space-->
@@ -116,17 +133,23 @@
                     StrokeShape="RoundRectangle 15">
                 
                 <Grid ColumnDefinitions="*,Auto">
-
+                    
+                    <!--Photography Space Label-->
                     <Label Text="Photography" 
                            VerticalOptions="Center"/>
                     
+                    <!--Photography Space Checkbox-->
                     <ImageButton Grid.Column="1" 
                                 Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Photography'}"
+                                Source="{Binding SelectedSpaceTypes,
+                                Converter={StaticResource BoolToImageConverter}, 
+                                ConverterParameter='Photography'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
                                 CommandParameter="Photography"/>
                 </Grid>
-            </Border>          
+
+            </Border>    
+      
             
             <!--Cultural Events Space-->
             <Border Stroke="LightGray" 
@@ -135,15 +158,20 @@
                 
                 <Grid ColumnDefinitions="*,Auto">
 
+                    <!--Cultural Event Label-->
                     <Label Text="Cultural Events" 
                            VerticalOptions="Center"/>
                     
+                    <!--Cultural Event Checkbox-->
                     <ImageButton Grid.Column="1" 
                                 Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Cultural Events'}"
+                                Source="{Binding SelectedSpaceTypes, 
+                                Converter={StaticResource BoolToImageConverter},
+                                ConverterParameter='Cultural Events'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
                                 CommandParameter="Cultural Events"/>
                 </Grid>
+                
             </Border> 
             
             <!--Sports Space-->
@@ -153,24 +181,30 @@
                 
                 <Grid ColumnDefinitions="*,Auto">
 
+                    <!--Sports Space Label-->
                     <Label Text="Sports" 
                            VerticalOptions="Center"/>
                     
+                    <!--Sports Space Checkbox-->
                     <ImageButton Grid.Column="1" 
                                 Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Sports'}"
+                                Source="{Binding SelectedSpaceTypes, 
+                                Converter={StaticResource BoolToImageConverter}, 
+                                ConverterParameter='Sports'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
                                 CommandParameter="Sports"/>
                 </Grid>
+                
             </Border>
 
-            <!-- Add this right before the Next button -->
+            <!-- Shows The Spaces that you selected before click the next button -->
             <Label Text="{Binding SpaceType}" 
-                   FontSize="Small" 
+                   FontSize="Small"
+                   FontAttributes="Bold"
                    TextColor="Gray" 
                    Margin="0,10,0,0"/>
 
-            <!--The Next button-->
+            <!--The Next button (Navigate to the Space information page-->
             <Button Text="Next"
                     BackgroundColor="#4F378A"
                     TextColor="White"
@@ -181,5 +215,7 @@
                     Command="{Binding NavigateToSpaceInformationCommand}"/>
             
         </VerticalStackLayout>
+        
     </ScrollView>
+    
 </ContentPage>
