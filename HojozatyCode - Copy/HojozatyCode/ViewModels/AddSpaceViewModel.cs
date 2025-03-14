@@ -118,7 +118,7 @@ namespace HojozatyCode.ViewModels
 		private string newServiceName;
 
 		[ObservableProperty]
-		private string newServicePrice;		
+		private double newServicePrice;		
 		
         [ObservableProperty]
 		private Guid currentVenueId;
@@ -129,7 +129,7 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task AddService()
 		{
-			if (string.IsNullOrWhiteSpace(NewServiceName) || string.IsNullOrWhiteSpace(NewServicePrice))
+			if (string.IsNullOrWhiteSpace(NewServiceName) || NewServicePrice <= 0)
 				return;
 
 			var service = new ServiceItem { Name = NewServiceName, Price = NewServicePrice };
@@ -140,7 +140,7 @@ namespace HojozatyCode.ViewModels
 
 			// Clear inputs
 			NewServiceName = string.Empty;
-			NewServicePrice = string.Empty;
+			NewServicePrice = 0;
 		}
 
 
@@ -170,28 +170,38 @@ namespace HojozatyCode.ViewModels
 						.Insert(new Service { ServiceName = service.Name });
 
 					serviceId = newService.Model.ServiceId;
-//      Shell.Current.DisplayAlert("ServiceId", serviceId.ToString(), "Ok");
+
+     await Shell.Current.DisplayAlert("ServiceId", serviceId.ToString(), "Ok");
 				}
 
 				// Link service to venue
-
-
 				if (CurrentVenueId == Guid.Empty || serviceId == Guid.Empty)
 				{
 					await Shell.Current.DisplayAlert("Error", "CurrentVenueId or ServiceId is null", "Ok");
 				}
 				else
 				{
-					VenueServices venueService = new VenueServices
+					// Convert price string to appropriate numeric type
+					if (service.Price > 0)
 					{
-						VenueId = CurrentVenueId,
-						ServiceId = serviceId,
-						PricePerUnit = service.Price
-					};
+						VenueServices venueService = new VenueServices
+						{
+							VenueServiceId = Guid.NewGuid(),  // Generate a new GUID for the primary key
+							VenueId = CurrentVenueId,
+							ServiceId = serviceId,
+							PricePerUnit = service.Price  // Now using the parsed decimal value
+						};
+                    
+                    await Shell.Current.DisplayAlert("info", venueService.VenueId.ToString(), "Ok");
 
-					await _supabaseClient
-						.From<VenueServices>()
-						.Insert(venueService);
+						await _supabaseClient
+							.From<VenueServices>()
+							.Insert(venueService);
+					}
+					else
+					{
+						await Shell.Current.DisplayAlert("Error", "Invalid price format", "Ok");
+					}
 				}
 			}
 			catch (Exception ex)
@@ -374,33 +384,41 @@ namespace HojozatyCode.ViewModels
                 await Shell.Current.DisplayAlert("Validation", "Please select at least one image.", "OK");
                 return;
             }
-			// Collect non-null images
-			var imagesToUpload = SelectedImages
-								.Where(img => img != null).ToList();
+            // Collect non-null images
+            var imagesToUpload = SelectedImages
+                                .Where(img => img != null).ToList();
 
-			var venue = new Venue
-			{
-				VenueId = Guid.NewGuid(),
-				OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
-				VenueName = SpaceName,
-				Description = Description,
-				Type = SpaceType, // This will contain all selected types as a comma-separated string
-								  // Capacity = Capacity, // the number may be stored wrong in the database
-				Location = $"{City}, {Address}",//Find way to store it by map
-				VenueContactPhone = Phone, // Example value
-				VenueEmail = Email, // Example value
-				InitialPrice = InitialPriceValue, // the number may be stored wrong in the database
-				Status = "Pending" // Set status to pending
-			};
+            var venue = new Venue
+            {
+                // No VenueId - let Supabase generate it
+                OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
+                VenueName = SpaceName,
+                Description = Description,
+                Type = SpaceType,
+                Location = $"{City}, {Address}",
+                VenueContactPhone = Phone,
+                VenueEmail = Email,
+                InitialPrice = InitialPriceValue,
+                Status = "Pending"
+            };
 
-            CurrentVenueId = venue.VenueId;
+            var result = await VenueService
+                    .CreateVenueAsync(venue, imagesToUpload,
+                    Category, Description);
 
-			bool success = await VenueService
-					.CreateVenueAsync(venue, imagesToUpload,
-					Category, Description);
-
-			// Navigate to ServicesPage
-			await Shell.Current.GoToAsync(nameof(ServicesPage));
+            if (result.Success && result.VenueId.HasValue)
+            {
+                // Set the CurrentVenueId property with the ID from the database
+                CurrentVenueId = result.VenueId.Value;
+                await Shell.Current.DisplayAlert("Success", $"Venue created with ID: {CurrentVenueId}", "OK");
+                
+                // Navigate to ServicesPage
+                await Shell.Current.GoToAsync(nameof(ServicesPage));
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Error", "Failed to create venue", "OK");
+            }
         }
 
         #endregion
