@@ -119,7 +119,7 @@ namespace HojozatyCode.ViewModels
 
 		[ObservableProperty]
 		private string newServicePrice;		
-        
+		
         [ObservableProperty]
 		private Guid currentVenueId;
 
@@ -146,52 +146,58 @@ namespace HojozatyCode.ViewModels
 
 		private async Task SaveServiceToDatabase(ServiceItem service)
 		{
-			// Check if the service exists
-			var existingService = await _supabaseClient
-				.From<Service>()
-				.Where(s => s.ServiceName == service.Name)
-				.Single();
-
-			Guid serviceId;
-
-			if (existingService != null)
+			try
 			{
-				serviceId = existingService.ServiceId;
-			}
-
-			else
-			{
-				// Insert new service
-				var newService = await _supabaseClient
+				// Check if the service exists
+				var response = await _supabaseClient
 					.From<Service>()
-					.Insert(new Service { ServiceName = service.Name })
-					;
+					.Where(s => s.ServiceName == service.Name)
+					.Get();
+				
+				var existingService = response.Models.FirstOrDefault();
 
-				serviceId = newService.Model.ServiceId;
-          //      Shell.Current.DisplayAlert("ServiceId", serviceId.ToString(), "Ok");
-			}
+				Guid serviceId;
 
-            // Link service to venue
-
-
-			if (CurrentVenueId == Guid.Empty || serviceId == Guid.Empty)
-			{
-				await Shell.Current.DisplayAlert("Error", "CurrentVenueId or ServiceId is null", "Ok");
-			}
-			else
-			{
-				VenueServices venueService = new VenueServices
+				if (existingService != null)
 				{
-					VenueId = CurrentVenueId,
-					ServiceId = serviceId,
-					PricePerUnit = service.Price
-				};
+					serviceId = existingService.ServiceId;
+				}
+				else
+				{
+					// Insert new service
+					var newService = await _supabaseClient
+						.From<Service>()
+						.Insert(new Service { ServiceName = service.Name });
 
-				await _supabaseClient
-					.From<VenueServices>()
-					.Insert(venueService);
+					serviceId = newService.Model.ServiceId;
+//      Shell.Current.DisplayAlert("ServiceId", serviceId.ToString(), "Ok");
+				}
+
+				// Link service to venue
+
+
+				if (CurrentVenueId == Guid.Empty || serviceId == Guid.Empty)
+				{
+					await Shell.Current.DisplayAlert("Error", "CurrentVenueId or ServiceId is null", "Ok");
+				}
+				else
+				{
+					VenueServices venueService = new VenueServices
+					{
+						VenueId = CurrentVenueId,
+						ServiceId = serviceId,
+						PricePerUnit = service.Price
+					};
+
+					await _supabaseClient
+						.From<VenueServices>()
+						.Insert(venueService);
+				}
 			}
-
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Service Error", $"Failed to save service: {ex.Message}", "Ok");
+			}
 		}
 
 		public AddSpaceViewModel()
