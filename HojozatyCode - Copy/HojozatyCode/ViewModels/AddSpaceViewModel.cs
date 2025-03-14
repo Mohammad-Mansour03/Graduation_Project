@@ -186,7 +186,7 @@ namespace HojozatyCode.ViewModels
 					{
 						VenueServices venueService = new VenueServices
 						{
-							VenueServiceId = Guid.NewGuid(),  // Generate a new GUID for the primary key
+							VenueServiceId = Guid.NewGuid(),  // Generate a new GUID for the Primary key
 							VenueId = CurrentVenueId,
 							ServiceId = serviceId,
 							PricePerUnit = service.Price  // Now using the parsed decimal value
