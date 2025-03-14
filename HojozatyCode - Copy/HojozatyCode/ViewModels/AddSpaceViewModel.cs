@@ -26,6 +26,7 @@ namespace HojozatyCode.ViewModels
 		private string spaceType;
 
 		//(Space Information Page)
+        //Dictionary to sotore the SpaceTypes for every space category
 		private readonly Dictionary<string, List<string>> SpaceTypeCategories = new()
 {
 	{ "Wedding", new List<string> { "Halls", "Farms", "Hotels", "Outdoors" } },
@@ -37,23 +38,7 @@ namespace HojozatyCode.ViewModels
 	{ "Cultural Events", new List<string> { "Farms", "Majls", "Cultrual Evening Venues" , "Theaters and Cultural halls" } }
 };
 
-		private void UpdateAvailableCategories()
-		{
-			var selectedCategories = new HashSet<string>();
-
-			foreach (var spaceType in SelectedSpaceTypes)
-			{
-				if (SpaceTypeCategories.TryGetValue(spaceType, out var categories))
-				{
-					foreach (var category in categories)
-					{
-						selectedCategories.Add(category);
-					}
-				}
-			}
-
-			AvailableCategories = new ObservableCollection<string>(selectedCategories);
-		}
+	
 
 		[ObservableProperty]
 		private ObservableCollection<string> availableCategories = new();
@@ -435,7 +420,26 @@ namespace HojozatyCode.ViewModels
 		#endregion
 
 		#region Space Type Commands
+		//Method to update the Availiable Categories for every space type
+        private void UpdateAvailableCategories()
+		{
+			var selectedCategories = new HashSet<string>();
 
+			foreach (var spaceType in SelectedSpaceTypes)
+			{
+				if (SpaceTypeCategories.TryGetValue(spaceType, out var categories))
+				{
+					foreach (var category in categories)
+					{
+						selectedCategories.Add(category);
+					}
+				}
+			}
+
+			AvailableCategories = new ObservableCollection<string>(selectedCategories);
+		}
+
+        //Method help the user to Choose more than Space type
 		[RelayCommand]
 		private async Task ToggleSpaceType(string spaceTypeValue)
 		{
@@ -505,6 +509,7 @@ namespace HojozatyCode.ViewModels
 			OnPropertyChanged(nameof(SelectedSpaceTypes));
 		}
 
+        //Method to check if the user select this space type or not 
 		public bool IsSpaceTypeSelected(string spaceTypeValue)
         {
             return SelectedSpaceTypes.Contains(spaceTypeValue);
