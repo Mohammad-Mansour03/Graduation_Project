@@ -20,13 +20,8 @@ namespace HojozatyCode.Models
 		[Column("description")]
 		public string Description { get; set; }
 
-		//Store the venue type
-		[Column("price_per_unit")]
-		public string PricePerUnit{ get; set; }
 
-		//To store the all images for the venue
-		[Column("service_image")]
-		public string ServiceImage { get; set; } // URL to the venue image in the bucket
+	
 
 	}
 }

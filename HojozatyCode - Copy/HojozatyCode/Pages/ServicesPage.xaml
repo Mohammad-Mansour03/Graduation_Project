@@ -4,275 +4,37 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ServicesPage"
              Title="ServicesPage">
-   
     <ScrollView>
-    
         <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="What Services do you provide?" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
 
-        <!-- Header Text -->
-        <Label Text="What Services do you provide?" 
-               FontSize="24" 
-               FontAttributes="Bold"
-               TextColor="Black"/>
+            <!-- Dynamic Services List -->
+            <CollectionView ItemsSource="{Binding Services}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Border Stroke="Gray" StrokeShape="RoundRectangle 15" HeightRequest="50" WidthRequest="250">
+                                <Entry Text="{Binding Name}" IsReadOnly="True" Margin="5"/>
+                            </Border>
+                            <Border Stroke="Gray" StrokeShape="RoundRectangle 15" HeightRequest="50" WidthRequest="75">
+                                <Entry Text="{Binding Price}" Margin="5" Keyboard="Numeric"/>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <!-- Services List -->
-        <VerticalStackLayout Spacing="10">
-
-            <!-- Wifi -->
-            <Grid ColumnDefinitions="*,Auto">
-                
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-                
-                    <Entry Text="Wifi" IsReadOnly="True" Margin="5"/>
-                
-                </Border>
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="75"
-                        HorizontalOptions="Center"
-                        Margin="250,0,0,0"
-                        >
-                    <Entry Placeholder="Price"
-                           Text="{Binding WifiPrice}"
-                           Margin="5"
-                           Keyboard="Numeric"/>
-                
-                </Border>
-                
-                <CheckBox Grid.Column="1" 
-                          VerticalOptions="Center" 
-                          Color="#65558F"/>
-            </Grid>
-            
-            <!-- Parking -->
-            <Grid ColumnDefinitions="*,Auto">
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-
-                    <Entry Text="Parking"
-                           IsReadOnly="True"
-                           Margin="5"/>
-
-                </Border>
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="75"
-                        HorizontalOptions="Center"
-                        Margin="250,0,0,0"
-                        >
-                    <Entry Placeholder="Price"
-                           Text="{Binding ParkingPrice}"
-                           Margin="5"
-                           Keyboard="Numeric"/>
-
-                </Border>
-
-                <CheckBox Grid.Column="1" 
-                          VerticalOptions="Center" 
-                          Color="#65558F"/>
-            </Grid>
-
-            <!-- Catering -->
-            <Grid ColumnDefinitions="*,Auto">
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-
-                    <Entry Text="Catering"
-                           IsReadOnly="True" 
-                           Margin="5"/>
-
-                </Border>
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="75"
-                        HorizontalOptions="Center"
-                        Margin="250,0,0,0"
-                        >
-                    <Entry Placeholder="Price"
-                           Text="{Binding CateringPrice}"
-                           Margin="5"
-                           Keyboard="Numeric"/>
-
-                </Border>
-
-                <CheckBox Grid.Column="1" 
-                          VerticalOptions="Center" 
-                          Color="#65558F"/>
-            </Grid>
-
-            <!-- A/C -->
-            <Grid ColumnDefinitions="*,Auto">
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-
-                    <Entry Text="A/C"
-                           IsReadOnly="True" 
-                           Margin="5"/>
-
-                </Border>
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="75"
-                        HorizontalOptions="Center"
-                        Margin="250,0,0,0"
-                        >
-                    <Entry Placeholder="Price"
-                           Text="{Binding ACPrice}"
-                           Margin="5"
-                           Keyboard="Numeric"/>
-
-                </Border>
-
-                <CheckBox Grid.Column="1" 
-                          VerticalOptions="Center" 
-                          Color="#65558F"/>
-            </Grid>
-
-            <!-- Projector -->
-            <Grid ColumnDefinitions="*,Auto">
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-
-                    <Entry Text="Projector" 
-                           IsReadOnly="True"
-                           Margin="5"/>
-
-                </Border>
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="75"
-                        HorizontalOptions="Center"
-                        Margin="250,0,0,0"
-                        >
-                    <Entry Placeholder="Price"
-                           Text="{Binding ProjecterPrice}"
-                           Margin="5"
-                           Keyboard="Numeric"/>
-
-                </Border>
-
-                <CheckBox Grid.Column="1" 
-                          VerticalOptions="Center" 
-                          Color="#65558F"/>
-            </Grid>
-            
-            <!-- Sound System -->
-            <Grid ColumnDefinitions="*,Auto">
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-
-                    <Entry Text="Sound System"
-                           IsReadOnly="True" 
-                           Margin="5"/>
-
-                </Border>
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="75"
-                        HorizontalOptions="Center"
-                        Margin="250,0,0,0"
-                        >
-                    <Entry Placeholder="Price"
-                           Text="{Binding SoundSystemPrice}"
-                           Margin="5"
-                           Keyboard="Numeric"/>
-
-                </Border>
-
-                <CheckBox Grid.Column="1" 
-                          VerticalOptions="Center" 
-                          Color="#65558F"/>
-            </Grid>
-
-            <!-- Services To add -->
-             
-            <!--????????????We Must Make it every time he want to add 
-                            extra service give him 
-                            The option again-->   
-            <Grid ColumnDefinitions="*,Auto">
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-
-                    <Entry Placeholder="Add Services"
-                           Text="{Binding ExtraServices}"
-                           IsReadOnly="True" 
-                           Margin="5"/>
-
-                </Border>
-
-                    <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="75"
-                        HorizontalOptions="Center"
-                        Margin="250,0,0,0"
-                        >
-                        <Entry Placeholder="Price"
-                           Text="{Binding ServicePrice}"
-                           Margin="5"
-                           Keyboard="Numeric"
-                           />
-
-                    </Border>
-                </Grid>
-
-
-        </VerticalStackLayout>
-
-        <!-- Next Button -->
-        <Button Text="Next"
-                    BackgroundColor="#673AB7"
-                    TextColor="White"
-                    CornerRadius="25"
-                    HeightRequest="25"
-                    WidthRequest="150"
-                    Margin="0,20,0,0"
+            <!-- Add New Service -->
+           
+                <Entry Placeholder="Service Name" Text="{Binding NewServiceName}" Margin="100"/>
+                <Entry Placeholder="Price" Text="{Binding NewServicePrice}" Margin="5" Keyboard="Numeric"/>
+           
+            <Button Text="+" Command="{Binding AddServiceCommand}"/>
+            <Button Text="Next" BackgroundColor="#673AB7" TextColor="White" CornerRadius="25"
                 Command="{Binding NavigateToSpacePoliciesPageCommand}"/>
-
         </VerticalStackLayout>
-        
     </ScrollView>
-    
+
 </ContentPage>
     
         

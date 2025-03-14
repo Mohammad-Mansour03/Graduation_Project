@@ -14,5 +14,9 @@ namespace HojozatyCode.Models
 		//store the service id
 		[PrimaryKey("service_id", false)]
 		public Guid ServiceId { get; set; } = Guid.NewGuid(); // Default to gen_random_uuid()
+
+		//Store the venue type
+		[Column("price_per_unit")]
+		public string PricePerUnit { get; set; }
 	}
 }

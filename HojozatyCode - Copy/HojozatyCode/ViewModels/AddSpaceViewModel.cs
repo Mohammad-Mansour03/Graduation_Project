@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 using HojozatyCode.Pages;
 using static Microsoft.Maui.ApplicationModel.Permissions;
 using System.Text.RegularExpressions;
+using Supabase;
 
 namespace HojozatyCode.ViewModels
 {
     public partial class AddSpaceViewModel : ObservableObject
     {
+           private readonly Client _supabaseClient;
+
+
+
         //(SpaceSelcetion Page)
 		//Collection Properety to sotre Collection of spaces types the user
 		//Can choose for one space
@@ -105,10 +110,96 @@ namespace HojozatyCode.ViewModels
         [ObservableProperty]
         private bool isLoading;
 
-        // Constructor to initialize the collections
-        // and set up initial values
-        public AddSpaceViewModel()
+		// Constructor to initialize the collections
+		// and set up initial values
+
+
+		[ObservableProperty]
+		private string newServiceName;
+
+		[ObservableProperty]
+		private string newServicePrice;		
+        
+        [ObservableProperty]
+		private Guid currentVenueId;
+
+		[ObservableProperty]
+		private ObservableCollection<ServiceItem> services;
+
+		[RelayCommand]
+		private async Task AddService()
+		{
+			if (string.IsNullOrWhiteSpace(NewServiceName) || string.IsNullOrWhiteSpace(NewServicePrice))
+				return;
+
+			var service = new ServiceItem { Name = NewServiceName, Price = NewServicePrice };
+			Services.Add(service);
+
+			// Store in Supabase
+			await SaveServiceToDatabase(service);
+
+			// Clear inputs
+			NewServiceName = string.Empty;
+			NewServicePrice = string.Empty;
+		}
+
+
+		private async Task SaveServiceToDatabase(ServiceItem service)
+		{
+			// Check if the service exists
+			var existingService = await _supabaseClient
+				.From<Service>()
+				.Where(s => s.ServiceName == service.Name)
+				.Single();
+
+			Guid serviceId;
+
+			if (existingService != null)
+			{
+				serviceId = existingService.ServiceId;
+			}
+
+			else
+			{
+				// Insert new service
+				var newService = await _supabaseClient
+					.From<Service>()
+					.Insert(new Service { ServiceName = service.Name })
+					;
+
+				serviceId = newService.Model.ServiceId;
+          //      Shell.Current.DisplayAlert("ServiceId", serviceId.ToString(), "Ok");
+			}
+
+            // Link service to venue
+
+
+			if (CurrentVenueId == Guid.Empty || serviceId == Guid.Empty)
+			{
+				await Shell.Current.DisplayAlert("Error", "CurrentVenueId or ServiceId is null", "Ok");
+			}
+			else
+			{
+				VenueServices venueService = new VenueServices
+				{
+					VenueId = CurrentVenueId,
+					ServiceId = serviceId,
+					PricePerUnit = service.Price
+				};
+
+				await _supabaseClient
+					.From<VenueServices>()
+					.Insert(venueService);
+			}
+
+		}
+
+		public AddSpaceViewModel()
         {
+
+			_supabaseClient = SupabaseConfig.SupabaseClient; // Use existing instance
+			
+            Services = new ObservableCollection<ServiceItem>();
 
 			SelectedSpaceTypes = new ObservableCollection<string>();
 
@@ -130,10 +221,19 @@ namespace HojozatyCode.ViewModels
 
 
 
-        #region Navigation Commands
 
-        // Command to navigate to the SpaceInformationPage
-        [RelayCommand]
+
+
+
+
+
+
+
+
+		#region Navigation Commands
+
+		// Command to navigate to the SpaceInformationPage
+		[RelayCommand]
         private async Task NavigateToSpaceInformationAsync()
         {
             // Validate if at least one space type is selected
@@ -268,9 +368,33 @@ namespace HojozatyCode.ViewModels
                 await Shell.Current.DisplayAlert("Validation", "Please select at least one image.", "OK");
                 return;
             }
+			// Collect non-null images
+			var imagesToUpload = SelectedImages
+								.Where(img => img != null).ToList();
 
-            // Navigate to ServicesPage
-            await Shell.Current.GoToAsync(nameof(ServicesPage));
+			var venue = new Venue
+			{
+				VenueId = Guid.NewGuid(),
+				OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
+				VenueName = SpaceName,
+				Description = Description,
+				Type = SpaceType, // This will contain all selected types as a comma-separated string
+								  // Capacity = Capacity, // the number may be stored wrong in the database
+				Location = $"{City}, {Address}",//Find way to store it by map
+				VenueContactPhone = Phone, // Example value
+				VenueEmail = Email, // Example value
+				InitialPrice = InitialPriceValue, // the number may be stored wrong in the database
+				Status = "Pending" // Set status to pending
+			};
+
+            CurrentVenueId = venue.VenueId;
+
+			bool success = await VenueService
+					.CreateVenueAsync(venue, imagesToUpload,
+					Category, Description);
+
+			// Navigate to ServicesPage
+			await Shell.Current.GoToAsync(nameof(ServicesPage));
         }
 
         #endregion
@@ -284,7 +408,7 @@ namespace HojozatyCode.ViewModels
             // Validate required fields
             if (string.IsNullOrWhiteSpace(SpaceName) ||
                 string.IsNullOrWhiteSpace(Description) ||
-                string.IsNullOrWhiteSpace(Category) || 
+                string.IsNullOrWhiteSpace(Category) ||
                 string.IsNullOrWhiteSpace(City) ||
                 string.IsNullOrWhiteSpace(Address))
             {
@@ -295,7 +419,7 @@ namespace HojozatyCode.ViewModels
             // Collect non-null images
             var imagesToUpload = SelectedImages
                                 .Where(img => img != null).ToList();
-          
+
             if (!imagesToUpload.Any())
             {
                 await Shell.Current.DisplayAlert("Warning",
@@ -303,60 +427,63 @@ namespace HojozatyCode.ViewModels
                 return;
             }
 
-            try
-            {
+            //try
+            //{
                 //IsLoading = true;
                 //await Shell.Current.DisplayAlert("Processing",
                 //      "Saving your venue and uploading images.
                 //      Please wait...", "OK");
 
                 // Create a new venue object
-                var venue = new Venue
-                {
-                    VenueId = Guid.NewGuid(),
-                    OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
-                    VenueName = SpaceName,
-                    Description = Description,
-                    Type = SpaceType, // This will contain all selected types as a comma-separated string
-                    Capacity = Capacity, // the number may be stored wrong in the database
-                    Location = $"{City}, {Address}",//Find way to store it by map
-                    VenueContactPhone = Phone, // Example value
-                    VenueEmail = Email, // Example value
-                    InitialPrice = InitialPriceValue, // the number may be stored wrong in the database
-                    Status = "Pending" // Set status to pending
-                };
+                //    var venue = new Venue
+                //    {
+                //        VenueId = Guid.NewGuid(),
+                //        OwnerId = Guid.Parse(SupabaseConfig.SupabaseClient.Auth.CurrentUser.Id),
+                //        VenueName = SpaceName,
+                //        Description = Description,
+                //        Type = SpaceType, // This will contain all selected types as a comma-separated string
+                //    //    Capacity = Capacity, // the number may be stored wrong in the database
+                //        Location = $"{City}, {Address}",//Find way to store it by map
+                //        VenueContactPhone = Phone, // Example value
+                //        VenueEmail = Email, // Example value
+                //        InitialPrice = InitialPriceValue, // the number may be stored wrong in the database
+                //        Status = "Pending" // Set status to pending
+                //    };
 
-                //Console.WriteLine($"Creating venue with ID: {venue.VenueId}");
+                //    //Console.WriteLine($"Creating venue with ID: {venue.VenueId}");
 
-                // Save venue with uploaded images and category
-                bool success = await VenueService
-                                    .CreateVenueAsync(venue, imagesToUpload,
-                                    Category, Description);
-              
-                if (success)
-                {
-                    await Shell.Current.DisplayAlert("Success", 
-                        "Venue created successfully and is pending approval!", "OK");
-              
-                    await Shell.Current.GoToAsync(nameof(SuccessPage));
-                }
-                
-                else
-                {
-                    await Shell.Current.DisplayAlert("Error", 
-                        "Failed to create venue.", "OK");
-                }
-            }
-            catch (Exception ex)
-            {
-                //Console.WriteLine($"Error saving venue: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
-            }
-            finally
-            {
-                IsLoading = false;
-            }
+                //    // Save venue with uploaded images and category
+                //    bool success = await VenueService
+                //                        .CreateVenueAsync(venue, imagesToUpload,
+                //                        Category, Description);
+
+                //    if (success)
+                //    {
+                //        await Shell.Current.DisplayAlert("Success", 
+                //            "Venue created successfully and is pending approval!", "OK");
+
+                //        await Shell.Current.GoToAsync(nameof(SuccessPage));
+                //    }
+
+                //    else
+                //    {
+                //        await Shell.Current.DisplayAlert("Error", 
+                //            "Failed to create venue.", "OK");
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    //Console.WriteLine($"Error saving venue: {ex.Message}");
+                //    await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+                //}
+                //finally
+                //{
+                //    IsLoading = false;
+                //}
+            
         }
+            
+            
 
         // Command to add an image to the selected images collection
         [RelayCommand]
