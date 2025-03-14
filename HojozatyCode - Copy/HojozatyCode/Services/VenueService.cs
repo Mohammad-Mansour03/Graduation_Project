@@ -21,7 +21,7 @@ namespace HojozatyCode.Services
         /// <param name="categoryName">The name of the category to save.</param>
         /// <param name="categoryDescription">The description of the category to save.</param>
         /// <returns>True if the operation succeeds; otherwise, false.</returns>
-        public static async Task<bool> CreateVenueAsync(Venue venue, List<FileResult> images, string categoryName, string categoryDescription)
+        public static async Task<(bool Success, Guid? VenueId)> CreateVenueAsync(Venue venue, List<FileResult> images, string categoryName, string categoryDescription)
 {
     if (venue == null)
         throw new ArgumentNullException(nameof(venue));
@@ -35,7 +35,6 @@ namespace HojozatyCode.Services
         {
             // Combine URLs into a comma-separated string (or change this logic as needed)
             venue.ImageUrl = string.Join(",", imageUrls);
-            Console.WriteLine($"Collected image URLs: {venue.ImageUrl}");
         }
 
         // Insert the venue record into the Supabase database
@@ -46,18 +45,17 @@ namespace HojozatyCode.Services
         if (venueResponse == null || venueResponse.Models.Count == 0)
         {
             Console.WriteLine("Failed to insert the venue record.");
-            return false;
+                    return (false, null);
         }
 
         // Retrieve the inserted Venue to confirm the VenueId
         var insertedVenue = venueResponse.Models[0];
-       // Console.WriteLine($"Venue created successfully with ID: {insertedVenue.VenueId}");
 
         // Save the category with the correct VenueId
         var category = new Category
         {
             CategoryId = Guid.NewGuid(),
-            VenueId = insertedVenue.VenueId, // Use the VenueId from the inserted Venue
+                    VenueId = insertedVenue.VenueId,
             Name = categoryName,
             Description = categoryDescription
         };
@@ -69,16 +67,15 @@ namespace HojozatyCode.Services
         if (categoryResponse == null || categoryResponse.Models.Count == 0)
         {
             Console.WriteLine("Failed to insert the category record.");
-            return false;
+                    return (false, insertedVenue.VenueId);  // Return the venue ID even if category fails
         }
 
-        Console.WriteLine($"Category created successfully with ID: {category.CategoryId}");
-        return true;
+                return (true, insertedVenue.VenueId);  // Return both success status and venue ID
     }
     catch (Exception ex)
     {
         Console.WriteLine($"Error in CreateVenueAsync: {ex.Message}");
-        return false;
+                return (false, null);
     }
 }
         /// <summary>
