@@ -15,9 +15,7 @@ namespace HojozatyCode.ViewModels
 {
     public partial class AddSpaceViewModel : ObservableObject
     {
-           private readonly Client _supabaseClient;
-
-
+        private readonly Client _supabaseClient;
 
         //(SpaceSelcetion Page)
 		//Collection Properety to sotre Collection of spaces types the user
@@ -113,7 +111,6 @@ namespace HojozatyCode.ViewModels
 		// Constructor to initialize the collections
 		// and set up initial values
 
-
 		[ObservableProperty]
 		private string newServiceName;
 
@@ -126,6 +123,7 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<ServiceItem> services;
 
+        //Command to add service for venue
 		[RelayCommand]
 		private async Task AddService()
 		{
@@ -143,7 +141,7 @@ namespace HojozatyCode.ViewModels
 			NewServicePrice = 0;
 		}
 
-
+        //This Method to add the service to the database
 		private async Task SaveServiceToDatabase(ServiceItem service)
 		{
 			try
@@ -171,7 +169,7 @@ namespace HojozatyCode.ViewModels
 
 					serviceId = newService.Model.ServiceId;
 
-     await Shell.Current.DisplayAlert("ServiceId", serviceId.ToString(), "Ok");
+                  //  await Shell.Current.DisplayAlert("ServiceId", serviceId.ToString(), "Ok");
 				}
 
 				// Link service to venue
@@ -186,13 +184,13 @@ namespace HojozatyCode.ViewModels
 					{
 						VenueServices venueService = new VenueServices
 						{
-							VenueServiceId = Guid.NewGuid(),  // Generate a new GUID for the Primary key
+	//						VenueServiceId = Guid.NewGuid(),  // Generate a new GUID for the Primary key
 							VenueId = CurrentVenueId,
 							ServiceId = serviceId,
 							PricePerUnit = service.Price  // Now using the parsed decimal value
 						};
                     
-                    await Shell.Current.DisplayAlert("info", venueService.VenueId.ToString(), "Ok");
+                 //   await Shell.Current.DisplayAlert("info", venueService.VenueId.ToString(), "Ok");
 
 						await _supabaseClient
 							.From<VenueServices>()
@@ -231,19 +229,6 @@ namespace HojozatyCode.ViewModels
                 ImagePreviewSources.Add(null);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 		#region Navigation Commands
@@ -410,7 +395,7 @@ namespace HojozatyCode.ViewModels
             {
                 // Set the CurrentVenueId property with the ID from the database
                 CurrentVenueId = result.VenueId.Value;
-                await Shell.Current.DisplayAlert("Success", $"Venue created with ID: {CurrentVenueId}", "OK");
+            //    await Shell.Current.DisplayAlert("Success", $"Venue created with ID: {CurrentVenueId}", "OK");
                 
                 // Navigate to ServicesPage
                 await Shell.Current.GoToAsync(nameof(ServicesPage));

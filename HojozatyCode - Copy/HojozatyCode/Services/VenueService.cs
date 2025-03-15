@@ -44,8 +44,8 @@ namespace HojozatyCode.Services
 
         if (venueResponse == null || venueResponse.Models.Count == 0)
         {
-            Console.WriteLine("Failed to insert the venue record.");
-                    return (false, null);
+               await Shell.Current.DisplayAlert("Error" , "Failed to insert the venue record." , "Ok");
+               return (false, null);
         }
 
         // Retrieve the inserted Venue to confirm the VenueId
@@ -55,7 +55,7 @@ namespace HojozatyCode.Services
         var category = new Category
         {
             CategoryId = Guid.NewGuid(),
-                    VenueId = insertedVenue.VenueId,
+            VenueId = insertedVenue.VenueId,
             Name = categoryName,
             Description = categoryDescription
         };
@@ -66,7 +66,7 @@ namespace HojozatyCode.Services
 
         if (categoryResponse == null || categoryResponse.Models.Count == 0)
         {
-            Console.WriteLine("Failed to insert the category record.");
+           await Shell.Current.DisplayAlert("Error","Failed to insert the category record." , "OK");
                     return (false, insertedVenue.VenueId);  // Return the venue ID even if category fails
         }
 
