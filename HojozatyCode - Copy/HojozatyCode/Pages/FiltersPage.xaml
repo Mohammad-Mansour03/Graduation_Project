@@ -6,44 +6,56 @@
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
              Title="FiltersPage">
-    <VerticalStackLayout Padding="20">
 
-        <!-- Price Range -->
-        <Label Text="Price Range" FontSize="16" />
-        <Slider x:Name="PriceSlider" Minimum="0" Maximum="5000" Value="2500" />
-        <HorizontalStackLayout>
-            <Label Text="0JD" />
-            <Label Text="5000JD" HorizontalOptions="EndAndExpand" />
-        </HorizontalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-        <!-- Instant Book -->
-        <HorizontalStackLayout VerticalOptions="Center">
-            <Label Text="Instant book" FontSize="16"/>
-            <Switch x:Name="InstantBookSwitch" IsToggled="false"/>
-        </HorizontalStackLayout>
-        <Label Text="Only see spaces that can be instantly booked"
-               FontSize="12" TextColor="Gray"/>
+            <!-- Price Range -->
+            <Label Text="Price Range" FontSize="18" FontAttributes="Bold" />
+            <Slider x:Name="PriceSlider" Minimum="0" Maximum="5000" Value="2500" ThumbColor="Purple" MinimumTrackColor="Purple" />
+            <Grid ColumnDefinitions="Auto, Auto" HorizontalOptions="Fill">
+                <Label Text="0 JD" FontSize="14" VerticalOptions="Center"/>
+                <Label Text="5000 JD" FontSize="14" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+            </Grid>
 
-        <!-- Attendees -->
-        <Label Text="Attendees" FontSize="16" />
-        <RadioButton GroupName="Attendees" Content="Any amount" IsChecked="True"/>
-        <RadioButton GroupName="Attendees" Content="50 - 100"/>
-        <RadioButton GroupName="Attendees" Content="100 - 200"/>
+            <!-- Instant Book -->
+            <Frame CornerRadius="10" Padding="15" BackgroundColor="#F5F5F5">
+                <VerticalStackLayout Spacing="5">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Instant Book" FontSize="16" VerticalOptions="Center"/>
+                        <Switch x:Name="InstantBookSwitch" IsToggled="false" OnColor="Purple"/>
+                    </HorizontalStackLayout>
+                    <Label Text="Only see spaces that can be instantly booked" FontSize="12" TextColor="Gray" />
+                </VerticalStackLayout>
+            </Frame>
 
-        <!-- Space Type -->
-        <Label Text="Space type" FontSize="16" />
-        <CheckBox x:Name="HallsCheckBox"/>
-        <Label Text="Halls" VerticalOptions="Center"/>
-        <CheckBox x:Name="FarmsCheckBox"/>
-        <Label Text="Farms" VerticalOptions="Center"/>
-        <CheckBox x:Name="HotelsCheckBox"/>
-        <Label Text="Hotels" VerticalOptions="Center"/>
-        <CheckBox x:Name="OpenPlacesCheckBox"/>
-        <Label Text="Open Places" VerticalOptions="Center"/>
+            <!-- Attendees -->
+            <Label Text="Attendees" FontSize="18" FontAttributes="Bold" />
+            <VerticalStackLayout Spacing="5">
+                <RadioButton GroupName="Attendees" Content="Any amount" IsChecked="True"/>
+                <RadioButton GroupName="Attendees" Content="50 - 100"/>
+                <RadioButton GroupName="Attendees" Content="100 - 200"/>
+            </VerticalStackLayout>
 
-        <!-- Buttons -->
-        <Button Text="Clear all" BackgroundColor="Transparent" TextColor="Black"/>
-        <Button Text="View 4 Spaces" BackgroundColor="Purple" TextColor="White"/>
+            <!-- Space Type -->
+            <Label Text="Space Type" FontSize="18" FontAttributes="Bold" />
+            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto" ColumnSpacing="10" RowSpacing="10">
+                <CheckBox x:Name="HallsCheckBox"/>
+                <Label Text="Halls" VerticalOptions="Center"/>
+                <CheckBox x:Name="FarmsCheckBox" Grid.Row="1"/>
+                <Label Text="Farms" VerticalOptions="Center" Grid.Row="1"/>
+                <CheckBox x:Name="HotelsCheckBox" Grid.Row="2"/>
+                <Label Text="Hotels" VerticalOptions="Center" Grid.Row="2"/>
+                <CheckBox x:Name="OpenPlacesCheckBox" Grid.Row="3"/>
+                <Label Text="Open Places" VerticalOptions="Center" Grid.Row="3"/>
+            </Grid>
 
-    </VerticalStackLayout>
+            <!-- Buttons -->
+            <HorizontalStackLayout Spacing="10" VerticalOptions="End" Margin="20,10">
+                <Button Text="Clear All" BackgroundColor="Transparent" TextColor="Black" BorderColor="Gray" BorderWidth="1" CornerRadius="10" Padding="10"/>
+                <Button Text="View 4 Spaces" BackgroundColor="Purple" TextColor="White" CornerRadius="10" Padding="10" WidthRequest="150"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

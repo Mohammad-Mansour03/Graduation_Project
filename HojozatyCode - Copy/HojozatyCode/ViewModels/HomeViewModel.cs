@@ -21,6 +21,12 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(Pages.ExplorePage));
         }
 
+        [RelayCommand]
+        private async Task GoToFiltersPage()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.FiltersPage));
+        }
+
         //Navigate me to the Account Page
         [RelayCommand]
         private async Task GoToAccount()

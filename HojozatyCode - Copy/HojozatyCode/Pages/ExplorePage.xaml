@@ -164,7 +164,7 @@
          
 
             <!-- Apply Button -->
-            <Button Text="Apply" BackgroundColor="#4F378A" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="12" HeightRequest="50" WidthRequest="200" Margin="0,20"/>
+            <Button Text="Apply" BackgroundColor="#4F378A" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="12" HeightRequest="50" WidthRequest="200" Margin="0,20" Command="{Binding GoToFiltersPageCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
