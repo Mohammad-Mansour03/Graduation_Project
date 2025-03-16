@@ -1,9 +1,13 @@
-namespace HojozatyCode.Pages;
+using HojozatyCode.ViewModels;
 
-public partial class FiltersPage : ContentView
+namespace HojozatyCode.Pages
 {
-	public FiltersPage()
-	{
-		InitializeComponent();
-	}
+    public partial class FiltersPage : ContentPage
+    {
+        public FiltersPage()
+        {
+            InitializeComponent();
+            BindingContext = new LogInViewModel();
+        }
+    }
 }
