@@ -24,10 +24,10 @@ jobs:
       run: dotnet workload install maui android
       
     - name: Restore dependencies
-      run: dotnet restore HojozatyCode/HojozatyCode.csproj
+      run: dotnet restore "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj"
       
     - name: Build Android App (Debug)
-      run: dotnet build HojozatyCode/HojozatyCode.csproj -c Debug -f net7.0-android
+      run: dotnet build "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj" -c Debug -f net7.0-android
       
     # Store build output using GitHub's artifact storage directly
     - name: Archive APK files
@@ -35,4 +35,4 @@ jobs:
       with:
         name: android-apk-files
         path: |
-          HojozatyCode/bin/Debug/net7.0-android/**/*.apk
+          "HojozatyCode - Copy/HojozatyCode/bin/Debug/net7.0-android/**/*.apk"
