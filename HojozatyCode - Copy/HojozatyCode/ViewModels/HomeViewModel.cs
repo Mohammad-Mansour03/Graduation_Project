@@ -22,6 +22,12 @@ namespace HojozatyCode.ViewModels
         }
 
         [RelayCommand]
+        private async Task GoToVenueListings()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.VenueListings));
+        }
+
+        [RelayCommand]
         private async Task GoToFiltersPage()
         {
             await Shell.Current.GoToAsync(nameof(Pages.FiltersPage));
