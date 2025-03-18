@@ -1,4 +1,4 @@
-name: Android CI/CD Pipeline
+name: Android Build
 
 on:
   push:
@@ -13,18 +13,12 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@master
       
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@master
       with:
         dotnet-version: 7.0.x
-        
-    - name: Setup JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'microsoft'
-        java-version: '11'
         
     - name: Install MAUI Workload
       run: dotnet workload install maui android
@@ -35,18 +29,10 @@ jobs:
     - name: Build Android App (Debug)
       run: dotnet build HojozatyCode/HojozatyCode.csproj -c Debug -f net7.0-android
       
-    # Using GitHub's built-in artifact storage without an action
-    - name: Archive Debug APK
-      uses: actions/upload-artifact@v1
+    # Store build output using GitHub's artifact storage directly
+    - name: Archive APK files
+      uses: actions/upload-artifact@master
       with:
-        name: hojozaty-debug-apk
-        path: HojozatyCode/bin/Debug/net7.0-android/*.apk
-        
-    - name: Build Android App (Release)
-      run: dotnet build HojozatyCode/HojozatyCode.csproj -c Release -f net7.0-android
-      
-    - name: Archive Release APK
-      uses: actions/upload-artifact@v1
-      with:
-        name: hojozaty-release-apk
-        path: HojozatyCode/bin/Release/net7.0-android/*.apk
+        name: android-apk-files
+        path: |
+          HojozatyCode/bin/Debug/net7.0-android/**/*.apk
