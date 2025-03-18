@@ -1,0 +1,96 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.FiltersPage"
+             x:DataType="viewModels:HomeViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
+             Title="FiltersPage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Price Range -->
+            <Label Text="Price Range" FontSize="18" FontAttributes="Bold" />
+
+            <Slider x:Name="PriceSlider" 
+        Minimum="0" Maximum="5000" Value="2500" 
+        ThumbColor="Purple" MinimumTrackColor="Purple" 
+        HorizontalOptions="FillAndExpand"
+        ValueChanged="PriceSlider_ValueChanged"/>
+            <!-- Event for Live Update -->
+
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Label Text="0 JD" FontSize="14" TextColor="Gray" 
+           HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"/>
+
+                <!-- Frame for the live value -->
+                <Frame Grid.Column="1" Padding="5" CornerRadius="5" 
+           BackgroundColor="White" BorderColor="Purple" HasShadow="True" 
+           HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label x:Name="PriceValueLabel" 
+               Text="2500 JD" FontSize="14" FontAttributes="Bold" TextColor="Black"/>
+                </Frame>
+
+                <Label Text="5000 JD" FontSize="14" TextColor="Gray" 
+           HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
+            </Grid>
+
+
+
+
+            <!-- Instant Book -->
+            <Frame CornerRadius="10" Padding="15" BackgroundColor="#F5F5F5">
+                <VerticalStackLayout Spacing="5">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Instant Book" FontSize="16" VerticalOptions="Center"/>
+                        <Switch x:Name="InstantBookSwitch" IsToggled="false" OnColor="Purple"/>
+                    </HorizontalStackLayout>
+                    <Label Text="Only see spaces that can be instantly booked" FontSize="12" TextColor="Gray" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Attendees -->
+            <Label Text="Attendees" FontSize="18" FontAttributes="Bold" />
+            <VerticalStackLayout Spacing="5">
+                <RadioButton GroupName="Attendees" Content="Any amount" IsChecked="True"/>
+                <RadioButton GroupName="Attendees" Content="50 - 100"/>
+                <RadioButton GroupName="Attendees" Content="100 - 200"/>
+            </VerticalStackLayout>
+
+            <!-- Space Type (Fixed Alignment Using HorizontalStackLayout) -->
+            <Label Text="Space Type" FontSize="18" FontAttributes="Bold" />
+            <VerticalStackLayout Spacing="10">
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="HallsCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Halls" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="FarmsCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Farms" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="HotelsCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Hotels" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="OpenPlacesCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Open Places" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Buttons -->
+            <HorizontalStackLayout Spacing="10" VerticalOptions="End" Margin="20,10">
+                <Button Text="Clear All" BackgroundColor="Transparent" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1" CornerRadius="10" Padding="10"/>
+                <Button Text="View 4 Spaces" BackgroundColor="Purple" TextColor="White"
+                        CornerRadius="10" Padding="10" WidthRequest="150"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

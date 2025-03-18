@@ -21,6 +21,7 @@ namespace HojozatyCode.Services
         /// <param name="categoryName">The name of the category to save.</param>
         /// <param name="categoryDescription">The description of the category to save.</param>
         /// <returns>True if the operation succeeds; otherwise, false.</returns>
+<<<<<<< HEAD
         public static async Task<(bool Success, Guid? VenueId)> CreateVenueAsync(Venue venue, List<FileResult> images,
             string categoryName, string categoryDescription)
         {
@@ -62,26 +63,77 @@ namespace HojozatyCode.Services
                     Description = categoryDescription
                 };
 
+=======
+        public static async Task<(bool Success, Guid? VenueId)> CreateVenueAsync(Venue venue, List<FileResult> images, string categoryName, string categoryDescription)
+        {
+            if (venue == null)
+                throw new ArgumentNullException(nameof(venue));
+
+            try
+            {
+                // Upload all images and collect their public URLs
+                List<string> imageUrls = await UploadImagesAsync(venue.VenueId, images);
+
+                if (imageUrls.Count > 0)
+                {
+                    // Combine URLs into a comma-separated string (or change this logic as needed)
+                    venue.ImageUrl = string.Join(",", imageUrls);
+                }
+
+                // Insert the venue record into the Supabase database
+                var venueResponse = await SupabaseConfig.SupabaseClient
+                    .From<Venue>()
+                    .Insert(venue);
+
+                if (venueResponse == null || venueResponse.Models.Count == 0)
+                {
+                    Console.WriteLine("Failed to insert the venue record.");
+                    return (false, null);
+                }
+
+                // Retrieve the inserted Venue to confirm the VenueId
+                var insertedVenue = venueResponse.Models[0];
+                
+                // Save the category with the correct VenueId
+                var category = new Category
+                {
+                    CategoryId = Guid.NewGuid(),
+                    VenueId = insertedVenue.VenueId,
+                    Name = categoryName,
+                    Description = categoryDescription
+                };
+
+>>>>>>> df7d607fdcfede214a09187fddf6270d4676677a
                 var categoryResponse = await SupabaseConfig.SupabaseClient
                     .From<Category>()
                     .Insert(category);
 
                 if (categoryResponse == null || categoryResponse.Models.Count == 0)
                 {
+<<<<<<< HEAD
                     await Shell.Current.DisplayAlert("Error", "Failed to insert the category record.", "OK");
+=======
+                    Console.WriteLine("Failed to insert the category record.");
+>>>>>>> df7d607fdcfede214a09187fddf6270d4676677a
                     return (false, insertedVenue.VenueId);  // Return the venue ID even if category fails
                 }
 
                 return (true, insertedVenue.VenueId);  // Return both success status and venue ID
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> df7d607fdcfede214a09187fddf6270d4676677a
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in CreateVenueAsync: {ex.Message}");
                 return (false, null);
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> df7d607fdcfede214a09187fddf6270d4676677a
         /// <summary>
         /// Uploads a list of images for the given venue.
         /// </summary>
@@ -213,61 +265,69 @@ namespace HojozatyCode.Services
         /// </summary>
         /// <param name="venue">The venue to update.</param>
         /// <returns>True if the operation succeeds; otherwise, false.</returns>
-        // public static async Task<bool> UpdateVenueStatusAsync(Venue venue)
-        // {
-        //     try
-        //     {
-        //         var response = await SupabaseConfig.SupabaseClient
-        //             .From<Venue>()
-        //             .Update(venue);
+        public static async Task<bool> UpdateVenueStatusAsync(Venue venue)
+        {
+            try
+            {
+                if (venue == null)
+                {
+                    Console.WriteLine("Cannot update null venue");
+                    return false;
+                }
 
-        //         return response.Models.Count > 0;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Console.WriteLine($"Error updating venue status: {ex.Message}");
-        //         return false;
-        //     }
-        // }
+                Console.WriteLine($"Updating venue status: {venue.VenueName} to {venue.Status}");
+                Console.WriteLine($"Venue ID: {venue.VenueId}");
+                
+                // Only update the Status field
+                var response = await SupabaseConfig.SupabaseClient
+                    .From<Venue>()
+                    .Where(v => v.VenueId == venue.VenueId)
+                    .Set(v => v.Status, venue.Status)
+                    .Update();
 
-        // /// <summary>
-        // /// Deletes a venue.
-        // /// </summary>
-        // /// <param name="venue">The venue to delete.</param>
-        // /// <returns>True if the operation succeeds; otherwise, false.</returns>
-        // public static async Task<bool> DeleteVenueAsync(Venue venue)
-        // {
-        //     if (venue == null)
-        //     {
-        //         Console.WriteLine("Venue is null.");
-        //         return false;
-        //     }
+                return response != null && response.Models.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating venue status: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return false;
+            }
+        }
 
-        //     try
-        //     {
-        //         var response = await SupabaseConfig.SupabaseClient
-        //             .From<Venue>()
-        //             .Delete(venue);
+        /// <summary>
+        /// Deletes a venue.
+        /// </summary>
+        /// <param name="venue">The venue to delete.</param>
+        /// <returns>True if the operation succeeds; otherwise, false.</returns>
+        public static async Task<bool> DeleteVenueAsync(Venue venue)
+        {
+            try
+            {
+                if (venue == null)
+                {
+                    Console.WriteLine("Cannot delete null venue");
+                    return false;
+                }
 
-        //         if (response == null)
-        //         {
-        //             Console.WriteLine("Response from Supabase is null.");
-        //             return false;
-        //         }
+                Console.WriteLine($"Marking venue as rejected: {venue.VenueName}");
+                Console.WriteLine($"Venue ID: {venue.VenueId}");
+                
+                // Only update the Status field
+                var response = await SupabaseConfig.SupabaseClient
+                    .From<Venue>()
+                    .Where(v => v.VenueId == venue.VenueId)
+                    .Set(v => v.Status, "Rejected")
+                    .Update();
 
-        //         if (response.Models == null)
-        //         {
-        //             Console.WriteLine("Response.Models is null.");
-        //             return false;
-        //         }
-
-        //         return response.Models.Count > 0;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Console.WriteLine($"Error deleting venue: {ex.Message}");
-        //         return false;
-        //     }
-        // }
+                return response != null && response.Models.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting venue: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return false;
+            }
+        }
     }
 }

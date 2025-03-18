@@ -1,5 +1,6 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ExplorePage"
              Title="Explore"
              BackgroundColor="#F5F5F5">
@@ -164,7 +165,7 @@
          
 
             <!-- Apply Button -->
-            <Button Text="Apply" BackgroundColor="#4F378A" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="12" HeightRequest="50" WidthRequest="200" Margin="0,20"/>
+            <Button Text="Apply" BackgroundColor="#4F378A" TextColor="White" FontSize="18" FontAttributes="Bold" CornerRadius="12" HeightRequest="50" WidthRequest="200" Margin="0,20" Command="{Binding GoToVenueListingsCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
