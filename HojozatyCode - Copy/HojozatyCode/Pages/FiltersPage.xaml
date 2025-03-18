@@ -5,18 +5,40 @@
              x:DataType="viewModels:HomeViewModel"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
-             Title="FiltersPage">
+             Title="FiltersPage"
+             BackgroundColor="White">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
             <!-- Price Range -->
             <Label Text="Price Range" FontSize="18" FontAttributes="Bold" />
-            <Slider x:Name="PriceSlider" Minimum="0" Maximum="5000" Value="2500" ThumbColor="Purple" MinimumTrackColor="Purple" />
-            <Grid ColumnDefinitions="Auto, Auto" HorizontalOptions="Fill">
-                <Label Text="0 JD" FontSize="14" VerticalOptions="Center"/>
-                <Label Text="5000 JD" FontSize="14" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+
+            <Slider x:Name="PriceSlider" 
+        Minimum="0" Maximum="5000" Value="2500" 
+        ThumbColor="Purple" MinimumTrackColor="Purple" 
+        HorizontalOptions="FillAndExpand"
+        ValueChanged="PriceSlider_ValueChanged"/>
+            <!-- Event for Live Update -->
+
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Label Text="0 JD" FontSize="14" TextColor="Gray" 
+           HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"/>
+
+                <!-- Frame for the live value -->
+                <Frame Grid.Column="1" Padding="5" CornerRadius="5" 
+           BackgroundColor="White" BorderColor="Purple" HasShadow="True" 
+           HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label x:Name="PriceValueLabel" 
+               Text="2500 JD" FontSize="14" FontAttributes="Bold" TextColor="Black"/>
+                </Frame>
+
+                <Label Text="5000 JD" FontSize="14" TextColor="Gray" 
+           HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
             </Grid>
+
+
+
 
             <!-- Instant Book -->
             <Frame CornerRadius="10" Padding="15" BackgroundColor="#F5F5F5">
@@ -37,23 +59,36 @@
                 <RadioButton GroupName="Attendees" Content="100 - 200"/>
             </VerticalStackLayout>
 
-            <!-- Space Type -->
+            <!-- Space Type (Fixed Alignment Using HorizontalStackLayout) -->
             <Label Text="Space Type" FontSize="18" FontAttributes="Bold" />
-            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto" ColumnSpacing="10" RowSpacing="10">
-                <CheckBox x:Name="HallsCheckBox"/>
-                <Label Text="Halls" VerticalOptions="Center"/>
-                <CheckBox x:Name="FarmsCheckBox" Grid.Row="1"/>
-                <Label Text="Farms" VerticalOptions="Center" Grid.Row="1"/>
-                <CheckBox x:Name="HotelsCheckBox" Grid.Row="2"/>
-                <Label Text="Hotels" VerticalOptions="Center" Grid.Row="2"/>
-                <CheckBox x:Name="OpenPlacesCheckBox" Grid.Row="3"/>
-                <Label Text="Open Places" VerticalOptions="Center" Grid.Row="3"/>
-            </Grid>
+            <VerticalStackLayout Spacing="10">
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="HallsCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Halls" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="FarmsCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Farms" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="HotelsCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Hotels" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox x:Name="OpenPlacesCheckBox" VerticalOptions="Center"/>
+                    <Label Text="Open Places" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
 
             <!-- Buttons -->
             <HorizontalStackLayout Spacing="10" VerticalOptions="End" Margin="20,10">
-                <Button Text="Clear All" BackgroundColor="Transparent" TextColor="Black" BorderColor="Gray" BorderWidth="1" CornerRadius="10" Padding="10"/>
-                <Button Text="View 4 Spaces" BackgroundColor="Purple" TextColor="White" CornerRadius="10" Padding="10" WidthRequest="150"/>
+                <Button Text="Clear All" BackgroundColor="Transparent" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1" CornerRadius="10" Padding="10"/>
+                <Button Text="View 4 Spaces" BackgroundColor="Purple" TextColor="White"
+                        CornerRadius="10" Padding="10" WidthRequest="150"/>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>
