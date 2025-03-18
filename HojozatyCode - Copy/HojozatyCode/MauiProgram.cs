@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using HojozatyCode.ViewModels; // Add this line if CategoryVenuesViewModel is in the ViewModels namespace
-
+using CommunityToolkit.Maui;
 namespace HojozatyCode
 {
     public static class MauiProgram
@@ -9,11 +9,11 @@ namespace HojozatyCode
         {
             var builder = MauiApp.CreateBuilder();
 
-            builder.UseMauiApp<App>();
-            
+            builder.UseMauiApp<App>().UseMauiCommunityToolkit();
+
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
 
         

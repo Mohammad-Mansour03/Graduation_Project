@@ -4,35 +4,137 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ServicesPage"
              Title="ServicesPage">
+   
+    
+    
+    
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
             <Label Text="What Services do you provide?" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
 
-            <!-- Dynamic Services List -->
+
+            <!--Add Service Option-->
+            <HorizontalStackLayout Spacing="12" 
+                                   VerticalOptions="Center">
+                
+                <!-- Service Name -->
+                <Border Stroke="LightGray"
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 12" 
+                        HeightRequest="50"
+                        WidthRequest="200">
+                    
+                    <Entry Placeholder="Service Name" 
+                           Text="{Binding NewServiceName}" 
+                           BackgroundColor="Transparent"
+                           FontSize="16"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                     />
+               
+                </Border>
+
+                <!-- Price -->
+                <Border Stroke="LightGray" 
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 12" 
+                        HeightRequest="50" 
+                        WidthRequest="80">
+                    
+                    <Entry Placeholder="Price" 
+                           Text="{Binding NewServicePrice}" 
+                           Keyboard="Numeric" 
+                           BackgroundColor="Transparent" 
+                           HorizontalTextAlignment="Center"
+                           FontSize="16"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                     />
+                    
+                </Border>
+
+                <!-- Add Button -->
+                <Button Text="+"
+                        FontSize="Large"
+                        Command="{Binding AddServiceCommand}"
+                        WidthRequest="55" 
+                        HeightRequest="50"
+                        BackgroundColor="#673AB7" 
+                        CornerRadius="12">
+                </Button>
+            </HorizontalStackLayout>
+
+
+
             <CollectionView ItemsSource="{Binding Services}">
+               
                 <CollectionView.ItemTemplate>
+                
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,Auto">
-                            <Border Stroke="Gray" StrokeShape="RoundRectangle 15" HeightRequest="50" WidthRequest="250">
-                                <Entry Text="{Binding Name}" IsReadOnly="True" Margin="5"/>
-                            </Border>
-                            <Border Stroke="Gray" StrokeShape="RoundRectangle 15" HeightRequest="50" WidthRequest="75">
-                                <Entry Text="{Binding Price}" Margin="5" Keyboard="Numeric"/>
-                            </Border>
-                        </Grid>
+                    
+                        <!-- Outer Border for a Unified Look -->
+                        <Border Stroke="Gray"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10"
+                                Margin="5"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="FillAndExpand">
+
+                            <Grid ColumnDefinitions="*,Auto,Auto" 
+                                  ColumnSpacing="10">
+
+                                <!-- Name Entry -->
+                                <Entry Grid.Column="0"
+                                       Text="{Binding Name}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>
+
+                                <!-- Price Entry -->
+                                <Entry Grid.Column="1"
+                                       Text="{Binding Price}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       WidthRequest="60"
+                                       HorizontalTextAlignment="Center"/>
+                             
+                                <!-- Delete Button -->
+                                <ImageButton Grid.Column="2"
+                                             Source="delete.png"
+                                             BackgroundColor="Transparent"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, Path=DeleteServiceCommand}"
+                                             CommandParameter="{Binding .}"
+                                             WidthRequest="35"
+                                             HeightRequest="35"
+                                             Padding="5"/>
+
+                            </Grid>
+                       
+                        </Border>
+                    
                     </DataTemplate>
+                
                 </CollectionView.ItemTemplate>
+            
             </CollectionView>
 
-            <!-- Add New Service -->
-           
-                <Entry Placeholder="Service Name" Text="{Binding NewServiceName}" Margin="100"/>
-                <Entry Placeholder="Price" Text="{Binding NewServicePrice}" Margin="5" Keyboard="Numeric"/>
-           
-            <Button Text="+" Command="{Binding AddServiceCommand}"/>
-            <Button Text="Next" BackgroundColor="#673AB7" TextColor="White" CornerRadius="25"
-                Command="{Binding NavigateToSpacePoliciesPageCommand}"/>
+
+            <Button Text="Next"
+                    BackgroundColor="#673AB7" 
+                    TextColor="White" 
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    WidthRequest="250"
+                    Margin="100"
+                    Command="{Binding NavigateToSpacePoliciesPageCommand}"/>
+
         </VerticalStackLayout>
+        
     </ScrollView>
 
 </ContentPage>
