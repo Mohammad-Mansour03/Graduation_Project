@@ -1,4 +1,4 @@
-name: Android Build
+name: .NET 9 Android Build
 
 on:
   push:
@@ -15,23 +15,35 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@master
       
-    - name: Setup .NET 7.0 SDK
+    - name: Setup .NET 9.0
       uses: actions/setup-dotnet@master
       with:
-        dotnet-version: 7.0.306  # Specific version that supports .NET 7.0 MAUI workloads
+        dotnet-version: 9.0.x  # Latest .NET 9.0 SDK
         
     - name: Install MAUI Workload
       run: dotnet workload install maui-android
       
+    - name: Verify .NET Version and Workload Installation
+      run: |
+        dotnet --version
+        dotnet workload list
+      
     - name: Restore dependencies
       run: dotnet restore "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj"
       
-    - name: Build Android App (Debug)
-      run: dotnet build "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj" -c Debug -f net7.0-android --no-restore
+    - name: Update Target Framework (if needed)
+      run: |
+        $projectFilePath = "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj"
+        $content = Get-Content $projectFilePath -Raw
+        $updatedContent = $content -replace "net7.0-android", "net9.0-android"
+        Set-Content $projectFilePath $updatedContent
+      shell: pwsh
       
-    # Store build output using GitHub's artifact storage directly
+    - name: Build Android App (Debug)
+      run: dotnet build "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj" -c Debug -f net9.0-android
+      
     - name: Archive APK files
       uses: actions/upload-artifact@master
       with:
         name: android-apk-files
-        path: "HojozatyCode - Copy/HojozatyCode/bin/Debug/net7.0-android/**/*.apk"
+        path: "HojozatyCode - Copy/HojozatyCode/bin/Debug/net9.0-android/**/*.apk"
