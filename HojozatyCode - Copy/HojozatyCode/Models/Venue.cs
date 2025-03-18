@@ -60,7 +60,19 @@ namespace HojozatyCode.Models
         [Column("status")]
         public string Status { get; set; }
 
-        // Property to get the list of image URLs
-        //public List<string> ImageUrls => string.IsNullOrEmpty(ImageUrl) ? new List<string>() : new List<string>(ImageUrl.Split(','));
+        // Property to get the list of image URLs with null safety
+        public List<string> ImageUrls 
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ImageUrl))
+                    return new List<string>();
+                    
+                // Split the URLs and filter out any empty or null entries
+                return ImageUrl.Split(',')
+                    .Where(url => !string.IsNullOrWhiteSpace(url))
+                    .ToList();
+            }
+        }
     }
 }
