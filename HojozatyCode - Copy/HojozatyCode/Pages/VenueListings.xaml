@@ -1,0 +1,70 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.VenueListings"
+             x:DataType="viewModels:HomeViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
+             Title="VenueListings">
+
+    <StackLayout>
+        <!-- Header Section -->
+        <Grid ColumnDefinitions="*,*,auto" Padding="10">
+            <Label Text="Wedding" FontSize="18" />
+            <Label Text="Amman" Grid.Column="1" FontSize="18" />
+            <ImageButton Source="filter_icon.png" Grid.Column="2" HeightRequest="30" WidthRequest="30" />
+        </Grid>
+
+        <!-- Date and Filter Section -->
+        <Grid ColumnDefinitions="*,auto" Padding="10">
+            <Button Text="Date and time" />
+            <Button Text="Filters (2)" Grid.Column="1" BackgroundColor="Purple" TextColor="White" />
+        </Grid>
+
+        <!-- Space Type Selection -->
+        <ScrollView Orientation="Horizontal" HeightRequest="80">
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <!-- Bind different space types here -->
+                <Frame BackgroundColor="LightGray" Padding="10">
+                    <Label Text="Space 1" />
+                </Frame>
+                <Frame BackgroundColor="LightGray" Padding="10">
+                    <Label Text="Space 2" />
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Venue List -->
+        <CollectionView ItemsSource="{Binding Venues}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" CornerRadius="10" BackgroundColor="White">
+                        <StackLayout>
+                            <!-- Venue Image -->
+                            <Image Source="{Binding ImageUrl}" HeightRequest="150" />
+
+                            <!-- Venue Details -->
+                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" />
+                            <Label Text="⭐ {Binding Rating} ({Binding Reviews})" FontSize="14" />
+                            <Label Text="Responds within {Binding ResponseTime} hrs" FontSize="12" TextColor="Gray" />
+
+                            <!-- Price Section -->
+                            <Frame BackgroundColor="Purple" Padding="5" HorizontalOptions="End">
+                                <Label Text="From {Binding Price}/hr" TextColor="White" />
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Bottom Navigation -->
+        <Grid ColumnDefinitions="*,*,*,*,*" Padding="10" BackgroundColor="White">
+            <Button Text="Account" />
+            <Button Text="Home" />
+            <Button Text="Favourite" />
+            <Button Text="Add Space" />
+            <Button Text="Settings" />
+        </Grid>
+    </StackLayout>
+</ContentPage>
