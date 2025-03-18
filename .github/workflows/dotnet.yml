@@ -1,0 +1,49 @@
+name: .NET 9 Android Build
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@master
+      
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: 9.0.x  # Latest .NET 9.0 SDK
+        
+    - name: Install MAUI Workload
+      run: dotnet workload install maui-android
+      
+    - name: Verify .NET Version and Workload Installation
+      run: |
+        dotnet --version
+        dotnet workload list
+      
+    - name: Restore dependencies
+      run: dotnet restore "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj"
+      
+    - name: Update Target Framework (if needed)
+      run: |
+        $projectFilePath = "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj"
+        $content = Get-Content $projectFilePath -Raw
+        $updatedContent = $content -replace "net7.0-android", "net9.0-android"
+        Set-Content $projectFilePath $updatedContent
+      shell: pwsh
+      
+    - name: Build Android App (Debug)
+      run: dotnet build "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj" -c Debug -f net9.0-android
+      
+    - name: Archive APK files
+      uses: actions/upload-artifact@master
+      with:
+        name: android-apk-files
+        path: "HojozatyCode - Copy/HojozatyCode/bin/Debug/net9.0-android/**/*.apk"
