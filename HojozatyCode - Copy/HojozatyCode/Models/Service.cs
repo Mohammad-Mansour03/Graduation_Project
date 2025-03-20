@@ -20,8 +20,5 @@ namespace HojozatyCode.Models
 		[Column("description")]
 		public string Description { get; set; }
 
-
-	
-
 	}
 }

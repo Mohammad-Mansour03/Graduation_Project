@@ -100,6 +100,9 @@ namespace HojozatyCode.ViewModels
 
 		//Properety to store the Venue Capacity
 		[ObservableProperty]
+		private string capacityInput;
+		
+		[ObservableProperty]
 		private int capacity;
 
 		//Collection Properety to store the venue images
@@ -133,6 +136,9 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<ServiceItem> services;
 
+		//This generates the SelectedCancellationPolicy property correctly
+		[ObservableProperty]
+		private string selectedPolicy;
 
 
 		//This Method to add the service to the database
@@ -241,18 +247,37 @@ namespace HojozatyCode.ViewModels
 				ErrorMessage = "Please Enter your initial price";
 				return;
 			}
-
 			else
 			{
 				InitialPriceValue = Convert.ToDouble(InitialPrice);
 			}
-
 			//Check if the User Enter Valid initial price
 			if (InitialPriceValue < 0)
 			{
 				ErrorMessage = "Please Enter a valid initial price";
 				return;
 			}
+
+	
+
+			//Check if the capacity is null
+			if (String.IsNullOrEmpty(CapacityInput))
+			{
+				ErrorMessage = "Please Enter your initial price";
+				return;
+			}
+			else
+			{
+				Capacity = Convert.ToInt32(CapacityInput);
+			}
+			//Check if the User Enter Valid initial price
+			if (Capacity < 0)
+			{
+				ErrorMessage = "Please Enter a valid Capacity";
+				return;
+			}
+
+
 
 			//Check if the Category is null
 			if (String.IsNullOrEmpty(Category))
@@ -297,6 +322,7 @@ namespace HojozatyCode.ViewModels
 				Location = $"{City}, {Address}",
 				VenueContactPhone = Phone,
 				VenueEmail = Email,
+				Capacity = Capacity,
 				InitialPrice = InitialPriceValue,
 				Status = "Pending"
 			};
@@ -322,9 +348,12 @@ namespace HojozatyCode.ViewModels
 
 		// Command to navigate to the ReviewPage
 		[RelayCommand]
-		private async Task NavigateToReviewPageAsync() =>
-			await Shell.Current.GoToAsync(nameof(ReviewPage));
+		private async Task NavigateToReviewPageAsync()
+		{
 
+			await UpdateCancellationPolicyAsync(CurrentVenueId, SelectedPolicy);
+			await Shell.Current.GoToAsync(nameof(ReviewPage));
+		}
 		// Command to navigate to the SpacePoliciesPage
 		[RelayCommand]
 		private async Task NavigateToSpacePoliciesPageAsync() =>
@@ -668,6 +697,40 @@ namespace HojozatyCode.ViewModels
 
 				//}
 				//await Shell.Current.GoToAsync(nameof(LogInPage));
+			}
+		}
+
+		#endregion
+
+		#region Space Polices Commands
+
+
+		private async Task UpdateCancellationPolicyAsync(Guid venueId, string cancellationPolicy)
+		{
+			if (venueId == Guid.Empty || string.IsNullOrEmpty(cancellationPolicy))
+				return;
+
+			try
+			{
+				var response = await _supabaseClient
+					.From<Venue>()
+					.Match(new Venue {VenueId = venueId })
+					.Update(new Venue { CancellationPolicy = cancellationPolicy });
+					
+
+				if (response != null && response.Models.Count > 0)
+				{
+					await Shell.Current.DisplayAlert("Done","Cancellation policy updated successfully.", "Ok");
+				}
+
+				else
+				{
+					await Shell.Current.DisplayAlert("Error", "Error to update Cancellation policy", "Ok");
+				}
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
 			}
 		}
 

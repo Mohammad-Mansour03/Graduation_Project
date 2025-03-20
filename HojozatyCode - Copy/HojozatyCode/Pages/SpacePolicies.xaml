@@ -14,32 +14,6 @@
                    FontAttributes="Bold"
                    TextColor="Black"/>
 
-            <!-- Payment Policy Section -->
-            <Label Text="Payment Policy"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="Black"
-                   Margin="0,10,0,0"/>
-
-            
-                <Grid ColumnDefinitions="*,Auto">
-              
-                 <!--Visa/Master Card-->
-                <Border Stroke="Black"
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50">
-                    
-                    <Entry Text="Visa/Mastercard" 
-                           IsReadOnly="True"
-                           Margin="5"/>
-                    </Border>
-                    
-                <CheckBox x:Name="VisaMasterCardCheckBox"
-                          Grid.Column="1" 
-                          VerticalOptions="Center"
-                          Color="#65558F"/>
-             
-                </Grid>
 
             <!-- Cancellation Policy Section -->
             <Label Text="Cancellation Policy"
@@ -48,53 +22,81 @@
                    TextColor="Black"
                    Margin="0,10,0,0"/>
 
-
-
+            
             <Grid ColumnDefinitions="*,Auto">
+               
+                <!--Flexible Cancellation Policy-->
                 <Border Stroke="Black" 
                         StrokeShape="RoundRectangle 15" 
                         HeightRequest="50">
+                
                     <Entry Text="Flexible"
                            IsReadOnly="True" 
                            Margin="5"/>
+                
                 </Border>
-                <CheckBox x:Name="FlexibleCheckBox"
-                          Grid.Column="1" 
-                          VerticalOptions="Center"
-                          Color="#65558F"/>
+
+                <RadioButton x:Name="FlexibleRadioButton"
+                     GroupName="CancellationPolicy"
+                     IsChecked="{Binding SelectedPolicy, 
+                                Mode=TwoWay, Converter={StaticResource StringToBoolConverter}, 
+                                ConverterParameter=Flexible}"
+                     Grid.Column="1" 
+                     VerticalOptions="Center"
+                     BackgroundColor="#65558F"/>
+
             </Grid>
 
 
             <Grid ColumnDefinitions="*,Auto">
+                
+                <!--Moderate Canclleation Policy-->
                 <Border Stroke="Black"
                         StrokeShape="RoundRectangle 15"
                         HeightRequest="50">
+                 
                     <Entry Text="Moderate" 
                            IsReadOnly="True"
                            Margin="5"/>
+                
                 </Border>
-                <CheckBox x:Name="ModerateCheckBox"
-                          Grid.Column="1" 
-                          VerticalOptions="Center"
-                          Color="#65558F"/>
+                
+                <!--Moderate Check Box-->
+                <RadioButton x:Name="ModerateRadioButton"
+                     GroupName="CancellationPolicy"
+                     IsChecked="{Binding SelectedPolicy, 
+                                Mode=TwoWay, Converter={StaticResource StringToBoolConverter}, 
+                                ConverterParameter=Moderate}"
+                     Grid.Column="1" 
+                     VerticalOptions="Center"
+                     BackgroundColor="#65558F"/>
             </Grid>
 
 
             <Grid ColumnDefinitions="*,Auto">
+             
+                <!--Strict Cancellation Policy-->
                 <Border Stroke="Black" 
                         StrokeShape="RoundRectangle 15" 
                         HeightRequest="50">
+               
                     <Entry Text="Strict" 
                            IsReadOnly="True" 
                            Margin="5"/>
                 </Border>
               
-                <CheckBox  x:Name="StrictCheckBox" 
-                           Grid.Column="1" 
-                           VerticalOptions="Center"
-                           Color="#65558F"/>
+                <!--Strict Check Box-->
+                <RadioButton x:Name="StrictRadioButton"
+                     GroupName="CancellationPolicy"
+                     IsChecked="{Binding SelectedPolicy, 
+                            Mode=TwoWay, Converter={StaticResource StringToBoolConverter}, 
+                            ConverterParameter=Strict}"
+                     Grid.Column="1" 
+                     VerticalOptions="Center"
+                     BackgroundColor="#65558F"/>
+          
             </Grid>
-
+                               
             <!-- House Rules Section -->
             <Label Text="House Rules"
                    FontSize="24"
@@ -136,37 +138,6 @@
                           Color="#65558F"/>
             </Grid>
 
-
-            
-            <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-                    
-        
-                    <Entry Text="Maximum Capacity" 
-                           IsReadOnly="True"
-                           Margin="5"/>
-            
-                </Border>
-
-                <Border Stroke="Gray" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"
-                        HorizontalOptions="CenterAndExpand"
-                        Margin="250,0,0,0"
-                        >
-                    <Entry Placeholder="Max Capacity"
-                           Text="{Binding MaxCapacity}"
-                           Margin="5"
-                           Keyboard="Numeric"/>
-
-                </Border>
-                
-                
-            </Grid>
         
             <Grid ColumnDefinitions="*,Auto">
            
@@ -184,6 +155,8 @@
 
             </Grid>
 
+            
+            
             <!-- Review Button -->
             <Grid Margin="0,20,0,0">
                 <Button Text="Review"
