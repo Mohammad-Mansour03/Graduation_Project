@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.AdminPanel"
+             x:DataType="viewModels:OwnerVenuesViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
+             Title="Admin Panel">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <StackLayout BackgroundColor="DarkBlue" Padding="10" Orientation="Horizontal">
+            <Label Text="Admin Panel" FontSize="24" TextColor="White" FontAttributes="Bold" />
+        </StackLayout>
+
+        <Grid RowDefinitions="*" ColumnDefinitions="200,*" Grid.Row="1">
+
+            <!-- Sidebar Navigation -->
+            <StackLayout BackgroundColor="LightGray" Padding="10" Grid.Column="0">
+                <Button Text="Dashboard" Clicked="OnDashboardClicked" />
+                <Button Text="Reservations" Clicked="OnReservationsClicked" />
+                <Button Text="Settings" Clicked="OnSettingsClicked" />
+                <Button Text="Logout" Clicked="OnLogoutClicked" BackgroundColor="Red" TextColor="White" />
+            </StackLayout>
+
+            <!-- Main Content -->
+            <StackLayout Padding="10" Grid.Column="1">
+                <Label Text="Reservations" FontSize="20" FontAttributes="Bold"/>
+                <CollectionView ItemsSource="{Binding Reservations}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Gray" Padding="10" Margin="5">
+                                <StackLayout>
+                                    <Label Text="{Binding ReservationId}" FontAttributes="Bold" />
+                                    <Label Text="{Binding CustomerName}" />
+                                    <Label Text="{Binding RoomNumber}" />
+                                    <Label Text="{Binding CheckInDate, StringFormat='Check-in: {0:MM/dd/yyyy}'}" />
+                                    <Label Text="{Binding CheckOutDate, StringFormat='Check-out: {0:MM/dd/yyyy}'}" />
+                                    <Button Text="View Details" Command="{Binding ViewDetailsCommand}" CommandParameter="{Binding}" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
