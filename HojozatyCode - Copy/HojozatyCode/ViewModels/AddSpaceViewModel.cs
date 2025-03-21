@@ -354,6 +354,7 @@ namespace HojozatyCode.ViewModels
 			await UpdateCancellationPolicyAsync(CurrentVenueId, SelectedPolicy);
 			await Shell.Current.GoToAsync(nameof(ReviewPage));
 		}
+
 		// Command to navigate to the SpacePoliciesPage
 		[RelayCommand]
 		private async Task NavigateToSpacePoliciesPageAsync() =>
@@ -712,11 +713,14 @@ namespace HojozatyCode.ViewModels
 
 			try
 			{
+				await Shell.Current.DisplayAlert("Canceelation Policy", cancellationPolicy, "OK");
+
 				var response = await _supabaseClient
 					.From<Venue>()
-					.Match(new Venue {VenueId = venueId })
-					.Update(new Venue { CancellationPolicy = cancellationPolicy });
-					
+					.Where(v => v.VenueId == venueId)  // Ensure VenueId is the PK
+					.Set(v => v.CancellationPolicy, cancellationPolicy)  // Use .Set() for property update
+					.Update();
+
 
 				if (response != null && response.Models.Count > 0)
 				{
