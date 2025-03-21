@@ -36,7 +36,8 @@
                            Margin="5"/>
                 
                 </Border>
-
+                
+                <!--Flexible Cancellation Policy Radio button-->
                 <RadioButton x:Name="FlexibleRadioButton"
                      GroupName="CancellationPolicy"
                      IsChecked="{Binding SelectedPolicy, 
@@ -44,7 +45,7 @@
                                 ConverterParameter=Flexible}"
                      Grid.Column="1" 
                      VerticalOptions="Center"
-                     BackgroundColor="#65558F"/>
+                    />
 
             </Grid>
 
@@ -62,15 +63,16 @@
                 
                 </Border>
                 
-                <!--Moderate Check Box-->
+                <!--Moderate Radio Button-->
                 <RadioButton x:Name="ModerateRadioButton"
                      GroupName="CancellationPolicy"
                      IsChecked="{Binding SelectedPolicy, 
-                                Mode=TwoWay, Converter={StaticResource StringToBoolConverter}, 
+                                Mode=TwoWay,
+                                Converter={StaticResource StringToBoolConverter}, 
                                 ConverterParameter=Moderate}"
                      Grid.Column="1" 
                      VerticalOptions="Center"
-                     BackgroundColor="#65558F"/>
+                    />
             </Grid>
 
 
@@ -86,91 +88,150 @@
                            Margin="5"/>
                 </Border>
               
-                <!--Strict Check Box-->
+                <!--Strict Radio Button-->
                 <RadioButton x:Name="StrictRadioButton"
                      GroupName="CancellationPolicy"
                      IsChecked="{Binding SelectedPolicy, 
-                            Mode=TwoWay, Converter={StaticResource StringToBoolConverter}, 
-                            ConverterParameter=Strict}"
+                                 Mode=TwoWay, 
+                                 Converter={StaticResource StringToBoolConverter}, 
+                                 ConverterParameter=Strict}"
                      Grid.Column="1" 
                      VerticalOptions="Center"
-                     BackgroundColor="#65558F"/>
+                    />
           
             </Grid>
-                               
-            <!-- House Rules Section -->
-            <Label Text="House Rules"
-                   FontSize="24"
-                   FontAttributes="Bold"
+
+            <Label Text="Add Venue Rules"
+                   FontSize="24" 
+                   FontAttributes="Bold" 
                    TextColor="Black"
-                   Margin="0,10,0,0"/>
+                   Margin="0,20,0,0"/>
 
-            <!--No Smoking-->
-            <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" 
-                        StrokeShape="RoundRectangle 15"
-                        HeightRequest="50">
-                
-                    <Entry Text="No Smoking" 
-                           IsReadOnly="True" 
-                           Margin="5"/>
-               
-                </Border>
-                
-                <CheckBox x:Name="NoSmokingCheckBox" 
-                          Grid.Column="1" 
-                          VerticalOptions="Center"
-                          Color="#65558F"/>
-            </Grid>
+            <!--Add Host Rule Option-->
+            <VerticalStackLayout Spacing="12" 
+                          VerticalOptions="Start"
+                                 HorizontalOptions="Start">
 
-            <!--No Pets-->
-            <Grid ColumnDefinitions="*,Auto">
-                <Border Stroke="Black" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50">
-                    
-                    <Entry Text="No Pets" 
-                           IsReadOnly="True" 
-                           Margin="5"/>
-                </Border>
-                <CheckBox x:Name="NoPetsCheckBox"
-                          Grid.Column="1" 
-                          VerticalOptions="Center"
-                          Color="#65558F"/>
-            </Grid>
 
-        
-            <Grid ColumnDefinitions="*,Auto">
-           
-                <Border Stroke="Black" 
-                        StrokeShape="RoundRectangle 15" 
+                <!-- Host Rule Name -->
+                <Border Stroke="LightGray"
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 12" 
                         HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
+                        WidthRequest="350">
 
-                    <Entry Placeholder="Add House Rule"
-                           Text="{Binding ExtraHouseRule}"
-                           Margin="5"/>
+                    <Entry Placeholder="House Rule" 
+                           Text="{Binding NewHouseRuleName}" 
+                           BackgroundColor="Transparent"
+                           FontSize="16"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                    />
 
                 </Border>
 
-            </Grid>
+                <!-- Host Rule Description -->
+                <Border  Stroke="LightGray"  
+                         Padding="10"
+                         Margin="0,10,0,0" 
+                         StrokeShape="RoundRectangle 15">
 
-            
-            
+                    <VerticalStackLayout Spacing="5">
+
+                        <Editor Placeholder="Description"
+                                HeightRequest="100"
+                                Text="{Binding NewHouseRuleDescription}"/>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- Add Button -->
+                <Button Text="ADD"
+                        FontSize="Large"
+                        Command="{Binding AddHouseRuleCommand}"
+                        WidthRequest="150" 
+                        HeightRequest="50"
+                        Margin="0,30,0,0"
+                        BackgroundColor="#673AB7" 
+                        CornerRadius="12">
+                </Button>
+                
+            </VerticalStackLayout>
+
+            <CollectionView ItemsSource="{Binding HouseRules}">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <!-- Outer Border for a Unified Look -->
+                        <Border Stroke="Gray"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 20"
+            Padding="10"
+            Margin="5"
+            BackgroundColor="Transparent"
+            HorizontalOptions="FillAndExpand">
+
+                            <!-- Vertical StackLayout for House Rule Data -->
+                            <VerticalStackLayout Spacing="5">
+
+                                <!-- House Rule Name -->
+                                <Label Text="House Rule Name:"
+                                       FontSize="14"
+                                       TextColor="Gray"/>   
+
+                                <Entry Text="{Binding HouseRuleName}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>  
+
+                                <!-- House Rule Description -->
+                                <Label Text="House Rule Description:"
+                                       FontSize="14"
+                                       TextColor="Gray"/>   
+
+                                <Entry Text="{Binding HouseRuleDescription}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>
+
+                                <!-- Delete Button -->
+                                <ImageButton   Grid.Column="2"
+                                               Source="delete.png"
+                                               BackgroundColor="Transparent"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, 
+                                                            Path=DeleteHostRuleCommand}"
+                                               CommandParameter="{Binding .}"
+                                               WidthRequest="35"
+                                               HeightRequest="35"
+                                               Padding="5"/>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
             <!-- Review Button -->
-            <Grid Margin="0,20,0,0">
-                <Button Text="Review"
-                        BackgroundColor="#4F378A"
-                        TextColor="White"
-                        FontSize="22"
-                        CornerRadius="25"
-                        WidthRequest="120"
-                        HeightRequest="50"
-                        HorizontalOptions="End"
-                        Command="{Binding NavigateToReviewPageCommand}"/>
-            </Grid>
+            <Button Text="Review"
+                    BackgroundColor="#673AB7" 
+                    TextColor="White" 
+                    CornerRadius="25"
+                    FontSize="Large"
+                    HeightRequest="50"
+                    WidthRequest="250"
+                    Margin="100"
+                    Command="{Binding NavigateToReviewPageCommand}"/>
 
         </VerticalStackLayout>
+        
     </ScrollView>
+
 </ContentPage>

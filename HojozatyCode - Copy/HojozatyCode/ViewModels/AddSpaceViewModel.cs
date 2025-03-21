@@ -138,10 +138,20 @@ namespace HojozatyCode.ViewModels
 
 		//This generates the SelectedCancellationPolicy property correctly
 		[ObservableProperty]
-		private string selectedPolicy;
+		private string selectedPolicy;		
+		
+		//To Store the House Rule
+		[ObservableProperty]
+		private string newHouseRuleName;		
+		
+		//To Store The description for the House Rule
+		[ObservableProperty]
+		private string newHouseRuleDescription;
 
+		//Collection to sotre the list of house rules the user add
+		[ObservableProperty]
+		private ObservableCollection<HouseRule> houseRules;
 
-		//This Method to add the service to the database
 
 
 		//The Constructor
@@ -151,6 +161,8 @@ namespace HojozatyCode.ViewModels
 			_supabaseClient = SupabaseConfig.SupabaseClient; // Use existing instance
 
 			Services = new ObservableCollection<ServiceItem>();
+
+			HouseRules = new ObservableCollection<HouseRule>();
 
 			SelectedSpaceTypes = new ObservableCollection<string>();
 
@@ -738,6 +750,139 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Command to add House Rule for venue
+		[RelayCommand]
+		private async Task AddHouseRule()
+		{
+			if (string.IsNullOrWhiteSpace(NewHouseRuleName) || string.IsNullOrWhiteSpace(NewHouseRuleDescription))
+				return;
+			try
+			{
+				HouseRule houseRule = new HouseRule { HouseRuleName = NewHouseRuleName, HouseRuleDescription = NewHouseRuleDescription };
+				HouseRules.Add(houseRule);
+
+				// Store in Supabase
+				await SaveHouseRuleToDatabase(houseRule);
+
+				// Clear inputs
+				NewHouseRuleName = string.Empty;
+				NewHouseRuleDescription = string.Empty;
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+			}
+		}
+
+		private async Task SaveHouseRuleToDatabase(HouseRule hostRule)
+		{
+			try
+			{
+				// Check if the service exists
+				var response = await _supabaseClient
+					.From<HostRules>()
+					.Where(s => s.HostRuleName == hostRule.HouseRuleName)
+					.Get();
+
+				var existingHostRule = response.Models.FirstOrDefault();
+
+				Guid hostRuleId;
+
+				if (existingHostRule != null)
+				{
+					hostRuleId = existingHostRule.HostRuleId;
+				}
+				else
+				{
+					// Insert new host rule
+					var newService = await _supabaseClient
+						.From<HostRules>()
+						.Insert(new HostRules { HostRuleName = hostRule.HouseRuleName ,
+												HostRuleDescription = hostRule.HouseRuleDescription});
+
+					hostRuleId = newService.Model.HostRuleId;
+
+				}
+
+				// Link host rule to venue
+				if (CurrentVenueId == Guid.Empty || hostRuleId == Guid.Empty)
+				{
+					await Shell.Current.DisplayAlert("Error", "CurrentVenueId or HostRule is null", "Ok");
+				}
+				else
+				{
+					HostRulesVenues hostRuleVenue = new HostRulesVenues
+					{
+							VenueId = CurrentVenueId,
+							HostRuleId = hostRuleId
+					};
+
+						await _supabaseClient
+							.From<HostRulesVenues>()
+							.Insert(hostRuleVenue);
+				}
+					
+				
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Host Rule Error", $"Failed to save host rule: {ex.Message}", "Ok");
+			}
+		}
+
+		[RelayCommand]
+		private async Task DeleteHostRule(HouseRule hostRule)
+		{
+			if (hostRule == null)
+			{
+				await Shell.Current.DisplayAlert("Error", "Host Rule is null", "OK");
+				return;
+			}
+			try
+			{
+				var hostRuleRecord = await _supabaseClient
+							   .From<HostRules>()
+							   .Where(s => s.HostRuleName == hostRule.HouseRuleName)
+							   .Single();
+
+
+				if (hostRuleRecord == null)
+				{
+					await Shell.Current.DisplayAlert("Error", "Host Rule not found in database", "OK");
+					return;
+				}
+
+
+				// Step 2: Find the corresponding VenueService entry
+				var venueService = await _supabaseClient
+					.From<HostRulesVenues>()
+					.Where(vs => vs.HostRuleId == hostRuleRecord.HostRuleId) // Match using found ServiceId
+					.Single();
+
+				if (venueService == null)
+				{
+					await Shell.Current.DisplayAlert("Error", "Host Rule Venue not found", "OK");
+					return;
+				}
+
+				// Delete the record from the VenueServices table
+				var response = _supabaseClient
+					.From<HostRulesVenues>()
+					.Where(x => x.HostRuleId == hostRuleRecord.HostRuleId && x.VenueId == venueService.VenueId)
+					.Delete();
+
+				if (response != null)
+				{
+					HouseRules.Remove(hostRule);
+					await Shell.Current.DisplayAlert("Done", "Service deleted successfully.", "OK");
+				}
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+
+			}
+		}
 		#endregion
 	}
 }
