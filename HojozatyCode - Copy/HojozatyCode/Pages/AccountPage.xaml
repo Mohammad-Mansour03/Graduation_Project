@@ -63,6 +63,14 @@
         <!-- Main List of Options -->
         <VerticalStackLayout Spacing="20" Margin="10,20,10,0" Grid.Row="2">
 
+            <!-- Admin Panel -->
+            <Border   Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1" >
+                <HorizontalStackLayout>
+                    <Image Source="admin-panel.png" WidthRequest="20" HeightRequest="20"/>
+                    <Label Text="Admin Panel" FontSize="18" Margin="20,0,0,0"/>
+                </HorizontalStackLayout>
+            </Border>
+
             <!-- My Spaces -->
             <Border   Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1" >
                 <HorizontalStackLayout>
