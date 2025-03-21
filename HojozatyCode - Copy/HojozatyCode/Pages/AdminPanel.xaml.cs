@@ -2,11 +2,11 @@ using HojozatyCode.ViewModels;
 
 namespace HojozatyCode.Pages;
 
-public partial class AdminPanel : ContentPage
+public partial class AdminPanel: ContentPage
 {
-    public AdminPanel(OwnerVenuesViewModel viewModel)
+    public AdminPanel()
     {
         InitializeComponent();
-        BindingContext = viewModel;
+        BindingContext = new AccountPageViewModel();
     }
 }
