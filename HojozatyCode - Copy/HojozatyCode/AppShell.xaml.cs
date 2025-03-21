@@ -28,6 +28,7 @@
             Routing.RegisterRoute(nameof(Pages.FiltersPage), typeof(Pages.FiltersPage));
             Routing.RegisterRoute(nameof(Pages.VenueListings), typeof(Pages.VenueListings));
             Routing.RegisterRoute(nameof(Pages.AdminApprovalPage), typeof(Pages.AdminApprovalPage));
+            Routing.RegisterRoute(nameof(Pages.AdminPanel), typeof(Pages.AdminPanel));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
         }

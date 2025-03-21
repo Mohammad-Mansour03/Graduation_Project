@@ -17,6 +17,12 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(Pages.EditProfile));
         }
 
+        [RelayCommand]
+        private async Task GoToAdminPanel()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.AdminPanel));
+        }
+
         //Navigate me to the Home Page
         [RelayCommand]  
         private async Task GoBack(){
