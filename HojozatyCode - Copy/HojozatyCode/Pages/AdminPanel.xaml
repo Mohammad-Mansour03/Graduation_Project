@@ -2,49 +2,337 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.AdminPanel"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True"
-             Title="Admin Panel">
+             Title="Admin Panel"
+             BackgroundColor="#F5F6FA">
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,*,Auto">
         <!-- Header -->
-        <Grid BackgroundColor="#2C3E50" Padding="15" RowDefinitions="Auto" ColumnDefinitions="*,Auto">
-            <Label Text="Admin Panel" FontSize="26" TextColor="White" FontAttributes="Bold" VerticalOptions="Center" />
-            <Button Text="Logout" BackgroundColor="#E74C3C" TextColor="White" CornerRadius="10" Padding="10,5" Grid.Column="1" />
-        </Grid>
+        <Frame Grid.Row="0"
+               BackgroundColor="White"
+               Padding="20,15"
+               CornerRadius="0"
+               HasShadow="True">
+            <HorizontalStackLayout Spacing="15">
+                <Label Text="🏨 Azure Suites Admin" 
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"/>
 
-        <Grid RowDefinitions="*" ColumnDefinitions="220,*" Grid.Row="1">
-            <!-- Sidebar Navigation -->
-            <StackLayout BackgroundColor="#34495E" Padding="15" Grid.Column="0" Spacing="15">
-                <Button Text="Dashboard" BackgroundColor="Transparent" TextColor="White" FontAttributes="Bold" />
-                <Button Text="Reservations" BackgroundColor="Transparent" TextColor="White" FontAttributes="Bold" />
-                <Button Text="Settings" BackgroundColor="Transparent" TextColor="White" FontAttributes="Bold" />
-            </StackLayout>
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="EndAndExpand">
+                    <VerticalStackLayout>
+                        <Label Text="Raad Admin" 
+                               FontSize="16"
+                               TextColor="#2C3E50"/>
+                        <Label Text="Administrator" 
+                               FontSize="12"
+                               TextColor="#7F8C8D"/>
+                    </VerticalStackLayout>
+                    <Button Text="🚪 Logout" 
+                            BackgroundColor="Transparent"
+                            TextColor="#E74C3C"
+                            FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+        </Frame>
 
-            <!-- Main Content -->
-            <StackLayout Padding="15" Grid.Column="1">
-                <Label Text="Reservations" FontSize="22" FontAttributes="Bold" TextColor="#2C3E50" />
-                <!-- Bind Reservations list here -->
-                <CollectionView Margin="0,10,0,0">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame BorderColor="#BDC3C7" Padding="15" Margin="5" CornerRadius="10" BackgroundColor="White">
-                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
-                                    <!-- Bind CustomerName here -->
-                                    <Label Text="Customer Name" FontSize="18" FontAttributes="Bold" TextColor="#2C3E50" Grid.ColumnSpan="2" />
-                                    <!-- Bind RoomNumber here -->
-                                    <Label Text="Room: X" TextColor="#7F8C8D" Grid.Row="1" />
-                                    <!-- Bind CheckInDate here -->
-                                    <Label Text="Check-in: MM/DD/YYYY" TextColor="#7F8C8D" Grid.Row="2" />
-                                    <!-- Bind CheckOutDate here -->
-                                    <Label Text="Check-out: MM/DD/YYYY" TextColor="#7F8C8D" Grid.Row="3" />
-                                    <Button Text="View" BackgroundColor="#3498DB" TextColor="White" CornerRadius="8" Padding="8,4" Grid.Column="1" Grid.RowSpan="4" VerticalOptions="Center" />
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-        </Grid>
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1" Padding="20">
+            <VerticalStackLayout Spacing="25">
+                <!-- Dashboard Cards with Horizontal Scroll -->
+                <ScrollView Orientation="Horizontal">
+                    <HorizontalStackLayout Spacing="20">
+                        <!-- Total Revenue Card -->
+                        <Frame BackgroundColor="White"
+                               CornerRadius="15"
+                               Padding="20"
+                               HeightRequest="120"
+                               WidthRequest="300">
+                            <VerticalStackLayout>
+                                <Label Text="📊 Total Revenue" 
+                                       TextColor="#7F8C8D"
+                                       FontSize="14"/>
+                                <Label Text="$52,420" 
+                                       TextColor="#2C3E50"
+                                       FontSize="28"
+                                       FontAttributes="Bold"/>
+                                <Label Text="↑ 18.4% this month" 
+                                       TextColor="#2ECC71"
+                                       FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Active Reservations Card -->
+                        <Frame BackgroundColor="White"
+                               CornerRadius="15"
+                               Padding="20"
+                               HeightRequest="120"
+                               WidthRequest="300">
+                            <VerticalStackLayout>
+                                <Label Text="📅 Active Reservations" 
+                                       TextColor="#7F8C8D"
+                                       FontSize="14"/>
+                                <Label Text="24" 
+                                       TextColor="#2C3E50"
+                                       FontSize="28"
+                                       FontAttributes="Bold"/>
+                                <Label Text="3 new today" 
+                                       TextColor="#3498DB"
+                                       FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Active Clients Card -->
+                        <Frame BackgroundColor="White"
+                               CornerRadius="15"
+                               Padding="20"
+                               HeightRequest="120"
+                               WidthRequest="300">
+                            <VerticalStackLayout>
+                                <Label Text="💼 Active Clients" 
+                                       TextColor="#7F8C8D"
+                                       FontSize="14"/>
+                                <Label Text="142" 
+                                       TextColor="#2C3E50"
+                                       FontSize="28"
+                                       FontAttributes="Bold"/>
+                                <Label Text="12 new this week" 
+                                       TextColor="#9B59B6"
+                                       FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <!-- Reservations Table -->
+                <Frame BackgroundColor="White"
+       CornerRadius="15"
+       HasShadow="True"
+       Padding="0">
+                    <Grid Padding="15"
+          ColumnDefinitions="*,120,100,100"
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+          BackgroundColor="#FFFFFF"
+          RowSpacing="5"
+          ColumnSpacing="10">
+                        <!-- Table Header -->
+                        <Label Text="Guest" 
+               FontAttributes="Bold"
+               TextColor="#7F8C8D"
+               FontSize="14" />
+                        <Label Text="Reservation ID" 
+               Grid.Column="1"
+               FontAttributes="Bold"
+               TextColor="#7F8C8D"
+               FontSize="14" />
+                        <Label Text="Duration" 
+               Grid.Column="2"
+               FontAttributes="Bold"
+               TextColor="#7F8C8D"
+               FontSize="14" />
+                        <Label Text="Status" 
+               Grid.Column="3"
+               FontAttributes="Bold"
+               TextColor="#7F8C8D"
+               FontSize="14" />
+
+                        <!-- Row 1 -->
+                        <Frame BackgroundColor="#F4F7FA"
+               CornerRadius="10"
+               Padding="10"
+               Grid.Row="1"
+               HasShadow="False">
+                            <Grid ColumnDefinitions="*,120,100,100"
+                  VerticalOptions="Center"
+                  RowSpacing="0"
+                  ColumnSpacing="10">
+                                <Label Text="Sarah Johns" 
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Label Text="#RES-0248" 
+                       Grid.Column="1"
+                       TextColor="#7F8C8D"
+                       FontSize="14" />
+                                <Label Text="5 Nights" 
+                       Grid.Column="2"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Frame Grid.Column="3"
+                       BackgroundColor="#DCFCE7"
+                       CornerRadius="12"
+                       Padding="8,4">
+                                    <Label Text="Confirmed" 
+                           TextColor="#16A34A"
+                           FontAttributes="Bold"
+                           FontSize="12"
+                           HorizontalOptions="Center"/>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+
+                        <!-- Row 2 -->
+                        <Frame BackgroundColor="#F4F7FA"
+               CornerRadius="10"
+               Padding="10"
+               Grid.Row="2"
+               HasShadow="False">
+                            <Grid ColumnDefinitions="*,120,100,100"
+                  VerticalOptions="Center"
+                  RowSpacing="0"
+                  ColumnSpacing="10">
+                                <Label Text="Michael Chen" 
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Label Text="#RES-0249" 
+                       Grid.Column="1"
+                       TextColor="#7F8C8D"
+                       FontSize="14" />
+                                <Label Text="7 Nights" 
+                       Grid.Column="2"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Frame Grid.Column="3"
+                       BackgroundColor="#FEE2E2"
+                       CornerRadius="12"
+                       Padding="8,4">
+                                    <Label Text="Pending" 
+                           TextColor="#DC2626"
+                           FontAttributes="Bold"
+                           FontSize="12"
+                           HorizontalOptions="Center"/>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+
+                        <!-- Row 3 -->
+                        <Frame BackgroundColor="#F4F7FA"
+               CornerRadius="10"
+               Padding="10"
+               Grid.Row="3"
+               HasShadow="False">
+                            <Grid ColumnDefinitions="*,120,100,100"
+                  VerticalOptions="Center"
+                  RowSpacing="0"
+                  ColumnSpacing="10">
+                                <Label Text="Laura Thompson" 
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Label Text="#RES-0250" 
+                       Grid.Column="1"
+                       TextColor="#7F8C8D"
+                       FontSize="14" />
+                                <Label Text="3 Nights" 
+                       Grid.Column="2"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Frame Grid.Column="3"
+                       BackgroundColor="#DCFCE7"
+                       CornerRadius="12"
+                       Padding="8,4">
+                                    <Label Text="Confirmed" 
+                           TextColor="#16A34A"
+                           FontAttributes="Bold"
+                           FontSize="12"
+                           HorizontalOptions="Center"/>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+
+                        <!-- Row 4 -->
+                        <Frame BackgroundColor="#F4F7FA"
+               CornerRadius="10"
+               Padding="10"
+               Grid.Row="4"
+               HasShadow="False">
+                            <Grid ColumnDefinitions="*,120,100,100"
+                  VerticalOptions="Center"
+                  RowSpacing="0"
+                  ColumnSpacing="10">
+                                <Label Text="David Clark" 
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Label Text="#RES-0251" 
+                       Grid.Column="1"
+                       TextColor="#7F8C8D"
+                       FontSize="14" />
+                                <Label Text="10 Nights" 
+                       Grid.Column="2"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Frame Grid.Column="3"
+                       BackgroundColor="#DCFCE7"
+                       CornerRadius="12"
+                       Padding="8,4">
+                                    <Label Text="Confirmed" 
+                           TextColor="#16A34A"
+                           FontAttributes="Bold"
+                           FontSize="12"
+                           HorizontalOptions="Center"/>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+
+                        <!-- Row 5 -->
+                        <Frame BackgroundColor="#F4F7FA"
+               CornerRadius="10"
+               Padding="10"
+               Grid.Row="5"
+               HasShadow="False">
+                            <Grid ColumnDefinitions="*,120,100,100"
+                  VerticalOptions="Center"
+                  RowSpacing="0"
+                  ColumnSpacing="10">
+                                <Label Text="Emma Watson" 
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Label Text="#RES-0252" 
+                       Grid.Column="1"
+                       TextColor="#7F8C8D"
+                       FontSize="14" />
+                                <Label Text="2 Nights" 
+                       Grid.Column="2"
+                       TextColor="#2C3E50"
+                       FontSize="14" />
+                                <Frame Grid.Column="3"
+                       BackgroundColor="#FEE2E2"
+                       CornerRadius="12"
+                       Padding="8,4">
+                                    <Label Text="Pending" 
+                           TextColor="#DC2626"
+                           FontAttributes="Bold"
+                           FontSize="12"
+                           HorizontalOptions="Center"/>
+                                </Frame>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Settings Footer -->
+        <Frame Grid.Row="2"
+               BackgroundColor="White"
+               Padding="15"
+               CornerRadius="0"
+               HasShadow="True">
+            <ScrollView Orientation="Horizontal">
+                <HorizontalStackLayout Spacing="30">
+                    <Button Text="⚙ Notification Preferences"
+                            BackgroundColor="Transparent"
+                            TextColor="#7F8C8D"/>
+                    <Button Text="👥 User Permissions"
+                            BackgroundColor="Transparent"
+                            TextColor="#7F8C8D"/>
+                    <Button Text="💳 Payments Billing"
+                            BackgroundColor="Transparent"
+                            TextColor="#7F8C8D"/>
+                </HorizontalStackLayout>
+            </ScrollView>
+        </Frame>
     </Grid>
 </ContentPage>
