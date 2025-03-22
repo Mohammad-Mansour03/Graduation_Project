@@ -75,7 +75,7 @@
                        Padding="0" 
                        BackgroundColor="#FFFFFF"
                        HasShadow="True">
-                    <Image Source="farm_icon.png" 
+                    <Image Source="home_icon.png" 
                            Aspect="AspectFit" 
                            HeightRequest="40" 
                            WidthRequest="40"/>
@@ -95,7 +95,7 @@
                        Padding="0" 
                        BackgroundColor="#FFFFFF"
                        HasShadow="True">
-                    <Image Source="hotel_icon.png" 
+                    <Image Source="entertainment_icon_2.png" 
                            Aspect="AspectFit" 
                            HeightRequest="40" 
                            WidthRequest="40"/>
@@ -115,7 +115,7 @@
                        Padding="0" 
                        BackgroundColor="#FFFFFF"
                        HasShadow="True">
-                    <Image Source="open_space_icon.png" 
+                    <Image Source="sports_icon.png" 
                            Aspect="AspectFit" 
                            HeightRequest="40" 
                            WidthRequest="40"/>
