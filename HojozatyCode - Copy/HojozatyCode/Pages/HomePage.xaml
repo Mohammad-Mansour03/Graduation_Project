@@ -47,12 +47,12 @@
                                        HorizontalOptions="End">
 
                                        <!-- Admin Button -->
-            <Button Text="Admin Approval"
+            <!-- <Button Text="Admin Approval"
                     BackgroundColor="#4F378A"
                     TextColor="White"
                     Command="{Binding NavigateToAdminApprovalCommand}"
                     HorizontalOptions="Center"
-                    Margin="0,20,0,0"/>
+                    Margin="0,20,0,0"/> -->
                     <ImageButton Source="notification_icon.png" 
                            HeightRequest="30" 
                            WidthRequest="30"
