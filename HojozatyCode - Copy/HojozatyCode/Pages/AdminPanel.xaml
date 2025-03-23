@@ -104,212 +104,114 @@
                 </ScrollView>
 
                 <!-- Reservations Table -->
+                
+
+                <!-- Venue Approvals -->
                 <Frame BackgroundColor="White"
-       CornerRadius="15"
-       HasShadow="True"
-       Padding="0">
-                    <Grid Padding="15"
-          ColumnDefinitions="*,120,100,100"
-          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
-          BackgroundColor="#FFFFFF"
-          RowSpacing="5"
-          ColumnSpacing="10">
-                        <!-- Table Header -->
-                        <Label Text="Guest" 
-               FontAttributes="Bold"
-               TextColor="#7F8C8D"
-               FontSize="14" />
-                        <Label Text="Reservation ID" 
-               Grid.Column="1"
-               FontAttributes="Bold"
-               TextColor="#7F8C8D"
-               FontSize="14" />
-                        <Label Text="Duration" 
-               Grid.Column="2"
-               FontAttributes="Bold"
-               TextColor="#7F8C8D"
-               FontSize="14" />
-                        <Label Text="Status" 
-               Grid.Column="3"
-               FontAttributes="Bold"
-               TextColor="#7F8C8D"
-               FontSize="14" />
+                       CornerRadius="15"
+                       HasShadow="True"
+                       Margin="0,20,0,0"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Venue Approvals" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               TextColor="#2C3E50"/>
+                               
+                        <Label Text="{Binding PendingVenues.Count, StringFormat='You have {0} pending venues to review'}"
+                               TextColor="#7F8C8D"
+                               FontSize="16"/>
+                               
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                            <Button Text="Review Pending Venues"
+                                    BackgroundColor="#3498DB"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    Clicked="OnApprovalButtonClicked"
+                                    Grid.Column="0"/>
+                                    
+                            <Frame BackgroundColor="#FEF9C3" 
+                                   CornerRadius="10"
+                                   Padding="15,10"
+                                   Grid.Column="1">
+                                <HorizontalStackLayout>
+                                    <Label Text="⏳" FontSize="18"/>
+                                    <Label Text="{Binding PendingVenues.Count}" 
+                                           FontAttributes="Bold" 
+                                           FontSize="18"
+                                           TextColor="#CA8A04"
+                                           VerticalOptions="Center"
+                                           Margin="5,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </Frame>
+                            
+                            <Frame BackgroundColor="#DCFCE7" 
+                                   CornerRadius="10"
+                                   Padding="15,10"
+                                   Grid.Column="2">
+                                <HorizontalStackLayout>
+                                    <Label Text="✓" FontSize="18"/>
+                                    <Label Text="0" 
+                                           FontAttributes="Bold" 
+                                           FontSize="18"
+                                           TextColor="#16A34A"
+                                           VerticalOptions="Center"
+                                           Margin="5,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
 
-                        <!-- Row 1 -->
-                        <Frame BackgroundColor="#F4F7FA"
-               CornerRadius="10"
-               Padding="10"
-               Grid.Row="1"
-               HasShadow="False">
-                            <Grid ColumnDefinitions="*,120,100,100"
-                  VerticalOptions="Center"
-                  RowSpacing="0"
-                  ColumnSpacing="10">
-                                <Label Text="Sarah Johns" 
-                       FontAttributes="Bold"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Label Text="#RES-0248" 
-                       Grid.Column="1"
-                       TextColor="#7F8C8D"
-                       FontSize="14" />
-                                <Label Text="5 Nights" 
-                       Grid.Column="2"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Frame Grid.Column="3"
-                       BackgroundColor="#DCFCE7"
-                       CornerRadius="12"
-                       Padding="8,4">
-                                    <Label Text="Confirmed" 
-                           TextColor="#16A34A"
-                           FontAttributes="Bold"
-                           FontSize="12"
-                           HorizontalOptions="Center"/>
-                                </Frame>
-                            </Grid>
-                        </Frame>
-
-                        <!-- Row 2 -->
-                        <Frame BackgroundColor="#F4F7FA"
-               CornerRadius="10"
-               Padding="10"
-               Grid.Row="2"
-               HasShadow="False">
-                            <Grid ColumnDefinitions="*,120,100,100"
-                  VerticalOptions="Center"
-                  RowSpacing="0"
-                  ColumnSpacing="10">
-                                <Label Text="Michael Chen" 
-                       FontAttributes="Bold"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Label Text="#RES-0249" 
-                       Grid.Column="1"
-                       TextColor="#7F8C8D"
-                       FontSize="14" />
-                                <Label Text="7 Nights" 
-                       Grid.Column="2"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Frame Grid.Column="3"
-                       BackgroundColor="#FEE2E2"
-                       CornerRadius="12"
-                       Padding="8,4">
-                                    <Label Text="Pending" 
-                           TextColor="#DC2626"
-                           FontAttributes="Bold"
-                           FontSize="12"
-                           HorizontalOptions="Center"/>
-                                </Frame>
-                            </Grid>
-                        </Frame>
-
-                        <!-- Row 3 -->
-                        <Frame BackgroundColor="#F4F7FA"
-               CornerRadius="10"
-               Padding="10"
-               Grid.Row="3"
-               HasShadow="False">
-                            <Grid ColumnDefinitions="*,120,100,100"
-                  VerticalOptions="Center"
-                  RowSpacing="0"
-                  ColumnSpacing="10">
-                                <Label Text="Laura Thompson" 
-                       FontAttributes="Bold"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Label Text="#RES-0250" 
-                       Grid.Column="1"
-                       TextColor="#7F8C8D"
-                       FontSize="14" />
-                                <Label Text="3 Nights" 
-                       Grid.Column="2"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Frame Grid.Column="3"
-                       BackgroundColor="#DCFCE7"
-                       CornerRadius="12"
-                       Padding="8,4">
-                                    <Label Text="Confirmed" 
-                           TextColor="#16A34A"
-                           FontAttributes="Bold"
-                           FontSize="12"
-                           HorizontalOptions="Center"/>
-                                </Frame>
-                            </Grid>
-                        </Frame>
-
-                        <!-- Row 4 -->
-                        <Frame BackgroundColor="#F4F7FA"
-               CornerRadius="10"
-               Padding="10"
-               Grid.Row="4"
-               HasShadow="False">
-                            <Grid ColumnDefinitions="*,120,100,100"
-                  VerticalOptions="Center"
-                  RowSpacing="0"
-                  ColumnSpacing="10">
-                                <Label Text="David Clark" 
-                       FontAttributes="Bold"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Label Text="#RES-0251" 
-                       Grid.Column="1"
-                       TextColor="#7F8C8D"
-                       FontSize="14" />
-                                <Label Text="10 Nights" 
-                       Grid.Column="2"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Frame Grid.Column="3"
-                       BackgroundColor="#DCFCE7"
-                       CornerRadius="12"
-                       Padding="8,4">
-                                    <Label Text="Confirmed" 
-                           TextColor="#16A34A"
-                           FontAttributes="Bold"
-                           FontSize="12"
-                           HorizontalOptions="Center"/>
-                                </Frame>
-                            </Grid>
-                        </Frame>
-
-                        <!-- Row 5 -->
-                        <Frame BackgroundColor="#F4F7FA"
-               CornerRadius="10"
-               Padding="10"
-               Grid.Row="5"
-               HasShadow="False">
-                            <Grid ColumnDefinitions="*,120,100,100"
-                  VerticalOptions="Center"
-                  RowSpacing="0"
-                  ColumnSpacing="10">
-                                <Label Text="Emma Watson" 
-                       FontAttributes="Bold"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Label Text="#RES-0252" 
-                       Grid.Column="1"
-                       TextColor="#7F8C8D"
-                       FontSize="14" />
-                                <Label Text="2 Nights" 
-                       Grid.Column="2"
-                       TextColor="#2C3E50"
-                       FontSize="14" />
-                                <Frame Grid.Column="3"
-                       BackgroundColor="#FEE2E2"
-                       CornerRadius="12"
-                       Padding="8,4">
-                                    <Label Text="Pending" 
-                           TextColor="#DC2626"
-                           FontAttributes="Bold"
-                           FontSize="12"
-                           HorizontalOptions="Center"/>
-                                </Frame>
-                            </Grid>
-                        </Frame>
-                    </Grid>
+                <!-- Add this after the above Frame -->
+                <Frame BackgroundColor="White"
+                       CornerRadius="15"
+                       HasShadow="True"
+                       Margin="0,20,0,0"
+                       Padding="15">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Recent Pending Venues" 
+                               FontSize="18" 
+                               FontAttributes="Bold"
+                               TextColor="#2C3E50"/>
+                               
+                        <CollectionView ItemsSource="{Binding PendingVenues}" 
+                                       HeightRequest="250"
+                                       EmptyView="No pending venues to display">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Margin="0,5" 
+                                           Padding="15"
+                                           BackgroundColor="#F4F7FA"
+                                           CornerRadius="10">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <VerticalStackLayout Spacing="5">
+                                                <Label Text="{Binding VenueName}" 
+                                                       FontAttributes="Bold"
+                                                       TextColor="#2C3E50"
+                                                       FontSize="16"/>
+                                                <Label Text="{Binding Type}" 
+                                                       TextColor="#7F8C8D"
+                                                       FontSize="14"/>
+                                                <Label Text="{Binding Location}" 
+                                                       TextColor="#7F8C8D"
+                                                       FontSize="14"/>
+                                            </VerticalStackLayout>
+                                            
+                                            <Button Text="Review"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="#3498DB"
+                                                    TextColor="White"
+                                                    CornerRadius="8"
+                                                    HeightRequest="40"
+                                                    WidthRequest="100"
+                                                    Clicked="OnApprovalButtonClicked"/>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
                 </Frame>
             </VerticalStackLayout>
         </ScrollView>
