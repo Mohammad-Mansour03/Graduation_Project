@@ -854,12 +854,12 @@ namespace HojozatyCode.ViewModels
 
 
 				// Step 2: Find the corresponding VenueService entry
-				var venueService = await _supabaseClient
+				var hostRuleVenue = await _supabaseClient
 					.From<HostRulesVenues>()
 					.Where(vs => vs.HostRuleId == hostRuleRecord.HostRuleId) // Match using found ServiceId
 					.Single();
 
-				if (venueService == null)
+				if (hostRuleVenue == null)
 				{
 					await Shell.Current.DisplayAlert("Error", "Host Rule Venue not found", "OK");
 					return;
@@ -868,13 +868,13 @@ namespace HojozatyCode.ViewModels
 				// Delete the record from the VenueServices table
 				var response = _supabaseClient
 					.From<HostRulesVenues>()
-					.Where(x => x.HostRuleId == hostRuleRecord.HostRuleId && x.VenueId == venueService.VenueId)
+					.Where(x => x.HostRuleId == hostRuleRecord.HostRuleId && x.VenueId == hostRuleVenue.VenueId)
 					.Delete();
 
 				if (response != null)
 				{
 					HouseRules.Remove(hostRule);
-					await Shell.Current.DisplayAlert("Done", "Service deleted successfully.", "OK");
+					await Shell.Current.DisplayAlert("Done", "Host Rule deleted successfully.", "OK");
 				}
 			}
 			catch (Exception ex)

@@ -17,10 +17,6 @@
             <Label Text="Space Type:" FontSize="18" FontAttributes="Bold"/>
             <Label Text="{Binding SpaceType}" FontSize="16"/>
 
-            <!-- Owner Name -->
-            <Label Text="Owner Name:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding OwnerName}" FontSize="16"/>
-
             <!-- Space Name -->
             <Label Text="Space Name:" FontSize="18" FontAttributes="Bold"/>
             <Label Text="{Binding SpaceName}" FontSize="16"/>

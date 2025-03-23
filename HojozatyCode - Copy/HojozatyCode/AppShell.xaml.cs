@@ -29,6 +29,7 @@
             Routing.RegisterRoute(nameof(Pages.VenueListings), typeof(Pages.VenueListings));
             Routing.RegisterRoute(nameof(Pages.AdminApprovalPage), typeof(Pages.AdminApprovalPage));
             Routing.RegisterRoute(nameof(Pages.AdminPanel), typeof(Pages.AdminPanel));
+            Routing.RegisterRoute(nameof(Pages.MySpace), typeof(Pages.MySpace));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
         }
