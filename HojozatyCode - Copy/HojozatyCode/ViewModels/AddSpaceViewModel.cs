@@ -117,6 +117,9 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private bool isLoading;
 
+		[ObservableProperty]
+		private List<string> imageUrlsList;
+
 
 		//Service Page
 
@@ -362,8 +365,44 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task NavigateToReviewPageAsync()
 		{
-
+			// Ensure we have the cancellation policy updated
 			await UpdateCancellationPolicyAsync(CurrentVenueId, SelectedPolicy);
+			
+			// Parse the venue's ImageUrl into a list of image URLs
+			if (CurrentVenueId != Guid.Empty)
+			{
+				try
+				{
+					// Fetch the venue to get its ImageUrl
+					var venueResponse = await _supabaseClient
+						.From<Venue>()
+						.Where(v => v.VenueId == CurrentVenueId)
+						.Get();
+						
+					if (venueResponse != null && venueResponse.Models.Count > 0)
+					{
+						var venueImageUrl = venueResponse.Models[0].ImageUrl;
+						if (!string.IsNullOrEmpty(venueImageUrl))
+						{
+							// Split by comma and remove empty entries
+							ImageUrlsList = venueImageUrl
+								.Split(',')
+								.Where(url => !string.IsNullOrWhiteSpace(url))
+								.ToList();
+						}
+						else
+						{
+							ImageUrlsList = new List<string>();
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					await Shell.Current.DisplayAlert("Error", $"Failed to load venue images: {ex.Message}", "OK");
+					ImageUrlsList = new List<string>();
+				}
+			}
+			
 			await Shell.Current.GoToAsync(nameof(ReviewPage));
 		}
 
