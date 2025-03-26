@@ -166,12 +166,12 @@
                     <DataTemplate>
                         <!-- Outer Border for a Unified Look -->
                         <Border Stroke="Gray"
-            StrokeThickness="1"
-            StrokeShape="RoundRectangle 20"
-            Padding="10"
-            Margin="5"
-            BackgroundColor="Transparent"
-            HorizontalOptions="FillAndExpand">
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10"
+                                Margin="5"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="FillAndExpand">
 
                             <!-- Vertical StackLayout for House Rule Data -->
                             <VerticalStackLayout Spacing="5">

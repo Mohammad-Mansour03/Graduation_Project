@@ -135,13 +135,13 @@
        HasShadow="True" 
        Margin="20,20,20,10">
             <Grid ColumnDefinitions="Auto,*">
-                <!-- Filter Icon -->
-                <ImageButton Source="filter.png" 
-                     HeightRequest="15" 
-                     WidthRequest="15" 
-                     VerticalOptions="Center" 
-                     HorizontalOptions="Start"
-                     Grid.Column="0"/>
+                <Button ImageSource="filter.png"
+                 HeightRequest="15"
+                WidthRequest="15"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                 Grid.Column="0"
+                Command="{Binding GoToFiltersPageCommand}"/>
 
                 <!-- Search Entry -->
                 <Entry Placeholder="Search venues..." 

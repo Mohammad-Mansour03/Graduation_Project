@@ -361,6 +361,12 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+
+		// Command to navigate to the SpacePoliciesPage
+		[RelayCommand]
+		private async Task NavigateToSpacePoliciesPageAsync() =>
+			await Shell.Current.GoToAsync(nameof(SpacePolicies));
+
 		// Command to navigate to the ReviewPage
 		[RelayCommand]
 		private async Task NavigateToReviewPageAsync()
@@ -406,10 +412,6 @@ namespace HojozatyCode.ViewModels
 			await Shell.Current.GoToAsync(nameof(ReviewPage));
 		}
 
-		// Command to navigate to the SpacePoliciesPage
-		[RelayCommand]
-		private async Task NavigateToSpacePoliciesPageAsync() =>
-			await Shell.Current.GoToAsync(nameof(SpacePolicies));
 
 		// Command to navigate to the SuccessPage
 		[RelayCommand]
@@ -420,38 +422,22 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task GoToHomeAsync() =>
 			await Shell.Current.GoToAsync(nameof(HomePage));
+		
+		// Command to navigate to the HomePage
+		[RelayCommand]
+		private async Task GoToMySpaceAsyns() =>
+			await Shell.Current.GoToAsync(nameof(Pages.MySpace));
 
 
 		#endregion
 
 		#region Venue Save & Image Commands
 
-		// Command to save the space (venue) information
+		// Command to navigate to the Success Page
 		[RelayCommand]
 		private async Task SaveSpaceAsync()
 		{
-			// Validate required fields
-			if (string.IsNullOrWhiteSpace(SpaceName) ||
-				string.IsNullOrWhiteSpace(Description) ||
-				string.IsNullOrWhiteSpace(Category) ||
-				string.IsNullOrWhiteSpace(City) ||
-				string.IsNullOrWhiteSpace(Address))
-			{
-				await Shell.Current.DisplayAlert("Validation Error", "Please fill in all required fields.", "OK");
-				return;
-			}
-
-			// Collect non-null images
-			var imagesToUpload = SelectedImages
-								.Where(img => img != null).ToList();
-
-			if (!imagesToUpload.Any())
-			{
-				await Shell.Current.DisplayAlert("Warning",
-					"Please select at least one image.", "OK");
-				return;
-			}
-
+			await Shell.Current.GoToAsync(nameof(Pages.SuccessPage));
 		}
 
 		// Command to add an image to the selected images collection
@@ -893,12 +879,12 @@ namespace HojozatyCode.ViewModels
 
 
 				// Step 2: Find the corresponding VenueService entry
-				var venueService = await _supabaseClient
+				var hostRuleVenue = await _supabaseClient
 					.From<HostRulesVenues>()
 					.Where(vs => vs.HostRuleId == hostRuleRecord.HostRuleId) // Match using found ServiceId
 					.Single();
 
-				if (venueService == null)
+				if (hostRuleVenue == null)
 				{
 					await Shell.Current.DisplayAlert("Error", "Host Rule Venue not found", "OK");
 					return;
@@ -907,13 +893,13 @@ namespace HojozatyCode.ViewModels
 				// Delete the record from the VenueServices table
 				var response = _supabaseClient
 					.From<HostRulesVenues>()
-					.Where(x => x.HostRuleId == hostRuleRecord.HostRuleId && x.VenueId == venueService.VenueId)
+					.Where(x => x.HostRuleId == hostRuleRecord.HostRuleId && x.VenueId == hostRuleVenue.VenueId)
 					.Delete();
 
 				if (response != null)
 				{
 					HouseRules.Remove(hostRule);
-					await Shell.Current.DisplayAlert("Done", "Service deleted successfully.", "OK");
+					await Shell.Current.DisplayAlert("Done", "Host Rule deleted successfully.", "OK");
 				}
 			}
 			catch (Exception ex)

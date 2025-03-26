@@ -5,18 +5,19 @@
              Title="Success">
 
     <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
-          RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto">
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto">
 
         <!-- Success Icon -->
         <Border Grid.Row="0"
                 WidthRequest="216"
                 HeightRequest="226" 
                 StrokeShape="RoundRectangle 15" 
-                BackgroundColor="LawnGreen"
+                BackgroundColor="#4CAF50"
                 Padding="10">
+            
             <Label Text="✓" 
                    FontSize="100"
-                   TextColor="black"
+                   TextColor="White"
                    HorizontalOptions="Center" 
                    VerticalOptions="Center"/>
         </Border>
@@ -28,23 +29,33 @@
                FontAttributes="Bold" 
                TextColor="Black"
                HorizontalOptions="Center"
+               Margin="0,20,0,10" />      
+        
+        <!-- The Place Was Added Message -->
+        <Label Grid.Row="2"
+               Text="The Place Was Added!"
+               FontSize="28" 
+               FontAttributes="Bold" 
+               TextColor="Black"
+               HorizontalOptions="Center"
                Margin="0,20,0,10" />
 
         <!-- My Spaces Button -->
-        <Button Grid.Row="2" 
+        <Button Grid.Row="3" 
                 Text="My Spaces"
-                BackgroundColor="Purple"
+                BackgroundColor="#4F378A"
                 TextColor="White"
                 CornerRadius="25"
                 WidthRequest="160"
                 HeightRequest="50"
                 FontSize="18"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                Command="{Binding GoToMySpaceCommand}"/>
 
         <!-- Close Button -->
-        <Button Grid.Row="3"
+        <Button Grid.Row="4"
                 Text="Close"
-                BackgroundColor="Purple"
+                BackgroundColor="#4F378A"
                 TextColor="White"
                 CornerRadius="25"
                 WidthRequest="160"

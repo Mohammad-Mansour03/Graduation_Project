@@ -45,10 +45,6 @@
             <Label Text="Space Type:" FontSize="18" FontAttributes="Bold"/>
             <Label Text="{Binding SpaceType}" FontSize="16"/>
 
-            <!-- Owner Name -->
-            <Label Text="Owner Name:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding OwnerName}" FontSize="16"/>
-
             <!-- Space Name -->
             <Label Text="Space Name:" FontSize="18" FontAttributes="Bold"/>
             <Label Text="{Binding SpaceName}" FontSize="16"/>
@@ -63,7 +59,7 @@
 
             <!-- Type of Space -->
             <Label Text="Type of Space:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding SpaceType}" FontSize="16"/>
+            <Label Text="{Binding Category}" FontSize="16"/>
 
             <!-- Description -->
             <Label Text="Description:" FontSize="18" FontAttributes="Bold"/>
@@ -71,12 +67,188 @@
 
             <!-- Services Provided -->
             <Label Text="Services Provided:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding Services}" FontSize="16"/>
+            <CollectionView ItemsSource="{Binding Services}">
 
-            <!-- Policies -->
-            <Label Text="Policies:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding Policies}" FontSize="16"/>
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <!-- Outer Border for a Unified Look -->
+                        <Border Stroke="Gray"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10"
+                                Margin="5"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="FillAndExpand">
+
+                            <Grid ColumnDefinitions="*,Auto,Auto" 
+                                  ColumnSpacing="10">
+
+                                <!-- Name Entry -->
+                                <Entry Grid.Column="0"
+                                       Text="{Binding Name}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>
+
+                                <!-- Price Entry -->
+                                <Entry Grid.Column="1"
+                                       Text="{Binding Price}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       WidthRequest="60"
+                                       HorizontalTextAlignment="Center"/>
+
+                                <!-- Delete Button --><!--
+                                <ImageButton Grid.Column="2"
+                                             Source="delete.png"
+                                             BackgroundColor="Transparent"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, Path=DeleteServiceCommand}"
+                                             CommandParameter="{Binding .}"
+                                             WidthRequest="35"
+                                             HeightRequest="35"
+                                             Padding="5"/>-->
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
             
+            <!-- Policies -->
+            <Label Text="Cancellation Policy:" FontSize="18" FontAttributes="Bold"/>
+            <Label Text="{Binding SelectedPolicy}" FontSize="16"/>
+
+            <!-- House Rules-->
+            <Label Text="House Rules : " FontSize="18" FontAttributes="Bold"/>
+            <CollectionView ItemsSource="{Binding HouseRules}">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <!-- Outer Border for a Unified Look -->
+                        <Border Stroke="Gray"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10"
+                                Margin="5"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="FillAndExpand">  
+
+                            <!-- Vertical StackLayout for House Rule Data -->
+                            <VerticalStackLayout Spacing="5">
+
+                                <!-- House Rule Name -->
+                                <Label Text="House Rule Name:"
+                               FontSize="14"
+                               TextColor="Gray"/>
+
+                                <Entry Text="{Binding HouseRuleName}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>
+
+                                <!-- House Rule Description -->
+                                <Label Text="House Rule Description:"
+                                       FontSize="14"
+                                       TextColor="Gray"/>   
+
+                                <Entry Text="{Binding HouseRuleDescription}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>
+
+                                <!-- Delete Button --><!--
+                                <ImageButton   Grid.Column="2"
+                                               Source="delete.png"
+                                               BackgroundColor="Transparent"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, 
+                                                            Path=DeleteHostRuleCommand}"
+                                               CommandParameter="{Binding .}"
+                                               WidthRequest="35"
+                                               HeightRequest="35"
+                                               Padding="5"/>-->
+
+                            </VerticalStackLayout>
+
+                        </Border>
+                        
+                    </DataTemplate>
+                
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>  
+            
+            <!-- Pictures -->
+            <Label Text="Pictures Space : " FontSize="18" FontAttributes="Bold"/>
+            <!--<CollectionView ItemsSource="{Binding SelectedImages}">
+
+                <CollectionView.ItemTemplate>
+
+                    --><!--<DataTemplate>
+                        --><!-- Outer Border for a Unified Look --><!--
+                        <Border Stroke="Gray"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10"
+                                Margin="5"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="FillAndExpand">  
+
+                            --><!-- Vertical StackLayout for House Rule Data --><!--
+                            <VerticalStackLayout Spacing="5">
+
+                                --><!-- House Rule Name --><!--
+                                <Label Text="House Rule Name:"
+                               FontSize="14"
+                               TextColor="Gray"/>
+
+                                <Entry Text="{Binding HouseRuleName}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>
+
+                                --><!-- House Rule Description --><!--
+                                <Label Text="House Rule Description:"
+                                       FontSize="14"
+                                       TextColor="Gray"/>   
+
+                                <Entry Text="{Binding HouseRuleDescription}"
+                                       IsReadOnly="True"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       Margin="5"
+                                       HorizontalOptions="FillAndExpand"/>
+
+                       
+
+                            </VerticalStackLayout>
+
+                        </Border>
+                        
+                    </DataTemplate>--><!--
+                
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>-->
+
+            
+
             <!-- Submit Button -->
             <Button Text="Submit"
                     BackgroundColor="#4F378A"
