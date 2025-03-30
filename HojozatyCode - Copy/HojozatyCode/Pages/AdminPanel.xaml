@@ -123,12 +123,12 @@
                                FontSize="16"/>
                                
                         <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
-                            <Button Text="Review Pending Venues"
+                            <!-- <Button Text="Review Pending Venues"
                                     BackgroundColor="#3498DB"
                                     TextColor="White"
                                     CornerRadius="10"
                                     Clicked="OnApprovalButtonClicked"
-                                    Grid.Column="0"/>
+                                    Grid.Column="0"/> -->
                                     
                             <Frame BackgroundColor="#FEF9C3" 
                                    CornerRadius="10"
@@ -205,7 +205,8 @@
                                                     CornerRadius="8"
                                                     HeightRequest="40"
                                                     WidthRequest="100"
-                                                    Clicked="OnApprovalButtonClicked"/>
+                                                    Clicked="OnReviewButtonClicked"
+                                                    CommandParameter="{Binding .}"/>
                                         </Grid>
                                     </Frame>
                                 </DataTemplate>

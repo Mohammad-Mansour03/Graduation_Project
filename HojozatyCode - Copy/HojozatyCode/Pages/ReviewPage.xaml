@@ -193,7 +193,7 @@
             </CollectionView>  
             
             <!-- Pictures -->
-            <Label Text="Pictures Space : " FontSize="18" FontAttributes="Bold"/>
+            <!-- <Label Text="Pictures Space : " FontSize="18" FontAttributes="Bold"/> -->
             <!--<CollectionView ItemsSource="{Binding SelectedImages}">
 
                 <CollectionView.ItemTemplate>
