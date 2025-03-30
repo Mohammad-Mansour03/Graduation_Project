@@ -4,47 +4,194 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.AdminApprovalPage"
              x:DataType="viewModels:AdminApprovalViewModel"
-             Title="Admin Approval"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="False">
+             Title="Venue Review"
+             BackgroundColor="#F5F6FA">
 
-    <CollectionView ItemsSource="{Binding PendingVenues}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Border Stroke="LightGray" StrokeThickness="1" Padding="10" Margin="10" BackgroundColor="White" StrokeShape="RoundRectangle 15">
-                    <Grid Padding="10" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,*">
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding VenueName}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        <Label Grid.Row="1" Grid.Column="0" Text="Description:" FontAttributes="Bold"/>
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}"/>
-                        <Label Grid.Row="2" Grid.Column="0" Text="Type:" FontAttributes="Bold"/>
-                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding Type}"/>
-                        <Label Grid.Row="3" Grid.Column="0" Text="Capacity:" FontAttributes="Bold"/>
-                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding Capacity}"/>
-                        <Label Grid.Row="4" Grid.Column="0" Text="Location:" FontAttributes="Bold"/>
-                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Location}"/>
-                        <Label Grid.Row="5" Grid.Column="0" Text="Contact Phone:" FontAttributes="Bold"/>
-                        <Label Grid.Row="5" Grid.Column="1" Text="{Binding VenueContactPhone}"/>
-                        <Label Grid.Row="6" Grid.Column="0" Text="Email:" FontAttributes="Bold"/>
-                        <Label Grid.Row="6" Grid.Column="1" Text="{Binding VenueEmail}"/>
-                        <Label Grid.Row="7" Grid.Column="0" Text="Initial Price:" FontAttributes="Bold"/>
-                        <Label Grid.Row="7" Grid.Column="1" Text="{Binding InitialPrice}"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- Header -->
+            <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,10">
+                <Button Text="←" 
+                        FontSize="24" 
+                        BackgroundColor="Transparent"
+                        Command="{Binding GoBackCommand}"
+                        HorizontalOptions="Start"
+                        WidthRequest="50"
+                        HeightRequest="50"/>
+                
+                <Label Grid.Column="1" 
+                       Text="Venue Review" 
+                       FontSize="24" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Grid>
+            
+            <!-- Pending Status Banner -->
+            <Frame BackgroundColor="#FEF9C3" Padding="15" CornerRadius="8">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="⏳" FontSize="20" VerticalOptions="Center"/>
+                    <Label Text="Pending Review" 
+                           FontAttributes="Bold" 
+                           FontSize="18" 
+                           TextColor="#CA8A04"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Frame>
 
-                        <!-- Display images in a CarouselView -->
-                        <CarouselView Grid.Row="8" Grid.ColumnSpan="2" ItemsSource="{Binding ImageUrls}" HeightRequest="200">
-                            <CarouselView.ItemTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding}" Aspect="AspectFill"/>
-                                </DataTemplate>
-                            </CarouselView.ItemTemplate>
-                        </CarouselView>
-
-                        <StackLayout Grid.Row="9" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
-                            <Button Text="Accept" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AdminApprovalViewModel}}, Path=AcceptCommand}" CommandParameter="{Binding .}" BackgroundColor="Green" TextColor="White"/>
-                            <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AdminApprovalViewModel}}, Path=DeleteCommand}" CommandParameter="{Binding .}" BackgroundColor="Red" TextColor="White"/>
-                        </StackLayout>
+           <!-- Images Carousel -->
+            <Label Text="Venue Photos:" FontSize="18" FontAttributes="Bold"/>
+            <Frame HeightRequest="250" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+                <Grid>
+                    <CarouselView HeightRequest="250" 
+                                 ItemsSource="{Binding VenueImageUrls}" 
+                                 IndicatorView="indicatorView">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image Source="{Binding .}" 
+                                          Aspect="AspectFill"
+                                          HorizontalOptions="Fill"
+                                          VerticalOptions="Fill"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    
+                    <IndicatorView x:Name="indicatorView"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="End"
+                                  Margin="0,0,0,10"
+                                  IndicatorColor="LightGray"
+                                  SelectedIndicatorColor="#4F378A"/>
+                </Grid>
+            </Frame>
+            
+            <!-- Venue Details Card -->
+            <Frame BackgroundColor="White" Padding="20" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="{Binding SelectedVenue.VenueName}" 
+                           FontSize="26" 
+                           FontAttributes="Bold" 
+                           TextColor="#2C3E50"
+                           HorizontalOptions="Center"/>
+                    
+                    <!-- Basic Information -->
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+                          ColumnDefinitions="Auto,*" 
+                          ColumnSpacing="15" 
+                          RowSpacing="15">
+                          
+                        <!-- Type -->
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Text="Venue Type:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.Type}" 
+                               TextColor="#34495E"/>
+                               
+                        <!-- Location -->
+                        <Label Grid.Row="1" Grid.Column="0" 
+                               Text="Location:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="1" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.Location}" 
+                               TextColor="#34495E"/>
+                               
+                        <!-- Capacity -->
+                        <Label Grid.Row="2" Grid.Column="0" 
+                               Text="Capacity:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="2" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.Capacity}" 
+                               TextColor="#34495E"/>
+                               
+                        <!-- Contact Phone -->
+                        <Label Grid.Row="3" Grid.Column="0" 
+                               Text="Phone:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="3" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.VenueContactPhone}" 
+                               TextColor="#34495E"/>
+                               
+                        <!-- Email -->
+                        <Label Grid.Row="4" Grid.Column="0" 
+                               Text="Email:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="4" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.VenueEmail}" 
+                               TextColor="#34495E"/>
+                               
+                        <!-- Initial Price -->
+                        <Label Grid.Row="5" Grid.Column="0" 
+                               Text="Initial Price:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="5" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.InitialPrice, StringFormat='{0:C}'}" 
+                               TextColor="#34495E"/>
+                               
+                        <!-- Cancellation Policy -->
+                        <Label Grid.Row="6" Grid.Column="0" 
+                               Text="Cancellation Policy:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="6" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.CancellationPolicy}" 
+                               TextColor="#34495E"/>
+                               
+                        <!-- Description Section -->
+                        <Label Grid.Row="7" Grid.Column="0" 
+                               Text="Description:" 
+                               FontAttributes="Bold" 
+                               VerticalOptions="Start"/>
+                        <Label Grid.Row="7" Grid.Column="1" 
+                               Text="{Binding SelectedVenue.Description}" 
+                               TextColor="#34495E"
+                               LineBreakMode="WordWrap"/>
                     </Grid>
-                </Border>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Approval Actions -->
+            <Frame BackgroundColor="White" Padding="20" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Review Decision" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="#2C3E50"/>
+                           
+                    <Label Text="Please review the venue details carefully before making a decision."
+                           TextColor="#7F8C8D"/>
+                           
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                        <Button Grid.Column="0" 
+                                Text="Approve Venue" 
+                                Command="{Binding AcceptCommand}"
+                                CommandParameter="{Binding SelectedVenue}"
+                                BackgroundColor="#2ECC71"
+                                TextColor="White"
+                                HeightRequest="50"
+                                CornerRadius="8"
+                                FontAttributes="Bold"/>
+                                
+                        <Button Grid.Column="1" 
+                                Text="Reject Venue" 
+                                Command="{Binding DeleteCommand}"
+                                CommandParameter="{Binding SelectedVenue}"
+                                BackgroundColor="#E74C3C"
+                                TextColor="White"
+                                HeightRequest="50"
+                                CornerRadius="8"
+                                FontAttributes="Bold"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

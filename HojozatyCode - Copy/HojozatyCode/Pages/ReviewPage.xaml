@@ -13,6 +13,34 @@
                    FontAttributes="Bold" 
                    TextColor="Black"/>
 
+             <!-- Images Carousel -->
+            <Label Text="Venue Photos:" FontSize="18" FontAttributes="Bold"/>
+            <Frame HeightRequest="250" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+                <Grid>
+                    <CarouselView HeightRequest="250" 
+                                 ItemsSource="{Binding ImageUrlsList}" 
+                                 IndicatorView="indicatorView">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image Source="{Binding .}" 
+                                          Aspect="AspectFill"
+                                          HorizontalOptions="Fill"
+                                          VerticalOptions="Fill"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    
+                    <IndicatorView x:Name="indicatorView"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="End"
+                                  Margin="0,0,0,10"
+                                  IndicatorColor="LightGray"
+                                  SelectedIndicatorColor="#4F378A"/>
+                </Grid>
+            </Frame>
+
             <!-- Space Type -->
             <Label Text="Space Type:" FontSize="18" FontAttributes="Bold"/>
             <Label Text="{Binding SpaceType}" FontSize="16"/>
@@ -165,7 +193,7 @@
             </CollectionView>  
             
             <!-- Pictures -->
-            <Label Text="Pictures Space : " FontSize="18" FontAttributes="Bold"/>
+            <!-- <Label Text="Pictures Space : " FontSize="18" FontAttributes="Bold"/> -->
             <!--<CollectionView ItemsSource="{Binding SelectedImages}">
 
                 <CollectionView.ItemTemplate>
