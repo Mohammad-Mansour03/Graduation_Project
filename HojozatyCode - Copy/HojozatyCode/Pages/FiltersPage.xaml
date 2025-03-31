@@ -64,7 +64,7 @@
             <VerticalStackLayout Spacing="10">
                 <HorizontalStackLayout Spacing="10">
                     <CheckBox x:Name="HallsCheckBox" VerticalOptions="Center"/>
-                    <Label Text="Halls" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                    <Label Text="Indoors" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout Spacing="10">
@@ -79,7 +79,7 @@
 
                 <HorizontalStackLayout Spacing="10">
                     <CheckBox x:Name="OpenPlacesCheckBox" VerticalOptions="Center"/>
-                    <Label Text="Open Places" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
+                    <Label Text="Outdoors" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
