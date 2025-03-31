@@ -1,12 +1,28 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HojozatyCode.Pages.MySpace"
-             Title="MySpace">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.MySpace">
+
+    <ContentPage.BindingContext>
+        <vm:MySpaceViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20">
+        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
+        <ListView ItemsSource="{Binding UserVenues}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="10" Margin="5" CornerRadius="10" BackgroundColor="LightGray">
+                            <StackLayout>
+                                <Label Text="{Binding VenueName}" FontSize="20" FontAttributes="Bold" />
+                                <Label Text="{Binding Location}" FontSize="16" />
+                                <Label Text="Capacity: {Binding Capacity}" FontSize="14" />
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

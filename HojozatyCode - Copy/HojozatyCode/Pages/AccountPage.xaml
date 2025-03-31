@@ -63,24 +63,10 @@
         <!-- Main List of Options -->
         <VerticalStackLayout Spacing="20" Margin="10,20,10,0" Grid.Row="2">
 
-            <!-- Admin Panel -->
-
-            <Frame Padding="15" CornerRadius="10" BorderColor="Black">
-                <HorizontalStackLayout>
-                    <Image Source="admin.png" WidthRequest="20" HeightRequest="20"/>
-                    <Label Text="Admin Panel" FontSize="18" Margin="20,0,0,0"/>
-                </HorizontalStackLayout>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToAdminPanelCommand}" />
-                </Frame.GestureRecognizers>
-            </Frame>
-
-
-
             <!-- My Spaces -->
             <Border   Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1" >
-                <HorizontalStackLayout>
-                    <Image Source="my_space_icon.png" WidthRequest="20" HeightRequest="20"/>
+                <HorizontalStackLayout >
+                    <ImageButton Source="my_space_icon.png" WidthRequest="5" HeightRequest="5" Command="{Binding GoToMySpaceCommand}"/>
                     <Label Text="My Spaces" FontSize="18" Margin="20,0,0,0"/>
                 </HorizontalStackLayout>
             </Border>
@@ -88,7 +74,7 @@
             <!-- Add a Space -->
             <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
                 <HorizontalStackLayout>
-                    <Image Source="add_space_icon_2.png" WidthRequest="20" HeightRequest="20"/>
+                    <ImageButton Source="add_space_icon_2.png" WidthRequest="20" HeightRequest="20" Command="{Binding GoToAddSapceCommand}"/>
                     <Label Text="Add A Space" FontSize="18" Margin="20,0,0,0"/>
                 </HorizontalStackLayout>
             </Border>
