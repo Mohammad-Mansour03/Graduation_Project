@@ -39,6 +39,7 @@ namespace HojozatyCode.ViewModels
                 if (session == null || session.User == null)
                 {
                     IsLoading = false;
+                    await Shell.Current.DisplayAlert("Error", "No User logged in", "OK");
                     return;
                 }
                 

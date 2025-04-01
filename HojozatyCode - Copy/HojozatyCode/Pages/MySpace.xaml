@@ -7,10 +7,14 @@
         <vm:MySpaceViewModel />
     </ContentPage.BindingContext>
 
+
+
     <StackLayout Padding="20">
-        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
-        <ListView ItemsSource="{Binding UserVenues}" HasUnevenRows="True">
-            <ListView.ItemTemplate>
+        <Label Text="My Spaces"/>
+
+        <!--<ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />-->
+        <CollectionView ItemsSource="{Binding UserVenues}" >
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Frame Padding="10" Margin="5" CornerRadius="10" BackgroundColor="LightGray">
@@ -22,7 +26,7 @@
                         </Frame>
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
 </ContentPage>
