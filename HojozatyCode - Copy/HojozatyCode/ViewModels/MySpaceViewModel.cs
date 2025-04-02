@@ -55,7 +55,7 @@ namespace HojozatyCode.ViewModels
                 var response = await SupabaseConfig.SupabaseClient
                     .From<Venue>()
                     .Select("*")
-                    .Where(v => v.Capacity == 20 )
+                    .Where(v => v.OwnerId == userIdGuid )
                     .Get();
 
 				Venues.Clear();
