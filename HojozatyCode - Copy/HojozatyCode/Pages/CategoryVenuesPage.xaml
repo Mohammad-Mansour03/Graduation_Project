@@ -2,68 +2,177 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.CategoryVenuesPage"
-             Title="{Binding Category}">
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#333" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#6C63FF" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="15,8" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="#333" />
+            <Setter Property="BackgroundColor" Value="#F5F5F5" />
+            <Setter Property="HeightRequest" Value="40" />
+        </Style>
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,15,0,10" />
+        </Style>
+    </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Spacing="20" Padding="20">
-            <Label Text="{Binding Category}"
-                   FontSize="24"
-                   FontAttributes="Bold"/>
+        <VerticalStackLayout Spacing="0" Padding="15">
+            <!-- Search Bar Section -->
+            <Border StrokeShape="RoundRectangle 20"
+                    Stroke="#E0E0E0"
+                    StrokeThickness="1"
+                    BackgroundColor="#F5F5F5"
+                    Margin="0,0,0,15"
+                    Padding="15,0">
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                    <Image Source="search_icon.png"
+                           HeightRequest="20"
+                           WidthRequest="20"
+                           VerticalOptions="Center"/>
+                    <Entry Placeholder="Search venues..."
+                           FontSize="14"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand"
+                           ClearButtonVisibility="WhileEditing"/>
+                </HorizontalStackLayout>
+            </Border>
 
-            <CollectionView ItemsSource="{Binding Venues}"
+            <!-- Filter Controls Section -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10" Margin="0,0,0,15">
+                <!-- Category Picker -->
+                <Picker Title="Category" 
+                        ItemsSource="{Binding Categories}" 
+                        SelectedItem="{Binding SelectedCategory}"
+                        Grid.Column="0"/>
+
+                <!-- Location Picker -->
+                <Picker Title="Location" 
+                        ItemsSource="{Binding Locations}" 
+                        SelectedItem="{Binding SelectedLocation}"
+                        Grid.Column="1"/>
+
+                <!-- Filter Button -->
+                <Button Text="Filters"
+                        Command="{Binding GoToFiltersPageCommand}"
+                        Grid.Column="2"/>
+            </Grid>
+
+            <!-- Date Button -->
+            <Button Text="Select date and time"
+                    Command="{Binding OpenDatePickerCommand}"
+                    Margin="0,0,0,15"/>
+
+            <!-- Subcategories Section -->
+            <Label Text="What kind of space are you looking for?"
+                   Style="{StaticResource SectionTitle}"
+                   HorizontalOptions="Start"/>
+
+            <CollectionView ItemsSource="{Binding Subcategories}" 
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="120"
+                            Margin="0,0,0,15">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid WidthRequest="90" Margin="5">
+                            <VerticalStackLayout Spacing="5">
+                                <Border StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="White"
+                                        Padding="0"
+                                        HeightRequest="80"
+                                        WidthRequest="80">
+                                    <Grid>
+                                        <Image Source="{Binding ImageUrl}" 
+                                               Aspect="AspectFill"/>
+                                        <BoxView BackgroundColor="Black" Opacity="0.3" CornerRadius="12"/>
+                                    </Grid>
+                                </Border>
+                                <Label Text="{Binding Name}" 
+                                       FontSize="12" 
+                                       HorizontalOptions="Center"
+                                       MaxLines="2"
+                                       LineBreakMode="TailTruncation"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Venues List Section -->
+            <Label Text="Available venues"
+                   Style="{StaticResource SectionTitle}"
+                   HorizontalOptions="Start"/>
+
+            <CollectionView ItemsSource="{Binding Venues}" 
                             EmptyView="No venues found for this category">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border StrokeShape="RoundRectangle 15" 
-                                Margin="0,0,0,20">
+                                Margin="0,0,0,20"
+                                BackgroundColor="White"
+                                HeightRequest="200">
                             <Grid>
                                 <!-- Background Image -->
                                 <Image Source="{Binding ImageUrl}"
-                                       Aspect="AspectFill"
-                                       HeightRequest="192"
-                                       WidthRequest="363"/>
+                                       Aspect="AspectFill"/>
+                                <BoxView BackgroundColor="Black" Opacity="0.3" CornerRadius="15"/>
 
-                                <!-- Dark overlay -->
-                                <BoxView BackgroundColor="Black"
-                                         Opacity="0.3"
-                                         CornerRadius="15"/>
-
-                                <!-- Venue Name -->
-                                <Label Text="{Binding VenueName}"
-                                       TextColor="White"
-                                       FontSize="18"
-                                       FontAttributes="Bold"
-                                       Margin="15,15,0,0"
-                                       HorizontalOptions="Start"
-                                       VerticalOptions="Start"/>
-
-                                <!-- Price Tag -->
-                                <Border BackgroundColor="#493971"
-                                        StrokeShape="RoundRectangle 10"
-                                        Padding="10"
-                                        Margin="-50,0,0,-100"
-                                        HorizontalOptions="StartAndExpand"
-                                        VerticalOptions="CenterAndExpand">
-                                    <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
+                                <!-- Venue Info Overlay -->
+                                <Grid RowDefinitions="*,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      Padding="15">
+                                    <!-- Venue Name -->
+                                    <Label Text="{Binding VenueName}"
                                            TextColor="White"
-                                           Padding="50,0,10,0"     
-                                           FontSize="15"/>
-                                </Border>
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           VerticalOptions="Start"/>
 
-                                <!-- Rating Section -->
-                                <HorizontalStackLayout HorizontalOptions="End"
-                                                       VerticalOptions="End"
-                                                       Margin="0,0,10,10">
-                                    <Label Text="{Binding Rating}"
-                                           TextColor="White"
-                                           FontSize="14"/>
-                                    <Label Text="★"
-                                           TextColor="Gold"
-                                           FontSize="14"/>
-                                    <Label Text="{Binding RatingCount, StringFormat='({0} ratings)'}"
-                                           TextColor="White"
-                                           FontSize="14"/>
-                                </HorizontalStackLayout>
+                                    <!-- Price Tag -->
+                                    <Border BackgroundColor="#493971"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="10,5"
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="End">
+                                        <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
+                                               TextColor="White"
+                                               FontSize="14"/>
+                                    </Border>
+
+                                    <!-- Rating Section -->
+                                    <HorizontalStackLayout Grid.Row="1"
+                                                           Grid.Column="1"
+                                                           HorizontalOptions="End"
+                                                           VerticalOptions="End"
+                                                           Spacing="5">
+                                        <Label Text="{Binding Rating}"
+                                               TextColor="White"
+                                               FontSize="14"/>
+                                        <Label Text="★"
+                                               TextColor="Gold"
+                                               FontSize="14"/>
+                                        <Label Text="{Binding RatingCount, StringFormat='({0})'}"
+                                               TextColor="White"
+                                               FontSize="14"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
                             </Grid>
                         </Border>
                     </DataTemplate>

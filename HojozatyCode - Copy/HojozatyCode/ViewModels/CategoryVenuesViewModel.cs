@@ -1,13 +1,24 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
 using System.Collections.ObjectModel;
 
 namespace HojozatyCode.ViewModels
 {
+
+
+
     [QueryProperty("Category", "Category")]
     public partial class CategoryVenuesViewModel : ObservableObject
     {
+
+        [RelayCommand]
+        private async Task GoToFiltersPage()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.FiltersPage));
+        }
+
         [ObservableProperty]
         private string category;
 
