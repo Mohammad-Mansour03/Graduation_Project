@@ -1,168 +1,104 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HojozatyCode.Pages.CategoryVenuesPage"
-             Title="{Binding Category}">
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.VenueListings"
+             x:DataType="viewModels:HomeViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
+             Title="VenueListings">
 
     <VerticalStackLayout Spacing="0" Padding="0">
-        
-
         <!-- Date & Location Section -->
-
-        <Grid ColumnDefinitions="*" ColumnSpacing="10" Margin="20,10,20,20">
-            <!-- Location -->
-            <StackLayout Spacing="8" VerticalOptions="Center" Grid.Column="1">
-                <Frame BackgroundColor="#FFFFFF" CornerRadius="20" Padding="15" HasShadow="True">
-                    <Label Text="📍 Amman" 
-                       FontSize="14" 
-                       FontAttributes="Bold" 
-                       HorizontalOptions="Center" 
-                       TextColor="#333333"/>
+        <Grid ColumnDefinitions="Auto" ColumnSpacing="10" Margin="20,10,20,20">
+            <StackLayout Spacing="8" VerticalOptions="Center">
+                <Frame BackgroundColor="White" CornerRadius="20" Padding="15" HasShadow="True">
+                    <Label Text="📍 Amman"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="#333333"/>
                 </Frame>
             </StackLayout>
         </Grid>
-
-       
 
         <!-- Search Bar -->
-        <Frame BackgroundColor="#FFFFFF" 
-       CornerRadius="20" 
-       Padding="15" 
-       HasShadow="True" 
-       Margin="20,20,20,10">
+        <Frame BackgroundColor="White" CornerRadius="20" Padding="15" HasShadow="True" Margin="20,20,20,10">
             <Grid ColumnDefinitions="Auto,*">
                 <Button ImageSource="filter.png"
-                 HeightRequest="15"
-                WidthRequest="15"
-                VerticalOptions="Center"
-                HorizontalOptions="Start"
-                 Grid.Column="0"
-                Command="{Binding GoToFiltersPageCommand}"/>
-
-                <!-- Search Entry -->
-                <Entry Placeholder="Search venues..." 
-               PlaceholderColor="#999999" 
-               TextColor="#333333" 
-               ClearButtonVisibility="WhileEditing"
-               FontSize="14"
-               VerticalOptions="Center"
-               HorizontalOptions="FillAndExpand"
-               Margin="10,0,0,0"
-               Grid.Column="1"/>
+                        HeightRequest="15"
+                        WidthRequest="15"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Grid.Column="0"
+                        Command="{Binding GoToFiltersPageCommand}"/>
+                <Entry Placeholder="Search venues..."
+                       PlaceholderColor="#999999"
+                       TextColor="#333333"
+                       ClearButtonVisibility="WhileEditing"
+                       FontSize="14"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="10,0,0,0"
+                       Grid.Column="1"/>
             </Grid>
         </Frame>
+
         <!-- Space Type Grid -->
         <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10" Margin="20,0,20,20">
-            <!-- Wedding Hall -->
             <StackLayout Spacing="8" HorizontalOptions="Center">
-                <Frame CornerRadius="12" 
-                HeightRequest="60" 
-                WidthRequest="60" 
-                Padding="0" 
-                BackgroundColor="#FFFFFF"
-                HasShadow="True">
-                    <Image Source="wedding_icon.png" 
-                    Aspect="AspectFit" 
-                    HeightRequest="40" 
-                    WidthRequest="40"/>
+                <Frame CornerRadius="12" HeightRequest="60" WidthRequest="60" Padding="0" BackgroundColor="White" HasShadow="True">
+                    <Image Source="wedding_icon.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40"/>
                 </Frame>
-                <Label Text="Farms" 
-                FontSize="12" 
-                FontAttributes="Bold" 
-                HorizontalOptions="Center" 
-                TextColor="#333333"/>
+                <Label Text="Farms" FontSize="12" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#333333"/>
             </StackLayout>
 
-            <!-- Farm -->
             <StackLayout Spacing="8" HorizontalOptions="Center" Grid.Column="1">
-                <Frame CornerRadius="12" 
-                HeightRequest="60" 
-                WidthRequest="60" 
-                Padding="0" 
-                BackgroundColor="#FFFFFF"
-                HasShadow="True">
-                    <Image Source="home_icon.png" 
-                    Aspect="AspectFit" 
-                    HeightRequest="40" 
-                    WidthRequest="40"/>
+                <Frame CornerRadius="12" HeightRequest="60" WidthRequest="60" Padding="0" BackgroundColor="White" HasShadow="True">
+                    <Image Source="home_icon.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40"/>
                 </Frame>
-                <Label Text="OutDoor" 
-                FontSize="12" 
-                FontAttributes="Bold" 
-                HorizontalOptions="Center" 
-                TextColor="#333333"/>
+                <Label Text="Outdoor" FontSize="12" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#333333"/>
             </StackLayout>
 
-            <!-- Hotel -->
             <StackLayout Spacing="8" HorizontalOptions="Center" Grid.Column="2">
-                <Frame CornerRadius="12" 
-                HeightRequest="60" 
-                WidthRequest="60" 
-                Padding="0" 
-                BackgroundColor="#FFFFFF"
-                HasShadow="True">
-                    <Image Source="entertainment_icon_2.png" 
-                    Aspect="AspectFit" 
-                    HeightRequest="40" 
-                    WidthRequest="40"/>
+                <Frame CornerRadius="12" HeightRequest="60" WidthRequest="60" Padding="0" BackgroundColor="White" HasShadow="True">
+                    <Image Source="entertainment_icon_2.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40"/>
                 </Frame>
-                <Label Text="Indoor" 
-                FontSize="12" 
-                FontAttributes="Bold" 
-                HorizontalOptions="Center" 
-                TextColor="#333333"/>
+                <Label Text="Indoor" FontSize="12" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#333333"/>
             </StackLayout>
 
-            <!-- Open Spaces -->
             <StackLayout Spacing="8" HorizontalOptions="Center" Grid.Column="3">
-                <Frame CornerRadius="12" 
-                HeightRequest="60" 
-                WidthRequest="60" 
-                Padding="0" 
-                BackgroundColor="#FFFFFF"
-                HasShadow="True">
-                    <Image Source="sports_icon.png" 
-                    Aspect="AspectFit" 
-                    HeightRequest="40" 
-                    WidthRequest="40"/>
+                <Frame CornerRadius="12" HeightRequest="60" WidthRequest="60" Padding="0" BackgroundColor="White" HasShadow="True">
+                    <Image Source="sports_icon.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40"/>
                 </Frame>
-                <Label Text="Hotels" 
-                FontSize="12" 
-                FontAttributes="Bold" 
-                HorizontalOptions="Center" 
-                TextColor="#333333"/>
+                <Label Text="Hotels" FontSize="12" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#333333"/>
             </StackLayout>
         </Grid>
-        
+
         <!-- Venue Card -->
-        <Frame Padding="0" CornerRadius="15" BackgroundColor="#FFFFFF" HasShadow="True" Margin="20">
+        <Frame Padding="0" CornerRadius="15" BackgroundColor="White" HasShadow="True" Margin="20">
             <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto" Padding="10">
-                <!-- Venue Image with Favorite Icon Overlay -->
                 <Grid Grid.Row="0" Grid.ColumnSpan="2">
                     <Image Source="hotel.png" HeightRequest="180" Aspect="AspectFill" />
                     <ImageButton Source="heart_icon.png" HorizontalOptions="End" VerticalOptions="Start" Margin="10" BackgroundColor="Transparent"/>
                 </Grid>
 
-                <!-- Venue Name -->
-                <Label Text="Alnuman Venues for weddings" 
-                       FontSize="18" 
-                       FontAttributes="Bold" 
-                       Grid.Row="1" 
-                       Grid.ColumnSpan="2" 
-                       Margin="10,10,10,5" 
+                <Label Text="Alnuman Venues for Weddings"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"
+                       Margin="10,10,10,5"
                        TextColor="#333333"/>
 
-                <!-- Rating and Reviews -->
                 <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0" Spacing="5">
                     <Label Text="★★★★★" FontSize="14" TextColor="#FFD700"/>
                     <Label Text="80 Reviews" FontSize="14" TextColor="#666666"/>
                 </StackLayout>
 
-                <!-- Price Tag -->
                 <Frame BackgroundColor="#6C63FF" Padding="10" CornerRadius="10" Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Margin="0,0,10,0">
                     <Label Text="From 800JD/2hr" TextColor="White" FontSize="14" FontAttributes="Bold"/>
                 </Frame>
 
-                <!-- Response Time and Bookings -->
                 <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,5,10,10" Spacing="10">
                     <Label Text="Responds within 24 hrs" FontSize="12" TextColor="#666666"/>
                     <Image Source="users_icon.png" HeightRequest="15" VerticalOptions="Center"/>
