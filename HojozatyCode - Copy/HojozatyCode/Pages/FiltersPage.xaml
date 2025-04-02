@@ -5,90 +5,159 @@
              x:DataType="viewModels:HomeViewModel"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
-             Title="FiltersPage"
-             BackgroundColor="White">
+             Title="Filters"
+             BackgroundColor="#FAFAFA">
+
+    <ContentPage.Resources>
+        <Color x:Key="PrimaryColor">#4F378A</Color>
+        <Color x:Key="LightPrimaryColor">#6750A4</Color>
+        <Color x:Key="SurfaceColor">#FFFFFF</Color>
+        <Color x:Key="OnSurfaceColor">#1C1B1F</Color>
+        <Color x:Key="SecondaryColor">#625B71</Color>
+        <Color x:Key="BackgroundColor">#FAFAFA</Color>
+
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSans-SemiBold" />
+            <Setter Property="HeightRequest" Value="48" />
+        </Style>
+
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,10,0,10" />
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="FontFamily" Value="OpenSans-Bold" />
+        </Style>
+
+        <Style x:Key="OptionFrame" TargetType="Frame">
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+            <Setter Property="BorderColor" Value="#E7E0EC" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="HasShadow" Value="False" />
+        </Style>
+    </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- Price Range -->
-            <Label Text="Price Range" FontSize="18" FontAttributes="Bold" />
+            <Label Text="Price Range" Style="{StaticResource SectionTitle}" />
 
             <Slider x:Name="PriceSlider" 
-        Minimum="0" Maximum="5000" Value="2500" 
-        ThumbColor="Purple" MinimumTrackColor="Purple" 
-        HorizontalOptions="FillAndExpand"
-        ValueChanged="PriceSlider_ValueChanged"/>
-            <!-- Event for Live Update -->
+                    Minimum="0" Maximum="5000" Value="2500" 
+                    ThumbColor="{StaticResource PrimaryColor}" 
+                    MinimumTrackColor="{StaticResource PrimaryColor}"
+                    MaximumTrackColor="#E7E0EC"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="24"
+                    ValueChanged="PriceSlider_ValueChanged"/>
 
-            <Grid ColumnDefinitions="Auto, *, Auto">
-                <Label Text="0 JD" FontSize="14" TextColor="Gray" 
-           HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"/>
+            <Grid ColumnDefinitions="Auto, *, Auto" Margin="0,-10,0,0">
+                <Label Text="0 JD" FontSize="14" TextColor="{StaticResource SecondaryColor}" 
+                       HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"/>
 
-                <!-- Frame for the live value -->
-                <Frame Grid.Column="1" Padding="5" CornerRadius="5" 
-           BackgroundColor="White" BorderColor="Purple" HasShadow="True" 
-           HorizontalOptions="Center" VerticalOptions="Center">
+                <Frame Grid.Column="1" Padding="8" CornerRadius="8" 
+                       BackgroundColor="{StaticResource SurfaceColor}" 
+                       BorderColor="{StaticResource PrimaryColor}" 
+                       HasShadow="True"
+                       HorizontalOptions="Center" VerticalOptions="Center">
                     <Label x:Name="PriceValueLabel" 
-               Text="2500 JD" FontSize="14" FontAttributes="Bold" TextColor="Black"/>
+                           Text="2500 JD" FontSize="14" FontAttributes="Bold" 
+                           TextColor="{StaticResource PrimaryColor}"/>
                 </Frame>
 
-                <Label Text="5000 JD" FontSize="14" TextColor="Gray" 
-           HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
+                <Label Text="5000 JD" FontSize="14" TextColor="{StaticResource SecondaryColor}" 
+                       HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
             </Grid>
 
-
-
-
             <!-- Instant Book -->
-            <Frame CornerRadius="10" Padding="15" BackgroundColor="#F5F5F5">
-                <VerticalStackLayout Spacing="5">
-                    <HorizontalStackLayout Spacing="10">
-                        <Label Text="Instant Book" FontSize="16" VerticalOptions="Center"/>
-                        <Switch x:Name="InstantBookSwitch" IsToggled="false" OnColor="Purple"/>
+            <Frame Style="{StaticResource OptionFrame}">
+                <VerticalStackLayout Spacing="8">
+                    <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                        <Label Text="Instant Book" FontSize="16" VerticalOptions="Center" FontFamily="OpenSans-SemiBold"/>
+                        <Switch x:Name="InstantBookSwitch" IsToggled="false" 
+                                OnColor="{StaticResource PrimaryColor}" ThumbColor="White"/>
                     </HorizontalStackLayout>
-                    <Label Text="Only see spaces that can be instantly booked" FontSize="12" TextColor="Gray" />
+                    <Label Text="Only see spaces that can be instantly booked" 
+                           FontSize="13" TextColor="{StaticResource SecondaryColor}" />
                 </VerticalStackLayout>
             </Frame>
 
             <!-- Attendees -->
-            <Label Text="Attendees" FontSize="18" FontAttributes="Bold" />
-            <VerticalStackLayout Spacing="5">
-                <RadioButton GroupName="Attendees" Content="Any amount" IsChecked="True"/>
-                <RadioButton GroupName="Attendees" Content="50 - 100"/>
-                <RadioButton GroupName="Attendees" Content="100 - 200"/>
-            </VerticalStackLayout>
+            <Label Text="Attendees" Style="{StaticResource SectionTitle}" />
+            <Frame Style="{StaticResource OptionFrame}">
+                <VerticalStackLayout Spacing="12">
+                    <RadioButton GroupName="Attendees" Content="Any amount" IsChecked="True"
+                                 TextColor="{StaticResource OnSurfaceColor}"
+                                 FontFamily="OpenSans-Regular"
+                                 Value="{StaticResource PrimaryColor}"/>
+                    <RadioButton GroupName="Attendees" Content="50 - 100"
+                                 TextColor="{StaticResource OnSurfaceColor}"
+                                 FontFamily="OpenSans-Regular"/>
+                    <RadioButton GroupName="Attendees" Content="100 - 200"
+                                 TextColor="{StaticResource OnSurfaceColor}"
+                                 FontFamily="OpenSans-Regular"/>
+                </VerticalStackLayout>
+            </Frame>
 
-            <!-- Space Type (Fixed Alignment Using HorizontalStackLayout) -->
-            <Label Text="Space Type" FontSize="18" FontAttributes="Bold" />
-            <VerticalStackLayout Spacing="10">
-                <HorizontalStackLayout Spacing="10">
-                    <CheckBox x:Name="HallsCheckBox" VerticalOptions="Center"/>
-                    <Label Text="Indoors" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
-                </HorizontalStackLayout>
+            <!-- Space Type -->
+            <Label Text="Space Type" Style="{StaticResource SectionTitle}" />
+            <Frame Style="{StaticResource OptionFrame}">
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout Spacing="16">
+                        <CheckBox x:Name="HallsCheckBox" VerticalOptions="Center"
+                                  Color="{StaticResource PrimaryColor}"/>
+                        <Label Text="Indoors" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
+                    </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="10">
-                    <CheckBox x:Name="FarmsCheckBox" VerticalOptions="Center"/>
-                    <Label Text="Farms" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
-                </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="16">
+                        <CheckBox x:Name="FarmsCheckBox" VerticalOptions="Center"
+                                  Color="{StaticResource PrimaryColor}"/>
+                        <Label Text="Farms" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
+                    </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="10">
-                    <CheckBox x:Name="HotelsCheckBox" VerticalOptions="Center"/>
-                    <Label Text="Hotels" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
-                </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="16">
+                        <CheckBox x:Name="HotelsCheckBox" VerticalOptions="Center"
+                                  Color="{StaticResource PrimaryColor}"/>
+                        <Label Text="Hotels" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
+                    </HorizontalStackLayout>
 
-                <HorizontalStackLayout Spacing="10">
-                    <CheckBox x:Name="OpenPlacesCheckBox" VerticalOptions="Center"/>
-                    <Label Text="Outdoors" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16"/>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+                    <HorizontalStackLayout Spacing="16">
+                        <CheckBox x:Name="OpenPlacesCheckBox" VerticalOptions="Center"
+                                  Color="{StaticResource PrimaryColor}"/>
+                        <Label Text="Outdoors" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
 
             <!-- Buttons -->
-            <HorizontalStackLayout Spacing="10" VerticalOptions="End" Margin="20,10">
-                <Button Text="Clear All" BackgroundColor="Transparent" TextColor="Black"
-                        BorderColor="Gray" BorderWidth="1" CornerRadius="10" Padding="10"/>
-                <Button Text="View 4 Spaces" BackgroundColor="Purple" TextColor="White"
-                        CornerRadius="10" Padding="10" WidthRequest="150"/>
+            <HorizontalStackLayout Spacing="16" VerticalOptions="End" Margin="0,20,0,0">
+                <Button Text="Clear All" 
+                        BackgroundColor="Transparent" 
+                        TextColor="{StaticResource PrimaryColor}"
+                        BorderColor="{StaticResource PrimaryColor}" 
+                        BorderWidth="1" 
+                        CornerRadius="10" 
+                        Padding="16,10"
+                        WidthRequest="120"/>
+
+                <Button Text="View 4 Spaces" 
+                        BackgroundColor="{StaticResource PrimaryColor}" 
+                        TextColor="White"
+                        CornerRadius="10" 
+                        Padding="16,10"
+                        HorizontalOptions="FillAndExpand"/>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>
