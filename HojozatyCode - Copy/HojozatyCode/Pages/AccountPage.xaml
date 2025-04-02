@@ -63,21 +63,27 @@
         <!-- Main List of Options -->
         <VerticalStackLayout Spacing="20" Margin="10,20,10,0" Grid.Row="2">
 
-            <!-- My Spaces -->
-            <Border   Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1" >
-                <HorizontalStackLayout >
-                    <ImageButton Source="my_space_icon.png" WidthRequest="5" HeightRequest="5" Command="{Binding GoToMySpaceCommand}"/>
+            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToMySpaceCommand}" />
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout>
+                    <Image Source="my_space_icon.png" WidthRequest="24" HeightRequest="24"/>
                     <Label Text="My Spaces" FontSize="18" Margin="20,0,0,0"/>
                 </HorizontalStackLayout>
             </Border>
 
             <!-- Add a Space -->
             <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToAddSpaceCommand}" />
+                </Border.GestureRecognizers>
                 <HorizontalStackLayout>
-                    <ImageButton Source="add_space_icon_2.png" WidthRequest="20" HeightRequest="20" Command="{Binding GoToAddSapceCommand}"/>
+                    <Image Source="add_space_icon_2.png" WidthRequest="20" HeightRequest="20"/>
                     <Label Text="Add A Space" FontSize="18" Margin="20,0,0,0"/>
                 </HorizontalStackLayout>
             </Border>
+
 
             <!-- Favorites -->
             <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">

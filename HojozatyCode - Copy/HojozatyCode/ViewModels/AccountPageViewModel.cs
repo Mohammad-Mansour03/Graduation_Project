@@ -35,7 +35,11 @@ namespace HojozatyCode.ViewModels
         private async Task GoToMySpace()
         {
             await Shell.Current.GoToAsync(nameof(Pages.MySpace));
-        } 
+        }
+        private async Task GoToAddSpace()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.SpaceTypeSelectionPage));
+        }
     }
 
     
