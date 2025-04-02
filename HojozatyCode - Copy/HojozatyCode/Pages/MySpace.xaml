@@ -8,25 +8,69 @@
     </ContentPage.BindingContext>
 
 
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+   
+            <CollectionView ItemsSource="{Binding Venues}"
+                         EmptyView="No venues found for this category">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 15" 
+                             Margin="0,0,0,20">
+                            <Grid>
+                                <!-- Background Image -->
+                                <Image Source="{Binding ImageUrl}"
+                                    Aspect="AspectFill"
+                                    HeightRequest="192"
+                                    WidthRequest="363"/>
 
-    <StackLayout Padding="20">
-        <Label Text="My Spaces"/>
+                                <!-- Dark overlay -->
+                                <BoxView BackgroundColor="Black"
+                                      Opacity="0.3"
+                                      CornerRadius="15"/>
 
-        <!--<ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />-->
-        <CollectionView ItemsSource="{Binding UserVenues}" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Frame Padding="10" Margin="5" CornerRadius="10" BackgroundColor="LightGray">
-                            <StackLayout>
-                                <Label Text="{Binding VenueName}" FontSize="20" FontAttributes="Bold" />
-                                <Label Text="{Binding Location}" FontSize="16" />
-                                <Label Text="Capacity: {Binding Capacity}" FontSize="14" />
-                            </StackLayout>
-                        </Frame>
-                    </ViewCell>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </StackLayout>
+                                <!-- Venue Name -->
+                                <Label Text="{Binding VenueName}"
+                                    TextColor="White"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Margin="15,15,0,0"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Start"/>
+
+                                <!-- Price Tag -->
+                                <Border BackgroundColor="#493971"
+                                     StrokeShape="RoundRectangle 10"
+                                     Padding="10"
+                                     Margin="-50,0,0,-100"
+                                     HorizontalOptions="StartAndExpand"
+                                     VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
+                                        TextColor="White"
+                                        Padding="50,0,10,0"     
+                                        FontSize="15"/>
+                                </Border>
+
+                                <!-- Rating Section --><!--
+                                <HorizontalStackLayout HorizontalOptions="End"
+                                                    VerticalOptions="End"
+                                                    Margin="0,0,10,10">
+                                    <Label Text="{Binding Rating}"
+                                        TextColor="White"
+                                        FontSize="14"/>
+                                    <Label Text="?"
+                                        TextColor="Gold"
+                                        FontSize="14"/>
+                                    <Label Text="{Binding RatingCount, StringFormat='({0} ratings)'}"
+                                        TextColor="White"
+                                        FontSize="14"/>
+                                </HorizontalStackLayout>-->
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+    
 </ContentPage>

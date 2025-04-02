@@ -13,29 +13,33 @@ namespace HojozatyCode.ViewModels
     public partial class MySpaceViewModel : ObservableObject
     {
         [ObservableProperty]
-        private ObservableCollection<Venue> userVenues = new();
+        private ObservableCollection<Venue> venues ;
 
         [ObservableProperty]
         private bool isLoading = false;
 
         public MySpaceViewModel()
         {
-            LoadUserVenuesCommand = new AsyncRelayCommand(LoadUserVenuesAsync);
+           //// LoadUserVenuesCommand = new AsyncRelayCommand(LoadUserVenuesAsync);
+           // _ = LoadUserVenuesAsync();
+
+            Venues = new ObservableCollection<Venue>();
         }
 
-        public IAsyncRelayCommand LoadUserVenuesCommand { get; }
+        //public IAsyncRelayCommand LoadUserVenuesCommand { get; }
 
-        private async Task LoadUserVenuesAsync()
+        public async Task LoadVenuesAsync()
         {
             if (SupabaseConfig.SupabaseClient == null)
                 await SupabaseConfig.InitializeAsync();
 
-            IsLoading = true;
+           // IsLoading = true;
 
             try
             {
                 // Assuming you have a way to get the current logged-in user's ID
                 var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
+              
                 if (session == null || session.User == null)
                 {
                     IsLoading = false;
@@ -45,17 +49,22 @@ namespace HojozatyCode.ViewModels
                 
                 var userId = session.User.Id;
 
-                var venues = await SupabaseConfig.SupabaseClient
+                Guid userIdGuid = Guid.Parse(userId);
+
+
+                var response = await SupabaseConfig.SupabaseClient
                     .From<Venue>()
                     .Select("*")
-                    .Where(v => v.OwnerId.Equals(userId))
+                    .Where(v => v.Capacity == 20 )
                     .Get();
 
-                if (venues != null && venues.Models.Any())
-                {
-                    UserVenues = new ObservableCollection<Venue>(venues.Models);
-                }
-            }
+				Venues.Clear();
+
+				foreach (var venue in response.Models)
+				{
+					Venues.Add(venue);
+				}
+			}
             catch (Exception ex)
             {
                 // Handle the error (log or show message to user)
