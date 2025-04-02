@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.AdminPanel"
              Title="Admin Panel"
-             BackgroundColor="#F5F6FA">
+             BackgroundColor="#F5F6FA"
+             Shell.TabBarIsVisible="False">
 
     <Grid RowDefinitions="Auto,*,Auto">
         <!-- Header -->

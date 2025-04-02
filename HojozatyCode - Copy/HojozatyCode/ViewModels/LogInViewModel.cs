@@ -66,32 +66,43 @@ namespace HojozatyCode.ViewModels
 				}
 
 				//Check if the Password is null	
-				if (PasswordL == null) 
+				if (PasswordL == null)
 				{
 					ErrorMessage = "Please Enter your password";
 					return;
 				}
-				
-				// Try signing in with email and password
-				var response = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailL, PasswordL);
 
-				// Check if the login was successful
-				if (response.User != null)
+				if (string.Equals(EmailL, "admin@hojoz.com"))
 				{
-					// Login was successful, navigate to the HomePage
-					await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+					if (string.Equals(PasswordL, "admin1234"))
+					{
+						await Shell.Current.GoToAsync(nameof(Pages.AdminPanel));
+					}
+
 				}
+
 				else
 				{
-					// Show an error message if login fails (e.g., invalid credentials)
-					await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+					// Try signing in with email and password
+					var response = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailL, PasswordL);
+
+					// Check if the login was successful
+					if (response.User != null)
+					{
+						// Login was successful, navigate to the HomePage
+						await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+					}
+					else
+					{
+						// Show an error message if login fails (e.g., invalid credentials)
+						await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+					}
 				}
 			}
-		
-			catch (Exception )
+			catch (Exception)
 			{
 				// Catch other generic exceptions
-				await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password." , "OK");
+				await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
 			}
 		}
     }

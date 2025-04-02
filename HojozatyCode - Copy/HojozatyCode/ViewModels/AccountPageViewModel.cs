@@ -25,8 +25,16 @@ namespace HojozatyCode.ViewModels
 
         //Navigate me to the Home Page
         [RelayCommand]  
-        private async Task GoBack(){
+        private async Task GoBack()
+        {
             await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+        }    
+        
+        //Navigate me to the My Space Page
+        [RelayCommand]  
+        private async Task GoToMySpace()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.MySpace));
         } 
     }
 
