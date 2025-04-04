@@ -26,7 +26,6 @@
             Routing.RegisterRoute(nameof(Pages.ReviewPage), typeof(Pages.ReviewPage));
             Routing.RegisterRoute(nameof(Pages.SuccessPage), typeof(Pages.SuccessPage));
             Routing.RegisterRoute(nameof(Pages.FiltersPage), typeof(Pages.FiltersPage));
-            Routing.RegisterRoute(nameof(Pages.VenueListings), typeof(Pages.VenueListings));
             Routing.RegisterRoute(nameof(Pages.AdminApprovalPage), typeof(Pages.AdminApprovalPage));
             Routing.RegisterRoute(nameof(Pages.AdminPanel), typeof(Pages.AdminPanel));
             Routing.RegisterRoute(nameof(Pages.MySpace), typeof(Pages.MySpace));
