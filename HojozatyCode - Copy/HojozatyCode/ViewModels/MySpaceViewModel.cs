@@ -12,6 +12,13 @@ namespace HojozatyCode.ViewModels
 {
     public partial class MySpaceViewModel : ObservableObject
     {
+
+        [RelayCommand]
+        private async Task GoToAddSpace()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.SpaceTypeSelectionPage));
+        }
+
         [ObservableProperty]
         private ObservableCollection<Venue> venues ;
 

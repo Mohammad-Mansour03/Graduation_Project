@@ -16,7 +16,7 @@
                      CornerRadius="20"
                      WidthRequest="40"
                      HeightRequest="40"
-                     Padding="5"
+                     Padding="3"
                      HorizontalOptions="End"
                      VerticalOptions="Start"
                      Margin="0,20,20,0"
