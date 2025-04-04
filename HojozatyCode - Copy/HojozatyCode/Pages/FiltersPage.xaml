@@ -39,12 +39,15 @@
             <Setter Property="FontFamily" Value="OpenSans-Bold" />
         </Style>
 
-        <Style x:Key="OptionFrame" TargetType="Frame">
-            <Setter Property="CornerRadius" Value="12" />
+        <Style x:Key="OptionBorder" TargetType="Border">
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="12"/>
+                </Setter.Value>
+            </Setter>
             <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
-            <Setter Property="BorderColor" Value="#E7E0EC" />
+            <Setter Property="Stroke" Value="#E7E0EC" />
             <Setter Property="Padding" Value="16" />
-            <Setter Property="HasShadow" Value="False" />
         </Style>
     </ContentPage.Resources>
 
@@ -67,22 +70,22 @@
                 <Label Text="0 JD" FontSize="14" TextColor="{StaticResource SecondaryColor}" 
                        HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"/>
 
-                <Frame Grid.Column="1" Padding="8" CornerRadius="8" 
-                       BackgroundColor="{StaticResource SurfaceColor}" 
-                       BorderColor="{StaticResource PrimaryColor}" 
-                       HasShadow="True"
-                       HorizontalOptions="Center" VerticalOptions="Center">
+                <Border Grid.Column="1" Padding="8"
+                        Stroke="{StaticResource PrimaryColor}"
+                        StrokeShape="RoundRectangle"
+                        BackgroundColor="{StaticResource SurfaceColor}"
+                        HorizontalOptions="Center" VerticalOptions="Center">
                     <Label x:Name="PriceValueLabel" 
                            Text="2500 JD" FontSize="14" FontAttributes="Bold" 
                            TextColor="{StaticResource PrimaryColor}"/>
-                </Frame>
+                </Border>
 
                 <Label Text="5000 JD" FontSize="14" TextColor="{StaticResource SecondaryColor}" 
                        HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
             </Grid>
 
             <!-- Instant Book -->
-            <Frame Style="{StaticResource OptionFrame}">
+            <Border Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="8">
                     <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                         <Label Text="Instant Book" FontSize="16" VerticalOptions="Center" FontFamily="OpenSans-SemiBold"/>
@@ -92,16 +95,15 @@
                     <Label Text="Only see spaces that can be instantly booked" 
                            FontSize="13" TextColor="{StaticResource SecondaryColor}" />
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Attendees -->
             <Label Text="Attendees" Style="{StaticResource SectionTitle}" />
-            <Frame Style="{StaticResource OptionFrame}">
+            <Border x:Name="AttendeesRadioGroupBorder" Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="12">
                     <RadioButton GroupName="Attendees" Content="Any amount" IsChecked="True"
                                  TextColor="{StaticResource OnSurfaceColor}"
-                                 FontFamily="OpenSans-Regular"
-                                 Value="{StaticResource PrimaryColor}"/>
+                                 FontFamily="OpenSans-Regular"/>
                     <RadioButton GroupName="Attendees" Content="50 - 100"
                                  TextColor="{StaticResource OnSurfaceColor}"
                                  FontFamily="OpenSans-Regular"/>
@@ -109,11 +111,11 @@
                                  TextColor="{StaticResource OnSurfaceColor}"
                                  FontFamily="OpenSans-Regular"/>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Space Type -->
             <Label Text="Space Type" Style="{StaticResource SectionTitle}" />
-            <Frame Style="{StaticResource OptionFrame}">
+            <Border Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="12">
                     <HorizontalStackLayout Spacing="16">
                         <CheckBox x:Name="HallsCheckBox" VerticalOptions="Center"
@@ -139,7 +141,7 @@
                         <Label Text="Outdoors" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Buttons -->
             <HorizontalStackLayout Spacing="16" VerticalOptions="End" Margin="0,20,0,0">

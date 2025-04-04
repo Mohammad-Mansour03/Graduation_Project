@@ -27,13 +27,17 @@
             <Setter Property="HeightRequest" Value="40" />
         </Style>
 
-        <Style x:Key="FilterChip" TargetType="Frame">
-            <Setter Property="CornerRadius" Value="20" />
-            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
-            <Setter Property="BorderColor" Value="#E7E0EC" />
+        <Style x:Key="FilterChip" TargetType="Border">
+            <Setter Property="Stroke" Value="#E7E0EC" />
+            <Setter Property="Background" Value="{StaticResource SurfaceColor}" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="20" />
+                </Setter.Value>
+            </Setter>
             <Setter Property="Padding" Value="16,8" />
             <Setter Property="HeightRequest" Value="40" />
-            <Setter Property="HasShadow" Value="False" />
         </Style>
 
         <Style x:Key="SectionTitle" TargetType="Label">
@@ -58,19 +62,19 @@
         <VerticalStackLayout Spacing="0" Padding="20">
             <!-- Filter Section -->
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,0,0,16">
-                <Frame Style="{StaticResource FilterChip}">
+                <Border Style="{StaticResource FilterChip}">
                     <Label Text="{Binding Category}" 
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            FontFamily="OpenSans-SemiBold"/>
-                </Frame>
+                </Border>
 
-                <Frame Style="{StaticResource FilterChip}" Grid.Column="1">
+                <Border Style="{StaticResource FilterChip}" Grid.Column="1">
                     <Label Text="{Binding Location}" 
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            FontFamily="OpenSans-SemiBold"/>
-                </Frame>
+                </Border>
 
                 <Button Text="Filters" 
                         Command="{Binding GoToFiltersPageCommand}"
@@ -78,14 +82,14 @@
             </Grid>
 
             <!-- Date Picker -->
-            <Frame Style="{StaticResource FilterChip}" Margin="0,0,0,24">
+            <Border Style="{StaticResource FilterChip}" Margin="0,0,0,24">
                 <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
                     <Image Source="calendar_icon.png" HeightRequest="20" WidthRequest="20" VerticalOptions="Center"/>
                     <Label Text="Date and time" 
                            FontFamily="OpenSans-SemiBold"
                            VerticalOptions="Center"/>
                 </HorizontalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Subcategories -->
             <Label Text="What kind of space are you looking for?" Style="{StaticResource SectionTitle}"/>
@@ -94,16 +98,19 @@
                     <DataTemplate>
                         <Grid WidthRequest="100" Margin="8">
                             <VerticalStackLayout Spacing="4">
-                                <Frame CornerRadius="12" HeightRequest="80" WidthRequest="80" 
-                                       Padding="0" HasShadow="True" BackgroundColor="White">
-                                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
-                                    <Frame.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Color="Transparent" Offset="0.6"/>
-                                            <GradientStop Color="#80000000" Offset="1.0"/>
-                                        </LinearGradientBrush>
-                                    </Frame.Background>
-                                </Frame>
+                                <Border StrokeThickness="0" Background="White" HeightRequest="80" WidthRequest="80" StrokeShape="RoundRectangle 12">
+                                    <Grid>
+                                        <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                        <BoxView>
+                                            <BoxView.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop Color="Transparent" Offset="0.6"/>
+                                                    <GradientStop Color="#80000000" Offset="1.0"/>
+                                                </LinearGradientBrush>
+                                            </BoxView.Background>
+                                        </BoxView>
+                                    </Grid>
+                                </Border>
                                 <Label Text="{Binding Name}" Style="{StaticResource SubcategoryLabel}"/>
                             </VerticalStackLayout>
                         </Grid>
@@ -116,21 +123,19 @@
             <CollectionView ItemsSource="{Binding Venues}" EmptyView="No venues found for this category">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame CornerRadius="16" Margin="0,0,0,16" Padding="0" HasShadow="True">
+                        <Border StrokeThickness="0" StrokeShape="RoundRectangle 16" Margin="0,0,0,16" Padding="0" Background="White" >
                             <Grid>
                                 <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="200"/>
-                                <BoxView BackgroundColor="#80000000" CornerRadius="16"/>
+                                <BoxView BackgroundColor="#80000000"/>
                                 <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,Auto" Padding="16">
                                     <Label Text="{Binding VenueName}" TextColor="White" FontSize="18" 
                                            FontAttributes="Bold" Grid.Row="0" Grid.Column="0" 
                                            VerticalOptions="Start" FontFamily="OpenSans-Bold"/>
 
-                                    <Frame CornerRadius="10" Padding="12,6" Grid.Row="1" Grid.Column="0" 
-                                           HorizontalOptions="Start" VerticalOptions="End"
-                                           BackgroundColor="{StaticResource PrimaryColor}">
+                                    <Border StrokeThickness="0" Background="{StaticResource PrimaryColor}" Padding="12,6" Grid.Row="1" Grid.Column="0" StrokeShape="RoundRectangle 10">
                                         <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}" 
                                                TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
-                                    </Frame>
+                                    </Border>
 
                                     <HorizontalStackLayout Grid.Row="1" Grid.Column="1" 
                                                           HorizontalOptions="End" VerticalOptions="End" 
@@ -143,7 +148,7 @@
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Grid>
-                        </Frame>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

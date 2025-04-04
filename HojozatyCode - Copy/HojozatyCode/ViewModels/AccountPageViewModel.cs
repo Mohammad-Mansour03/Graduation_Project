@@ -28,18 +28,23 @@ namespace HojozatyCode.ViewModels
         private async Task GoBack()
         {
             await Shell.Current.GoToAsync(nameof(Pages.HomePage));
-        }    
-        
+        }
+
+        //Navigate me to the Add Space Page
+
+        [RelayCommand]
+        private async Task GoToAddSpace()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.SpaceTypeSelectionPage));
+        }
+
         //Navigate me to the My Space Page
         [RelayCommand]  
         private async Task GoToMySpace()
         {
             await Shell.Current.GoToAsync(nameof(Pages.MySpace));
         }
-        private async Task GoToAddSpace()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.SpaceTypeSelectionPage));
-        }
+
     }
 
     
