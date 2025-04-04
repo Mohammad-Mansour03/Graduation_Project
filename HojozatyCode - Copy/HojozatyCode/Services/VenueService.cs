@@ -76,7 +76,7 @@ namespace HojozatyCode.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in CreateVenueAsync: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error",$"Error in CreateVenueAsync: {ex.Message}","OK");
                 return (false, null);
             }
         }
