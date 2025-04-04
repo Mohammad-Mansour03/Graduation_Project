@@ -1,70 +1,179 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
-             x:Class="HojozatyCode.Pages.MySpace">
+             x:Class="HojozatyCode.Pages.MySpace"
+             BackgroundColor="#F8F9FA">
 
     <ContentPage.BindingContext>
         <vm:MySpaceViewModel />
     </ContentPage.BindingContext>
 
-
     <ScrollView>
-        <VerticalStackLayout Spacing="20" Padding="20">
-   
+        <VerticalStackLayout Spacing="25" Padding="20">
+
+            <!-- Header Section -->
+            <StackLayout Spacing="5">
+                <Label Text="My Venues"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#2C3E50"
+                       HorizontalOptions="Center" />
+                <BoxView HeightRequest="3" 
+                         WidthRequest="80"
+                         Color="#4F378A"
+                         HorizontalOptions="Center"
+                         Margin="0,5,0,0"/>
+            </StackLayout>
+
+            <!-- Venues Collection -->
             <CollectionView ItemsSource="{Binding Venues}"
-                         EmptyView="No venues found for this category">
+                            EmptyView="No venues found"
+                            Margin="0,10,0,0">
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="200">
+                            <Label Text="No venues found" 
+                                   FontSize="18" 
+                                   TextColor="#7F8C8D"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Add a new venue to get started!" 
+                                   FontSize="14" 
+                                   TextColor="#95A5A6"
+                                   HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border StrokeShape="RoundRectangle 15" 
-                             Margin="0,0,0,20">
-                            <Grid>
-                                <!-- Background Image -->
-                                <Image Source="{Binding ImageUrl}"
-                                    Aspect="AspectFill"
-                                    HeightRequest="192"
-                                    WidthRequest="363"/>
+                        <Border Stroke="#E0E0E0"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="White"
+                                Margin="0,0,0,25"
+                                Padding="0">
 
-                                <!-- Dark overlay -->
-                                <BoxView BackgroundColor="Black"
-                                      Opacity="0.3"
-                                      CornerRadius="15"/>
+                            <Border.Shadow>
+                                <Shadow Brush="#4F378A10"
+                                        Offset="0,5"
+                                        Radius="12"
+                                        Opacity="0.2" />
+                            </Border.Shadow>
 
-                                <!-- Venue Name -->
-                                <Label Text="{Binding VenueName}"
-                                    TextColor="White"
-                                    FontSize="18"
-                                    FontAttributes="Bold"
-                                    Margin="15,15,0,0"
-                                    HorizontalOptions="Start"
-                                    VerticalOptions="Start"/>
+                            <Grid RowDefinitions="Auto,Auto">
 
-                                <!-- Price Tag -->
-                                <Border BackgroundColor="#493971"
-                                     StrokeShape="RoundRectangle 10"
-                                     Padding="10"
-                                     Margin="-50,0,0,-100"
-                                     HorizontalOptions="StartAndExpand"
-                                     VerticalOptions="CenterAndExpand">
-                                    <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
-                                        TextColor="White"
-                                        Padding="50,0,10,0"     
-                                        FontSize="15"/>
-                                </Border>
+                                <!-- Image section with overlay and info button -->
+                                <Grid>
+                                    <!-- Image with rounded corners -->
+                                    <Border StrokeShape="RoundRectangle 15,15,0,0"
+                                            Margin="0"
+                                            Padding="0">
+                                        <Image Source="{Binding ImageUrl}"
+                                               Aspect="AspectFill"
+                                               HeightRequest="220"
+                                               HorizontalOptions="Fill"
+                                               VerticalOptions="Fill" />
+                                    </Border>
 
-                                <!-- Rating Section --><!--
-                                <HorizontalStackLayout HorizontalOptions="End"
-                                                    VerticalOptions="End"
-                                                    Margin="0,0,10,10">
-                                    <Label Text="{Binding Rating}"
-                                        TextColor="White"
-                                        FontSize="14"/>
-                                    <Label Text="?"
-                                        TextColor="Gold"
-                                        FontSize="14"/>
-                                    <Label Text="{Binding RatingCount, StringFormat='({0} ratings)'}"
-                                        TextColor="White"
-                                        FontSize="14"/>
-                                </HorizontalStackLayout>-->
+                                    <!-- Info Icon Button (top-right) -->
+                                    <ImageButton Source="Info_Icon"
+                                                 BackgroundColor="White"
+                                                 BorderColor="#4F378A"
+                                                 BorderWidth="1"
+                                                 CornerRadius="20"
+                                                 WidthRequest="36"
+                                                 HeightRequest="36"
+                                                 Padding="5"
+                                                 HorizontalOptions="End"
+                                                 VerticalOptions="Start"
+                                                 Margin="0,10,10,0"
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}}, Path=ViewVenueCommand}"
+                                                 CommandParameter="{Binding .}" />
+                                </Grid>
+
+                                <!-- Venue Info -->
+                                <Frame Grid.Row="1"
+                                       Padding="15"
+                                       HasShadow="False"
+                                       BackgroundColor="White"
+                                       BorderColor="Transparent">
+
+                                    <Grid RowDefinitions="Auto,Auto,Auto"
+                                          ColumnDefinitions="*,Auto"
+                                          RowSpacing="8">
+
+                                        <!-- Venue Name -->
+                                        <Label Text="{Binding VenueName}"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#2C3E50"
+                                               VerticalOptions="Center"
+                                               Grid.Row="0"
+                                               Grid.Column="0"/>
+
+                                        <!-- Location -->
+                                        <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Spacing="10">
+                                            <Label Text="{Binding Location}"
+                                                   FontSize="13"
+                                                   TextColor="#7F8C8D">
+                                                <Label.FontFamily>
+                                                    <OnPlatform x:TypeArguments="x:String">
+                                                        <On Platform="iOS" Value="SF Pro Text" />
+                                                        <On Platform="Android" Value="sans-serif-medium" />
+                                                    </OnPlatform>
+                                                </Label.FontFamily>
+                                            </Label>
+                                        </HorizontalStackLayout>
+
+                                        <!-- Price -->
+                                        <Border BackgroundColor="#4F378A"
+                                                StrokeShape="RoundRectangle 12"
+                                                Padding="12,8"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Center"
+                                                Grid.Row="0"
+                                                Grid.Column="1">
+                                            <Label Text="{Binding InitialPrice, StringFormat='${0}/Hr'}"
+                                                   TextColor="White"
+                                                   FontSize="14"
+                                                   FontAttributes="Bold"/>
+                                        </Border>
+
+                                        <!-- Action Buttons -->
+                                        <FlexLayout Grid.Row="2"
+                                                    Grid.ColumnSpan="2"
+                                                    JustifyContent="End"
+                                                    AlignItems="Center"
+                                                    Wrap="Wrap"
+                                                    Margin="0,15,0,0">
+
+                                            <!-- Edit Button -->
+                                            <Button Text="Edit"
+                                                    BackgroundColor="#4F378A"
+                                                    TextColor="White"
+                                                    CornerRadius="8"
+                                                    Padding="20,8"
+                                                    Margin="0,0,10,0"
+                                                    FontAttributes="Bold"
+                                                    FontSize="13"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}}, Path=EditVenueCommand}"
+                                                    CommandParameter="{Binding .}" />
+
+                                            <!-- Delete Button -->
+                                            <Button Text="Delete"
+                                                    BackgroundColor="White"
+                                                    TextColor="#E74C3C"
+                                                    BorderColor="#E74C3C"
+                                                    BorderWidth="1"
+                                                    CornerRadius="8"
+                                                    Padding="20,8"
+                                                    FontAttributes="Bold"
+                                                    FontSize="13"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}}, Path=DeleteVenueCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                        </FlexLayout>
+                                    </Grid>
+                                </Frame>
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -72,5 +181,4 @@
             </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
-    
 </ContentPage>
