@@ -5,28 +5,33 @@
              BackgroundColor="#FAFAFA">
 
     <ContentPage.Resources>
-        <!-- Enhanced Color Palette -->
-        <Color x:Key="PrimaryColor">#6A4EFF</Color>
-        <Color x:Key="SecondaryColor">#FF8E50</Color>
-        <Color x:Key="SurfaceColor">#F8F9FF</Color>
-        <Color x:Key="OnSurfaceColor">#2A2A3C</Color>
-        <Color x:Key="BorderColor">#E4E6F0</Color>
-        <Color x:Key="SuccessColor">#4CAF50</Color>
+        <Color x:Key="PrimaryColor">#4F378A</Color>
+        <Color x:Key="SecondaryColor">#6750A4</Color>
+        <Color x:Key="SurfaceColor">#FFFFFF</Color>
+        <Color x:Key="OnSurfaceColor">#1C1B1F</Color>
+        <Color x:Key="BorderColor">#E7E0EC</Color>
 
-        <!-- Typography System -->
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
-            <Setter Property="FontFamily" Value="Inter-Regular" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
         </Style>
 
-        <Style x:Key="DisplaySmall" TargetType="Label">
-            <Setter Property="FontSize" Value="24" />
-            <Setter Property="FontFamily" Value="Inter-Bold" />
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSans-SemiBold" />
+            <Setter Property="HeightRequest" Value="48" />
         </Style>
 
-        <Style x:Key="TitleMedium" TargetType="Label">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="FontFamily" Value="Inter-SemiBold" />
+        <Style TargetType="Picker">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
         </Style>
 
         <Style x:Key="SectionTitle" TargetType="Label">
@@ -34,201 +39,145 @@
             <Setter Property="FontAttributes" Value="Bold" />
             <Setter Property="Margin" Value="0,20,0,12" />
             <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
-            <Setter Property="FontFamily" Value="Inter-Bold" />
+            <Setter Property="FontFamily" Value="OpenSans-Bold" />
         </Style>
-
-        <!-- Enhanced Button Style -->
-        <Style TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
-            <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="12" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontFamily" Value="Inter-Medium" />
-            <Setter Property="HeightRequest" Value="48" />
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Pressed">
-                            <VisualState.Setters>
-                                <Setter Property="Opacity" Value="0.8" />
-                                <Setter Property="Scale" Value="0.98" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-
-        <!-- Date/Time Picker Button Style -->
-        <Style x:Key="DateTimePickerButton" TargetType="Button" BasedOn="{StaticResource Button}">
-            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
-            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
-            <Setter Property="BorderColor" Value="{StaticResource BorderColor}" />
-            <Setter Property="BorderWidth" Value="1" />
-        </Style>
-
-        <!-- Shadow Definitions -->
-        <Shadow x:Key="SmallShadow" Brush="#40000000" Radius="8" Offset="0,2"/>
-        <Shadow x:Key="MediumShadow" Brush="#20000000" Radius="12" Offset="0,4"/>
-        <Shadow x:Key="LargeShadow" Brush="#10000000" Radius="16" Offset="0,6"/>
     </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Spacing="0" Padding="20">
-            <!-- Top Filter Bar -->
+
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12" Margin="0,0,0,20">
-                <Border StrokeShape="RoundRectangle 12"
+                <Border Stroke="{StaticResource BorderColor}"
                         StrokeThickness="1"
-                        Stroke="{StaticResource BorderColor}"
+                        StrokeShape="RoundRectangle 12"
                         BackgroundColor="{StaticResource SurfaceColor}"
-                        Shadow="{StaticResource SmallShadow}">
-                    <Picker Title="Category" 
-                            ItemsSource="{Binding Categories}" 
-                            SelectedItem="{Binding SelectedCategory}"
-                            TitleColor="{StaticResource PrimaryColor}"/>
+                        Padding="8"
+                        Grid.Column="0">
+                    <Picker Title="Category"
+                            ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory}" />
                 </Border>
 
-                <Border StrokeShape="RoundRectangle 12"
+                <Border Stroke="{StaticResource BorderColor}"
                         StrokeThickness="1"
-                        Stroke="{StaticResource BorderColor}"
+                        StrokeShape="RoundRectangle 12"
                         BackgroundColor="{StaticResource SurfaceColor}"
-                        Shadow="{StaticResource SmallShadow}"
+                        Padding="8"
                         Grid.Column="1">
-                    <Picker Title="Location" 
-                            ItemsSource="{Binding Locations}" 
-                            SelectedItem="{Binding SelectedLocation}"
-                            TitleColor="{StaticResource PrimaryColor}"/>
+                    <Picker Title="Location"
+                            ItemsSource="{Binding Locations}"
+                            SelectedItem="{Binding SelectedLocation}" />
                 </Border>
 
-                <Button Text="Filters" 
-                        Command="{Binding GoToFiltersPageCommand}" 
-                        Grid.Column="2"
-                        BackgroundColor="{StaticResource SurfaceColor}"
-                        TextColor="{StaticResource OnSurfaceColor}"
-                        BorderColor="{StaticResource BorderColor}"
-                        BorderWidth="1"/>
+                <Button Text="Filters"
+                        Command="{Binding GoToFiltersPageCommand}"
+                        Grid.Column="2" />
             </Grid>
 
-            <!-- Date/Time Picker -->
-            <Button Text="{Binding SelectedDateTime, StringFormat='{0:hh\\:mm}'}" 
+            <Button Text="Select date and time"
                     Command="{Binding OpenDatePickerCommand}"
-                    Style="{StaticResource DateTimePickerButton}"
                     Margin="0,0,0,20"
-                    HorizontalOptions="FillAndExpand">
-                <Button.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenDatePickerCommand}"/>
-                </Button.GestureRecognizers>
-            </Button>
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    TextColor="{StaticResource OnSurfaceColor}"
+                    BorderColor="{StaticResource BorderColor}"
+                    BorderWidth="1"
+                    CornerRadius="12"/>
 
-            <!-- Subcategories -->
-            <Label Text="What kind of space are you looking for?" 
-                   Style="{StaticResource SectionTitle}" 
-                   HorizontalOptions="Start"/>
+            <Label Text="What kind of space are you looking for?"
+                   Style="{StaticResource SectionTitle}"
+                   HorizontalOptions="Start" />
 
-            <CollectionView ItemsSource="{Binding Subcategories}" 
-                           ItemsLayout="HorizontalList" 
-                           HeightRequest="140" 
-                           Margin="0,0,0,20">
+            <CollectionView ItemsSource="{Binding Subcategories}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="140"
+                            Margin="0,0,0,20">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid WidthRequest="100" Margin="8">
-                            <VerticalStackLayout Spacing="8">
-                                <Border StrokeShape="RoundRectangle 12"
-                                        HeightRequest="80" 
-                                        WidthRequest="80" 
-                                        BackgroundColor="{StaticResource SurfaceColor}" 
-                                        Shadow="{StaticResource SmallShadow}">
-                                    <Image Source="{Binding ImageUrl}" 
-                                           Aspect="AspectFill"/>
-                                    <Border.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Color="Transparent" Offset="0.6"/>
-                                            <GradientStop Color="#80000000" Offset="1.0"/>
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                </Border>
-                                <Label Text="{Binding Name}" 
-                                       FontSize="12" 
-                                       FontFamily="Inter-SemiBold"
-                                       HorizontalOptions="Center" 
-                                       MaxLines="2" 
-                                       LineBreakMode="TailTruncation"/>
-                            </VerticalStackLayout>
-                        </Grid>
+                        <VerticalStackLayout WidthRequest="100" Margin="8" Spacing="8">
+                            <Border Stroke="{StaticResource BorderColor}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="{StaticResource SurfaceColor}"
+                                    HeightRequest="80"
+                                    WidthRequest="80">
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"/>
+                            </Border>
+                            <Label Text="{Binding Name}"
+                                   FontSize="12"
+                                   FontFamily="OpenSans-SemiBold"
+                                   HorizontalOptions="Center"
+                                   MaxLines="2"
+                                   LineBreakMode="TailTruncation"/>
+                        </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Venues List -->
-            <Label Text="Available venues" 
-                   Style="{StaticResource SectionTitle}" 
-                   HorizontalOptions="Start"/>
+            <Label Text="Available venues"
+                   Style="{StaticResource SectionTitle}"
+                   HorizontalOptions="Start" />
 
-            <RefreshView IsRefreshing="{Binding IsLoading}"
-                       Command="{Binding RefreshCommand}">
-                <CollectionView ItemsSource="{Binding Venues}" 
-                               EmptyView="No venues found for this category">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border StrokeShape="RoundRectangle 16"
-                                    BackgroundColor="{StaticResource SurfaceColor}" 
-                                    Shadow="{StaticResource MediumShadow}"
-                                    Margin="0,0,0,20">
-                                <Grid>
-                                    <Image Source="{Binding ImageUrl}" 
-                                           Aspect="AspectFill"
-                                           HeightRequest="200"/>
-                                    <BoxView BackgroundColor="#80000000" 
-                                             CornerRadius="16"/>
-                                    <Grid RowDefinitions="*,Auto" 
-                                          ColumnDefinitions="*,Auto" 
-                                          Padding="16">
-                                        <Label Text="{Binding VenueName}" 
-                                               TextColor="White" 
-                                               FontSize="18" 
-                                               FontFamily="Inter-Bold"
-                                               Grid.Row="0" 
-                                               Grid.Column="0" 
-                                               VerticalOptions="Start"/>
-
-                                        <Border BackgroundColor="{StaticResource PrimaryColor}" 
-                                               StrokeShape="RoundRectangle 10"
-                                               Padding="12,6" 
-                                               Grid.Row="1" 
-                                               Grid.Column="0" 
-                                               HorizontalOptions="Start" 
-                                               VerticalOptions="End">
-                                            <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}" 
-                                                   TextColor="White" 
-                                                   FontSize="14"
-                                                   FontFamily="Inter-SemiBold"/>
-                                        </Border>
-
-                                        <HorizontalStackLayout Grid.Row="1" 
-                                                              Grid.Column="1" 
-                                                              HorizontalOptions="End" 
-                                                              VerticalOptions="End" 
-                                                              Spacing="4">
-                                            <Label Text="{Binding Rating}" 
-                                                   TextColor="White" 
-                                                   FontSize="14"
-                                                   FontFamily="Inter-SemiBold"/>
-                                            <Label Text="★" 
-                                                   TextColor="Gold" 
-                                                   FontSize="14"/>
-                                            <Label Text="{Binding RatingCount, StringFormat='({0})'}" 
-                                                   TextColor="White" 
-                                                   FontSize="14"
-                                                   FontFamily="Inter-SemiBold"/>
-                                        </HorizontalStackLayout>
-                                    </Grid>
+            <CollectionView ItemsSource="{Binding Venues}"
+                            EmptyView="No venues found for this category">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="{StaticResource SurfaceColor}"
+                                Margin="0,0,0,20"
+                                Padding="0">
+                            <Grid>
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="200"/>
+                                <BoxView BackgroundColor="#80000000"
+                                         CornerRadius="16"/>
+                                <Grid RowDefinitions="*,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      Padding="16">
+                                    <Label Text="{Binding VenueName}"
+                                           TextColor="White"
+                                           FontSize="18"
+                                           FontFamily="OpenSans-Bold"
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           VerticalOptions="Start"/>
+                                    <Border BackgroundColor="{StaticResource PrimaryColor}"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="12,6"
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="End">
+                                        <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
+                                               TextColor="White"
+                                               FontSize="14"
+                                               FontFamily="OpenSans-SemiBold"/>
+                                    </Border>
+                                    <HorizontalStackLayout Grid.Row="1"
+                                                           Grid.Column="1"
+                                                           HorizontalOptions="End"
+                                                           VerticalOptions="End"
+                                                           Spacing="4">
+                                        <Label Text="{Binding Rating}"
+                                               TextColor="White"
+                                               FontSize="14"
+                                               FontFamily="OpenSans-SemiBold"/>
+                                        <Label Text="★"
+                                               TextColor="Gold"
+                                               FontSize="14"/>
+                                        <Label Text="{Binding RatingCount, StringFormat='({0})'}"
+                                               TextColor="White"
+                                               FontSize="14"
+                                               FontFamily="OpenSans-SemiBold"/>
+                                    </HorizontalStackLayout>
                                 </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
