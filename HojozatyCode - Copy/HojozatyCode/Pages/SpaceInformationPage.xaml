@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              x:Class="HojozatyCode.Pages.SpaceInformationPage"
              x:DataType="viewModels:AddSpaceViewModel"
              Title="Space Information">
@@ -45,7 +46,7 @@
             </Border>
 
             <!--Space Address-->
-            <Border Stroke="LightGray" 
+            <!-- <Border Stroke="LightGray" 
                     Padding="10"
                     Margin="0,10,0,0" 
                     StrokeShape="RoundRectangle 15">
@@ -57,7 +58,7 @@
                 
                 </VerticalStackLayout>
             
-            </Border>
+            </Border> -->
 
             <!--Space Phone-->
             <Border Stroke="LightGray" 
@@ -158,6 +159,19 @@
                 </VerticalStackLayout>
             
             </Border>
+
+            <!-- Map Section -->
+            <maps:Map x:Name="VenueMap"
+                      HeightRequest="300"
+                      IsShowingUser="True"
+                      MapClicked="OnMapClicked" />
+
+            <!-- Selected Location -->
+            <Label Text="Selected Location:"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,0" />
+            <Label Text="{Binding SelectedLocation}"
+                   TextColor="Gray" />
 
             <!-- Error Message -->
             <Label Text="{Binding ErrorMessage}" 

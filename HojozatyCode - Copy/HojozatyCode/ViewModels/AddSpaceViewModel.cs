@@ -70,6 +70,15 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string address;
 
+		[ObservableProperty]
+		private double latitude;
+
+		[ObservableProperty]
+		private double longitude;
+
+		[ObservableProperty]
+		private string selectedLocation;
+
 		//Properety to store the Venue Phone
 		[ObservableProperty]
 		private string phone;
@@ -220,11 +229,11 @@ namespace HojozatyCode.ViewModels
 			}
 
 			//Check if the Address is null            
-			if (String.IsNullOrEmpty(Address))
-			{
-				ErrorMessage = "Please Enter The Venue Address";
-				return;
-			}
+			// if (String.IsNullOrEmpty(Address))
+			// {
+			// 	ErrorMessage = "Please Enter The Venue Address";
+			// 	return;
+			// }
 
 			//Check if the Phone is null
 			if (String.IsNullOrEmpty(Phone))
@@ -334,7 +343,8 @@ namespace HojozatyCode.ViewModels
 				VenueName = SpaceName,
 				Description = Description,
 				Type = SpaceType,
-				Location = $"{City}, {Address}",
+				Location = $"{Latitude}, {Longitude}",
+				City = City,
 				VenueContactPhone = Phone,
 				VenueEmail = Email,
 				Capacity = Capacity,
