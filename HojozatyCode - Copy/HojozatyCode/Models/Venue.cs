@@ -64,7 +64,9 @@
 		    [Column("cancellation_policy")]
             public string CancellationPolicy { get; set; }
 
-
+         // Add the new City column
+        [Column("city")]
+        public string City { get; set; }
 
         }
     }
