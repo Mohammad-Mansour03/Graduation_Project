@@ -14,15 +14,22 @@ namespace HojozatyCode
         {
             var builder = MauiApp.CreateBuilder();
 
-            builder.UseMauiApp<App>().UseMauiCommunityToolkit();
-            builder.UseMauiApp<App>().UseMauiMaps();
-
+            // Chain all UseMaui* calls together
+            builder
+                .UseMauiApp<App>()
+                .UseMauiCommunityToolkit() // Add toolkit BEFORE other configurations
+                .UseMauiMaps()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                });
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
-            // Register ViewModels and Pages
+            // Register ViewModels and Pages (your existing registrations)
             builder.Services.AddTransient<AddSpaceViewModel>();
             builder.Services.AddTransient<Pages.SpaceTypeSelectionPage>();
             builder.Services.AddTransient<Pages.SpaceInformationPage>();
