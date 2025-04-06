@@ -132,5 +132,8 @@ namespace HojozatyCode.ViewModels
                 await Shell.Current.DisplayAlert("Error", $"There is an error occur while deleting the space {ex.Message}", "OK");
             }
         }
-    }
+
+
+	}
+  
 }
