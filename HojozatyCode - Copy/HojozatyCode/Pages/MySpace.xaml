@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.MySpace"
-             BackgroundColor="#F8F9FA">
-
-    <ContentPage.BindingContext>
-        <vm:MySpaceViewModel />
-    </ContentPage.BindingContext>
+             x:DataType="viewModels:MySpaceViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
+             Title="MySpace">
 
     <AbsoluteLayout>
         <!-- Scrollable Content (takes full space) -->
@@ -156,10 +156,7 @@
                                                         CornerRadius="8"
                                                         Padding="20,8"
                                                         FontAttributes="Bold"
-                                                        FontSize="13"
-                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}}, 
-                                                                    Path=DeleteVenueCommand}"
-                                                        CommandParameter="{Binding .}" />
+                                                        FontSize="13"/>
                                             </FlexLayout>
                                         </Grid>
                                     </Frame>
