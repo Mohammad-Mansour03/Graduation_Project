@@ -20,7 +20,6 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(Pages.EditPage));
         }
 
-
         [RelayCommand]
         private async Task GoToAddSpace()
         {

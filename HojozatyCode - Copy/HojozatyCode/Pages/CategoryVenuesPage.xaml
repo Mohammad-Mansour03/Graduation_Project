@@ -143,18 +143,20 @@
                                            Grid.Row="0"
                                            Grid.Column="0"
                                            VerticalOptions="Start"/>
-                                    <Border BackgroundColor="{StaticResource PrimaryColor}"
-                                            StrokeShape="RoundRectangle 10"
-                                            Padding="12,6"
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            VerticalOptions="End">
-                                        <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
-                                               TextColor="White"
-                                               FontSize="14"
-                                               FontFamily="OpenSans-SemiBold"/>
+                                 
+
+                                    <Border BackgroundColor="#493971"
+                                          StrokeShape="RoundRectangle 10"
+                                          Padding="10"
+                                          Margin="-50,0,0,-100"
+                                          HorizontalOptions="StartAndExpand"
+                                          VerticalOptions="CenterAndExpand">
+                                          <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
+                                          TextColor="White"
+                                          Padding="50,0,10,0"     
+                                          FontSize="15"/>
                                     </Border>
+                                    
                                     <HorizontalStackLayout Grid.Row="1"
                                                            Grid.Column="1"
                                                            HorizontalOptions="End"
