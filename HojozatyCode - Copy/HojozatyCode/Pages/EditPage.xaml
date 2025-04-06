@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HojozatyCode.Pages.EditVenuePage"
+             BackgroundColor="#FAFAFA">
+
+    <ContentPage.Resources>
+        <!-- Reuse the same resource styles from CategoryVenuesPage -->
+        <Color x:Key="PrimaryColor">#4F378A</Color>
+        <Color x:Key="SecondaryColor">#6750A4</Color>
+        <Color x:Key="SurfaceColor">#FFFFFF</Color>
+        <Color x:Key="OnSurfaceColor">#1C1B1F</Color>
+        <Color x:Key="BorderColor">#E7E0EC</Color>
+
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSans-SemiBold" />
+            <Setter Property="HeightRequest" Value="48" />
+        </Style>
+
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,20,0,12" />
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="FontFamily" Value="OpenSans-Bold" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+            <Label Text="Edit Venue Details" Style="{StaticResource SectionTitle}" />
+
+            <!-- Venue Name -->
+            <Label Text="Venue Name" />
+            <Entry Text="{Binding VenueName}" Placeholder="Enter venue name" />
+
+            <!-- Category Picker -->
+            <Label Text="Category" />
+            <Border Stroke="{StaticResource BorderColor}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="8">
+                <Picker Title="Select Category"
+                        ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}" />
+            </Border>
+
+            <!-- Location Picker -->
+            <Label Text="Location" />
+            <Border Stroke="{StaticResource BorderColor}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="8">
+                <Picker Title="Select Location"
+                        ItemsSource="{Binding Locations}"
+                        SelectedItem="{Binding SelectedLocation}" />
+            </Border>
+
+            <!-- Price Entry -->
+            <Label Text="Initial Price (per hour)" />
+            <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" Placeholder="e.g. 100" />
+
+            <!-- Rating Entry (Optional) -->
+            <Label Text="Rating" />
+            <Entry Text="{Binding Rating}" Keyboard="Numeric" Placeholder="e.g. 4.5" />
+
+            <!-- Save Button -->
+            <Button Text="Save Changes"
+                    Command="{Binding SaveVenueCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
