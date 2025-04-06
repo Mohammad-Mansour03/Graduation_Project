@@ -2,97 +2,197 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="HojozatyCode.Pages.EditPage"
-             BackgroundColor="#F8F9FA">
+             BackgroundColor="#F8F7FA"
+             Title="Edit Venue">
 
     <ContentPage.BindingContext>
         <vm:MySpaceViewModel />
     </ContentPage.BindingContext>
 
-    <AbsoluteLayout>
-        <!-- Scrollable Content (takes full space) -->
-        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="All">
-            <VerticalStackLayout Spacing="25" Padding="20">
-                <!-- Header Section -->
-                <StackLayout Spacing="5">
-                    <Label Text="Edit Venue"
-                           FontSize="28"
-                           FontAttributes="Bold"
-                           TextColor="#2C3E50"
-                           HorizontalOptions="Center" />
-                    <BoxView HeightRequest="3" 
-                             WidthRequest="80"
-                             Color="#4F378A"
-                             HorizontalOptions="Center"
-                             Margin="0,5,0,0"/>
-                </StackLayout>
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="20,10">
 
-                <!-- Venue Name Entry -->
-                <Entry Placeholder="Venue Name"
-                       Text="{Binding VenueName}"
-                       Style="{StaticResource BorderColor}"
-                      
-                       BackgroundColor="White"/>
+            <!-- Header Section -->
+            <StackLayout Spacing="10" HorizontalOptions="Center">
+                <Border Stroke="#4F378A"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 14"
+                        HeightRequest="70"
+                        WidthRequest="70"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#4F378A10">
+                    <Image Source="edit_venue_icon.png"
+                           HeightRequest="32"
+                           WidthRequest="32"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+                </Border>
 
-                <!-- Location Picker -->
-                <Picker Title="Location"
-                        ItemsSource="{Binding Locations}"
-                        SelectedItem="{Binding SelectedLocation}"
-                        Style="{StaticResource BorderColor}"
-                        
-                        BackgroundColor="White"/>
+                <Label Text="Edit Venue Details"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="#4F378A"
+                       HorizontalOptions="Center"
+                       Margin="0,5"/>
 
-                <!-- Category Picker -->
-                <Picker Title="Category"
-                        ItemsSource="{Binding Categories}"
-                        SelectedItem="{Binding SelectedCategory}"
-                        Style="{StaticResource BorderColor}"
-                        
-                        BackgroundColor="White"/>
+                <BoxView HeightRequest="3" 
+                         WidthRequest="90"
+                         Color="#4F378A"
+                         HorizontalOptions="Center"
+                         CornerRadius="1.5"/>
+            </StackLayout>
 
-                <!-- Initial Price Entry -->
-                <Entry Placeholder="Initial Price"
-                       Text="{Binding InitialPrice}"
-                       Keyboard="Numeric"
-                       Style="{StaticResource BorderColor}"
-                       
-                       BackgroundColor="White"/>
+            <!-- Form Container -->
+            <Border Stroke="#E0E0E0"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="White">
+                <Border.Shadow>
+                    <Shadow Brush="#4F378A20"
+                            Offset="5,5"
+                            Opacity="0.2"
+                            Radius="10"/>
+                </Border.Shadow>
 
-                <!-- Rating Entry -->
-                <Entry Placeholder="Rating"
-                       Text="{Binding Rating}"
-                       Keyboard="Numeric"
-                       Style="{StaticResource BorderColor}"
-                       
-                       BackgroundColor="White"/>
+                <VerticalStackLayout Spacing="18" Padding="25">
 
-                <!-- Action Buttons -->
-                <FlexLayout JustifyContent="SpaceBetween" 
-                            AlignItems="Center"
-                            Direction="Row" 
-                            Wrap="NoWrap">
-                    <!-- Save Button (bind SaveVenueCommand) -->
-                    <Button Text="Save"
-                            BackgroundColor="#4F378A"
-                            TextColor="White"
-                            CornerRadius="8"
-                            Padding="20,8"
-                            FontAttributes="Bold"
-                            Command="{Binding SaveVenueCommand}" />
+                    <!-- Venue Name -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="VENUE NAME" 
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#4F378A"
+                               Margin="5,0"/>
+                        <Border Stroke="#4F378A60"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="0">
+                            <Entry Placeholder="Enter venue name"
+                                   Text="{Binding VenueName}"
+                                   FontSize="16"
+                                   TextColor="#333"
+                                   PlaceholderColor="#999"
+                                   ClearButtonVisibility="WhileEditing"
+                                   BackgroundColor="Transparent"/>
+                        </Border>
+                    </VerticalStackLayout>
 
-                    <!-- Cancel Button (bind CancelCommand) -->
-                    <Button Text="Cancel"
-                            BackgroundColor="White"
-                            TextColor="#E74C3C"
-                            BorderColor="#E74C3C"
-                            BorderWidth="1"
-                            CornerRadius="8"
-                            Padding="20,8"
-                            FontAttributes="Bold"
-                            Command="{Binding CancelCommand}" />
-                </FlexLayout>
-            </VerticalStackLayout>
-        </ScrollView>
-    </AbsoluteLayout>
+                    <!-- Location & Category -->
+                    <Grid ColumnDefinitions="*,10,*" ColumnSpacing="0">
+                        <!-- Location -->
+                        <VerticalStackLayout Spacing="4" Grid.Column="0">
+                            <Label Text="LOCATION" 
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#4F378A"
+                                   Margin="5,0"/>
+                            <Border Stroke="#4F378A60"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="10,0">
+                                <Picker Title="Select location"
+                                        ItemsSource="{Binding Locations}"
+                                        SelectedItem="{Binding SelectedLocation}"
+                                        FontSize="16"
+                                        TextColor="#333"
+                                        TitleColor="#999"
+                                        BackgroundColor="Transparent"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Category -->
+                        <VerticalStackLayout Spacing="4" Grid.Column="2">
+                            <Label Text="CATEGORY" 
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#4F378A"
+                                   Margin="5,0"/>
+                            <Border Stroke="#4F378A60"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="10,0">
+                                <Picker Title="Select category"
+                                        ItemsSource="{Binding Categories}"
+                                        SelectedItem="{Binding SelectedCategory}"
+                                        FontSize="16"
+                                        TextColor="#333"
+                                        TitleColor="#999"
+                                        BackgroundColor="Transparent"/>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Price Field -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="PRICE PER HOUR" 
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#4F378A"
+                               Margin="5,0"/>
+                        <Grid ColumnDefinitions="auto,*">
+                            <Label Text="$"
+                                   FontSize="16"
+                                   TextColor="#4F378A"
+                                   VerticalOptions="Center"
+                                   Margin="15,0,0,0"
+                                   Grid.Column="0"/>
+                            <Border Stroke="#4F378A60"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 10"
+                                    Grid.Column="1">
+                                <Entry Placeholder="0.00"
+                                       Text="{Binding InitialPrice}"
+                                       Keyboard="Numeric"
+                                       FontSize="16"
+                                       TextColor="#333"
+                                       PlaceholderColor="#999"
+                                       BackgroundColor="Transparent"/>
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,15">
+                <!-- Save Button -->
+                <Button Text="SAVE CHANGES"
+                        Grid.Column="0"
+                        BackgroundColor="#4F378A"
+                        TextColor="White"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="52"
+                        Command="{Binding SaveVenueCommand}"/>
+
+                <!-- Cancel Button -->
+                <Button Text="CANCEL"
+                        Grid.Column="1"
+                        BackgroundColor="White"
+                        TextColor="#4F378A"
+                        BorderColor="#4F378A"
+                        BorderWidth="2"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="52"
+                        Command="{Binding CancelCommand}"/>
+            </Grid>
+
+            <!-- Delete Button -->
+            <Button Text="DELETE VENUE"
+                    BackgroundColor="Transparent"
+                    TextColor="#E74C3C"
+                    BorderColor="#E74C3C"
+                    BorderWidth="1"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
