@@ -13,6 +13,13 @@ namespace HojozatyCode.ViewModels
     public partial class MySpaceViewModel : ObservableObject
     {
 
+
+        [RelayCommand]
+        private async Task GoToEditPage()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.EditPage));
+        }
+
         [RelayCommand]
         private async Task GoToAddSpace()
         {
