@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.EditPage"
+             BackgroundColor="#F8F9FA">
+
+    <ContentPage.BindingContext>
+        <vm:MySpaceViewModel />
+    </ContentPage.BindingContext>
+
+    <AbsoluteLayout>
+        <!-- Scrollable Content (takes full space) -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All">
+            <VerticalStackLayout Spacing="25" Padding="20">
+                <!-- Header Section -->
+                <StackLayout Spacing="5">
+                    <Label Text="Edit Venue"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="#2C3E50"
+                           HorizontalOptions="Center" />
+                    <BoxView HeightRequest="3" 
+                             WidthRequest="80"
+                             Color="#4F378A"
+                             HorizontalOptions="Center"
+                             Margin="0,5,0,0"/>
+                </StackLayout>
+
+                <!-- Venue Name Entry -->
+                <Entry Placeholder="Venue Name"
+                       Text="{Binding VenueName}"
+                       Style="{StaticResource BorderColor}"
+                       Padding="12"
+                       BackgroundColor="White"/>
+
+                <!-- Location Picker -->
+                <Picker Title="Location"
+                        ItemsSource="{Binding Locations}"
+                        SelectedItem="{Binding SelectedLocation}"
+                        Style="{StaticResource BorderColor}"
+                        Padding="12"
+                        BackgroundColor="White"/>
+
+                <!-- Category Picker -->
+                <Picker Title="Category"
+                        ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        Style="{StaticResource BorderColor}"
+                        Padding="12"
+                        BackgroundColor="White"/>
+
+                <!-- Initial Price Entry -->
+                <Entry Placeholder="Initial Price"
+                       Text="{Binding InitialPrice}"
+                       Keyboard="Numeric"
+                       Style="{StaticResource BorderColor}"
+                       Padding="12"
+                       BackgroundColor="White"/>
+
+                <!-- Rating Entry -->
+                <Entry Placeholder="Rating"
+                       Text="{Binding Rating}"
+                       Keyboard="Numeric"
+                       Style="{StaticResource BorderColor}"
+                       Padding="12"
+                       BackgroundColor="White"/>
+
+                <!-- Action Buttons -->
+                <FlexLayout JustifyContent="SpaceBetween" 
+                            AlignItems="Center"
+                            Direction="Row" 
+                            Wrap="NoWrap">
+                    <!-- Save Button (bind SaveVenueCommand) -->
+                    <Button Text="Save"
+                            BackgroundColor="#4F378A"
+                            TextColor="White"
+                            CornerRadius="8"
+                            Padding="20,8"
+                            FontAttributes="Bold"
+                            Command="{Binding SaveVenueCommand}" />
+
+                    <!-- Cancel Button (bind CancelCommand) -->
+                    <Button Text="Cancel"
+                            BackgroundColor="White"
+                            TextColor="#E74C3C"
+                            BorderColor="#E74C3C"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            Padding="20,8"
+                            FontAttributes="Bold"
+                            Command="{Binding CancelCommand}" />
+                </FlexLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </AbsoluteLayout>
+</ContentPage>
