@@ -20,15 +20,15 @@ namespace HojozatyCode.ViewModels
         }
 
         [ObservableProperty]
-        private ObservableCollection<Venue> venues ;
+        private ObservableCollection<Venue> venues;
 
         [ObservableProperty]
         private bool isLoading = false;
 
         public MySpaceViewModel()
         {
-           //// LoadUserVenuesCommand = new AsyncRelayCommand(LoadUserVenuesAsync);
-           // _ = LoadUserVenuesAsync();
+            //// LoadUserVenuesCommand = new AsyncRelayCommand(LoadUserVenuesAsync);
+            // _ = LoadUserVenuesAsync();
 
             Venues = new ObservableCollection<Venue>();
         }
@@ -40,20 +40,20 @@ namespace HojozatyCode.ViewModels
             if (SupabaseConfig.SupabaseClient == null)
                 await SupabaseConfig.InitializeAsync();
 
-           // IsLoading = true;
+            // IsLoading = true;
 
             try
             {
                 // Assuming you have a way to get the current logged-in user's ID
                 var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
-              
+
                 if (session == null || session.User == null)
                 {
                     IsLoading = false;
                     await Shell.Current.DisplayAlert("Error", "No User logged in", "OK");
                     return;
                 }
-                
+
                 var userId = session.User.Id;
 
                 Guid userIdGuid = Guid.Parse(userId);
@@ -62,24 +62,58 @@ namespace HojozatyCode.ViewModels
                 var response = await SupabaseConfig.SupabaseClient
                     .From<Venue>()
                     .Select("*")
-                    .Where(v => v.OwnerId == userIdGuid )
+                    .Where(v => v.OwnerId == userIdGuid)
                     .Get();
 
-				Venues.Clear();
+                Venues.Clear();
 
-				foreach (var venue in response.Models)
-				{
-					Venues.Add(venue);
-				}
-			}
+                foreach (var venue in response.Models)
+                {
+                    Venues.Add(venue);
+                }
+            }
             catch (Exception ex)
             {
                 // Handle the error (log or show message to user)
-               await Shell.Current.DisplayAlert("Error",$"Error loading venues: {ex.Message}","OK");
+                await Shell.Current.DisplayAlert("Error", $"Error loading venues: {ex.Message}", "OK");
             }
             finally
             {
                 IsLoading = false;
+            }
+        }
+
+        [RelayCommand]
+        public async Task DeleteVenue(Venue venue)
+        {
+            if (venue == null)
+                return;
+
+            // تأكيد الحذف من المستخدم
+            bool isConfirmed = await Shell.Current.DisplayAlert(
+                "Delete Confirmation",
+               $"Are your sure you want to delete : {venue.VenueName}",
+                "Yes", "No");
+
+            if (!isConfirmed)
+                return;
+
+            try
+            {
+                await SupabaseConfig.SupabaseClient
+                   .From<Venue>()
+                   .Where(v => v.VenueId == venue.VenueId)
+                   .Delete();
+
+                Venues.Remove(venue);
+
+
+                await Shell.Current.DisplayAlert("Done", "The Space Deleted Succesfully", "OK");
+
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"There is an error occur while deleting the space {ex.Message}", "OK");
             }
         }
     }
