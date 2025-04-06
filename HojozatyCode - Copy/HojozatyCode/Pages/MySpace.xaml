@@ -146,13 +146,11 @@
                                                         Margin="0,0,10,0"
                                                         FontAttributes="Bold"
                                                         FontSize="13"
-<<<<<<< HEAD
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}},
                                                         Path=GoToEditPageCommand}"
-                                                        CommandParameter="{Binding .}" />
-=======
-                                                        Command="{Binding GoToEditPageCommand}"/>
->>>>>>> 4ea658f25d12c24cbdd2a7f9b3fbec2f163a8c8e
+                                                        CommandParameter="{Binding .}" 
+                                                        />
+
                                                 <!-- Delete Button -->
                                                 <Button Text="Delete"
                                                         BackgroundColor="White"
