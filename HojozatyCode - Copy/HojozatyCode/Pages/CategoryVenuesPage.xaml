@@ -53,9 +53,12 @@
                         BackgroundColor="{StaticResource SurfaceColor}"
                         Padding="8"
                         Grid.Column="0">
-                    <Picker Title="Category"
-                            ItemsSource="{Binding Categories}"
-                            SelectedItem="{Binding SelectedCategory}" />
+                    <Label Text="{Binding Category}"
+                          HorizontalOptions="Center"
+                          Margin="8"
+                          FontAttributes="Bold"
+                          FontSize="Medium"
+                     />
                 </Border>
 
                 <Border Stroke="{StaticResource BorderColor}"
@@ -64,9 +67,12 @@
                         BackgroundColor="{StaticResource SurfaceColor}"
                         Padding="8"
                         Grid.Column="1">
-                    <Picker Title="Location"
-                            ItemsSource="{Binding Locations}"
-                            SelectedItem="{Binding SelectedLocation}" />
+                    <Label Text="{Binding Location}"
+                          HorizontalOptions="Center"
+                          Margin="8"
+                          FontAttributes="Bold"
+                          FontSize="Medium"
+                            />
                 </Border>
 
                 <Button Text="Filters"

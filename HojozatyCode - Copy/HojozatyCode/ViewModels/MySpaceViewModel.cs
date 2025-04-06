@@ -13,43 +13,21 @@ namespace HojozatyCode.ViewModels
     public partial class MySpaceViewModel : ObservableObject
     {
 
-
-        [RelayCommand]
-        private async Task GoToEditPage()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.EditPage));
-        }
-
-        [RelayCommand]
-        private async Task GoToAddSpace()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.SpaceTypeSelectionPage));
-        }
-
+        //Collection to store the Owner's venues
         [ObservableProperty]
         private ObservableCollection<Venue> venues;
 
+        //Boolean variable to check if the Venues was loading or no
         [ObservableProperty]
         private bool isLoading = false;
 
+        //The Constructor
         public MySpaceViewModel()
         {
-            //// LoadUserVenuesCommand = new AsyncRelayCommand(LoadUserVenuesAsync);
-            // _ = LoadUserVenuesAsync();
-
             Venues = new ObservableCollection<Venue>();
         }
 
-
-        public async Task LoadInitialDataAsync()
-        {
-            // Load categories, locations, etc.
-            await Task.CompletedTask;
-        }
-
-
-        //public IAsyncRelayCommand LoadUserVenuesCommand { get; }
-
+        //Method to Load the Owner's Venues
         public async Task LoadVenuesAsync()
         {
             if (SupabaseConfig.SupabaseClient == null)
@@ -98,6 +76,8 @@ namespace HojozatyCode.ViewModels
             }
         }
 
+
+        //Command to delete the venue
         [RelayCommand]
         public async Task DeleteVenue(Venue venue)
         {
@@ -132,7 +112,20 @@ namespace HojozatyCode.ViewModels
             }
         }
 
+        //Command to navigate me the Edit Page
+		[RelayCommand]
+		private async Task GoToEditPage()
+		{
+			await Shell.Current.GoToAsync(nameof(Pages.EditPage));
+		}
+
+        //Command to navigate me to the Add Space Page
+		[RelayCommand]
+		private async Task GoToAddSpace()
+		{
+			await Shell.Current.GoToAsync(nameof(Pages.SpaceTypeSelectionPage));
+		}
 
 	}
-  
+
 }

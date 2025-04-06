@@ -10,6 +10,7 @@ namespace HojozatyCode.ViewModels
 
 
     [QueryProperty("Category", "Category")]
+    [QueryProperty("Location", "Location")]
     public partial class CategoryVenuesViewModel : ObservableObject
     {
 
@@ -21,6 +22,9 @@ namespace HojozatyCode.ViewModels
 
         [ObservableProperty]
         private string category;
+
+        [ObservableProperty]
+        private string location;
 
         [ObservableProperty]
         private ObservableCollection<Venue> venues;

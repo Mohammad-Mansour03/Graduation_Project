@@ -12,5 +12,4 @@ public partial class EditPage: ContentPage
 
     }
 
-
 }

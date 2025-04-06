@@ -45,14 +45,16 @@ namespace HojozatyCode.ViewModels
         }
        
         [RelayCommand]
-        private async Task NavigateToCategory(string category)
+        private async Task NavigateToCategory(string category , string location)
         {
             try
             {
                 var parameters = new Dictionary<string, object>
                 {
-                    { "Category", category }
+                    { "Category", category },
+                    {"Location" , location }
                 };
+
                 await Shell.Current.GoToAsync($"{nameof(CategoryVenuesPage)}", true, parameters);
             }
             catch (Exception ex)
