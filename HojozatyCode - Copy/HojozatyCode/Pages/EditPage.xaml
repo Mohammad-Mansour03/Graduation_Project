@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HojozatyCode.Pages.EditVenuePage"
+             x:Class="HojozatyCode.Pages.EditPage"
              BackgroundColor="#FAFAFA">
 
     <ContentPage.Resources>
-        <!-- Reuse the same resource styles from CategoryVenuesPage -->
         <Color x:Key="PrimaryColor">#4F378A</Color>
         <Color x:Key="SecondaryColor">#6750A4</Color>
         <Color x:Key="SurfaceColor">#FFFFFF</Color>
@@ -20,9 +19,9 @@
 
         <Style TargetType="Entry">
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontFamily" Value="OpenSans-Regular" />
             <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
-            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
         </Style>
 
         <Style TargetType="Button">
@@ -33,6 +32,13 @@
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontFamily" Value="OpenSans-SemiBold" />
             <Setter Property="HeightRequest" Value="48" />
+        </Style>
+
+        <Style TargetType="Picker">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
         </Style>
 
         <Style x:Key="SectionTitle" TargetType="Label">
@@ -46,6 +52,7 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="16">
+
             <Label Text="Edit Venue Details" Style="{StaticResource SectionTitle}" />
 
             <!-- Venue Name -->
@@ -54,7 +61,8 @@
 
             <!-- Category Picker -->
             <Label Text="Category" />
-            <Border Stroke="{StaticResource BorderColor}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="8">
+            <Border Stroke="{StaticResource BorderColor}" StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource SurfaceColor}" Padding="8">
                 <Picker Title="Select Category"
                         ItemsSource="{Binding Categories}"
                         SelectedItem="{Binding SelectedCategory}" />
@@ -62,23 +70,23 @@
 
             <!-- Location Picker -->
             <Label Text="Location" />
-            <Border Stroke="{StaticResource BorderColor}" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="8">
+            <Border Stroke="{StaticResource BorderColor}" StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" BackgroundColor="{StaticResource SurfaceColor}" Padding="8">
                 <Picker Title="Select Location"
                         ItemsSource="{Binding Locations}"
                         SelectedItem="{Binding SelectedLocation}" />
             </Border>
 
-            <!-- Price Entry -->
+            <!-- Initial Price -->
             <Label Text="Initial Price (per hour)" />
-            <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" Placeholder="e.g. 100" />
+            <Entry Text="{Binding InitialPrice}" Placeholder="e.g. 20" Keyboard="Numeric" />
 
-            <!-- Rating Entry (Optional) -->
+            <!-- Rating -->
             <Label Text="Rating" />
-            <Entry Text="{Binding Rating}" Keyboard="Numeric" Placeholder="e.g. 4.5" />
+            <Entry Text="{Binding Rating}" Placeholder="e.g. 4.5" Keyboard="Numeric" />
 
             <!-- Save Button -->
-            <Button Text="Save Changes"
-                    Command="{Binding SaveVenueCommand}" />
+            <Button Text="Save Venue" Command="{Binding SaveVenueCommand}" />
 
         </VerticalStackLayout>
     </ScrollView>

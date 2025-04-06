@@ -13,6 +13,14 @@ namespace HojozatyCode.ViewModels
     public partial class MySpaceViewModel : ObservableObject
     {
 
+
+        [RelayCommand]
+        private async Task GoToEditPage()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.EditPage));
+        }
+
+
         [RelayCommand]
         private async Task GoToAddSpace()
         {
@@ -32,6 +40,14 @@ namespace HojozatyCode.ViewModels
 
             Venues = new ObservableCollection<Venue>();
         }
+
+
+        public async Task LoadInitialDataAsync()
+        {
+            // Load categories, locations, etc.
+            await Task.CompletedTask;
+        }
+
 
         //public IAsyncRelayCommand LoadUserVenuesCommand { get; }
 
