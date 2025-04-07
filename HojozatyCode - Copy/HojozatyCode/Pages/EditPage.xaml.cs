@@ -3,13 +3,12 @@ namespace HojozatyCode.Pages;
 
 public partial class EditPage: ContentPage
 {
-    private readonly MySpaceViewModel _viewModel;
+   // private readonly MySpaceViewModel _viewModel;
 
-    public EditPage()
+    public EditPage(EditVenueViewModel vm)
     {
         InitializeComponent();
-        _viewModel = (MySpaceViewModel)BindingContext;
-
+        BindingContext = vm;
     }
 
 }

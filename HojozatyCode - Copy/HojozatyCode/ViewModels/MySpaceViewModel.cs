@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.Maui.Controls;
 using System;
+using HojozatyCode.Pages;
 
 namespace HojozatyCode.ViewModels
 {
@@ -112,14 +113,19 @@ namespace HojozatyCode.ViewModels
             }
         }
 
-        //Command to navigate me the Edit Page
-		[RelayCommand]
-		private async Task GoToEditPage()
+		public IRelayCommand<Venue> EditVenueCommand => new RelayCommand<Venue>(GoToEditPage);
+
+		private async void GoToEditPage(Venue selectedVenue)
 		{
-			await Shell.Current.GoToAsync(nameof(Pages.EditPage));
+			var navParams = new Dictionary<string, object>
+	                        {
+		                        { "VenueToEdit", selectedVenue }
+	                        };
+
+			await Shell.Current.GoToAsync(nameof(EditPage), navParams);
 		}
 
-        //Command to navigate me to the Add Space Page
+		//Command to navigate me to the Add Space Page
 		[RelayCommand]
 		private async Task GoToAddSpace()
 		{

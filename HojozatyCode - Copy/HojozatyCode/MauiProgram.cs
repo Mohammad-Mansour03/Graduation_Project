@@ -36,6 +36,8 @@ namespace HojozatyCode
             builder.Services.AddTransient<Pages.AdminApprovalPage>();
             builder.Services.AddTransient<AdminApprovalViewModel>();
             builder.Services.AddSingleton<AdminApprovalViewModel>();
+			builder.Services.AddTransient<EditVenueViewModel>();
+			builder.Services.AddTransient<Pages.EditPage>();
 
 #if ANDROID
             // Remove underline from Picker on Android
@@ -45,7 +47,7 @@ namespace HojozatyCode
             });
 #endif
 
-            return builder.Build();
+			return builder.Build();
         }
     }
 }
