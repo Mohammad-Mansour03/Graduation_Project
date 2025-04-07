@@ -14,14 +14,14 @@ namespace HojozatyCode.Pages
 
         private async void AnimatePage()
         {
-            // Logo animation
+            // Animate Logo
             await LogoImage.FadeTo(1, 700, Easing.CubicOut);
             await LogoImage.ScaleTo(1, 400, Easing.CubicOut);
 
-            // Subtitle animation
+            // Animate Subtitle
             await SubtitleLabel.FadeTo(1, 600, Easing.CubicIn);
 
-            // Buttons animation
+            // Animate Buttons Stack
             await Task.Delay(200);
             await ButtonStack.FadeTo(1, 600, Easing.CubicIn);
             await ButtonStack.ScaleTo(1, 300, Easing.SpringOut);

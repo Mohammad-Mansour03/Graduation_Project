@@ -10,7 +10,6 @@
              BackgroundColor="White">
 
     <ContentPage.Background>
-        <!-- Soft gradient background -->
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#EFEAFF" Offset="0.0" />
             <GradientStop Color="#FFFFFF" Offset="1.0" />
@@ -24,59 +23,55 @@
             <Setter Property="HeightRequest" Value="50"/>
             <Setter Property="CornerRadius" Value="30"/>
             <Setter Property="Padding" Value="20,0"/>
-            <Setter Property="Shadow">
-                <Shadow Brush="#00000030" Offset="3,3" Radius="8"/>
-            </Setter>
         </Style>
     </ContentPage.Resources>
 
     <Grid>
-        <ScrollView>
-            <VerticalStackLayout Spacing="35"
-                                 Padding="30,80"
-                                 x:Name="MainStack"
-                                 VerticalOptions="Center"
-                                 HorizontalOptions="Center">
+        <VerticalStackLayout x:Name="MainStack"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="35"
+                             Padding="30,0">
 
-                <!-- Logo -->
-                <Image x:Name="LogoImage"
-                       Source="https://i.ibb.co/gdtWZHz/h3.png"
-                       HeightRequest="120"
-                       WidthRequest="120"
-                       HorizontalOptions="Center"
-                       Opacity="0"
-                       Scale="0.8" />
+            <!-- Logo -->
+            <Image x:Name="LogoImage"
+                   Source="https://i.ibb.co/gdtWZHz/h3.png"
+                   HeightRequest="140"
+                   WidthRequest="140"
+                   HorizontalOptions="Center"
+                   Opacity="0"
+                   Scale="0.8"/>
 
-                <!-- Subtitle -->
-                <Label x:Name="SubtitleLabel"
-                       Text="The Future of Reservations"
-                       FontSize="22"
-                       FontFamily="Montserrat"
-                       TextColor="#4F378A"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center"
-                       Opacity="0"/>
+            <!-- Subtitle -->
+            <Label x:Name="SubtitleLabel"
+                   Text="The Future of Reservations"
+                   FontSize="20"
+                   FontFamily="Montserrat"
+                   TextColor="#4F378A"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   Opacity="0"/>
 
-                <!-- Buttons -->
-                <VerticalStackLayout Spacing="20"
-                                     Padding="0,50,0,0"
-                                     x:Name="ButtonStack"
-                                     Opacity="0"
-                                     Scale="0.95">
+            <!-- Buttons -->
+            <VerticalStackLayout x:Name="ButtonStack"
+                                 Spacing="20"
+                                 Opacity="0"
+                                 Scale="0.95">
 
-                    <Button Text="Sign up"
-                            BackgroundColor="#4F378A"
-                            TextColor="White"
-                            Command="{Binding SignUpCommand}" />
+                <Button Text="Sign up"
+                        BackgroundColor="#4F378A"
+                        TextColor="White"
+                        Shadow="None"
+                        Command="{Binding SignUpCommand}"/>
 
-                    <Button Text="Login"
-                            BackgroundColor="Transparent"
-                            TextColor="#4F378A"
-                            BorderColor="#4F378A"
-                            BorderWidth="1.5"
-                            Command="{Binding LogInCommand}" />
-                </VerticalStackLayout>
+                <Button Text="Login"
+                        BackgroundColor="Transparent"
+                        TextColor="#4F378A"
+                        BorderColor="#4F378A"
+                        BorderWidth="1.5"
+                        Shadow="None"
+                        Command="{Binding LogInCommand}"/>
             </VerticalStackLayout>
-        </ScrollView>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>
