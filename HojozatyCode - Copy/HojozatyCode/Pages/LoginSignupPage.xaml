@@ -36,8 +36,8 @@
             <!-- Logo -->
             <Image x:Name="LogoImage"
                    Source="https://i.ibb.co/gdtWZHz/h3.png"
-                   HeightRequest="140"
-                   WidthRequest="140"
+                   HeightRequest="400"
+                   WidthRequest="400"
                    HorizontalOptions="Center"
                    Opacity="0"
                    Scale="0.8"/>
