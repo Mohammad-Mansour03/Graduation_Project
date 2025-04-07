@@ -73,5 +73,17 @@
                         Command="{Binding LogInCommand}"/>
             </VerticalStackLayout>
         </VerticalStackLayout>
+
+        <StackLayout Grid.Row="6" Grid.Column="1"
+                     Padding="0,20"
+                     VerticalOptions="End"
+                     HorizontalOptions="Center">
+            <Label Text="© 2025 Hojozaty"
+                   FontSize="12"
+                   TextColor="#4F378A"
+                   FontFamily="Montserrat"
+                   HorizontalTextAlignment="Center"/>
+        </StackLayout>
+        
     </Grid>
 </ContentPage>
