@@ -14,30 +14,33 @@ namespace HojozatyCode
         {
             var builder = MauiApp.CreateBuilder();
 
-            builder.UseMauiApp<App>().UseMauiCommunityToolkit();
-            builder.UseMauiApp<App>().UseMauiMaps();
-
+            builder
+                .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
+                .UseMauiMaps();
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
-            // Register ViewModels and Pages
+            // Register ViewModels
             builder.Services.AddTransient<AddSpaceViewModel>();
+            builder.Services.AddTransient<CategoryVenuesViewModel>();
+            builder.Services.AddTransient<AdminApprovalViewModel>();
+            builder.Services.AddTransient<EditVenueViewModel>();
+            builder.Services.AddSingleton<AddSpaceViewModel>();
+            builder.Services.AddSingleton<AdminApprovalViewModel>();
+
+            // Register Pages
             builder.Services.AddTransient<Pages.SpaceTypeSelectionPage>();
             builder.Services.AddTransient<Pages.SpaceInformationPage>();
             builder.Services.AddTransient<Pages.CategoryVenuesPage>();
-            builder.Services.AddTransient<CategoryVenuesViewModel>();
             builder.Services.AddTransient<Pages.ServicesPage>();
             builder.Services.AddTransient<Pages.SpacePicturesPage>();
             builder.Services.AddTransient<Pages.EditProfile>();
-            builder.Services.AddSingleton<AddSpaceViewModel>();
             builder.Services.AddTransient<Pages.ExplorePage>();
             builder.Services.AddTransient<Pages.AdminApprovalPage>();
-            builder.Services.AddTransient<AdminApprovalViewModel>();
-            builder.Services.AddSingleton<AdminApprovalViewModel>();
-			builder.Services.AddTransient<EditVenueViewModel>();
-			builder.Services.AddTransient<Pages.EditPage>();
+            builder.Services.AddTransient<Pages.EditPage>();
 
 #if ANDROID
             // Remove underline from Picker on Android
@@ -47,7 +50,7 @@ namespace HojozatyCode
             });
 #endif
 
-			return builder.Build();
+            return builder.Build();
         }
     }
 }
