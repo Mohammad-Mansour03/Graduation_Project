@@ -7,139 +7,119 @@
              Title="LogInPage"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#ECE6F0">
-    
-    <ContentPage.BindingContext>
-        <viewModels:LogInViewModel />
-    </ContentPage.BindingContext>
-    
-    <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 
+             BackgroundColor="#F9F6FC">
+
+    <ContentPage.Resources>
+        <Style TargetType="Entry">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="PlaceholderColor" Value="#888"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HeightRequest" Value="50"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, *"
           ColumnDefinitions="20, *, 20">
-       
+
         <!-- Back Icon -->
-        <ImageButton Source="back_icon.png" 
-                     Grid.Row="0" Grid.Column="0" 
+        <ImageButton x:Name="BackButton"
+                     Source="back_icon.png"
+                     Grid.Row="0" Grid.Column="0"
                      HorizontalOptions="Start"
-                     Padding="3"
-                     Margin="10"
-                     VerticalOptions="Start" 
+                     VerticalOptions="Start"
                      BackgroundColor="Transparent"
-                     WidthRequest="40" 
+                     Padding="5"
+                     Margin="10"
+                     WidthRequest="40"
                      HeightRequest="90"
                      Command="{Binding ReturnToThePreviousCommand}"/>
 
-        <!-- Log in Text -->
-        <Label Text="Log in" 
-               FontSize="36" 
+        <!-- Title -->
+        <Label Text="Welcome Back!"
+               Grid.Row="1" Grid.Column="1"
+               FontSize="32"
                FontAttributes="Bold"
                FontFamily="Montserrat"
-               Grid.Row="1" Grid.Column="1" 
-               HorizontalOptions="Center" 
+               HorizontalOptions="Center"
                VerticalOptions="Center"
-               TextColor="Black" 
-               Margin="20"/>
+               TextColor="#2D0C57"
+               Margin="0,10"/>
 
-        <!-- The Email and Password entries -->
+        <!-- Form Fields -->
         <StackLayout Grid.Row="2" Grid.Column="1" Spacing="20">
-         
-            <!-- Email Entry -->
-            <Border
-                Margin="0,20,0,0"
-                Background="White"
-                StrokeShape="RoundRectangle 20" 
-                StrokeThickness="1"
-                HeightRequest="60"
-                Padding="10">
 
-                <Entry  Placeholder="Email" 
-                        FontSize="18" 
-                        TextColor="Black"
-                        Text="{Binding EmailL}"/>
-            </Border>
+            <!-- Email -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   Padding="10"
+                   HeightRequest="60">
+                <Entry Placeholder="Email"
+                       Text="{Binding EmailL}" />
+            </Frame>
 
-            <!-- Password Entry -->
-            <Border
-              Background="White"
-              StrokeShape="RoundRectangle 20" 
-              StrokeThickness="1"
-              HeightRequest="60"
-              Padding="10"
-             >
-
+            <!-- Password -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   Padding="10"
+                   HeightRequest="60">
                 <Grid ColumnDefinitions="*,Auto">
-                    
-                    <!--The Password Entry-->
-                    <Entry x:Name="PasswordEntry" 
-                           Placeholder="Password" 
-                           FontSize="18" 
-                           IsPassword="{Binding IsHiddenPassword,Mode=TwoWay}"
-                           TextColor="Black"
-                           Grid.Column="0"
-                           Text="{Binding PasswordL}"/>
-                    
-                    <!--The eye password icon-->
-                    <ImageButton Source="{Binding EyeIconSource}" 
-                                 WidthRequest="15"
-                                 HeightRequest="15"
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="Password"
+                           IsPassword="{Binding IsHiddenPassword, Mode=TwoWay}"
+                           Text="{Binding PasswordL}" />
+                    <ImageButton Source="{Binding EyeIconSource}"
+                                 WidthRequest="24"
+                                 HeightRequest="24"
+                                 BackgroundColor="Transparent"
                                  Grid.Column="1"
-                                 Command="{Binding TogglePasswordVisibilityCommand}"/>
+                                 Command="{Binding TogglePasswordVisibilityCommand}" />
                 </Grid>
-            </Border>
+            </Frame>
 
-            <!-- Error Message -->
-            <Label Text="{Binding ErrorMessage}" 
-                   FontSize="14" 
-                   TextColor="Red" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Center" 
+            <!-- Error -->
+            <Label Text="{Binding ErrorMessage}"
+                   FontSize="14"
+                   TextColor="Red"
+                   HorizontalOptions="Center"
                    IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
-            
-            <!-- Login Button -->
-            <Button Text="log in" 
-                    FontSize="18" 
-                    FontAttributes="Bold"
-                    BackgroundColor="#4F378A" 
-                    TextColor="White" 
-                    CornerRadius="25"
-                    HeightRequest="50"
-                    HorizontalOptions="Fill" 
-                    Margin="0,15"
-                    Command="{Binding LogInCommand}"/>
+
+            <!-- Login -->
+            <Button Text="Log in"
+                    BackgroundColor="#4F378A"
+                    TextColor="White"
+                    Command="{Binding LogInCommand}"
+                    Margin="0,10"/>
         </StackLayout>
 
-         <!--Divider--> 
-        <StackLayout Grid.Row="3" Grid.Column="1" Margin ="50" Spacing="15">
-            <BoxView 
-                HeightRequest="1"
-                WidthRequest="380"
-                BackgroundColor="#CAC4D0" 
-                HorizontalOptions="Fill" />
-            <Label Text="Or" 
-                   FontSize="16" 
-                   TextColor="#49454F" 
-                   HorizontalOptions="Center" />
-            
+        <!-- Divider -->
+        <StackLayout Grid.Row="3" Grid.Column="1" Margin="50,20" Spacing="10">
+            <BoxView HeightRequest="1"
+                     BackgroundColor="#CCC"
+                     HorizontalOptions="Fill"/>
+            <Label Text="Or"
+                   FontSize="14"
+                   TextColor="#555"
+                   HorizontalOptions="Center"/>
         </StackLayout>
-   
-        <!--Don't have an account-->
+
+        <!-- Sign Up -->
         <StackLayout Grid.Row="4" Grid.Column="1"
-                 VerticalOptions="Center"
-                 HorizontalOptions="Center">
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
             <Label Text="Don't have an account?"
-               FontSize="14" 
-               TextColor="#49454F" 
-               HorizontalOptions="Center" />
-            
-            <!--Sign up button-->
-            <Button Text="Sign up" 
-                FontSize="14" 
-                FontAttributes="Bold"
-                BackgroundColor="Transparent" 
-                TextColor="#4F378A" 
-                HorizontalOptions="Center"
-                Command="{Binding SignUpCommand}"/>
-            
+                   FontSize="14"
+                   TextColor="#49454F"/>
+            <Button Text="Sign up"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    BackgroundColor="Transparent"
+                    TextColor="#4F378A"
+                    Command="{Binding SignUpCommand}"/>
         </StackLayout>
     </Grid>
-
 </ContentPage>
