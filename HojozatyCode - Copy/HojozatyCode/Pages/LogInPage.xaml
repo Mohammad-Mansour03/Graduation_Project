@@ -38,7 +38,7 @@
                      Command="{Binding ReturnToThePreviousCommand}"/>
 
         <!-- Title -->
-        <Label Text="Welcome Back!"
+        <Label Text="LOGIN"
                Grid.Row="1" Grid.Column="1"
                FontSize="32"
                FontAttributes="Bold"
