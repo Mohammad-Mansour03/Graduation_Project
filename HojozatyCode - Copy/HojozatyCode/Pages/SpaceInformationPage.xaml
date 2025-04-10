@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:converters="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.SpaceInformationPage"
              x:DataType="viewModels:AddSpaceViewModel"
              Title="Space Information">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
@@ -159,6 +166,22 @@
                 </VerticalStackLayout>
             
             </Border>
+
+            <!-- Search Location Section -->
+            <Grid Margin="0,0,0,10">
+                <Entry x:Name="SearchBox" 
+                       Placeholder="Search location" 
+                       HorizontalOptions="Fill" />
+                <Grid HorizontalOptions="End">
+                    <Button Text="Search" 
+                            Command="{Binding SearchLocationCommand}" 
+                            CommandParameter="{Binding Source={x:Reference SearchBox}, Path=Text}"
+                            IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}" />
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       IsVisible="{Binding IsLoading}"
+                                       HorizontalOptions="Center" />
+                </Grid>
+            </Grid>
 
             <!-- Map Section -->
             <maps:Map x:Name="VenueMap"
