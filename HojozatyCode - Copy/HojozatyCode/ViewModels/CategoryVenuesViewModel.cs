@@ -10,11 +10,11 @@ namespace HojozatyCode.ViewModels
 
 
     [QueryProperty("Category", "Category")]
-    [QueryProperty("Location", "Location")]
     public partial class CategoryVenuesViewModel : ObservableObject
     {
+		public List<string> SubCategories { get; private set; }
 
-        [RelayCommand]
+		[RelayCommand]
         private async Task GoToFiltersPage()
         {
             await Shell.Current.GoToAsync(nameof(Pages.FiltersPage));
@@ -37,6 +37,7 @@ namespace HojozatyCode.ViewModels
         // Change this to partial method
         partial void OnCategoryChanged(string value)
         {
+
             if (!string.IsNullOrEmpty(value))
             {
                 Task.Run(async () => await LoadVenuesForCategory(value));
@@ -45,9 +46,27 @@ namespace HojozatyCode.ViewModels
 
         private async Task LoadVenuesForCategory(string categoryName)
         {
-            try
-            {
-                var client = SupabaseConfig.SupabaseClient;
+
+			var spaceCategories = new Dictionary<string, List<string>>
+		            {
+			            { "Wedding", new List<string> { "Halls", "Farms", "Hotels", "Outdoors" } },
+			            { "Entertainment", new List<string> { "Farms", "Adventure Spots", "WorkShops" } },
+			            { "Work/Meeting Space", new List<string> { "ClassRooms/Office Spaces", "Farms", "Outdoor Space", "Majls" } },
+			            { "Funeral", new List<string> { "Diwan", "Dedicated Funeral Halls" } },
+			            { "Photography", new List<string> { "Photography Studios", "Outdoor Photography Spaces", "Product Photography Spaces" } },
+			            { "Sports", new List<string> { "Staduim" } },
+			            { "Cultural Events", new List<string> { "Farms", "Majls", "Cultrual Evening Venues", "Theaters and Cultural halls" } }
+		            };
+
+
+
+
+			try
+			{
+				SubCategories = spaceCategories.ContainsKey(Category) ? spaceCategories[Category] : new List<string>();
+
+
+				var client = SupabaseConfig.SupabaseClient;
                 var venuesResult = await client
                     .From<Venue>()
                     .Where(v => v.Type == categoryName)
