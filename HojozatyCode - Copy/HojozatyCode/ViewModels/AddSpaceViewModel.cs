@@ -10,6 +10,8 @@ using HojozatyCode.Pages;
 using static Microsoft.Maui.ApplicationModel.Permissions;
 using System.Text.RegularExpressions;
 using Supabase;
+using CommunityToolkit.Mvvm.Messaging;
+using HojozatyCode.Messages;
 
 namespace HojozatyCode.ViewModels
 {
@@ -916,6 +918,45 @@ namespace HojozatyCode.ViewModels
 			{
 				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
 
+			}
+		}
+		
+
+		[RelayCommand]
+		private async Task SearchLocation(string searchQuery)
+		{
+			if (string.IsNullOrWhiteSpace(searchQuery))
+				return;
+			
+			ErrorMessage = string.Empty; // Clear any previous errors
+			
+			try {
+				// Show loading indicator
+				IsLoading = true;
+				
+				var locations = await Geocoding.GetLocationsAsync(searchQuery);
+				var location = locations?.FirstOrDefault();
+				
+				if (location != null)
+				{
+					// Update ViewModel properties
+					Latitude = location.Latitude;
+					Longitude = location.Longitude;
+					SelectedLocation = $"Found: {searchQuery}\nLat: {location.Latitude}, Lng: {location.Longitude}";
+					
+					// Notify the page to update the map
+					WeakReferenceMessenger.Default.Send(new LocationFoundMessage(location));
+				}
+				else
+				{
+					ErrorMessage = $"No locations found for '{searchQuery}'";
+				}
+			}
+			catch (Exception ex) {
+				ErrorMessage = $"Search failed: {ex.Message}";
+			}
+			finally {
+				IsLoading = false;
 			}
 		}
 		#endregion
