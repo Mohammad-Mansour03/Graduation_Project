@@ -17,7 +17,7 @@
         <Entry Text="{Binding FirstName}" Placeholder="First Name"/>
         <Entry Text="{Binding MiddleName}" Placeholder="Middle Name"/>
         <Entry Text="{Binding LastName}" Placeholder="Last Name"/>
-        <Entry Text="{Binding Email}" Placeholder="Email"/>
+        <Entry Text="{Binding Email}" Placeholder="Email" IsEnabled="False"/>
         <Entry Text="{Binding PhoneNumber}" Placeholder="Phone Number"/>
 
         <HorizontalStackLayout>
