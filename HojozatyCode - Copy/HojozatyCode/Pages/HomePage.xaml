@@ -130,7 +130,7 @@
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer 
                                 Command="{Binding NavigateToCategoryCommand}" 
-                                CommandParameter="Work/Meeting Space"/>
+                                CommandParameter="Meeting"/>
                         </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
