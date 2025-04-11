@@ -93,7 +93,7 @@
                    Style="{StaticResource SectionTitle}"
                    HorizontalOptions="Start" />
 
-            <CollectionView ItemsSource="{Binding Subcategories}"
+            <CollectionView ItemsSource="{Binding SubCategories}"
                             ItemsLayout="HorizontalList"
                             HeightRequest="140"
                             Margin="0,0,0,20">
