@@ -10,13 +10,7 @@ namespace HojozatyCode.ViewModels
     public partial class CategoryVenuesViewModel : ObservableObject
     {
         [ObservableProperty]
-        private List<Subcategory> subCategories = new List<Subcategory>();
-
-        [RelayCommand]
-        private async Task GoToFiltersPage()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.FiltersPage));
-        }
+        private List<Subcategory> subCategories = new();
 
         [ObservableProperty]
         private string category;
@@ -25,14 +19,14 @@ namespace HojozatyCode.ViewModels
         private string location;
 
         [ObservableProperty]
-        private ObservableCollection<Venue> venues;
+        private ObservableCollection<Venue> venues = new();
 
-        public CategoryVenuesViewModel()
+        [RelayCommand]
+        private async Task GoToFiltersPage()
         {
-            Venues = new ObservableCollection<Venue>();
+            await Shell.Current.GoToAsync(nameof(Pages.FiltersPage));
         }
 
-        // Change this to partial method
         partial void OnCategoryChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
@@ -43,67 +37,64 @@ namespace HojozatyCode.ViewModels
 
         private async Task LoadVenuesForCategory(string categoryName)
         {
-			var spaceCategories = new Dictionary<string, List<Subcategory>>
-			{
-				{ "Wedding", new List<Subcategory>
-					{
-						new Subcategory { Name = "Halls" , ImageUrl = "halls.png" },
-						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg" },
-						new Subcategory { Name = "Hotels" , ImageUrl = "hotel1.jpg"  },
-						new Subcategory { Name = "Outdoors" , ImageUrl = "outdoors.jpg"  }
-					}
-				},
-
-				{ "Entertainment", new List<Subcategory>
-					{
-						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg"  },
-						new Subcategory { Name = "Adventure Spots" , ImageUrl = "adventure.png"},
-						new Subcategory { Name = "WorkShops" , ImageUrl = "workshop.png"}
-					}
-				},
-
-				{ "Meeting", new List<Subcategory>
-					{
-						new Subcategory { Name = "ClassRooms/Office Spaces" , ImageUrl = "office.png"},
-						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg"},
-						new Subcategory { Name = "Outdoor Space" , ImageUrl = "outdoors.jpg"},
-						new Subcategory { Name = "Majls" , ImageUrl = "majls.png"}
-					}
-				},
-				{ "Funeral", new List<Subcategory>
-					{
-						new Subcategory { Name = "Diwan" , ImageUrl = "diwan.png "},
-						new Subcategory { Name = "Dedicated Funeral Halls" , ImageUrl = "funeral.png"}
-					}
-				},
-				{ "Photography", new List<Subcategory>
-					{
-						new Subcategory { Name = "Photography Studios" , ImageUrl = "photo.png"},
-						new Subcategory { Name = "Outdoor Photography Spaces" , ImageUrl = "photoout.png"},
-						new Subcategory { Name = "Product Photography Spaces" , ImageUrl = "product.png}	
-					}
-				},
-				{ "Sport", new List<Subcategory>
-					{
-						new Subcategory { Name = "Stadium" , ImageUrl = "stadium.png"}
-					}
-				},
-				{ "Cultural Events", new List<Subcategory>
-					{
-						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg"},
-						new Subcategory { Name = "Majls" , ImageUrl = "majls.png"},
-						new Subcategory { Name = "Cultural Evening Venues" , ImageUrl = "cultural.png"},
-						new Subcategory { Name = "Theaters and Cultural Halls" , ImageUrl = "theater.png"}
-					}
-				}
-			};
-
-			try
+            var spaceCategories = new Dictionary<string, List<Subcategory>>
             {
-				// Update SubCategories using the ObservableProperty pattern
-				SubCategories = spaceCategories.ContainsKey(Category) ? spaceCategories[Category] : new List<Subcategory>();
+                { "Wedding", new List<Subcategory>
+                    {
+                        new Subcategory { Name = "Halls", ImageUrl = "halls.png" },
+                        new Subcategory { Name = "Farms", ImageUrl = "farms.jpg" },
+                        new Subcategory { Name = "Hotels", ImageUrl = "hotel1.jpg" },
+                        new Subcategory { Name = "Outdoors", ImageUrl = "outdoors.jpg" }
+                    }
+                },
+                { "Entertainment", new List<Subcategory>
+                    {
+                        new Subcategory { Name = "Farms", ImageUrl = "farms.jpg" },
+                        new Subcategory { Name = "Adventure Spots", ImageUrl = "adventure.png" },
+                        new Subcategory { Name = "WorkShops", ImageUrl = "workshop.png" }
+                    }
+                },
+                { "Meeting", new List<Subcategory>
+                    {
+                        new Subcategory { Name = "ClassRooms/Office Spaces", ImageUrl = "office.png" },
+                        new Subcategory { Name = "Farms", ImageUrl = "farms.jpg" },
+                        new Subcategory { Name = "Outdoor Space", ImageUrl = "outdoors.jpg" },
+                        new Subcategory { Name = "Majls", ImageUrl = "majls.png" }
+                    }
+                },
+                { "Funeral", new List<Subcategory>
+                    {
+                        new Subcategory { Name = "Diwan", ImageUrl = "diwan.png" },
+                        new Subcategory { Name = "Dedicated Funeral Halls", ImageUrl = "funeral.png" }
+                    }
+                },
+                { "Photography", new List<Subcategory>
+                    {
+                        new Subcategory { Name = "Photography Studios", ImageUrl = "photo.png" },
+                        new Subcategory { Name = "Outdoor Photography Spaces", ImageUrl = "photoout.png" },
+                        new Subcategory { Name = "Product Photography Spaces", ImageUrl = "product.png" }
+                    }
+                },
+                { "Sport", new List<Subcategory>
+                    {
+                        new Subcategory { Name = "Stadium", ImageUrl = "stadium.png" }
+                    }
+                },
+                { "Cultural Events", new List<Subcategory>
+                    {
+                        new Subcategory { Name = "Farms", ImageUrl = "farms.jpg" },
+                        new Subcategory { Name = "Majls", ImageUrl = "majls.png" },
+                        new Subcategory { Name = "Cultural Evening Venues", ImageUrl = "cultural.png" },
+                        new Subcategory { Name = "Theaters and Cultural Halls", ImageUrl = "theater.png" }
+                    }
+                }
+            };
 
-				var client = SupabaseConfig.SupabaseClient;
+            try
+            {
+                SubCategories = spaceCategories.ContainsKey(categoryName) ? spaceCategories[categoryName] : new List<Subcategory>();
+
+                var client = SupabaseConfig.SupabaseClient;
                 var venuesResult = await client
                     .From<Venue>()
                     .Where(v => v.Type == categoryName)
