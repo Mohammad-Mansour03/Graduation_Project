@@ -47,10 +47,10 @@ namespace HojozatyCode.ViewModels
 			{
 				{ "Wedding", new List<Subcategory>
 					{
-						new Subcategory { Name = "Halls" , ImageUrl = "farm_place.jpg" },
-						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg" },
-						new Subcategory { Name = "Hotels" , ImageUrl = "farm_place.jpg"  },
-						new Subcategory { Name = "Outdoors" , ImageUrl = "farm_place.jpg"  }
+						new Subcategory { Name = "Halls" , ImageUrl = "halls.png" },
+						new Subcategory { Name = "Farms" , ImageUrl = "farms.png" },
+						new Subcategory { Name = "Hotels" , ImageUrl = "hotel1.png"  },
+						new Subcategory { Name = "Outdoors" , ImageUrl = "outdoors.png"  }
 					}
 				},
 
