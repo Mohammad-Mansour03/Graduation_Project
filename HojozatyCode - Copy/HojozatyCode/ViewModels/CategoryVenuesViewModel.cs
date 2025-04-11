@@ -48,52 +48,52 @@ namespace HojozatyCode.ViewModels
 				{ "Wedding", new List<Subcategory>
 					{
 						new Subcategory { Name = "Halls" , ImageUrl = "halls.png" },
-						new Subcategory { Name = "Farms" , ImageUrl = "farms.png" },
-						new Subcategory { Name = "Hotels" , ImageUrl = "hotel1.png"  },
-						new Subcategory { Name = "Outdoors" , ImageUrl = "outdoors.png"  }
+						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg" },
+						new Subcategory { Name = "Hotels" , ImageUrl = "hotel1.jpg"  },
+						new Subcategory { Name = "Outdoors" , ImageUrl = "outdoors.jpg"  }
 					}
 				},
 
 				{ "Entertainment", new List<Subcategory>
 					{
-						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg"  },
-						new Subcategory { Name = "Adventure Spots" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "WorkShops" , ImageUrl = "farm_place.jpg"}
+						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg"  },
+						new Subcategory { Name = "Adventure Spots" , ImageUrl = "adventure.png"},
+						new Subcategory { Name = "WorkShops" , ImageUrl = "workshop.png"}
 					}
 				},
 
 				{ "Meeting", new List<Subcategory>
 					{
-						new Subcategory { Name = "ClassRooms/Office Spaces" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Outdoor Space" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Majls" , ImageUrl = "farm_place.jpg"}
+						new Subcategory { Name = "ClassRooms/Office Spaces" , ImageUrl = "office.png"},
+						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg"},
+						new Subcategory { Name = "Outdoor Space" , ImageUrl = "outdoors.jpg"},
+						new Subcategory { Name = "Majls" , ImageUrl = "majls.png"}
 					}
 				},
 				{ "Funeral", new List<Subcategory>
 					{
-						new Subcategory { Name = "Diwan" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Dedicated Funeral Halls" , ImageUrl = "farm_place.jpg"}
+						new Subcategory { Name = "Diwan" , ImageUrl = "diwan.png "},
+						new Subcategory { Name = "Dedicated Funeral Halls" , ImageUrl = "funeral.png"}
 					}
 				},
 				{ "Photography", new List<Subcategory>
 					{
-						new Subcategory { Name = "Photography Studios" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Outdoor Photography Spaces" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Product Photography Spaces" , ImageUrl = "farm_place.jpg"}	
+						new Subcategory { Name = "Photography Studios" , ImageUrl = "photo.png"},
+						new Subcategory { Name = "Outdoor Photography Spaces" , ImageUrl = "photoout.png"},
+						new Subcategory { Name = "Product Photography Spaces" , ImageUrl = "product.png}	
 					}
 				},
 				{ "Sport", new List<Subcategory>
 					{
-						new Subcategory { Name = "Stadium" , ImageUrl = "farm_place.jpg"}
+						new Subcategory { Name = "Stadium" , ImageUrl = "stadium.png"}
 					}
 				},
 				{ "Cultural Events", new List<Subcategory>
 					{
-						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Majls" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Cultural Evening Venues" , ImageUrl = "farm_place.jpg"},
-						new Subcategory { Name = "Theaters and Cultural Halls" , ImageUrl = "farm_place.jpg"}
+						new Subcategory { Name = "Farms" , ImageUrl = "farms.jpg"},
+						new Subcategory { Name = "Majls" , ImageUrl = "majls.png"},
+						new Subcategory { Name = "Cultural Evening Venues" , ImageUrl = "cultural.png"},
+						new Subcategory { Name = "Theaters and Cultural Halls" , ImageUrl = "theater.png"}
 					}
 				}
 			};
