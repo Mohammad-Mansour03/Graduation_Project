@@ -93,25 +93,33 @@
                    Style="{StaticResource SectionTitle}"
                    HorizontalOptions="Start" />
 
-            <!-- CollectionView displaying the Subcategories (as Strings) -->
-            <CollectionView ItemsSource="{Binding SubCategories}" 
-                        ItemsLayout="HorizontalList"
-                        HeightRequest="140"
-                        Margin="0,0,0,20">
+            <CollectionView ItemsSource="{Binding Subcategories}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="140"
+                            Margin="0,0,0,20">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <VerticalStackLayout WidthRequest="100" Margin="8" Spacing="8">
-                            <!-- Subcategory Name Label -->
-                            <Label Text="{Binding}"
-                               FontSize="14"
-                               FontFamily="OpenSans-SemiBold"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               LineBreakMode="TailTruncation"/>
+                            <Border Stroke="{StaticResource BorderColor}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="{StaticResource SurfaceColor}"
+                                    HeightRequest="80"
+                                    WidthRequest="80">
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"/>
+                            </Border>
+                            <Label Text="{Binding Name}"
+                                   FontSize="12"
+                                   FontFamily="OpenSans-SemiBold"
+                                   HorizontalOptions="Center"
+                                   MaxLines="2"
+                                   LineBreakMode="TailTruncation"/>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
             <Label Text="Available venues"
                    Style="{StaticResource SectionTitle}"
                    HorizontalOptions="Start" />

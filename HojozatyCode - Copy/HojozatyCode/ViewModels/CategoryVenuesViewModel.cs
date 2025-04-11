@@ -10,7 +10,7 @@ namespace HojozatyCode.ViewModels
     public partial class CategoryVenuesViewModel : ObservableObject
     {
         [ObservableProperty]
-        private List<string> subCategories = new List<string>();
+        private List<Subcategory> subCategories = new List<Subcategory>();
 
         [RelayCommand]
         private async Task GoToFiltersPage()
@@ -43,23 +43,67 @@ namespace HojozatyCode.ViewModels
 
         private async Task LoadVenuesForCategory(string categoryName)
         {
-            var spaceCategories = new Dictionary<string, List<string>>
-            {
-                { "Wedding", new List<string> { "Halls", "Farms", "Hotels", "Outdoors" } },
-                { "Entertainment", new List<string> { "Farms", "Adventure Spots", "WorkShops" } },
-                { "Work/Meeting Space", new List<string> { "ClassRooms/Office Spaces", "Farms", "Outdoor Space", "Majls" } },
-                { "Funeral", new List<string> { "Diwan", "Dedicated Funeral Halls" } },
-                { "Photography", new List<string> { "Photography Studios", "Outdoor Photography Spaces", "Product Photography Spaces" } },
-                { "Sports", new List<string> { "Staduim" } },
-                { "Cultural Events", new List<string> { "Farms", "Majls", "Cultrual Evening Venues", "Theaters and Cultural halls" } }
-            };
+			var spaceCategories = new Dictionary<string, List<Subcategory>>
+			{
+				{ "Wedding", new List<Subcategory>
+					{
+						new Subcategory { Name = "Halls" , ImageUrl = "farm_place.jpg" },
+						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg" },
+						new Subcategory { Name = "Hotels" , ImageUrl = "farm_place.jpg"  },
+						new Subcategory { Name = "Outdoors" , ImageUrl = "farm_place.jpg"  }
+					}
+				},
 
-            try
-            {
-                // Update SubCategories using the ObservableProperty pattern
-                SubCategories = spaceCategories.ContainsKey(Category) ? spaceCategories[Category] : new List<string>();
+				{ "Entertainment", new List<Subcategory>
+					{
+						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg"  },
+						new Subcategory { Name = "Adventure Spots" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "WorkShops" , ImageUrl = "farm_place.jpg"}
+					}
+				},
 
-                var client = SupabaseConfig.SupabaseClient;
+				{ "Meeting", new List<Subcategory>
+					{
+						new Subcategory { Name = "ClassRooms/Office Spaces" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Outdoor Space" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Majls" , ImageUrl = "farm_place.jpg"}
+					}
+				},
+				{ "Funeral", new List<Subcategory>
+					{
+						new Subcategory { Name = "Diwan" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Dedicated Funeral Halls" , ImageUrl = "farm_place.jpg"}
+					}
+				},
+				{ "Photography", new List<Subcategory>
+					{
+						new Subcategory { Name = "Photography Studios" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Outdoor Photography Spaces" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Product Photography Spaces" , ImageUrl = "farm_place.jpg"}	
+					}
+				},
+				{ "Sport", new List<Subcategory>
+					{
+						new Subcategory { Name = "Stadium" , ImageUrl = "farm_place.jpg"}
+					}
+				},
+				{ "Cultural Events", new List<Subcategory>
+					{
+						new Subcategory { Name = "Farms" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Majls" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Cultural Evening Venues" , ImageUrl = "farm_place.jpg"},
+						new Subcategory { Name = "Theaters and Cultural Halls" , ImageUrl = "farm_place.jpg"}
+					}
+				}
+			};
+
+			try
+            {
+				// Update SubCategories using the ObservableProperty pattern
+				SubCategories = spaceCategories.ContainsKey(Category) ? spaceCategories[Category] : new List<Subcategory>();
+
+				var client = SupabaseConfig.SupabaseClient;
                 var venuesResult = await client
                     .From<Venue>()
                     .Where(v => v.Type == categoryName)
