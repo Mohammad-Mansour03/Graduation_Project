@@ -89,8 +89,12 @@ namespace HojozatyCode.ViewModels
 					}
 				};
 
-				SpaceTypes = new ObservableCollection<SpaceType>(types);
-
+				// Update on the UI thread for immediate refresh
+				MainThread.BeginInvokeOnMainThread(() => {
+					SpaceTypes = new ObservableCollection<SpaceType>(types);
+				});
+				
+				// Add this to verify the collection is populated
 				Shell.Current.DisplayAlert("Prompt",$"{SpaceTypes?.Count}","OK");
 			}
 		}

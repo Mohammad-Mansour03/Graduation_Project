@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace HojozatyCode.Models
 {
-	public class SpaceType
-	{
-		public string Name { get; set; }
-		public bool IsSelected { get; set; }
-	}
+    public partial class SpaceType : ObservableObject
+    {
+        [ObservableProperty]
+        private string name;
+
+        [ObservableProperty]
+        private bool isSelected;
+    }
 }
