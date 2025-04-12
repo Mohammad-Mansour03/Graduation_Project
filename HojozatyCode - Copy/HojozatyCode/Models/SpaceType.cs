@@ -9,6 +9,6 @@ namespace HojozatyCode.Models
 	public class SpaceType
 	{
 		public string Name { get; set; }
-		public string IsSelected { get; set; }
+		public bool IsSelected { get; set; }
 	}
 }

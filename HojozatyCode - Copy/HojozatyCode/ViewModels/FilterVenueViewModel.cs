@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using HojozatyCode.Models;
+using HojozatyCode.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,22 @@ namespace HojozatyCode.ViewModels
 	{
 		[ObservableProperty]
 		ObservableCollection<SpaceType> spaceTypes = new();
+
+		// ⬅️ الأنواع اللي المستخدم اختارها
+		[ObservableProperty]
+		private ObservableCollection<string> selectedSpaceTypes = new();
+
+		// ⬅️ السعر الأقصى المختار من السلايدر
+		[ObservableProperty]
+		private double maxPrice = 5000;
+
+		// ⬅️ النتيجة بعد التصفية
+		[ObservableProperty]
+		private ObservableCollection<Venue> filteredVenues = new();
+
+		// ⬅️ الحضور المختار
+		[ObservableProperty]
+		private string selectedAttendees = "Any";
 
 		public void ApplyQueryAttributes(IDictionary<string, object> query)
 		{
@@ -44,8 +61,8 @@ namespace HojozatyCode.ViewModels
 				},
 					"Funeral" => new()
 				{
-					new SpaceType { Name = "Diwan" , IsSelected = "Yes" },
-					new SpaceType { Name = "Dedicated Funeral Halls" , IsSelected = "No" },
+					new SpaceType { Name = "Diwan" },
+					new SpaceType { Name = "Dedicated Funeral Halls"  },
 					
 				},
 					"Photography" => new()
@@ -78,6 +95,24 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		public async Task ApplyFiltersAsync()
+		{
+			var client = SupabaseConfig.SupabaseClient;
+
+			var venues = await client.From<Venue>().Get();
+
+			var filtered = venues.Models
+				.Where(v =>
+					v.InitialPrice <= MaxPrice &&
+					(SelectedAttendees == "Any" ||
+					 (SelectedAttendees == "50 - 100" && v.Capacity >= 50 && v.Capacity <= 100) ||
+					 (SelectedAttendees == "100 - 200" && v.Capacity >= 100 && v.Capacity <= 200)) &&
+					(SelectedSpaceTypes.Count == 0 || SelectedSpaceTypes.Contains(v.Type))
+				)
+				.ToList();
+
+			FilteredVenues = new ObservableCollection<Venue>(filtered);
+		}
 
 	}
 }

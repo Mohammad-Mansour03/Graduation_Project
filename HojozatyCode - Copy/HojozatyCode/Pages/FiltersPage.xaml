@@ -121,8 +121,8 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <HorizontalStackLayout Padding="10">
-                                <CheckBox IsChecked="{Binding IsSelected}" />
                                 <Label Text="{Binding Name}" VerticalOptions="Center" Margin="10,0"/>
+                                <CheckBox IsChecked="{Binding IsSelected}" />
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
