@@ -40,7 +40,7 @@
         <VerticalStackLayout Spacing="16" Padding="20">
 
             <!-- Top Info Row -->
-            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
                         Stroke="{StaticResource BorderColor}"                   
                         StrokeThickness="2" 
@@ -64,33 +64,33 @@
                         <Label Text="{Binding Location}" FontAttributes="Bold" FontSize="Medium" />
                     </HorizontalStackLayout>
                 </Border>
-
-                <Border BackgroundColor="{StaticResource SecondaryColor}" 
-                        StrokeShape="RoundRectangle 12"
-                        Padding="10"
-                        Grid.Column="2">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToFiltersPageCommand}" />
-                    </Border.GestureRecognizers>
-                    <Image Source="filter.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Center" />
-                </Border>
             </Grid>
 
-            <!-- Date Picker -->
-            <Border BackgroundColor="{StaticResource SurfaceColor}"
+            <!-- Date Picker and Filter -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border BackgroundColor="{StaticResource SurfaceColor}"
                     StrokeShape="RoundRectangle 12"
                     Padding="10">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenDatePickerCommand}" />
                 </Border.GestureRecognizers>
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
                     <Image Source="calenadar.png" HeightRequest="20" WidthRequest="20" />
                     <Label Text="Select date and time"
                            FontAttributes="Bold"
                            TextColor="{StaticResource OnSurfaceColor}" />
                 </HorizontalStackLayout>
             </Border>
-
+                <Border BackgroundColor="{StaticResource SurfaceColor}" 
+                  StrokeShape="RoundRectangle 12"
+                   Padding="10"
+                   Grid.Column="2">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToFiltersPageCommand}" />
+                    </Border.GestureRecognizers>
+                    <Image Source="filter.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Center" />
+                </Border>
+            </Grid>
             <!-- Subcategories -->
             <Label Text="What kind of space are you looking for?"
                    Style="{StaticResource SectionTitle}" />
