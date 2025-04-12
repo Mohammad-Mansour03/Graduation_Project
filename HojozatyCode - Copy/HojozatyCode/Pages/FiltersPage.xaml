@@ -1,6 +1,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:models="clr-namespace:HojozatyCode.Models"
              x:Class="HojozatyCode.Pages.FiltersPage"
              x:DataType="viewModels:FilterVenueViewModel"
              Shell.NavBarIsVisible="False"
@@ -119,10 +120,13 @@
 
                 <CollectionView ItemsSource="{Binding SpaceTypes}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <HorizontalStackLayout Padding="10">
-                                <Label Text="{Binding Name}" VerticalOptions="Center" Margin="10,0"/>
-                                <CheckBox IsChecked="{Binding IsSelected}" />
+                        <DataTemplate x:DataType="models:SpaceType">
+                            <!-- Add this line -->
+                            <HorizontalStackLayout Padding="8" Spacing="10">
+                                <CheckBox IsChecked="{Binding IsSelected}" 
+                       VerticalOptions="Center"/>
+                                <Label Text="{Binding Name}" 
+                   VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
