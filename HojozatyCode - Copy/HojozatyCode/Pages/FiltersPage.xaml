@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.FiltersPage"
-             x:DataType="viewModels:HomeViewModel"
+             x:DataType="viewModels:FilterVenueViewModel"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
              Title="Filters"
@@ -114,34 +114,20 @@
             </Border>
 
             <!-- Space Type -->
-            <Label Text="Space Type" Style="{StaticResource SectionTitle}" />
-            <Border Style="{StaticResource OptionBorder}">
-                <VerticalStackLayout Spacing="12">
-                    <HorizontalStackLayout Spacing="16">
-                        <CheckBox x:Name="HallsCheckBox" VerticalOptions="Center"
-                                  Color="{StaticResource PrimaryColor}"/>
-                        <Label Text="Indoors" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
-                    </HorizontalStackLayout>
+            <VerticalStackLayout Padding="20" Spacing="10">
+                <Label Text="Select Space Types:" FontSize="20" FontAttributes="Bold"/>
 
-                    <HorizontalStackLayout Spacing="16">
-                        <CheckBox x:Name="FarmsCheckBox" VerticalOptions="Center"
-                                  Color="{StaticResource PrimaryColor}"/>
-                        <Label Text="Farms" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
-                    </HorizontalStackLayout>
-
-                    <HorizontalStackLayout Spacing="16">
-                        <CheckBox x:Name="HotelsCheckBox" VerticalOptions="Center"
-                                  Color="{StaticResource PrimaryColor}"/>
-                        <Label Text="Hotels" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
-                    </HorizontalStackLayout>
-
-                    <HorizontalStackLayout Spacing="16">
-                        <CheckBox x:Name="OpenPlacesCheckBox" VerticalOptions="Center"
-                                  Color="{StaticResource PrimaryColor}"/>
-                        <Label Text="Outdoors" VerticalOptions="Center" FontSize="16" FontFamily="OpenSans-Regular"/>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-            </Border>
+                <CollectionView ItemsSource="{Binding SpaceTypes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Padding="10">
+                                <CheckBox IsChecked="{Binding IsSelected}" />
+                                <Label Text="{Binding Name}" VerticalOptions="Center" Margin="10,0"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
 
             <!-- Buttons -->
             <HorizontalStackLayout Spacing="16" VerticalOptions="End" Margin="0,20,0,0">

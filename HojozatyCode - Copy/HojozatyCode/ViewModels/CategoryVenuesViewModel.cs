@@ -9,24 +9,23 @@ namespace HojozatyCode.ViewModels
     [QueryProperty("Category", "Category")]
     public partial class CategoryVenuesViewModel : ObservableObject
     {
+        //Properety to store the sub categories
         [ObservableProperty]
         private List<Subcategory> subCategories = new();
 
+        //Properety to store the Main Category
         [ObservableProperty]
         private string category;
 
+        //Properety to store the Location
         [ObservableProperty]
         private string location;
 
+        //Properety to store list of Venues related to that categroy
         [ObservableProperty]
         private ObservableCollection<Venue> venues = new();
 
-        [RelayCommand]
-        private async Task GoToFiltersPage()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.FiltersPage));
-        }
-
+        //Method apply when the user choose category
         partial void OnCategoryChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
@@ -35,8 +34,10 @@ namespace HojozatyCode.ViewModels
             }
         }
 
+        //Method to load the Correctv subcategories and the correct venues
         private async Task LoadVenuesForCategory(string categoryName)
         {
+            //Store the all subcategories with their related photos
             var spaceCategories = new Dictionary<string, List<Subcategory>>
             {
                 { "Wedding", new List<Subcategory>
@@ -92,8 +93,10 @@ namespace HojozatyCode.ViewModels
 
             try
             {
+                //Store the Correct sub categories
                 SubCategories = spaceCategories.ContainsKey(categoryName) ? spaceCategories[categoryName] : new List<Subcategory>();
 
+                //Returen the all venues related to this category
                 var client = SupabaseConfig.SupabaseClient;
                 var venuesResult = await client
                     .From<Venue>()
@@ -101,6 +104,8 @@ namespace HojozatyCode.ViewModels
                     .Get();
 
                 Venues.Clear();
+
+                //Store the all venues return from supabase to store it inside the Venue Observable properety
                 foreach (var venue in venuesResult.Models)
                 {
                     Venues.Add(venue);
@@ -111,5 +116,20 @@ namespace HojozatyCode.ViewModels
                 await Shell.Current.DisplayAlert("Error", $"Failed to load venues: {ex.Message}", "OK");
             }
         }
-    }
+
+		    //Navigation Command to navigate me to the filter page
+		    [RelayCommand]
+		private async Task GoToFiltersPage()
+		{
+            if (!string.IsNullOrEmpty(Category))
+			{
+				await Shell.Current.GoToAsync($"{nameof(Pages.FiltersPage)}?category={Category}");
+			}
+		}
+
+
+
+
+	}
+
 }

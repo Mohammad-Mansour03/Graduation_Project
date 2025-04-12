@@ -42,7 +42,7 @@
             <!-- Top Info Row -->
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
-                        Stroke="{StaticResource BorderColor}" 
+                        Stroke="{StaticResource BorderColor}"                   
                         StrokeThickness="2" 
                         StrokeShape="RoundRectangle 12"
                         Padding="5"

@@ -7,7 +7,7 @@ namespace HojozatyCode.Pages
         public FiltersPage()
         {
             InitializeComponent();
-            BindingContext = new LogInViewModel();
+            BindingContext = new FilterVenueViewModel();
         }
 
         // Event handler for when the slider value changes

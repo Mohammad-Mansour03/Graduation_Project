@@ -920,8 +920,9 @@ namespace HojozatyCode.ViewModels
 
 			}
 		}
-		
+		#endregion
 
+		#region The Map Location Code
 		[RelayCommand]
 		private async Task SearchLocation(string searchQuery)
 		{
