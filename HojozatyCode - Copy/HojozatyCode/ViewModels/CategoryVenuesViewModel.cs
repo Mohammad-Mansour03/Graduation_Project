@@ -26,7 +26,7 @@ namespace HojozatyCode.ViewModels
 		//Properety to store list of Venues related to that categroy
 		[ObservableProperty]
         private ObservableCollection<Venue> venues = new();
-
+         
 
 
         //Method apply when the user choose category
