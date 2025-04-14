@@ -131,9 +131,6 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-
-
-
 	}
 
 }
