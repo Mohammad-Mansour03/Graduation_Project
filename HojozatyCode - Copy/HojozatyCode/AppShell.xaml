@@ -18,8 +18,8 @@
                 <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
             </Tab>
     
-            <Tab Title="Chat" Icon="chat_icon.png">
-                <ShellContent ContentTemplate="{DataTemplate pages:ChatList}" />
+            <Tab Title="My Space" Icon="my_space_icon_3.png">
+                <ShellContent ContentTemplate="{DataTemplate pages:MySpace}" />
             </Tab>
             
             <Tab Title="Favourite" Icon="favourite_icon.png">

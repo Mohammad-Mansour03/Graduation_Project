@@ -13,9 +13,12 @@ namespace HojozatyCode.ViewModels
 {
     public partial class MySpaceViewModel : ObservableObject
     {
+		// Property to check if there are no spaces
+		[ObservableProperty]
+		private bool isEmpty;
 
-        //Collection to store the Owner's venues
-        [ObservableProperty]
+		//Collection to store the Owner's venues
+		[ObservableProperty]
         private ObservableCollection<Venue> venues;
 
         //Boolean variable to check if the Venues was loading or no
@@ -65,7 +68,10 @@ namespace HojozatyCode.ViewModels
                 {
                     Venues.Add(venue);
                 }
-            }
+
+				// Check if the list is empty and update the IsEmpty flag
+				IsEmpty = Venues.Count == 0;
+			}
             catch (Exception ex)
             {
                 // Handle the error (log or show message to user)
@@ -130,6 +136,12 @@ namespace HojozatyCode.ViewModels
 		private async Task GoToAddSpace()
 		{
 			await Shell.Current.GoToAsync(nameof(Pages.SpaceTypeSelectionPage));
+		}
+
+		//Command to navigate me to the my space page (When user click on the Cancel)
+		private async Task GoToMySpaceForCancel()
+		{
+			await Shell.Current.GoToAsync(nameof(Pages.MySpace));
 		}
 
 	}

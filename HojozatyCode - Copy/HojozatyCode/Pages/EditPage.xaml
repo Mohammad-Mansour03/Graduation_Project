@@ -144,50 +144,6 @@
                         </Border>
                     </VerticalStackLayout>
 
-                    <!-- Location & Category --><!--
-                    <Grid ColumnDefinitions="*,10,*" ColumnSpacing="0">
-                        --><!-- Location --><!--
-                        <VerticalStackLayout Spacing="4" Grid.Column="0">
-                            <Label Text="LOCATION" 
-                                   FontSize="12"
-                                   FontAttributes="Bold"
-                                   TextColor="#4F378A"
-                                   Margin="5,0"/>
-                            <Border Stroke="#4F378A60"
-                                    StrokeThickness="1"
-                                    StrokeShape="RoundRectangle 10"
-                                    Padding="10,0">
-                                <Picker Title="Select location"
-                                        ItemsSource="{Binding Locations}"
-                                        SelectedItem="{Binding SelectedLocation}"
-                                        FontSize="16"
-                                        TextColor="#333"
-                                        TitleColor="#999"
-                                        BackgroundColor="Transparent"/>
-                            </Border>
-                        </VerticalStackLayout>
-
-                        --><!-- Category --><!--
-                        <VerticalStackLayout Spacing="4" Grid.Column="2">
-                            <Label Text="CATEGORY" 
-                                   FontSize="12"
-                                   FontAttributes="Bold"
-                                   TextColor="#4F378A"
-                                   Margin="5,0"/>
-                            <Border Stroke="#4F378A60"
-                                    StrokeThickness="1"
-                                    StrokeShape="RoundRectangle 10"
-                                    Padding="10,0">
-                                <Picker Title="Select category"
-                                        ItemsSource="{Binding Categories}"
-                                        SelectedItem="{Binding SelectedCategory}"
-                                        FontSize="16"
-                                        TextColor="#333"
-                                        TitleColor="#999"
-                                        BackgroundColor="Transparent"/>
-                            </Border>
-                        </VerticalStackLayout>
-                    </Grid>-->
 
                     <!-- Price Field -->
                     <VerticalStackLayout Spacing="4">
@@ -244,7 +200,7 @@
                         FontAttributes="Bold"
                         CornerRadius="12"
                         HeightRequest="52"
-                        Command="{Binding CancelCommand}"/>
+                        Command="{Binding CloseEditCommand}"/>
             </Grid>
 
             <!-- Delete Button -->
@@ -257,7 +213,10 @@
                     FontAttributes="Bold"
                     CornerRadius="12"
                     HeightRequest="52"
-                    HorizontalOptions="Fill"/>
+                    HorizontalOptions="Fill"
+                    Command="{Binding DeleteVenueEditCommand}"
+                    CommandParameter="{Binding Venue}"
+                    />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

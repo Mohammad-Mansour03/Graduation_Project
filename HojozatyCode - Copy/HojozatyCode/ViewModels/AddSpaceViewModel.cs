@@ -432,13 +432,15 @@ namespace HojozatyCode.ViewModels
 
 		// Command to navigate to the HomePage
 		[RelayCommand]
-		private async Task GoToHomeAsync() =>
+		private async Task GoToHome() =>
 			await Shell.Current.GoToAsync(nameof(HomePage));
 		
 		// Command to navigate to the HomePage
 		[RelayCommand]
-		private async Task GoToMySpaceAsyns() =>
-			await Shell.Current.GoToAsync(nameof(Pages.MySpace));
+		private async Task GoToMySpace() =>
+			await Shell.Current.GoToAsync(nameof(Pages.MySpace));		
+		
+
 
 
 		#endregion

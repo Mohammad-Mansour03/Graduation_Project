@@ -151,11 +151,34 @@ namespace HojozatyCode.ViewModels
 			return Regex.IsMatch(phone, @"^(?:\+962|0)7[789]\d{7}$");
 		}
 
-		//Method to navigate to the home page when click on the cancel button
 		[RelayCommand]
-		private async Task CloseEditProfile()
+		public async Task DeleteVenueEdit(Venue venue)
 		{
-			await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+			var client = SupabaseConfig.SupabaseClient;
+
+			try
+			{
+				await SupabaseConfig.SupabaseClient
+							   .From<Venue>()
+							   .Where(v => v.VenueId == venue.VenueId)
+							   .Delete();
+
+				await Shell.Current.DisplayAlert("Done", $"Your Venue Deleted Successfully", "OK");
+
+				await Shell.Current.GoToAsync(nameof (Pages.MySpace));	
+
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", $"Failed to delete venue: {ex.Message}", "OK");
+			}
+		}
+
+		//Method to navigate to the my space page when click on the cancel button
+		[RelayCommand]
+		private async Task CloseEdit()
+		{
+			await Shell.Current.GoToAsync(nameof(Pages.MySpace));
 		}
 	}
 }
