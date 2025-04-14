@@ -59,9 +59,12 @@
                         StrokeShape="RoundRectangle 12"
                         Padding="8"
                         Grid.Column="1">
+
                     <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                        <Picker ItemsSource="{Binding Cities}"
+                                SelectedItem="{Binding SelectedCity, Mode=TwoWay}"
+                                Title="Choose City" />  
                         <Image Source="location.png" HeightRequest="16" WidthRequest="16" />
-                        <Label Text="{Binding Location}" FontAttributes="Bold" FontSize="Medium" />
                     </HorizontalStackLayout>
                 </Border>
             </Grid>

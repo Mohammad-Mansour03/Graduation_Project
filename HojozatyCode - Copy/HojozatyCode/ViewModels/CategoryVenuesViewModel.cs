@@ -17,13 +17,17 @@ namespace HojozatyCode.ViewModels
         [ObservableProperty]
         private string category;
 
-        //Properety to store the Location
-        [ObservableProperty]
-        private string location;
+		public ObservableCollection<CitieisEnum> Cities { get; set; } = new ObservableCollection<CitieisEnum>((CitieisEnum[])Enum.
+            GetValues(typeof(CitieisEnum)));
 
-        //Properety to store list of Venues related to that categroy
-        [ObservableProperty]
+		[ObservableProperty]
+		private CitieisEnum selectedCity;
+
+		//Properety to store list of Venues related to that categroy
+		[ObservableProperty]
         private ObservableCollection<Venue> venues = new();
+
+
 
         //Method apply when the user choose category
         partial void OnCategoryChanged(string value)

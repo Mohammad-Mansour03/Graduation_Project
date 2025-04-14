@@ -764,7 +764,7 @@ namespace HojozatyCode.ViewModels
 
 			try
 			{
-				await Shell.Current.DisplayAlert("Canceelation Policy", cancellationPolicy, "OK");
+				//await Shell.Current.DisplayAlert("Canceelation Policy", cancellationPolicy, "OK");
 
 				var response = await _supabaseClient
 					.From<Venue>()
