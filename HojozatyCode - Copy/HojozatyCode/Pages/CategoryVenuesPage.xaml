@@ -46,9 +46,10 @@
             StrokeShape="RoundRectangle 12"
             Padding="6"
             Grid.Column="0">
-                    <HorizontalStackLayout Spacing="0" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Image Source="category.png" HeightRequest="16" WidthRequest="16" />
+                    <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                        
                         <Label Text="{Binding Category}"  FontSize="Medium" />
+                        <Image Source="category.png" HeightRequest="20" WidthRequest="20" />
                     </HorizontalStackLayout>
                 </Border>
 
