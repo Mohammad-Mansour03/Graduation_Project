@@ -37,63 +37,69 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Spacing="16" Padding="20">
-
+        <VerticalStackLayout Spacing="5" Padding="10">
             <!-- Top Info Row -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
-                        Stroke="{StaticResource BorderColor}"                   
-                        StrokeThickness="2" 
-                        StrokeShape="RoundRectangle 12"
-                        Padding="5"
-                        Grid.Column="0">
-                    <HorizontalStackLayout Spacing="-10" HorizontalOptions="Center">
-                        <Image Source="location_icon.png" HeightRequest="16" WidthRequest="16" />
-                        <Label Text="{Binding Category}" FontAttributes="Bold" FontSize="Medium" />
+            Stroke="{StaticResource BorderColor}"                   
+            StrokeThickness="2" 
+            StrokeShape="RoundRectangle 12"
+            Padding="6"
+            Grid.Column="0">
+                    <HorizontalStackLayout Spacing="0" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="category.png" HeightRequest="16" WidthRequest="16" />
+                        <Label Text="{Binding Category}"  FontSize="Medium" />
                     </HorizontalStackLayout>
                 </Border>
 
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
-                        Stroke="{StaticResource BorderColor}" 
-                        StrokeThickness="1" 
-                        StrokeShape="RoundRectangle 12"
-                        Padding="8"
-                        Grid.Column="1">
-
-                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+            Stroke="{StaticResource BorderColor}" 
+            StrokeThickness="2" 
+            StrokeShape="RoundRectangle 12"
+            Padding="6"
+            Grid.Column="1">
+                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
                         <Picker ItemsSource="{Binding Cities}"
-                                SelectedItem="{Binding SelectedCity, Mode=TwoWay}"
-                                Title="Choose City" />  
+                    SelectedItem="{Binding SelectedCity, Mode=TwoWay}" FontSize="Medium" 
+                    Title="Choose City" />
                         <Image Source="location.png" HeightRequest="16" WidthRequest="16" />
                     </HorizontalStackLayout>
                 </Border>
             </Grid>
 
             <!-- Date Picker and Filter -->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
                 <Border BackgroundColor="{StaticResource SurfaceColor}"
-                    StrokeShape="RoundRectangle 12"
-                    Padding="10">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenDatePickerCommand}" />
-                </Border.GestureRecognizers>
-                <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
-                    <Image Source="calenadar.png" HeightRequest="20" WidthRequest="20" />
-                    <Label Text="Select date and time"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource OnSurfaceColor}" />
-                </HorizontalStackLayout>
-            </Border>
+               StrokeThickness="2"
+            StrokeShape="RoundRectangle 12"
+            Padding="6"
+            VerticalOptions="Center">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenDatePickerCommand}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="calenadar.png" HeightRequest="20" WidthRequest="20" />
+                        <Label Text="Select date and time" 
+                   FontSize="Medium" 
+                   TextColor="{StaticResource OnSurfaceColor}" />
+                    </HorizontalStackLayout>
+                </Border>
+
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
-                  StrokeShape="RoundRectangle 12"
-                   Padding="10"
-                   Grid.Column="2">
+            StrokeShape="RoundRectangle 12"
+                        StrokeThickness="2"
+            Padding="6"
+            Grid.Column="1"
+            VerticalOptions="Center"
+            WidthRequest="50"
+            HeightRequest="40">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoToFiltersPageCommand}" />
                     </Border.GestureRecognizers>
-                    <Image Source="filter.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Center" />
+                    <Image Source="filter.png" HeightRequest="16" WidthRequest="16" HorizontalOptions="Center" VerticalOptions="Center"  />
                 </Border>
             </Grid>
+
             <!-- Subcategories -->
             <Label Text="What kind of space are you looking for?"
                    Style="{StaticResource SectionTitle}" />
