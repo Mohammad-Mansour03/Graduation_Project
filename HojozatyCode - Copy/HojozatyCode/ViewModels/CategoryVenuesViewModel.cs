@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
@@ -9,8 +9,13 @@ namespace HojozatyCode.ViewModels
     [QueryProperty("Category", "Category")]
     public partial class CategoryVenuesViewModel : ObservableObject
     {
-        //Properety to store the sub categories
-        [ObservableProperty]
+
+		// التصنيف الحالي للعرض
+		public string SelectedCategory { get; set; }
+
+
+		//Properety to store the sub categories
+		[ObservableProperty]
         private List<Subcategory> subCategories = new();
 
         //Properety to store the Main Category
@@ -41,6 +46,8 @@ namespace HojozatyCode.ViewModels
         //Method to load the Correctv subcategories and the correct venues
         private async Task LoadVenuesForCategory(string categoryName)
         {
+            SelectedCategory = categoryName;
+
             //Store the all subcategories with their related photos
             var spaceCategories = new Dictionary<string, List<Subcategory>>
             {
@@ -122,13 +129,66 @@ namespace HojozatyCode.ViewModels
         }
 
 		    //Navigation Command to navigate me to the filter page
-		    [RelayCommand]
+		[RelayCommand]
 		private async Task GoToFiltersPage()
 		{
             if (!string.IsNullOrEmpty(Category))
 			{
 				await Shell.Current.GoToAsync($"{nameof(Pages.FiltersPage)}?category={Category}");
 			}
+		}
+
+
+        // أمر الفلترة (يتم استدعاؤه لما ترجع البيانات من صفحة الفلتر)
+        [RelayCommand]
+        public async Task ApplyFilterAsync(VenueFilter filter)
+        {
+            await Shell.Current.DisplayAlert("Prompt", "Inside the Apply filter in Category venue view model", "OK");
+            // استعلام لجميع الأماكن حسب التصنيف
+            var response = await SupabaseConfig.SupabaseClient
+                .From<Venue>()
+                .Where(v => v.Type == SelectedCategory)
+                .Get();
+
+            var filtered = response.Models;
+
+
+            await Shell.Current.DisplayAlert("The Number of venues inside the response before filtered", $"{filtered.Count()}", "OK");
+
+
+            foreach (var venue in response.Models) 
+            {
+				await Shell.Current.DisplayAlert("Number of attendesses and price ", $"VenueCpacity{venue.Capacity}\nVenuePrice{venue.InitialPrice}", "OK");
+			}
+
+
+			await Shell.Current.DisplayAlert("Prompt", $"MinPrice{filter.MinPrice}\nMaxPrice{filter.MaxPrice}\nMinCapacity{filter.MinCapacity}\nMaxCapacity{filter.MaxCapacity}", "OK");
+
+			// فلترة محلية للبيانات بناءً على الفلتر القادم
+			 filtered = response.Models
+                .Where(v => (v.InitialPrice >= filter.MinPrice && v.InitialPrice <= filter.MaxPrice)
+                    && (v.Capacity >= filter.MinCapacity && v.Capacity <= filter.MaxCapacity)
+                   )
+                .ToList();
+
+            
+            await Shell.Current.DisplayAlert("Number of venues before filtered", $"{Venues.Count()}", "OK");
+            // تحديث الواجهة بالنتائج
+            Venues.Clear();
+
+            foreach (var venue in filtered)
+            {
+                Venues.Add(venue);
+            }
+
+			await Shell.Current.DisplayAlert("Number of venues after filtered", $"{Venues.Count()}", "OK");
+
+
+			foreach (var venue in Venues)
+			{
+				await Shell.Current.DisplayAlert("Number of attendesses and price ", $"VenueCpacity{venue.Capacity}\nVenuePrice{venue.InitialPrice}", "OK");
+			}
+
 		}
 
 	}

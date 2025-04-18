@@ -58,7 +58,7 @@
             <!-- Price Range -->
             <Label Text="Price Range" Style="{StaticResource SectionTitle}" />
 
-            <Slider x:Name="PriceSlider" 
+            <!--<Slider x:Name="PriceSlider" 
                     Minimum="0" Maximum="5000" Value="2500" 
                     ThumbColor="{StaticResource PrimaryColor}" 
                     MinimumTrackColor="{StaticResource PrimaryColor}"
@@ -83,9 +83,21 @@
 
                 <Label Text="5000 JD" FontSize="14" TextColor="{StaticResource SecondaryColor}" 
                        HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
-            </Grid>
-
-            <!-- Instant Book -->
+            </Grid>-->
+            
+            <Label Text="Min Price"/>
+            <Entry Text="{Binding MinPrice}"/>
+            
+            <Label Text="Max Price"/>
+            <Entry Text="{Binding MaxPrice}"/>  
+            
+            <Label Text="Min Capacity"/>
+            <Entry Text="{Binding MinCapacity}"/>
+            
+            <Label Text="Max Capacity"/>
+            <Entry Text="{Binding MaxCapacity}"/>
+            
+            <!-- Instant Book --><!--
             <Border Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="8">
                     <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
@@ -96,9 +108,9 @@
                     <Label Text="Only see spaces that can be instantly booked" 
                            FontSize="13" TextColor="{StaticResource SecondaryColor}" />
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
 
-            <!-- Attendees -->
+            <!-- Attendees --><!--
             <Label Text="Attendees" Style="{StaticResource SectionTitle}" />
             <Border x:Name="AttendeesRadioGroupBorder" Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="12">
@@ -112,7 +124,7 @@
                                  TextColor="{StaticResource OnSurfaceColor}"
                                  FontFamily="OpenSans-Regular"/>
                 </VerticalStackLayout>
-            </Border>
+            </Border>-->
 
             <!-- Space Type -->
             <VerticalStackLayout Padding="20" Spacing="10">
@@ -149,7 +161,8 @@
                         TextColor="White"
                         CornerRadius="10" 
                         Padding="16,10"
-                        HorizontalOptions="FillAndExpand"/>
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding ApplyFiltersCommand}"/>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
 using System;
@@ -19,13 +20,29 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<string> selectedSpaceTypes = new();
 
-		// ⬅️ السعر الأقصى المختار من السلايدر
-		[ObservableProperty]
-		private double maxPrice = 5000;
+		//// ⬅️ السعر الأقصى المختار من السلايدر
+		//[ObservableProperty]
+		//private double maxPrice = 5000;
 
 		// ⬅️ النتيجة بعد التصفية
 		[ObservableProperty]
 		private ObservableCollection<Venue> filteredVenues = new();
+
+
+
+		// خصائص مرتبطة بالـ UI للفلترة
+		[ObservableProperty]
+		private double minPrice;
+
+		[ObservableProperty]
+		private double maxPrice;
+
+		[ObservableProperty]
+		private int minCapacity;
+
+		[ObservableProperty]
+		private int maxCapacity;
+
 
 		// ⬅️ الحضور المختار
 		[ObservableProperty]
@@ -99,23 +116,40 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-		public async Task ApplyFiltersAsync()
+		[RelayCommand]
+		public async Task ApplyFilters()
 		{
-			var client = SupabaseConfig.SupabaseClient;
+			//	var client = SupabaseConfig.SupabaseClient;
 
-			var venues = await client.From<Venue>().Get();
+			//	var venues = await client.From<Venue>().Get();
 
-			var filtered = venues.Models
-				.Where(v =>
-					v.InitialPrice <= MaxPrice &&
-					(SelectedAttendees == "Any" ||
-					 (SelectedAttendees == "50 - 100" && v.Capacity >= 50 && v.Capacity <= 100) ||
-					 (SelectedAttendees == "100 - 200" && v.Capacity >= 100 && v.Capacity <= 200)) &&
-					(SelectedSpaceTypes.Count == 0 || SelectedSpaceTypes.Contains(v.Type))
-				)
-				.ToList();
+			//	var filtered = venues.Models
+			//		.Where(v =>
+			//			v.InitialPrice <= MaxPrice &&
+			//			(SelectedAttendees == "Any" ||
+			//			 (SelectedAttendees == "50 - 100" && v.Capacity >= 50 && v.Capacity <= 100) ||
+			//			 (SelectedAttendees == "100 - 200" && v.Capacity >= 100 && v.Capacity <= 200)) &&
+			//			(SelectedSpaceTypes.Count == 0 || SelectedSpaceTypes.Contains(v.Type))
+			//		)
+			//		.ToList();
 
-			FilteredVenues = new ObservableCollection<Venue>(filtered);
+			//	FilteredVenues = new ObservableCollection<Venue>(filtered);
+			//}
+
+			await Shell.Current.DisplayAlert("Prompt", "Inside the apply filter method", "OK");
+			var filter = new VenueFilter
+			{
+				MinPrice = MinPrice,
+				MaxPrice = MaxPrice,
+				MinCapacity = MinCapacity,
+				MaxCapacity = MaxCapacity
+			};
+
+			// نرجع للصفحة السابقة (CategoryVenuePage) ونرسل بيانات الفلتر معها
+			await Shell.Current.GoToAsync("..", new Dictionary<string, object>
+			{
+				{ "FilterData", filter }
+			});
 		}
 
 	}
