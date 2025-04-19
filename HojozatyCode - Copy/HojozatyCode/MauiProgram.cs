@@ -29,6 +29,7 @@ namespace HojozatyCode
             builder.Services.AddTransient<AdminApprovalViewModel>();
             builder.Services.AddTransient<EditVenueViewModel>();
             builder.Services.AddSingleton<AddSpaceViewModel>();
+            builder.Services.AddSingleton<BookingViewModel>();
             builder.Services.AddSingleton<AdminApprovalViewModel>();
 
             // Register Pages
