@@ -7,9 +7,10 @@
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
              Title="Filters"
-             BackgroundColor="#FAFAFA">
+             BackgroundColor="{StaticResource BackgroundColor}">
 
     <ContentPage.Resources>
+        <!-- Color Palette -->
         <Color x:Key="PrimaryColor">#4F378A</Color>
         <Color x:Key="LightPrimaryColor">#6750A4</Color>
         <Color x:Key="SurfaceColor">#FFFFFF</Color>
@@ -17,11 +18,23 @@
         <Color x:Key="SecondaryColor">#625B71</Color>
         <Color x:Key="BackgroundColor">#FAFAFA</Color>
 
+        <!-- Base Label -->
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
             <Setter Property="FontFamily" Value="OpenSans-Regular" />
         </Style>
 
+        <!-- Entry with uniform vertical spacing; internal padding removed -->
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+            <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSans-Regular" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="Margin" Value="0,8" />
+        </Style>
+
+        <!-- Primary Button -->
         <Style TargetType="Button">
             <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
             <Setter Property="TextColor" Value="White" />
@@ -32,14 +45,16 @@
             <Setter Property="HeightRequest" Value="48" />
         </Style>
 
+        <!-- Section Titles -->
         <Style x:Key="SectionTitle" TargetType="Label">
             <Setter Property="FontSize" Value="18" />
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="Margin" Value="0,10,0,10" />
+            <Setter Property="Margin" Value="0,16,0,8" />
             <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
             <Setter Property="FontFamily" Value="OpenSans-Bold" />
         </Style>
 
+        <!-- Container Border for each section -->
         <Style x:Key="OptionBorder" TargetType="Border">
             <Setter Property="StrokeShape">
                 <Setter.Value>
@@ -53,114 +68,92 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Padding="16" Spacing="24">
 
-            <!-- Price Range -->
+            <!-- PRICE RANGE -->
             <Label Text="Price Range" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource OptionBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Min Price" />
+                    <Entry Text="{Binding MinPrice}"
+                           Placeholder="e.g. 100"
+                           Keyboard="Numeric"/>
 
-            <!--<Slider x:Name="PriceSlider" 
-                    Minimum="0" Maximum="5000" Value="2500" 
-                    ThumbColor="{StaticResource PrimaryColor}" 
-                    MinimumTrackColor="{StaticResource PrimaryColor}"
-                    MaximumTrackColor="#E7E0EC"
-                    HorizontalOptions="FillAndExpand"
-                    HeightRequest="24"
-                    ValueChanged="PriceSlider_ValueChanged"/>
+                    <Label Text="Max Price" />
+                    <Entry Text="{Binding MaxPrice}"
+                           Placeholder="e.g. 5000"
+                           Keyboard="Numeric"/>
+                </VerticalStackLayout>
+            </Border>
 
-            <Grid ColumnDefinitions="Auto, *, Auto" Margin="0,-10,0,0">
-                <Label Text="0 JD" FontSize="14" TextColor="{StaticResource SecondaryColor}" 
-                       HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"/>
+            <!-- CAPACITY -->
+            <Label Text="Capacity" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource OptionBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Min Capacity" />
+                    <Entry Text="{Binding MinCapacity}"
+                           Placeholder="e.g. 50"
+                           Keyboard="Numeric"/>
 
-                <Border Grid.Column="1" Padding="8"
-                        Stroke="{StaticResource PrimaryColor}"
-                        StrokeShape="RoundRectangle"
-                        BackgroundColor="{StaticResource SurfaceColor}"
-                        HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label x:Name="PriceValueLabel" 
-                           Text="2500 JD" FontSize="14" FontAttributes="Bold" 
-                           TextColor="{StaticResource PrimaryColor}"/>
-                </Border>
+                    <Label Text="Max Capacity" />
+                    <Entry Text="{Binding MaxCapacity}"
+                           Placeholder="e.g. 300"
+                           Keyboard="Numeric"/>
+                </VerticalStackLayout>
+            </Border>
 
-                <Label Text="5000 JD" FontSize="14" TextColor="{StaticResource SecondaryColor}" 
-                       HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
-            </Grid>-->
-            
-            <Label Text="Min Price"/>
-            <Entry Text="{Binding MinPrice}"/>
-            
-            <Label Text="Max Price"/>
-            <Entry Text="{Binding MaxPrice}"/>  
-            
-            <Label Text="Min Capacity"/>
-            <Entry Text="{Binding MinCapacity}"/>
-            
-            <Label Text="Max Capacity"/>
-            <Entry Text="{Binding MaxCapacity}"/>
-            
-            <!-- Instant Book --><!--
+            <!-- INSTANT BOOK TOGGLE -->
+            <Label Text="Booking Options" Style="{StaticResource SectionTitle}" />
             <Border Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="8">
-                    <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
-                        <Label Text="Instant Book" FontSize="16" VerticalOptions="Center" FontFamily="OpenSans-SemiBold"/>
-                        <Switch x:Name="InstantBookSwitch" IsToggled="false" 
-                                OnColor="{StaticResource PrimaryColor}" ThumbColor="White"/>
+                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                        <Label Text="Instant Book"
+                               FontSize="16"/>
+                        <Switch IsToggled="{Binding InstantBook}"
+                                OnColor="{StaticResource PrimaryColor}"
+                                ThumbColor="White"/>
                     </HorizontalStackLayout>
-                    <Label Text="Only see spaces that can be instantly booked" 
-                           FontSize="13" TextColor="{StaticResource SecondaryColor}" />
+                    <Label Text="Only show venues that can be booked instantly"
+                           FontSize="13"
+                           TextColor="{StaticResource SecondaryColor}"/>
                 </VerticalStackLayout>
-            </Border>-->
+            </Border>
 
-            <!-- Attendees --><!--
-            <Label Text="Attendees" Style="{StaticResource SectionTitle}" />
-            <Border x:Name="AttendeesRadioGroupBorder" Style="{StaticResource OptionBorder}">
-                <VerticalStackLayout Spacing="12">
-                    <RadioButton GroupName="Attendees" Content="Any amount" IsChecked="True"
-                                 TextColor="{StaticResource OnSurfaceColor}"
-                                 FontFamily="OpenSans-Regular"/>
-                    <RadioButton GroupName="Attendees" Content="50 - 100"
-                                 TextColor="{StaticResource OnSurfaceColor}"
-                                 FontFamily="OpenSans-Regular"/>
-                    <RadioButton GroupName="Attendees" Content="100 - 200"
-                                 TextColor="{StaticResource OnSurfaceColor}"
-                                 FontFamily="OpenSans-Regular"/>
-                </VerticalStackLayout>
-            </Border>-->
-
-            <!-- Space Type -->
-            <VerticalStackLayout Padding="20" Spacing="10">
-                <Label Text="Select Space Types:" FontSize="20" FontAttributes="Bold"/>
-
-                <CollectionView ItemsSource="{Binding SpaceTypes}">
+            <!-- SPACE TYPES -->
+            <Label Text="Select Space Types" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource OptionBorder}">
+                <CollectionView ItemsSource="{Binding SpaceTypes}"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="12"/>
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:SpaceType">
-                            <!-- Add this line -->
-                            <HorizontalStackLayout Padding="8" Spacing="10">
-                                <CheckBox IsChecked="{Binding IsSelected}" 
-                       VerticalOptions="Center"/>
-                                <Label Text="{Binding Name}" 
-                   VerticalOptions="Center"/>
+                            <HorizontalStackLayout Spacing="12">
+                                <CheckBox IsChecked="{Binding IsSelected}" />
+                                <Label Text="{Binding Name}"
+                                       VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </VerticalStackLayout>
+            </Border>
 
-            <!-- Buttons -->
-            <HorizontalStackLayout Spacing="16" VerticalOptions="End" Margin="0,20,0,0">
-                <Button Text="Clear All" 
-                        BackgroundColor="Transparent" 
+            <!-- ACTION BUTTONS -->
+            <HorizontalStackLayout Spacing="16"
+                                   Margin="0,8,0,24">
+                <Button Text="Clear All"
+                        BackgroundColor="Transparent"
                         TextColor="{StaticResource PrimaryColor}"
-                        BorderColor="{StaticResource PrimaryColor}" 
-                        BorderWidth="1" 
-                        CornerRadius="10" 
+                        BorderColor="{StaticResource PrimaryColor}"
+                        BorderWidth="1"
+                        CornerRadius="10"
                         Padding="16,10"
-                        WidthRequest="120"/>
+                        WidthRequest="120"
+                        Command="{Binding ClearFiltersCommand}"/>
 
-                <Button Text="View 4 Spaces" 
-                        BackgroundColor="{StaticResource PrimaryColor}" 
-                        TextColor="White"
-                        CornerRadius="10" 
-                        Padding="16,10"
+                <Button Text="View Spaces"
                         HorizontalOptions="FillAndExpand"
                         Command="{Binding ApplyFiltersCommand}"/>
             </HorizontalStackLayout>
