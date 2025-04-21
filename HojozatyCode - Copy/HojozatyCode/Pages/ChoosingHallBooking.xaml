@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HojozatyCode.Pages.ChoosingHallBooking"
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             Title="ChoosingHallBooking">
+
+    <!-- ربط الـ ViewModel بهذه الصفحة -->
+    <ContentPage.BindingContext>
+        <vm:BookingViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- عرض اسم المكان -->
+            <Label Text="{Binding SelectedVenue.VenueName}" FontSize="24" FontAttributes="Bold"/>
+
+
+            <!-- عرض النوع -->
+            <Label Text="Type" FontAttributes="Bold" />
+            <Label Text="{Binding SelectedVenue.Type}" />
+
+            <!-- عرض السعة -->
+            <Label Text="Capacity:" FontAttributes="Bold" />
+            <Label Text="{Binding SelectedVenue.Capacity}" />
+
+            <!-- عرض السعر -->
+            <Label Text="InitialPrice" FontAttributes="Bold" />
+            <Label Text="{Binding SelectedVenue.InitialPrice}" />
+
+            <!-- عرض وصف (اختياري) -->
+            <Label Text="Description:" FontAttributes="Bold" />
+            <Label Text="{Binding SelectedVenue.Description}" />
+
+            <!-- زر للحجز مستقبلاً -->
+            <Button Text="احجز الآن" BackgroundColor="Green" TextColor="White"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

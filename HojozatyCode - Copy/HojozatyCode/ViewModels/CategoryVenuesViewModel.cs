@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
+using System;
 using System.Collections.ObjectModel;
 
 namespace HojozatyCode.ViewModels
@@ -191,6 +192,17 @@ namespace HojozatyCode.ViewModels
 
 		}
 
+        [RelayCommand]
+        public async Task VenueSelectedAsync(Venue selectedVenue) 
+        {
+			if (selectedVenue == null) return;
+
+			var navParams = new Dictionary<string, object>
+		    {
+			    { "SelectedVenue", selectedVenue }
+		    };
+			await Shell.Current.GoToAsync(nameof(Pages.ChoosingHallBooking) , navParams);
+        }
 	}
 
 }

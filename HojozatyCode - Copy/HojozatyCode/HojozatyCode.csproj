@@ -89,6 +89,9 @@
     <MauiXaml Update="Pages\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Pages\ChoosingHallBooking.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Pages\EditPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

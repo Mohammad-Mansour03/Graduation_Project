@@ -32,6 +32,7 @@ namespace HojozatyCode
             Routing.RegisterRoute(nameof(Pages.AdminPanel), typeof(Pages.AdminPanel));
             Routing.RegisterRoute(nameof(Pages.MySpace), typeof(Pages.MySpace));
             Routing.RegisterRoute(nameof(Pages.EditPage), typeof(Pages.EditPage));
+            Routing.RegisterRoute(nameof(Pages.ChoosingHallBooking), typeof(Pages.ChoosingHallBooking));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
         }
