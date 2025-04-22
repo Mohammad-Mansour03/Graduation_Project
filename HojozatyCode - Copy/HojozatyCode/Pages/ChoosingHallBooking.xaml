@@ -1,40 +1,181 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HojozatyCode.Pages.ChoosingHallBooking"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
-             Title="ChoosingHallBooking">
+             x:Class="HojozatyCode.Pages.ChoosingHallBooking"
+             Title="Venue Details"
+             BackgroundColor="#F8F9FA">
 
-    <!-- ربط الـ ViewModel بهذه الصفحة -->
     <ContentPage.BindingContext>
         <vm:BookingViewModel />
     </ContentPage.BindingContext>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <!-- عرض اسم المكان -->
-            <Label Text="{Binding SelectedVenue.VenueName}" FontSize="24" FontAttributes="Bold"/>
+    <Grid RowDefinitions="Auto,*,Auto">
 
+        <!-- Hero Image with Overlay -->
+        <Grid Grid.Row="0" HeightRequest="280">
+            <Image Source="{Binding SelectedVenue.ImageUrl}"
+                   Aspect="AspectFill"
+                   VerticalOptions="Fill"
+                   HorizontalOptions="Fill"/>
+            <BoxView BackgroundColor="Black" Opacity="0.2"/>
 
-            <!-- عرض النوع -->
-            <Label Text="Type" FontAttributes="Bold" />
-            <Label Text="{Binding SelectedVenue.Type}" />
+            <!-- Back Button -->
+            <Button ImageSource="back_arrow.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Margin="15"/>
 
-            <!-- عرض السعة -->
-            <Label Text="Capacity:" FontAttributes="Bold" />
-            <Label Text="{Binding SelectedVenue.Capacity}" />
+            <!-- Favorite Button -->
+            <Button ImageSource="heart_outline.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Margin="15"/>
+        </Grid>
 
-            <!-- عرض السعر -->
-            <Label Text="InitialPrice" FontAttributes="Bold" />
-            <Label Text="{Binding SelectedVenue.InitialPrice}" />
+        <!-- Main Content -->
+        <Border Grid.Row="1"
+                Margin="0,-30,0,0"
+                Stroke="Transparent"
+                StrokeThickness="0"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 30">
+            <ScrollView>
+                <VerticalStackLayout Spacing="20" Padding="25">
 
-            <!-- عرض وصف (اختياري) -->
-            <Label Text="Description:" FontAttributes="Bold" />
-            <Label Text="{Binding SelectedVenue.Description}" />
+                    <!-- Title  -->
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Label Text="{Binding SelectedVenue.VenueName}"
+                               FontSize="28"
+                               FontFamily="Montserrat-SemiBold"
+                               TextColor="#2D3748"
+                               VerticalTextAlignment="Center"
+                               LineBreakMode="TailTruncation"
+                               MaxLines="1"/>
+                    </HorizontalStackLayout>
 
-            <!-- زر للحجز مستقبلاً -->
-            <Button Text="احجز الآن" BackgroundColor="Green" TextColor="White"/>
-        </VerticalStackLayout>
-    </ScrollView>
+                    <!-- Info Card: Location, Type, Capacity -->
+                    <Border BackgroundColor="#EDF2F7"
+                            Padding="15,10"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="10">
 
+                            <!-- Location -->
+                            <HorizontalStackLayout Spacing="6">
+                                <Image Source="location.png"
+                                       HeightRequest="16"
+                                       WidthRequest="16"/>
+                                <Label Text="Amman, Jordan"
+                                       FontSize="14"
+                                       TextColor="#4A5568"
+                                       FontFamily="Montserrat-Medium"/>
+                            </HorizontalStackLayout>
+
+                            <BoxView HeightRequest="1" Color="#CBD5E0" Margin="0,5"/>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                <!-- Type -->
+                                <VerticalStackLayout>
+                                    <Label Text="TYPE"
+                                           FontSize="12"
+                                           TextColor="#718096"
+                                           FontFamily="Montserrat-SemiBold"/>
+                                    <Label Text="{Binding SelectedVenue.Type}"
+                                           FontSize="14"
+                                           TextColor="#4A5568"
+                                           FontFamily="Montserrat-Medium"/>
+                                </VerticalStackLayout>
+
+                                <!-- Capacity -->
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="CAPACITY"
+                                           FontSize="12"
+                                           TextColor="#718096"
+                                           FontFamily="Montserrat-SemiBold"/>
+                                    <Label Text="{Binding SelectedVenue.Capacity}"
+                                           FontSize="14"
+                                           TextColor="#4A5568"
+                                           FontFamily="Montserrat-Medium"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Venue Features -->
+                    <FlexLayout Wrap="Wrap"
+                                JustifyContent="Start"
+                                AlignItems="Start"
+                                BindableLayout.ItemsSource="{Binding VenueFeatures}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="#F8FAFC"
+                                        Padding="12,8"
+                                        Margin="0,0,10,10"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Image Source="{Binding Icon}"
+                                               HeightRequest="18"
+                                               WidthRequest="18"/>
+                                        <Label Text="{Binding Value}"
+                                               FontSize="14"
+                                               TextColor="#4A5568"
+                                               FontFamily="Montserrat-Medium"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+
+                    <BoxView HeightRequest="1" Color="#E2E8F0" Margin="0,10"/>
+
+                    <!-- About Section -->
+                    <Label Text="About This Venue"
+                           FontSize="20"
+                           FontFamily="Montserrat-SemiBold"
+                           TextColor="#2D3748"/>
+                    <Label Text="{Binding SelectedVenue.Description}"
+                           FontSize="14"
+                           TextColor="#4A5568"
+                           FontFamily="Montserrat-Regular"
+                           LineHeight="1.5"/>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+
+        <!-- Booking Footer -->
+        <Grid Grid.Row="2"
+              Padding="20,15"
+              BackgroundColor="White"
+              ColumnDefinitions="*,Auto"
+              ColumnSpacing="15">
+
+            <VerticalStackLayout>
+                <Label Text="Starting from"
+                       FontSize="12"
+                       TextColor="#718096"
+                       FontFamily="Montserrat-Medium"/>
+                <Label Text="{Binding SelectedVenue.InitialPrice, StringFormat='{0} JOD/hour'}"
+                       FontSize="18"
+                       FontFamily="Montserrat-SemiBold"
+                       TextColor="#4F378A"/>
+            </VerticalStackLayout>
+
+            <Button Text="Book Now"
+                    Grid.Column="1"
+                    BackgroundColor="#4F378A"
+                    TextColor="White"
+                    FontFamily="Montserrat-SemiBold"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    WidthRequest="150"/>
+        </Grid>
+    </Grid>
 </ContentPage>
