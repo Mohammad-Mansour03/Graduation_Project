@@ -12,9 +12,7 @@ namespace HojozatyCode.ViewModels
 	
 	public partial class BookingViewModel : ObservableObject , IQueryAttributable
 	{
-        // Singleton instance
-        private static BookingViewModel _instance;
-
+       
 		[ObservableProperty]
 		private string venueIdRaw;
 
@@ -60,7 +58,5 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-
-	
 	}
 }
