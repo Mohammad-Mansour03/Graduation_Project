@@ -177,5 +177,77 @@
                     HeightRequest="50"
                     WidthRequest="150"/>
         </Grid>
+        <CollectionView 
+                ItemsSource="{Binding HostRulesVenue}"
+                Margin="10"
+                SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame 
+                BorderColor="LightGray" 
+                CornerRadius="10"
+                Padding="10" 
+                Margin="5"
+                BackgroundColor="White"
+                HasShadow="True">
+
+                        <StackLayout>
+                            <!-- مثلاً عندك عنوان للقانون -->
+                            <Label 
+                        Text="{Binding HostRuleName}" 
+                        FontSize="Medium" 
+                        FontAttributes="Bold"
+                        TextColor="Black"/>
+
+                            <!-- وممكن عندك وصف للقانون -->
+                            <Label 
+                        Text="{Binding HostRuleDescription}" 
+                        FontSize="Small"
+                        TextColor="Gray"/>
+                        </StackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>     
+        
+        <CollectionView 
+                ItemsSource="{Binding ServicesVenue}"
+                Margin="10"
+                SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame 
+                BorderColor="LightGray" 
+                CornerRadius="10"
+                Padding="10" 
+                Margin="5"
+                BackgroundColor="White"
+                HasShadow="True">
+
+                        <StackLayout>
+                            <!-- مثلاً عندك عنوان للقانون -->
+                            <Label 
+                        Text="{Binding ServiceName}" 
+                        FontSize="Medium" 
+                        FontAttributes="Bold"
+                        TextColor="Black"/>
+
+                            <!-- وممكن عندك وصف للقانون -->
+                            <Label 
+                        Text="{Binding Description}" 
+                        FontSize="Small"
+                        TextColor="Gray"/>
+                        </StackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        
     </Grid>
 </ContentPage>
