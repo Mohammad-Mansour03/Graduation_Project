@@ -261,7 +261,7 @@
                                 TextColor="Gray"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
-                                IsVisible="{Binding NoHostRules}"
+                                IsVisible="{Binding NoServices}"
                                 Grid.Row="1" />
 
                     </VerticalStackLayout>
