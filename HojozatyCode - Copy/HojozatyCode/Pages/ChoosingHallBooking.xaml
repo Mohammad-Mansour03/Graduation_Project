@@ -226,11 +226,16 @@
                                                    WidthRequest="20"
                                                    VerticalOptions="Center"/>
                                             <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                                <Label Text="{Binding ServiceName}"
+                                                <Label Text="{Binding Name}"
                                                        FontSize="14"
                                                        FontFamily="Montserrat-SemiBold"
                                                        TextColor="#2D3748"/>
                                                 <Label Text="{Binding Description}"
+                                                       FontSize="13"
+                                                       FontFamily="Montserrat-Regular"
+                                                       TextColor="#4A5568"/>  
+                                                
+                                                <Label Text="{Binding Price}"
                                                        FontSize="13"
                                                        FontFamily="Montserrat-Regular"
                                                        TextColor="#4A5568"/>
