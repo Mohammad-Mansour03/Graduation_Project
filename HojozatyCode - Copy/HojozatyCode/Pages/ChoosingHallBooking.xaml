@@ -176,6 +176,7 @@
                     <VerticalStackLayout Spacing="12">
                         <Label Text="Host Rules" Style="{StaticResource SectionHeader}"/>
                         <CollectionView ItemsSource="{Binding HostRulesVenue}"
+                                        IsVisible="{Binding HasHostRules}"
                                       SelectionMode="None"
                                       Margin="-10,0">
                             <CollectionView.ItemTemplate>
@@ -205,12 +206,21 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+
+                        <Label Text="There Is No Host Rules Avaliable"
+                   FontSize="16"
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   IsVisible="{Binding NoHostRules}"
+                   Grid.Row="1" />
                     </VerticalStackLayout>
 
                     <!-- Services -->
                     <VerticalStackLayout Spacing="12">
                         <Label Text="Services" Style="{StaticResource SectionHeader}"/>
                         <CollectionView ItemsSource="{Binding ServicesVenue}"
+                                        IsVisible="{Binding HasServices}"
                                       SelectionMode="None"
                                       Margin="-10,0">
                             <CollectionView.ItemTemplate>
@@ -245,6 +255,15 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+
+                        <Label Text="There Is No Services Avaliable"
+                                FontSize="16"
+                                TextColor="Gray"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                IsVisible="{Binding NoHostRules}"
+                                Grid.Row="1" />
+
                     </VerticalStackLayout>
 
                 </VerticalStackLayout>

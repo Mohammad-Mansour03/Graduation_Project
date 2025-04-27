@@ -27,10 +27,17 @@ namespace HojozatyCode.ViewModels
 		private Venue selectedVenue;
 
 		[ObservableProperty]
-		private ObservableCollection<HostRules> hostRulesVenue = new();
+		private ObservableCollection<HostRules> hostRulesVenue = new ObservableCollection<HostRules>();
+
+		public bool HasHostRules => HostRulesVenue != null && HostRulesVenue.Count > 0;
+		public bool NoHostRules => !HasHostRules;
+
 
 		[ObservableProperty]
 		private ObservableCollection<ServiceItem> servicesVenue = new ObservableCollection<ServiceItem>();
+
+		public bool HasServices => ServicesVenue != null && ServicesVenue.Count > 0;
+		public bool NoServices => !HasServices;
 
 		[ObservableProperty]
 		private string errorMessage;
@@ -55,8 +62,6 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-
-
 		private async Task LoadHostRules()
 		{
 			try
@@ -66,6 +71,8 @@ namespace HojozatyCode.ViewModels
 					ErrorMessage = "Invalid Venue ID";
 					return;
 				}
+
+				HostRulesVenue.Clear();
 
 				//Get Host Rules Id's related to this Venue 
 				var hostRulesVenues = await SupabaseConfig.SupabaseClient
@@ -93,6 +100,9 @@ namespace HojozatyCode.ViewModels
 					HostRulesVenue.Add(hostRulesForId.Model);
 				}
 
+				OnPropertyChanged(nameof(HasHostRules));
+				OnPropertyChanged(nameof(NoHostRules));
+
 			}
 			catch (Exception ex)
 			{
@@ -110,6 +120,8 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 
+				ServicesVenue.Clear();
+
 				//Get Host Rules Id's related to this Venue 
 				var servicesVenues = await SupabaseConfig.SupabaseClient
 						   .From<VenueServices>() // هذا يمثل الجدول الوسيط
@@ -120,8 +132,8 @@ namespace HojozatyCode.ViewModels
 
 				if (serviceVenueId.Count == 0)
 				{
-					await Shell.Current.DisplayAlert("Prompt", $"The Count of Host rules was {serviceVenueId.Count}", "OK");
-					HostRulesVenue = new ObservableCollection<HostRules>();
+					await Shell.Current.DisplayAlert("Prompt", $"The Count of Services was {serviceVenueId.Count}", "OK");
+					ServicesVenue = new ObservableCollection<ServiceItem>();
 					return;
 				}
 
@@ -147,6 +159,11 @@ namespace HojozatyCode.ViewModels
 					}
 				}
 				ServicesVenue = serviceDisplayList;
+
+
+				OnPropertyChanged(nameof(HasServices));
+				OnPropertyChanged(nameof(NoServices));
+
 			}
 			catch (Exception ex)
 			{
