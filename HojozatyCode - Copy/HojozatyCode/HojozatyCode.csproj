@@ -86,6 +86,9 @@
     <MauiXaml Update="Pages\AdminPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Pages\BookingCalendarPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Pages\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

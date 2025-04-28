@@ -296,7 +296,8 @@
                     CornerRadius="12"
                     HeightRequest="50"
                     WidthRequest="160"
-                    VerticalOptions="Center">
+                    VerticalOptions="Center"
+                    Command="{Binding GoToBookingCalendarPageCommand}">
                 <Button.Shadow>
                     <Shadow Brush="#4F378A" Offset="0,4" Opacity="0.2" Radius="8"/>
                 </Button.Shadow>

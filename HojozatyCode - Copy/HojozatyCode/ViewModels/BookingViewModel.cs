@@ -170,5 +170,11 @@ namespace HojozatyCode.ViewModels
 				await Shell.Current.DisplayAlert("Error", $"There was an {ex} Exception", "OK");
 			}
 		}
+
+		[RelayCommand]
+		private async Task GoToBookingCalendarPage() 
+		{
+			await Shell.Current.GoToAsync(nameof(Pages.BookingCalendarPage));	
+		}
 	}
 }
