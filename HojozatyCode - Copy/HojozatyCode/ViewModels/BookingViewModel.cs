@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
 using Microsoft.Maui.Devices;
+using Supabase.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -36,11 +37,106 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<ServiceItem> servicesVenue = new ObservableCollection<ServiceItem>();
 
+		[ObservableProperty]
+		private ObservableCollection<string> imageUrls = new ObservableCollection<string>();
 		public bool HasServices => ServicesVenue != null && ServicesVenue.Count > 0;
 		public bool NoServices => !HasServices;
 
 		[ObservableProperty]
 		private string errorMessage;
+
+		//Properties To Deal with the Calendar
+
+		// List to store all bookings for the selected venue
+		[ObservableProperty]
+		private ObservableCollection<Booking> _venueBookings = new();
+
+		// Selected date and time
+		[ObservableProperty]
+		private DateTime _selectedDateTime = DateTime.Now;
+
+		[RelayCommand]
+		public async Task LoadBookingsAsync(Guid venueId)
+		{
+			VenueId = venueId;
+
+			// Fetch all bookings where venue_id matches
+			var response = await SupabaseConfig.SupabaseClient
+				.From<Booking>()
+				.Where(b => b.VenueId == venueId)
+				.Get();
+
+			if (response.Models != null)
+				VenueBookings = new ObservableCollection<Booking>(response.Models);
+		}
+
+		/// <summary>
+		/// Check if the selected date and time is available
+		/// </summary>
+		/// <param name="dateTime"></param>
+		/// <returns></returns>
+		public bool IsDateTimeAvailable(DateTime dateTime)
+		{
+			// Go through all bookings for the venue
+			foreach (var booking in VenueBookings)
+			{
+				// Check if the selected time overlaps with any existing booking
+				if (dateTime >= booking.StartDateTime && dateTime < booking.EndDateTime)
+				{
+					return false; // Not available
+				}
+			}
+
+			return true; // Available
+		}
+
+		/// <summary>
+		/// Create a new booking
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		[RelayCommand]
+		public async Task<bool> CreateBookingAsync(Guid userId)
+		{
+			if (!IsDateTimeAvailable(SelectedDateTime))
+				return false; // Can't book if not available
+
+			// Create a new Booking object
+			var newBooking = new Booking
+			{
+				BookingId = Guid.NewGuid(),
+				UserId = userId,
+				VenueId = VenueId,
+				StartDateTime = SelectedDateTime,
+				EndDateTime = SelectedDateTime.AddHours(1), // Booking is 1 hour
+				Status = "confirmed",
+				TotalPrice = 100, // Example price (you can calculate based on venue)
+				CreatedAt = DateTime.UtcNow,
+				UpdatedAt = DateTime.UtcNow
+			};
+
+			var response = await SupabaseConfig.SupabaseClient.From<Booking>().Insert(newBooking);
+
+			if (response.ResponseMessage.IsSuccessStatusCode)
+			{
+				VenueBookings.Add(newBooking); // Update local list
+				return true;
+			}
+
+			return false;
+		}
+	
+
+
+
+
+
+
+
+
+
+
+
 
 		// Constructor - private to enforce singleton pattern
 		public BookingViewModel()
@@ -56,11 +152,18 @@ namespace HojozatyCode.ViewModels
 
 				if (SelectedVenue != null)
 				{
+					ImageUrls = SelectedVenue.ImageUrl.Split(',').ToObservableCollection();
 					await LoadHostRules();
 					await LoadServices();
+					await LoadBookingsAsync(SelectedVenue.VenueId);
 				}
 			}
 		}
+
+		//private async Task LoadVenuesPhotos(Venue venue) 
+		//{
+		//	ImageUrls = venue.ImageUrl.Split(',').ToObservableCollection();
+		//}
 
 		private async Task LoadHostRules()
 		{
