@@ -448,8 +448,19 @@ namespace HojozatyCode.ViewModels
 		private async Task GoToMySpace() =>
 			await Shell.Current.GoToAsync(nameof(Pages.MySpace));		
 		
-
-
+		[RelayCommand]
+		private async Task GoToAddSpace()
+		{
+			try
+			{
+				// Reset the navigation stack to the AddSpace tab
+				await Shell.Current.GoToAsync("//AddSpace");
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+			}
+		}
 
 		#endregion
 
@@ -459,7 +470,53 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task SaveSpaceAsync()
 		{
-			await Shell.Current.GoToAsync(nameof(Pages.SuccessPage));
+			try
+			{
+				// First navigate to success page
+				await Shell.Current.GoToAsync(nameof(Pages.SuccessPage));
+				
+				// Reset the AddSpace tab's navigation stack for next time
+				// This will be executed when the user leaves the success page
+				await Task.Delay(100); // Small delay to ensure navigation completes
+				
+				// Reset state properties for next time
+				ClearForm();
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+			}
+		}
+
+		private void ClearForm()
+		{
+			// Reset all form fields for next time
+			SpaceName = string.Empty;
+			City = string.Empty;
+			Address = string.Empty;
+			Phone = string.Empty;
+			Email = string.Empty;
+			InitialPrice = string.Empty;
+			CapacityInput = string.Empty;
+			Category = string.Empty;
+			Description = string.Empty;
+			SelectedSpaceTypes.Clear();
+			SpaceType = string.Empty;
+			
+			// Clear images
+			for (int i = 0; i < SelectedImages.Count; i++)
+			{
+				SelectedImages[i] = null;
+				ImagePreviewSources[i] = null;
+			}
+			
+			// Reset services and house rules
+			Services.Clear();
+			HouseRules.Clear();
+			
+			// Reset other fields
+			SelectedPolicy = string.Empty;
+			CurrentVenueId = Guid.Empty;
 		}
 
 		// Command to add an image to the selected images collection
