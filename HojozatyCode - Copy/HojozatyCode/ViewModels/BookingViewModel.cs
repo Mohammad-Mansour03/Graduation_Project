@@ -96,16 +96,29 @@ namespace HojozatyCode.ViewModels
 		/// <param name="userId"></param>
 		/// <returns></returns>
 		[RelayCommand]
-		public async Task<bool> CreateBookingAsync(Guid userId)
+		public async Task CheckTheBookingButton() 
+		{
+			await Shell.Current.DisplayAlert("Prompt", "The Command Was Work Correctly", "OK");
+		}		
+		
+		[RelayCommand]
+		public async Task CreateBooking()
 		{
 			if (!IsDateTimeAvailable(SelectedDateTime))
-				return false; // Can't book if not available
+			{
+				await Shell.Current.DisplayAlert("Prompt", $"{SelectedDateTime} Date", "OK");
+				return ; // Can't book if not available
+			}
+
+			await Shell.Current.DisplayAlert("Prompt", $"Start to Booking Date", "OK");
+
+			var tempAuth = SupabaseConfig.SupabaseClient.Auth.CurrentUser;
 
 			// Create a new Booking object
 			var newBooking = new Booking
-			{
+			{				
 				BookingId = Guid.NewGuid(),
-				UserId = userId,
+				UserId = Guid.Parse(tempAuth.Id),
 				VenueId = VenueId,
 				StartDateTime = SelectedDateTime,
 				EndDateTime = SelectedDateTime.AddHours(1), // Booking is 1 hour
@@ -117,13 +130,15 @@ namespace HojozatyCode.ViewModels
 
 			var response = await SupabaseConfig.SupabaseClient.From<Booking>().Insert(newBooking);
 
+			 await Shell.Current.DisplayAlert("Prompt", $"The Date is Booked", "OK");
+
 			if (response.ResponseMessage.IsSuccessStatusCode)
 			{
 				VenueBookings.Add(newBooking); // Update local list
-				return true;
+				return ;
 			}
 
-			return false;
+			return ;
 		}
 	
 

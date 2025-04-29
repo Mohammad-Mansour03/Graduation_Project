@@ -30,7 +30,8 @@
             <!-- Button to Book -->
             <Button 
                 Text="Book Now"
-                Command="{Binding CreateBookingCommand}" />
+                Command="{Binding CreateBookingCommand}"
+                />
 
         </VerticalStackLayout>
     </ScrollView>
