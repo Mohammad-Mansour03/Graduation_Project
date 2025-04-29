@@ -31,10 +31,22 @@
 
         <!-- Hero Image with Gradient Overlay -->
         <Grid Grid.Row="0" HeightRequest="280">
-            <Image Source="{Binding SelectedVenue.ImageUrl}"
-                   Aspect="AspectFill"
-                   VerticalOptions="Fill"
-                   HorizontalOptions="Fill"/>
+
+            <CollectionView ItemsSource="{Binding ImageUrls}"
+                ItemsLayout="HorizontalList"
+                Margin="10"
+                HeightRequest="200">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="False">
+                            <Image Source="{Binding .}" 
+                       Aspect="AspectFill"
+                       WidthRequest="300"
+                       HeightRequest="200"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <BoxView>
                 <BoxView.Background>
@@ -296,7 +308,8 @@
                     CornerRadius="12"
                     HeightRequest="50"
                     WidthRequest="160"
-                    VerticalOptions="Center">
+                    VerticalOptions="Center"
+                    Command="{Binding GoToBookingCalendarPageCommand}">
                 <Button.Shadow>
                     <Shadow Brush="#4F378A" Offset="0,4" Opacity="0.2" Radius="8"/>
                 </Button.Shadow>
