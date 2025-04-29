@@ -88,7 +88,7 @@ namespace HojozatyCode.ViewModels
                         new Subcategory { Name = "Product Photography Spaces", ImageUrl = "product.png" }
                     }
                 },
-                { "Sport", new List<Subcategory>
+                { "Sports", new List<Subcategory>
                     {
                         new Subcategory { Name = "Stadium", ImageUrl = "stadium.png" }
                     }

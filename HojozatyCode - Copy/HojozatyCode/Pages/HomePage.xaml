@@ -255,7 +255,7 @@
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer 
                                 Command="{Binding NavigateToCategoryCommand}" 
-                                CommandParameter="Sport"/>
+                                CommandParameter="Sports"/>
                         </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center"
