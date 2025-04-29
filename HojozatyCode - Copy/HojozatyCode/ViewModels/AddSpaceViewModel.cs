@@ -472,15 +472,15 @@ namespace HojozatyCode.ViewModels
 		{
 			try
 			{
-				// First navigate to success page
+				 // Clear form before navigating
+				 ClearForm();
 				await Shell.Current.GoToAsync(nameof(Pages.SuccessPage));
 				
-				// Reset the AddSpace tab's navigation stack for next time
-				// This will be executed when the user leaves the success page
-				await Task.Delay(100); // Small delay to ensure navigation completes
+				// Navigate to success page
+				//await Shell.Current.GoToAsync("//Home");
 				
-				// Reset state properties for next time
-				ClearForm();
+				// Force the AddSpace tab to reset when next opened
+				await Task.Delay(100);
 			}
 			catch (Exception ex)
 			{
@@ -488,9 +488,10 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		// Update the ClearForm method to handle collections more safely
 		private void ClearForm()
 		{
-			// Reset all form fields for next time
+			// Reset all form fields
 			SpaceName = string.Empty;
 			City = string.Empty;
 			Address = string.Empty;
@@ -500,14 +501,32 @@ namespace HojozatyCode.ViewModels
 			CapacityInput = string.Empty;
 			Category = string.Empty;
 			Description = string.Empty;
+			
+			// Clear selected space types and notify UI
 			SelectedSpaceTypes.Clear();
 			SpaceType = string.Empty;
+			OnPropertyChanged(nameof(SelectedSpaceTypes));
 			
-			// Clear images
-			for (int i = 0; i < SelectedImages.Count; i++)
+			try
 			{
-				SelectedImages[i] = null;
-				ImagePreviewSources[i] = null;
+				// Create new collections instead of clearing existing ones
+				SelectedImages = new ObservableCollection<FileResult>();
+				ImagePreviewSources = new ObservableCollection<ImageSource>();
+				
+				// Add null placeholders
+				for (int i = 0; i < 9; i++)
+				{
+					SelectedImages.Add(null);
+					ImagePreviewSources.Add(null);
+				}
+				
+				// Make sure the UI knows about these new collections
+				OnPropertyChanged(nameof(SelectedImages));
+				OnPropertyChanged(nameof(ImagePreviewSources));
+			}
+			catch (Exception ex)
+			{
+				// Log or handle the exception
 			}
 			
 			// Reset services and house rules
@@ -523,40 +542,75 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task AddImageAsync(string index)
 		{
+			if (!int.TryParse(index, out int idx) || idx < 0)
+			{
+				await Shell.Current.DisplayAlert("Error", "Invalid image index.", "OK");
+				return;
+			}
+
 			try
 			{
 				IsLoading = true;
+				
+				// Pick the image
 				var result = await FilePicker.PickAsync(new PickOptions
 				{
 					PickerTitle = "Select Image",
 					FileTypes = FilePickerFileType.Images
 				});
 
-				if (result != null)
+				if (result == null)
+					return;
+					
+				// Safely handle the collections
+				if (SelectedImages == null)
 				{
-					if (int.TryParse(index, out int idx) &&
-						idx >= 0 && idx < SelectedImages.Count)
-					{
-						SelectedImages[idx] = result;
-
-						// Create an image preview
-						var stream = await result.OpenReadAsync();
-						ImagePreviewSources[idx] = ImageSource.FromStream
-																(() => stream);
-						OnPropertyChanged(nameof(ImagePreviewSources));
-					}
-
-					else
-					{
-						await Shell.Current.DisplayAlert("Error",
-							"Invalid image index.", "OK");
-					}
+					SelectedImages = new ObservableCollection<FileResult>();
+					for (int i = 0; i < 9; i++)
+						SelectedImages.Add(null);
 				}
-			}
+				
+				if (ImagePreviewSources == null)
+				{
+					ImagePreviewSources = new ObservableCollection<ImageSource>();
+					for (int i = 0; i < 9; i++)
+						ImagePreviewSources.Add(null);
+				}
+				
+				// Make sure the collections have enough space
+				while (SelectedImages.Count <= idx)
+					SelectedImages.Add(null);
+					
+				while (ImagePreviewSources.Count <= idx)
+					ImagePreviewSources.Add(null);
 
+				// Store the file result
+				SelectedImages[idx] = result;
+
+				// Load the image into memory to avoid stream disposal issues
+				using (var stream = await result.OpenReadAsync())
+				{
+					// Create a memory copy of the image data
+					var memoryStream = new MemoryStream();
+					await stream.CopyToAsync(memoryStream);
+					memoryStream.Position = 0;
+					
+					// Create an image source that uses the memory copy
+					var imageData = memoryStream.ToArray();
+					MainThread.BeginInvokeOnMainThread(() => {
+						ImagePreviewSources[idx] = ImageSource.FromStream(() => new MemoryStream(imageData));
+						OnPropertyChanged(nameof(ImagePreviewSources));
+					});
+				}
+				
+				// Notify UI of changes
+				OnPropertyChanged(nameof(SelectedImages));
+			}
 			catch (Exception ex)
 			{
-				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+				// Show detailed error information
+				await Shell.Current.DisplayAlert("Image Error", 
+					$"Error: {ex.Message}\nType: {ex.GetType().Name}", "OK");
 			}
 			finally
 			{
@@ -1027,7 +1081,19 @@ namespace HojozatyCode.ViewModels
 				IsLoading = false;
 			}
 		}
+		
+
 		#endregion
+
+		// Add this method to your AddSpaceViewModel class
+		public void ResetViewState()
+		{
+			// Only clear if there's data to clear
+			if (SelectedSpaceTypes.Any() || !string.IsNullOrEmpty(SpaceName))
+			{
+				ClearForm();
+			}
+		}
 	}
 }
 
