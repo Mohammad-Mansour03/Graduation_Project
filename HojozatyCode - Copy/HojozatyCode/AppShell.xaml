@@ -27,7 +27,7 @@
             </Tab>
             
             <Tab Title="AddSpace" Icon="add_space_icon.png">
-                <ShellContent ContentTemplate="{DataTemplate pages:SpaceTypeSelectionPage}" />
+                <ShellContent Route="AddSpace" ContentTemplate="{DataTemplate pages:SpaceTypeSelectionPage}" />
             </Tab>
             
             <Tab Title="Account" Icon="account_icon_1.png">
