@@ -432,9 +432,17 @@ namespace HojozatyCode.ViewModels
 
 		// Command to navigate to the HomePage
 		[RelayCommand]
-		private async Task GoToHome() =>
-			await Shell.Current.GoToAsync(nameof(HomePage));
-		
+		private async Task GoToHome(){
+			try
+    {
+        // Reset the navigation stack to the AddSpace tab
+        await Shell.Current.GoToAsync("//Home");
+    }
+    catch (Exception ex)
+    {
+        await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+    }
+		}	
 		// Command to navigate to the HomePage
 		[RelayCommand]
 		private async Task GoToMySpace() =>
