@@ -134,66 +134,85 @@
 
             <!-- Venues Section -->
             <Label Text="Available venues"
-                   Style="{StaticResource SectionTitle}" />
+       Style="{StaticResource SectionTitle}" />
 
             <CollectionView ItemsSource="{Binding Venues}"
-                            EmptyView="No venues found for this category"
-                            Margin="0,0,0,20">
+                EmptyView="No venues found for this category"
+                Margin="0,0,0,20">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border StrokeThickness="0"
-                                StrokeShape="RoundRectangle 16"
-                                BackgroundColor="{StaticResource SurfaceColor}"
-                                Margin="0,0,0,24"
-                                Padding="0">
+                    StrokeShape="RoundRectangle 16"
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    Margin="0,0,0,24"
+                    Padding="0">
                             <Grid>
-                                <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="200" />
+                                <!-- Horizontal Images Carousel -->
+                                <CollectionView ItemsSource="{Binding ImageUrls}"
+                                    HeightRequest="200"
+                                    ItemsLayout="HorizontalList"
+                                   >
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding .}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="200"
+                                       WidthRequest="350" />
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                                <!-- Transparent overlay to catch taps -->
+                                <Grid BackgroundColor="Transparent">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CategoryVenuesViewModel}}, Path=VenueSelectedCommand}"
+                                CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+
+                                <!-- Dark overlay for text visibility -->
                                 <BoxView BackgroundColor="#80000000" />
 
+                                <!-- Info (Name, Price, Rating) -->
                                 <Grid Padding="16"
-                                      RowDefinitions="*,Auto"
-                                      ColumnDefinitions="*,Auto">
+                          RowDefinitions="*,Auto"
+                          ColumnDefinitions="*,Auto">
                                     <Label Text="{Binding VenueName}"
-                                           FontSize="20"
-                                           TextColor="White"
-                                           FontFamily="OpenSans-Bold"
-                                           Grid.Row="0"
-                                           Grid.Column="0"
-                                           VerticalOptions="Start" />
+                               FontSize="20"
+                               TextColor="White"
+                               FontFamily="OpenSans-Bold"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               VerticalOptions="Start" />
 
                                     <!-- Price Tag -->
                                     <Border BackgroundColor="#493971"
-                                            StrokeShape="RoundRectangle 10"
-                                            Padding="8,4"
-                                            HorizontalOptions="Start"
-                                            VerticalOptions="Start"
-                                            Grid.Row="0"
-                                            Grid.Column="1">
+                                StrokeShape="RoundRectangle 10"
+                                Padding="8,4"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Start"
+                                Grid.Row="0"
+                                Grid.Column="1">
                                         <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
-                                               TextColor="White"
-                                               FontSize="14"
-                                               FontFamily="OpenSans-SemiBold"/>
+                                   TextColor="White"
+                                   FontSize="14"
+                                   FontFamily="OpenSans-SemiBold" />
                                     </Border>
 
                                     <!-- Rating -->
                                     <HorizontalStackLayout Grid.Row="1"
-                                                           Grid.Column="1"
-                                                           HorizontalOptions="End"
-                                                           VerticalOptions="End"
-                                                           Spacing="4">
+                                               Grid.Column="1"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="End"
+                                               Spacing="4">
                                         <Label Text="{Binding Rating}" TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
                                         <Label Text="★" TextColor="Gold" FontSize="14"/>
                                         <Label Text="{Binding RatingCount, StringFormat='({0})'}"
-                                               TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
+                                   TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Grid>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CategoryVenuesViewModel}},
-                                                       Path=VenueSelectedCommand}"
-                                    CommandParameter="{Binding .}" />   
-                            </Border.GestureRecognizers>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
