@@ -4,22 +4,30 @@
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ChoosingHallBooking"
              Title="Venue Details"
-             BackgroundColor="#F8F9FA">
+             BackgroundColor="{StaticResource PageBackground}">
 
     <ContentPage.Resources>
-        <!-- Reusable Styles -->
-        <Style TargetType="Label" x:Key="SectionHeader">
-            <Setter Property="FontSize" Value="22"/>
+        <!-- Color Resources -->
+        <Color x:Key="PrimaryColor">#4F378A</Color>
+        <Color x:Key="SecondaryText">#718096</Color>
+        <Color x:Key="PrimaryText">#2D3748</Color>
+        <Color x:Key="CardBackground">#FFFFFF</Color>
+        <Color x:Key="PageBackground">#F8F9FA</Color>
+
+        <!-- Styles -->
+        <Style TargetType="Label" x:Key="SectionTitle">
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontFamily" Value="Montserrat-SemiBold"/>
-            <Setter Property="TextColor" Value="#2D3748"/>
+            <Setter Property="TextColor" Value="{StaticResource PrimaryText}"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
         </Style>
-        <Style TargetType="Button" x:Key="IconButton">
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-            <Setter Property="WidthRequest" Value="44"/>
-            <Setter Property="HeightRequest" Value="44"/>
-            <Setter Property="CornerRadius" Value="22"/>
-            <Setter Property="Margin" Value="20"/>
-            <Setter Property="ZIndex" Value="1"/>
+
+        <Style TargetType="Button" x:Key="HeaderIconButton">
+            <Setter Property="BackgroundColor" Value="#20FFFFFF"/>
+            <Setter Property="WidthRequest" Value="40"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Margin" Value="16"/>
         </Style>
     </ContentPage.Resources>
 
@@ -27,293 +35,210 @@
         <vm:BookingViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="Auto,*,Auto">
-
-        <!-- Hero Image with Gradient Overlay -->
-        <Grid Grid.Row="0" HeightRequest="280">
-
-            <CollectionView ItemsSource="{Binding SelectedVenue.ImageUrls}"
-                ItemsLayout="HorizontalList"
-                Margin="10"
-                HeightRequest="200">
-                <CollectionView.ItemTemplate>
+    <Grid RowDefinitions="300,*,Auto">
+        <!-- Image Gallery -->
+        <Grid Grid.Row="0">
+            <CarouselView ItemsSource="{Binding SelectedVenue.ImageUrls}"
+                          Loop="False"
+                          PeekAreaInsets="20"
+                          HorizontalScrollBarVisibility="Never">
+                <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <Frame CornerRadius="10" Padding="0" Margin="5" HasShadow="False">
+                        <Frame CornerRadius="16" Padding="0" Margin="8" IsClippedToBounds="True">
                             <Image Source="{Binding .}" 
-                       Aspect="AspectFill"
-                       WidthRequest="300"
-                       HeightRequest="200"/>
+                                   Aspect="AspectFill"
+                                   HeightRequest="300"/>
                         </Frame>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
 
-            <BoxView>
-                <BoxView.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="Transparent" Offset="0.6"/>
-                        <GradientStop Color="Black" Offset="1"/>
-                    </LinearGradientBrush>
-                </BoxView.Background>
-            </BoxView>
-
-            <!-- Back Button -->
-            <Button Style="{StaticResource IconButton}"
+            <!-- Header Buttons -->
+            <Button Style="{StaticResource HeaderIconButton}"
                     ImageSource="back_arrow.png"
                     HorizontalOptions="Start"
-                    VerticalOptions="Start">
-                <Button.Triggers>
-                    <Trigger TargetType="Button" Property="IsPressed" Value="True">
-                        <Setter Property="Opacity" Value="0.6"/>
-                    </Trigger>
-                </Button.Triggers>
-            </Button>
+                    VerticalOptions="Start"/>
 
-            <!-- Favorite Button -->
-            <Button Style="{StaticResource IconButton}"
-                    ImageSource="heart_outline.png"
+            <Button Style="{StaticResource HeaderIconButton}"
+                    ImageSource="heartoutline.png"
                     HorizontalOptions="End"
-                    VerticalOptions="Start">
-                <Button.Triggers>
-                    <Trigger TargetType="Button" Property="IsPressed" Value="True">
-                        <Setter Property="Opacity" Value="0.6"/>
-                    </Trigger>
-                </Button.Triggers>
-            </Button>
+                    VerticalOptions="Start"/>
         </Grid>
 
-        <!-- Main Content Area -->
-        <Border Grid.Row="1"
-                Margin="0,-30,0,0"
-                Stroke="Transparent"
-                BackgroundColor="White"
-                StrokeShape="RoundRectangle 30">
-            <Border.Shadow>
-                <Shadow Brush="#000000" Offset="0,4" Opacity="0.1" Radius="8"/>
-            </Border.Shadow>
-
+        <!-- Content Area -->
+        <Frame Grid.Row="1"
+               Margin="16,0,16,16"
+               Padding="0"
+               CornerRadius="24"
+               BackgroundColor="{StaticResource CardBackground}"
+               HasShadow="True">
             <ScrollView>
-                <VerticalStackLayout Spacing="24" Padding="24">
-
+                <VerticalStackLayout Spacing="0" Padding="24">
                     <!-- Title -->
                     <Label Text="{Binding SelectedVenue.VenueName}"
-                           FontSize="30"
-                           FontFamily="Montserrat-SemiBold"
-                           TextColor="#1A202C"
-                           LineBreakMode="TailTruncation"
-                           MaxLines="1"/>
+                           FontSize="24"
+                           FontFamily="Montserrat-Bold"
+                           TextColor="{StaticResource PrimaryText}"/>
 
-                    <!-- Info Card -->
-                    <Border BackgroundColor="#EDF2F7"
-                            Padding="16"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 16">
-                        <VerticalStackLayout Spacing="12">
-                            <HorizontalStackLayout Spacing="8">
-                                <Image Source="location.png"
-                                       HeightRequest="18"
-                                       WidthRequest="18"/>
-                                <Label Text="Amman, Jordan"
-                                       FontSize="14"
-                                       FontFamily="Montserrat-Medium"
-                                       TextColor="#4A5568"/>
-                            </HorizontalStackLayout>
+                    <!-- Basic Info -->
+                    <HorizontalStackLayout Spacing="8" Margin="0,16">
+                        <Image Source="location.png" HeightRequest="20" WidthRequest="20"/>
+                        <Label Text="Amman, Jordan"
+                               FontSize="14"
+                               FontFamily="Montserrat-Medium"
+                               TextColor="{StaticResource SecondaryText}"/>
+                    </HorizontalStackLayout>
 
-                            <BoxView HeightRequest="1" Color="#CBD5E0" Margin="0,8"/>
-
-                            <Grid ColumnDefinitions="*,*">
-                                <VerticalStackLayout>
-                                    <Label Text="TYPE"
-                                           FontSize="12"
-                                           TextColor="#718096"
-                                           FontFamily="Montserrat-SemiBold"/>
-                                    <Label Text="{Binding SelectedVenue.Type}"
-                                           FontSize="14"
-                                           FontFamily="Montserrat-Medium"
-                                           TextColor="#2D3748"/>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Column="1">
-                                    <Label Text="CAPACITY"
-                                           FontSize="12"
-                                           TextColor="#718096"
-                                           FontFamily="Montserrat-SemiBold"/>
-                                    <Label Text="{Binding SelectedVenue.Capacity}"
-                                           FontSize="14"
-                                           FontFamily="Montserrat-Medium"
-                                           TextColor="#2D3748"/>
-                                </VerticalStackLayout>
-                            </Grid>
+                    <!-- Stats Card -->
+                    <Grid ColumnDefinitions="*,*" Margin="0,24" RowSpacing="12">
+                        <VerticalStackLayout>
+                            <Label Text="VENUE TYPE"
+                                   Style="{StaticResource SecondaryLabel}"/>
+                            <Label Text="{Binding SelectedVenue.Type}"
+                                   Style="{StaticResource PrimaryLabel}"/>
                         </VerticalStackLayout>
-                    </Border>
+
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="CAPACITY"
+                                   Style="{StaticResource SecondaryLabel}"/>
+                            <Label Text="{Binding SelectedVenue.Capacity}"
+                                   Style="{StaticResource PrimaryLabel}"/>
+                        </VerticalStackLayout>
+                    </Grid>
 
                     <!-- Features -->
-                    <VerticalStackLayout Spacing="12">
-                        <FlexLayout Wrap="Wrap" JustifyContent="Start" BindableLayout.ItemsSource="{Binding VenueFeatures}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BackgroundColor="#F8FAFC"
-                                            Padding="12,8"
-                                            Margin="0,0,10,10"
-                                            StrokeThickness="0"
-                                            StrokeShape="RoundRectangle 12">
-                                        <HorizontalStackLayout Spacing="8">
-                                            <Image Source="{Binding Icon}"
-                                                   HeightRequest="18"
-                                                   WidthRequest="18"/>
-                                            <Label Text="{Binding Value}"
-                                                   FontSize="14"
-                                                   TextColor="#4A5568"
-                                                   FontFamily="Montserrat-Medium"/>
-                                        </HorizontalStackLayout>
-                                    </Border>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </FlexLayout>
-                    </VerticalStackLayout>
-
-                    <BoxView HeightRequest="1" Color="#E2E8F0" Margin="0,10"/>
+                    <Label Text="Features" Style="{StaticResource SectionTitle}"/>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding VenueFeatures}"
+                                Wrap="Wrap" 
+                                AlignItems="Start"
+                                Margin="-4">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="{StaticResource PageBackground}"
+                                       Padding="12,8"
+                                       Margin="4"
+                                       CornerRadius="12"
+                                       HasShadow="False">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Image Source="{Binding Icon}" 
+                                               HeightRequest="18" 
+                                               WidthRequest="18"/>
+                                        <Label Text="{Binding Value}"
+                                               FontFamily="Montserrat-Medium"
+                                               FontSize="14"
+                                               TextColor="{StaticResource PrimaryText}"/>
+                                    </HorizontalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
 
                     <!-- About Section -->
-                    <VerticalStackLayout Spacing="12">
-                        <Label Text="About This Venue" Style="{StaticResource SectionHeader}"/>
-                        <Label Text="{Binding SelectedVenue.Description}"
-                               FontSize="14"
-                               TextColor="#4A5568"
-                               FontFamily="Montserrat-Regular"
-                               LineHeight="1.6"/>
-                    </VerticalStackLayout>
+                    <Label Text="About" Style="{StaticResource SectionTitle}"/>
+                    <Label Text="{Binding SelectedVenue.Description}"
+                           FontFamily="Montserrat-Regular"
+                           FontSize="14"
+                           TextColor="{StaticResource SecondaryText}"
+                           LineHeight="1.5"/>
 
                     <!-- Host Rules -->
-                    <VerticalStackLayout Spacing="12">
-                        <Label Text="Host Rules" Style="{StaticResource SectionHeader}"/>
-                        <CollectionView ItemsSource="{Binding HostRulesVenue}"
-                                        IsVisible="{Binding HasHostRules}"
-                                      SelectionMode="None"
-                                      Margin="-10,0">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BackgroundColor="#F8FAFC"
-                                            Padding="16"
-                                            Margin="0,0,0,10"
-                                            StrokeThickness="0"
-                                            StrokeShape="RoundRectangle 12">
-                                        <Grid ColumnDefinitions="24,*" ColumnSpacing="10">
-                                            <Image Source="rule_icon.png"
-                                                   HeightRequest="20"
-                                                   WidthRequest="20"
-                                                   VerticalOptions="Center"/>
-                                            <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                                <Label Text="{Binding HostRuleName}"
-                                                       FontSize="14"
-                                                       FontFamily="Montserrat-SemiBold"
-                                                       TextColor="#2D3748"/>
-                                                <Label Text="{Binding HostRuleDescription}"
-                                                       FontSize="13"
-                                                       FontFamily="Montserrat-Regular"
-                                                       TextColor="#4A5568"/>
-                                            </VerticalStackLayout>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
-                        <Label Text="There Is No Host Rules Avaliable"
-                   FontSize="16"
-                   TextColor="Gray"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   IsVisible="{Binding NoHostRules}"
-                   Grid.Row="1" />
-                    </VerticalStackLayout>
+                    <Label Text="Host Rules" 
+                           Style="{StaticResource SectionTitle}"
+                           IsVisible="{Binding HasHostRules}"/>
+                    <CollectionView ItemsSource="{Binding HostRulesVenue}"
+                                    IsVisible="{Binding HasHostRules}"
+                                    Margin="-12,0"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="24,*" 
+                                      Padding="12"
+                                      ColumnSpacing="16">
+                                    <Image Source="rule_icon.png"
+                                           HeightRequest="24"
+                                           WidthRequest="24"
+                                           VerticalOptions="Center"/>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <Label Text="{Binding HostRuleName}"
+                                               FontFamily="Montserrat-SemiBold"
+                                               FontSize="14"
+                                               TextColor="{StaticResource PrimaryText}"/>
+                                        <Label Text="{Binding HostRuleDescription}"
+                                               FontFamily="Montserrat-Regular"
+                                               FontSize="13"
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
                     <!-- Services -->
-                    <VerticalStackLayout Spacing="12">
-                        <Label Text="Services" Style="{StaticResource SectionHeader}"/>
-                        <CollectionView ItemsSource="{Binding ServicesVenue}"
-                                        IsVisible="{Binding HasServices}"
-                                      SelectionMode="None"
-                                      Margin="-10,0">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BackgroundColor="#F8FAFC"
-                                            Padding="16"
-                                            Margin="0,0,0,10"
-                                            StrokeThickness="0"
-                                            StrokeShape="RoundRectangle 12">
-                                        <Grid ColumnDefinitions="24,*" ColumnSpacing="10">
-                                            <Image Source="service_icon.png"
-                                                   HeightRequest="20"
-                                                   WidthRequest="20"
-                                                   VerticalOptions="Center"/>
-                                            <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                                <Label Text="{Binding Name}"
-                                                       FontSize="14"
-                                                       FontFamily="Montserrat-SemiBold"
-                                                       TextColor="#2D3748"/>
-                                                <Label Text="{Binding Description}"
-                                                       FontSize="13"
-                                                       FontFamily="Montserrat-Regular"
-                                                       TextColor="#4A5568"/>  
-                                                
-                                                <Label Text="{Binding Price}"
-                                                       FontSize="13"
-                                                       FontFamily="Montserrat-Regular"
-                                                       TextColor="#4A5568"/>
-                                            </VerticalStackLayout>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
-                        <Label Text="There Is No Services Avaliable"
-                                FontSize="16"
-                                TextColor="Gray"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                IsVisible="{Binding NoServices}"
-                                Grid.Row="1" />
-
-                    </VerticalStackLayout>
-
+                    <Label Text="Services" 
+                           Style="{StaticResource SectionTitle}"
+                           IsVisible="{Binding HasServices}"/>
+                    <CollectionView ItemsSource="{Binding ServicesVenue}"
+                                    IsVisible="{Binding HasServices}"
+                                    Margin="-12,0"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="24,*" 
+                                      Padding="12"
+                                      ColumnSpacing="16">
+                                    <Image Source="service_icon.png"
+                                           HeightRequest="24"
+                                           WidthRequest="24"
+                                           VerticalOptions="Center"/>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <Label Text="{Binding Name}"
+                                               FontFamily="Montserrat-SemiBold"
+                                               FontSize="14"
+                                               TextColor="{StaticResource PrimaryText}"/>
+                                        <Label Text="{Binding Description}"
+                                               FontFamily="Montserrat-Regular"
+                                               FontSize="13"
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Price, StringFormat='{0} JOD'}"
+                                               FontFamily="Montserrat-Medium"
+                                               FontSize="13"
+                                               TextColor="{StaticResource PrimaryColor}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </VerticalStackLayout>
             </ScrollView>
-        </Border>
+        </Frame>
 
-        <!-- Footer Booking Bar -->
+        <!-- Booking Footer -->
         <Grid Grid.Row="2"
-              Padding="20,15"
-              BackgroundColor="White"
+              Padding="24,16"
+              BackgroundColor="{StaticResource CardBackground}"
               ColumnDefinitions="*,Auto"
-              ColumnSpacing="15">
+              ColumnSpacing="16">
 
-            <VerticalStackLayout VerticalOptions="Center">
+            <VerticalStackLayout>
                 <Label Text="Starting from"
+                       FontFamily="Montserrat-Medium"
                        FontSize="12"
-                       TextColor="#718096"
-                       FontFamily="Montserrat-Medium"/>
+                       TextColor="{StaticResource SecondaryText}"/>
                 <Label Text="{Binding SelectedVenue.InitialPrice, StringFormat='{0} JOD/hour'}"
+                       FontFamily="Montserrat-Bold"
                        FontSize="18"
-                       FontFamily="Montserrat-SemiBold"
-                       TextColor="#4F378A"/>
+                       TextColor="{StaticResource PrimaryColor}"/>
             </VerticalStackLayout>
 
             <Button Text="Book Now"
                     Grid.Column="1"
-                    BackgroundColor="#4F378A"
-                    TextColor="White"
-                    FontFamily="Montserrat-SemiBold"
                     CornerRadius="12"
-                    HeightRequest="50"
-                    WidthRequest="160"
-                    VerticalOptions="Center"
-                    Command="{Binding GoToBookingCalendarPageCommand}">
-                <Button.Shadow>
-                    <Shadow Brush="#4F378A" Offset="0,4" Opacity="0.2" Radius="8"/>
-                </Button.Shadow>
-            </Button>
+                    Padding="32,0"
+                    HeightRequest="48"
+                    BackgroundColor="{StaticResource PrimaryColor}"
+                    TextColor="White"
+                    FontFamily="Montserrat-Bold"
+                    Command="{Binding GoToBookingCalendarPageCommand}"/>
         </Grid>
     </Grid>
 </ContentPage>
