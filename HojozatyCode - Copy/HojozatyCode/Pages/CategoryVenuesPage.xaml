@@ -151,7 +151,9 @@
                                 <CollectionView ItemsSource="{Binding ImageUrls}"
                                     HeightRequest="200"
                                     ItemsLayout="HorizontalList"
-                                   >
+                                    HorizontalScrollBarVisibility="Always"
+                              
+                                >
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding .}"

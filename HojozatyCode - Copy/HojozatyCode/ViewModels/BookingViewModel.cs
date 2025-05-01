@@ -51,9 +51,23 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<Booking> _venueBookings = new();
 
-		// Selected date and time
 		[ObservableProperty]
-		private DateTime _selectedDateTime = DateTime.Now;
+		private DateTime selectedDate = DateTime.Today;
+
+		[ObservableProperty]
+		private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
+
+		public DateTime SelectedDateTime => SelectedDate.Date + SelectedTime;
+
+		partial void OnSelectedDateChanged(DateTime value)
+		{
+			OnPropertyChanged(nameof(SelectedDateTime));
+		}
+
+		partial void OnSelectedTimeChanged(TimeSpan value)
+		{
+			OnPropertyChanged(nameof(SelectedDateTime));
+		}
 
 		[RelayCommand]
 		public async Task LoadBookingsAsync(Guid venueId)
@@ -68,6 +82,14 @@ namespace HojozatyCode.ViewModels
 
 			if (response.Models != null)
 				VenueBookings = new ObservableCollection<Booking>(response.Models);
+
+			await Shell.Current.DisplayAlert("Prompt", "Inside The Load Bookings Async", "OK");
+
+			foreach (var book in VenueBookings) 
+			{
+				await Shell.Current.DisplayAlert("Prompt", $"{book.StartDateTime} To {book.EndDateTime}", "OK");
+			}
+
 		}
 
 		/// <summary>
@@ -75,38 +97,39 @@ namespace HojozatyCode.ViewModels
 		/// </summary>
 		/// <param name="dateTime"></param>
 		/// <returns></returns>
-		public bool IsDateTimeAvailable(DateTime dateTime)
+		private async Task<bool> IsDateTimeAvailable(DateTime newBookingStart, DateTime newBookingEnd)
 		{
-			// Go through all bookings for the venue
+			if (VenueBookings == null)
+				return true;
+
 			foreach (var booking in VenueBookings)
 			{
-				// Check if the selected time overlaps with any existing booking
-				if (dateTime >= booking.StartDateTime && dateTime < booking.EndDateTime)
+				if (booking.StartDateTime < newBookingEnd && newBookingStart < booking.EndDateTime)
 				{
-					return false; // Not available
+					return false;
 				}
 			}
 
-			return true; // Available
+			return true;
 		}
-
 		/// <summary>
 		/// Create a new booking
 		/// </summary>
 		/// <param name="userId"></param>
 		/// <returns></returns>
-		[RelayCommand]
-		public async Task CheckTheBookingButton() 
-		{
-			await Shell.Current.DisplayAlert("Prompt", "The Command Was Work Correctly", "OK");
-		}		
-		
+
+
 		[RelayCommand]
 		public async Task CreateBooking()
 		{
-			if (!IsDateTimeAvailable(SelectedDateTime))
+			var newBookingStart = SelectedDateTime;
+			var newBookingEnd = SelectedDateTime.AddHours(1);
+
+			await Shell.Current.DisplayAlert("Prmpt", $"Selected date time value was {SelectedDateTime}", "OK");
+
+			if (!await IsDateTimeAvailable(newBookingStart, newBookingEnd))
 			{
-				await Shell.Current.DisplayAlert("Prompt", $"{SelectedDateTime} Date", "OK");
+				await Shell.Current.DisplayAlert("Prompt", $"There was a booking from {newBookingStart} to {newBookingEnd}", "OK");
 				return ; // Can't book if not available
 			}
 
@@ -142,17 +165,6 @@ namespace HojozatyCode.ViewModels
 		}
 	
 
-
-
-
-
-
-
-
-
-
-
-
 		// Constructor - private to enforce singleton pattern
 		public BookingViewModel()
 		{
@@ -174,11 +186,6 @@ namespace HojozatyCode.ViewModels
 				}
 			}
 		}
-
-		//private async Task LoadVenuesPhotos(Venue venue) 
-		//{
-		//	ImageUrls = venue.ImageUrl.Split(',').ToObservableCollection();
-		//}
 
 		private async Task LoadHostRules()
 		{

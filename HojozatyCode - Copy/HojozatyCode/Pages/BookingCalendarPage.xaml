@@ -9,12 +9,12 @@
 
             <!-- Date Picker -->
             <DatePicker 
-                Date="{Binding SelectedDateTime, Mode=TwoWay}" 
+                Date="{Binding SelectedDate, Mode=TwoWay}" 
                 Format="D" />
 
             <!-- Time Picker -->
             <TimePicker 
-                Time="{Binding SelectedDateTime, Mode=TwoWay}" />
+                Time="{Binding SelectedTime, Mode=TwoWay}" />
 
             <!-- Button to Check Availability -->
             <Button 
