@@ -2,37 +2,105 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.BookingCalendarPage"
-             Title="BookingCalendarPage">
+             Title="Book Your Appointment"
+             BackgroundColor="{AppThemeBinding Light=#F8F9FA, Dark=#121212}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- Date Picker -->
-            <DatePicker 
-                Date="{Binding SelectedDate, Mode=TwoWay}" 
-                Format="D" />
+            <!-- Header  -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Label Text="Schedule Your Visit"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"/>
+            </HorizontalStackLayout>
 
-            <!-- Time Picker -->
-            <TimePicker 
-                Time="{Binding SelectedTime, Mode=TwoWay}" />
+            <Label Text="Select your preferred date and time"
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
 
-            <!-- Button to Check Availability -->
-            <Button 
-                Text="Check Availability" 
-                Command="{Binding CheckAvailabilityCommand}" />
+            <!-- Date Picker with Icon -->
+            <Frame CornerRadius="14" Padding="15" HasShadow="True"
+                   BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
+                <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
+                    <Image Source="calenadar.png" 
+                           HeightRequest="24"
+                           WidthRequest="24"
+                           VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Spacing="5">
+                        <Label Text="Appointment Date"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
+                        <DatePicker Date="{Binding SelectedDate}"
+                                   Format="D"
+                                   FontSize="16"
+                                   TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"
+                                   HorizontalOptions="Fill"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
 
-            <!-- Label to Show Result -->
-            <Label 
-                x:Name="AvailabilityLabel" 
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <!-- Time Picker with Icon -->
+            <Frame CornerRadius="14" Padding="15" HasShadow="True"
+                   BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
+                <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
+                    <Image Source="clock.png" 
+                           HeightRequest="24"
+                           WidthRequest="24"
+                           VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Spacing="5">
+                        <Label Text="Appointment Time"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
+                        <TimePicker Time="{Binding SelectedTime}"
+                                   FontSize="16"
+                                   TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"
+                                   HorizontalOptions="Fill"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
 
-            <!-- Button to Book -->
-            <Button 
-                Text="Book Now"
-                Command="{Binding CreateBookingCommand}"
-                />
+            <!-- Check Availability Button -->
+            <Border BackgroundColor="#4F378A"
+        StrokeShape="RoundRectangle 10"
+        >
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CheckAvailabilityCommand}" />
+                </Border.GestureRecognizers>
 
+                <Grid Padding="10">
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                       
+                        <Label Text="Check Availability"
+                   FontSize="16"
+                   TextColor="White"
+                   FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Confirm Booking Button -->
+            <Border BackgroundColor="#4F378A"
+        StrokeShape="RoundRectangle 10"
+        >
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CreateBookingCommand}" />
+                </Border.GestureRecognizers>
+
+                <Grid Padding="10">
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="approve.png"
+                   HeightRequest="20"
+                   WidthRequest="20"/>
+                        <Label Text="Confirm Booking"
+                   FontSize="16"
+                   TextColor="White"
+                   FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -149,17 +149,13 @@
                             <Grid>
                                 <!-- Horizontal Images Carousel -->
                                 <CollectionView ItemsSource="{Binding ImageUrls}"
-                                    HeightRequest="200"
-                                    ItemsLayout="HorizontalList"
-                                    HorizontalScrollBarVisibility="Always"
-                              
-                                >
+                                    HeightRequest="200">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding .}"
                                        Aspect="AspectFill"
                                        HeightRequest="200"
-                                       WidthRequest="350" />
+                                       WidthRequest="400" />
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
