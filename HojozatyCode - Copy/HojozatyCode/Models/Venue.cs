@@ -1,6 +1,7 @@
     using Supabase.Postgrest.Attributes;
     using System;
     using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace HojozatyCode.Models
 {
@@ -67,7 +68,17 @@ namespace HojozatyCode.Models
         // Add the new City column
         [Column("city")]
         public string City { get; set; }
+        
+        // Add the new IsFixedDuration column
+        [Column("is_fixed_duration")]
+        public bool IsFixedDuration { get; set; }
+        
+        // Add the new IsFixedDuration column
+        [Column("fixed_duration_in_hours")]
+        public int FixedDurationInHours { get; set; }
 
+
+        [IgnoreDataMember]
         public List<string> ImageUrls
         {
             get

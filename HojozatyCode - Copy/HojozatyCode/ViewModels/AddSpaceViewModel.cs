@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
@@ -131,6 +131,11 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private List<string> imageUrlsList;
 
+		[ObservableProperty]
+		private bool isFixedDuration;
+
+		[ObservableProperty]
+		private int ?fixedDurationInHours;
 
 		//Service Page
 
@@ -885,10 +890,26 @@ namespace HojozatyCode.ViewModels
 			{
 				//await Shell.Current.DisplayAlert("Canceelation Policy", cancellationPolicy, "OK");
 
+				if (IsFixedDuration)
+				{
+					if (FixedDurationInHours == null || FixedDurationInHours <= 0)
+					{
+						throw new ArgumentException("يجب تحديد عدد ساعات صحيح عندما تكون المدة ثابتة.");
+					}
+				}
+
+				else
+				{
+					FixedDurationInHours = null; // لا يوجد مدة ثابتة، نجعلها null
+				}
+
+
 				var response = await _supabaseClient
 					.From<Venue>()
 					.Where(v => v.VenueId == venueId)  // Ensure VenueId is the PK
 					.Set(v => v.CancellationPolicy, cancellationPolicy)  // Use .Set() for property update
+					.Set(v => v.IsFixedDuration , IsFixedDuration)
+					.Set(v => v.FixedDurationInHours , FixedDurationInHours)
 					.Update();
 
 

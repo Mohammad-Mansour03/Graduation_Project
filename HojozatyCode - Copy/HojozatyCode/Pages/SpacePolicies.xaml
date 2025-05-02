@@ -101,6 +101,35 @@
           
             </Grid>
 
+            <!-- Fixed Duration Section -->
+            <Label Text="Is Duration Fixed?"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Margin="0,20,0,0" />
+
+            <Switch IsToggled="{Binding IsFixedDuration}" 
+                      ThumbColor="#673AB7" 
+                      OnColor="#D1C4E9" />
+
+                        <!-- Show this only if IsFixedDuration is true -->
+            <Border Stroke="LightGray"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 12"
+                    HeightRequest="50"
+                    WidthRequest="350"
+                    IsVisible="{Binding IsFixedDuration}">
+
+                <Entry Placeholder="Enter duration in hours"
+                    Keyboard="Numeric"
+                    Text="{Binding FixedDurationInHours, Mode=TwoWay}"
+                    BackgroundColor="Transparent"
+                    FontSize="16"
+                    PlaceholderColor="Gray"
+                    TextColor="Black"/>
+            
+            </Border>
+
             <Label Text="Add Venue Rules"
                    FontSize="24" 
                    FontAttributes="Bold" 
