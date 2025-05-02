@@ -39,7 +39,8 @@ namespace HojozatyCode.ViewModels
         {
             if (!string.IsNullOrEmpty(value))
             {
-                Task.Run(async () => await LoadVenuesForCategory(value));
+                LoadVenuesForCategory(value).ConfigureAwait(false);
+                // Don't use Task.Run here, it's unnecessary and creates threading issues
             }
         }
 

@@ -71,11 +71,11 @@ namespace HojozatyCode.Models
         
         // Add the new IsFixedDuration column
         [Column("is_fixed_duration")]
-        public bool IsFixedDuration { get; set; }
+        public bool? IsFixedDuration { get; set; }
         
         // Add the new IsFixedDuration column
         [Column("fixed_duration_in_hours")]
-        public int FixedDurationInHours { get; set; }
+        public int? FixedDurationInHours { get; set; }
 
 
         [IgnoreDataMember]
