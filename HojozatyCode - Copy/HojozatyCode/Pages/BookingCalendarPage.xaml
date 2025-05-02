@@ -44,6 +44,7 @@
 
             <!-- Time Picker with Icon -->
             <Frame CornerRadius="14" Padding="15" HasShadow="True"
+                   IsVisible="{Binding IsFixedTime}"
                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
                 <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
                     <Image Source="clock.png" 
@@ -55,6 +56,27 @@
                                FontSize="12"
                                TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
                         <TimePicker Time="{Binding SelectedTime}"
+                                   FontSize="16"
+                                   TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"
+                                   HorizontalOptions="Fill"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>         
+            
+            <!-- Time Picker with Icon -->
+            <Frame CornerRadius="14" Padding="15" HasShadow="True"
+                   BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}"
+                   IsVisible="{Binding }">
+                <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
+                    <Image Source="clock.png" 
+                           HeightRequest="24"
+                           WidthRequest="24"
+                           VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Column="1" Spacing="5">
+                        <Label Text="Appointment Time"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
+                        <TimePicker Time="{Binding EndedTime}"
                                    FontSize="16"
                                    TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"
                                    HorizontalOptions="Fill"/>

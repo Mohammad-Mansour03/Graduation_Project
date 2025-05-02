@@ -45,6 +45,9 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string errorMessage;
 
+		[ObservableProperty]
+		private bool isFixedTime;
+
 		//Properties To Deal with the Calendar
 
 		// List to store all bookings for the selected venue
@@ -56,6 +59,9 @@ namespace HojozatyCode.ViewModels
 
 		[ObservableProperty]
 		private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
+		
+		[ObservableProperty]
+		private TimeSpan endedTime;
 
 		public DateTime SelectedDateTime => SelectedDate.Date + SelectedTime;
 
@@ -87,6 +93,8 @@ namespace HojozatyCode.ViewModels
 
 			foreach (var book in VenueBookings) 
 			{
+				book.StartDateTime = book.StartDateTime.ToLocalTime();
+				book.EndDateTime = book.EndDateTime.ToLocalTime();
 				await Shell.Current.DisplayAlert("Prompt", $"{book.StartDateTime} To {book.EndDateTime}", "OK");
 			}
 
@@ -100,7 +108,7 @@ namespace HojozatyCode.ViewModels
 		private async Task<bool> IsDateTimeAvailable(DateTime newBookingStart, DateTime newBookingEnd)
 		{
 			if (VenueBookings == null)
-				return true;
+				 return true;
 
 			foreach (var booking in VenueBookings)
 			{
@@ -118,52 +126,81 @@ namespace HojozatyCode.ViewModels
 		/// <param name="userId"></param>
 		/// <returns></returns>
 
-
 		[RelayCommand]
 		public async Task CreateBooking()
 		{
-			var newBookingStart = SelectedDateTime;
-			var newBookingEnd = SelectedDateTime.AddHours(1);
+			int duration;
+			var venue = SelectedVenue;
+			DateTime newBookingEnd;
 
-			await Shell.Current.DisplayAlert("Prmpt", $"Selected date time value was {SelectedDateTime}", "OK");
+			// Get Jordan time zone
+			var jordanTimeZone = TimeZoneInfo.FindSystemTimeZoneById(
+				DeviceInfo.Platform == DevicePlatform.WinUI ? "Jordan Standard Time" : "Asia/Amman");
+
+			// Convert selected datetime to Jordan time
+			var selectedDateTimeJordan = TimeZoneInfo.ConvertTime(SelectedDateTime, jordanTimeZone);
+			selectedDateTimeJordan = DateTime.SpecifyKind(selectedDateTimeJordan, DateTimeKind.Unspecified);
+
+			if (venue.IsFixedDuration != null && venue.IsFixedDuration == true)
+			{
+				duration = (int)venue.FixedDurationInHours;
+				newBookingEnd = selectedDateTimeJordan.AddHours(duration);
+			}
+			else
+			{
+				if (EndedTime > SelectedTime)
+				{
+					// Combine date with time components in Jordan time
+					var endTimeJordan = SelectedDate.Date.Add(EndedTime);
+					endTimeJordan = DateTime.SpecifyKind(endTimeJordan, DateTimeKind.Unspecified);
+					newBookingEnd = TimeZoneInfo.ConvertTime(endTimeJordan, jordanTimeZone);
+				}
+				else
+				{
+					await Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
+					return;
+				}
+			}
+
+			// Ensure both times are in Jordan time zone
+			var newBookingStart = selectedDateTimeJordan;
+			newBookingEnd = DateTime.SpecifyKind(newBookingEnd, DateTimeKind.Unspecified);
+
+			await Shell.Current.DisplayAlert("Prompt", $"Selected date time value was {newBookingStart}", "OK");
 
 			if (!await IsDateTimeAvailable(newBookingStart, newBookingEnd))
 			{
-				await Shell.Current.DisplayAlert("Prompt", $"There was a booking from {newBookingStart} to {newBookingEnd}", "OK");
-				return ; // Can't book if not available
+				await Shell.Current.DisplayAlert("Conflict", $"Booking conflict from {newBookingStart} to {newBookingEnd}", "OK");
+				return;
 			}
-
-			await Shell.Current.DisplayAlert("Prompt", $"Start to Booking Date", "OK");
 
 			var tempAuth = SupabaseConfig.SupabaseClient.Auth.CurrentUser;
 
-			// Create a new Booking object
 			var newBooking = new Booking
-			{				
+			{
 				BookingId = Guid.NewGuid(),
 				UserId = Guid.Parse(tempAuth.Id),
 				VenueId = VenueId,
-				StartDateTime = SelectedDateTime,
-				EndDateTime = SelectedDateTime.AddHours(1), // Booking is 1 hour
+				StartDateTime = newBookingStart,
+				EndDateTime = newBookingEnd,
 				Status = "confirmed",
-				TotalPrice = 100, // Example price (you can calculate based on venue)
-				CreatedAt = DateTime.UtcNow,
+				TotalPrice = 100,
+				CreatedAt = DateTime.UtcNow,  // Keep audit fields in UTC
 				UpdatedAt = DateTime.UtcNow
 			};
 
 			var response = await SupabaseConfig.SupabaseClient.From<Booking>().Insert(newBooking);
 
-			 await Shell.Current.DisplayAlert("Prompt", $"The Date is Booked", "OK");
-
 			if (response.ResponseMessage.IsSuccessStatusCode)
 			{
-				VenueBookings.Add(newBooking); // Update local list
-				return ;
+				VenueBookings.Add(newBooking);
+				await Shell.Current.DisplayAlert("Success", "Booking created!", "OK");
 			}
-
-			return ;
+			else
+			{
+				await Shell.Current.DisplayAlert("Error", "Failed to create booking", "OK");
+			}
 		}
-	
 
 		// Constructor - private to enforce singleton pattern
 		public BookingViewModel()
@@ -180,6 +217,13 @@ namespace HojozatyCode.ViewModels
 				if (SelectedVenue != null)
 				{
 					ImageUrls = SelectedVenue.ImageUrl.Split(',').ToObservableCollection();
+					if (SelectedVenue.IsFixedDuration != null)
+					{
+						IsFixedTime = false;
+					}
+					else
+						IsFixedTime = true;
+
 					await LoadHostRules();
 					await LoadServices();
 					await LoadBookingsAsync(SelectedVenue.VenueId);
