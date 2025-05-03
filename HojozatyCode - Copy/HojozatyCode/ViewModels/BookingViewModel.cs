@@ -195,6 +195,7 @@ namespace HojozatyCode.ViewModels
 			{
 				VenueBookings.Add(newBooking);
 				await Shell.Current.DisplayAlert("Success", "Booking created!", "OK");
+				await Shell.Current.GoToAsync(nameof(Pages.ServicesToAdd));
 			}
 			else
 			{
