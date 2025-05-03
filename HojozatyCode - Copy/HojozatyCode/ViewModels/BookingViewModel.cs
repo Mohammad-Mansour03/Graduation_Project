@@ -95,7 +95,7 @@ namespace HojozatyCode.ViewModels
 			{
 				book.StartDateTime = book.StartDateTime.ToLocalTime();
 				book.EndDateTime = book.EndDateTime.ToLocalTime();
-				await Shell.Current.DisplayAlert("Prompt", $"{book.StartDateTime} To {book.EndDateTime}", "OK");
+				await Shell.Current.DisplayAlert("Prompt", $"{book.StartDateTime.AddHours(-3)} To {book.EndDateTime.AddHours(-3)}", "OK");
 			}
 
 		}
@@ -105,7 +105,7 @@ namespace HojozatyCode.ViewModels
 		/// </summary>
 		/// <param name="dateTime"></param>
 		/// <returns></returns>
-		private async Task<bool> IsDateTimeAvailable(DateTime newBookingStart, DateTime newBookingEnd)
+		private  bool IsDateTimeAvailable(DateTime newBookingStart, DateTime newBookingEnd)
 		{
 			if (VenueBookings == null)
 				 return true;
@@ -133,27 +133,16 @@ namespace HojozatyCode.ViewModels
 			var venue = SelectedVenue;
 			DateTime newBookingEnd;
 
-			// Get Jordan time zone
-			var jordanTimeZone = TimeZoneInfo.FindSystemTimeZoneById(
-				DeviceInfo.Platform == DevicePlatform.WinUI ? "Jordan Standard Time" : "Asia/Amman");
-
-			// Convert selected datetime to Jordan time
-			var selectedDateTimeJordan = TimeZoneInfo.ConvertTime(SelectedDateTime, jordanTimeZone);
-			selectedDateTimeJordan = DateTime.SpecifyKind(selectedDateTimeJordan, DateTimeKind.Unspecified);
-
 			if (venue.IsFixedDuration != null && venue.IsFixedDuration == true)
 			{
 				duration = (int)venue.FixedDurationInHours;
-				newBookingEnd = selectedDateTimeJordan.AddHours(duration);
+				newBookingEnd = SelectedDateTime.AddHours(duration);
 			}
 			else
 			{
 				if (EndedTime > SelectedTime)
 				{
-					// Combine date with time components in Jordan time
-					var endTimeJordan = SelectedDate.Date.Add(EndedTime);
-					endTimeJordan = DateTime.SpecifyKind(endTimeJordan, DateTimeKind.Unspecified);
-					newBookingEnd = TimeZoneInfo.ConvertTime(endTimeJordan, jordanTimeZone);
+					newBookingEnd = SelectedDate + EndedTime;
 				}
 				else
 				{
@@ -161,16 +150,16 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 			}
+	
+			await Shell.Current.DisplayAlert("Prompt", $"Selected date time value was {SelectedDateTime} To {newBookingEnd}", "OK");
 
-			// Ensure both times are in Jordan time zone
-			var newBookingStart = selectedDateTimeJordan;
-			newBookingEnd = DateTime.SpecifyKind(newBookingEnd, DateTimeKind.Unspecified);
+			var newBookingStart = SelectedDateTime.AddHours(3);
+			newBookingEnd = newBookingEnd.AddHours(3);
 
-			await Shell.Current.DisplayAlert("Prompt", $"Selected date time value was {newBookingStart}", "OK");
 
-			if (!await IsDateTimeAvailable(newBookingStart, newBookingEnd))
+			if (!IsDateTimeAvailable(newBookingStart, newBookingEnd))
 			{
-				await Shell.Current.DisplayAlert("Conflict", $"Booking conflict from {newBookingStart} to {newBookingEnd}", "OK");
+				await Shell.Current.DisplayAlert("Conflict", $"Booking conflict from {newBookingStart.AddHours(-3)} to {newBookingEnd.AddHours(-3)}", "OK");
 				return;
 			}
 
@@ -185,8 +174,8 @@ namespace HojozatyCode.ViewModels
 				EndDateTime = newBookingEnd,
 				Status = "confirmed",
 				TotalPrice = 100,
-				CreatedAt = DateTime.UtcNow,  // Keep audit fields in UTC
-				UpdatedAt = DateTime.UtcNow
+				CreatedAt = DateTime.UtcNow.AddHours(3),  // Keep audit fields in UTC
+				UpdatedAt = DateTime.UtcNow.AddHours(3)
 			};
 
 			var response = await SupabaseConfig.SupabaseClient.From<Booking>().Insert(newBooking);
