@@ -112,7 +112,7 @@ namespace HojozatyCode.ViewModels
                 var client = SupabaseConfig.SupabaseClient;
                 var venuesResult = await client
                     .From<Venue>()
-                    .Where(v => v.Type == categoryName)
+                    .Where(v => v.Type == categoryName && v.Status == "Approved")
                     .Get();
 
                 Venues.Clear();
