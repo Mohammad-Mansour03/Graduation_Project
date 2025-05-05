@@ -2,124 +2,112 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.BookingCalendarPage"
-             Title="Book Your Appointment"
+             Title="Book Appointment"
              BackgroundColor="{AppThemeBinding Light=#F8F9FA, Dark=#121212}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- Header  -->
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                <Label Text="Schedule Your Visit"
-                       FontSize="28"
-                       FontAttributes="Bold"
-                       TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"/>
-            </HorizontalStackLayout>
+            <!-- Header -->
+            <Label Text="Choose a Time Slot"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}" />
 
-            <Label Text="Select your preferred date and time"
+            <Label Text="Pick a date and start/end time"
                    FontSize="14"
                    HorizontalOptions="Center"
-                   TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
+                   TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}" />
 
-            <!-- Date Picker with Icon -->
+            <!-- Date Picker -->
             <Frame CornerRadius="14" Padding="15" HasShadow="True"
                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
                 <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
-                    <Image Source="calenadar.png" 
+                    <Image Source="calenadar.png"
                            HeightRequest="24"
                            WidthRequest="24"
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center" />
                     <VerticalStackLayout Grid.Column="1" Spacing="5">
-                        <Label Text="Appointment Date"
+                        <Label Text="Date"
                                FontSize="12"
-                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
+                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}" />
                         <DatePicker Date="{Binding SelectedDate}"
-                                   Format="D"
-                                   FontSize="16"
-                                   TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"
-                                   HorizontalOptions="Fill"/>
+                                    Format="D"
+                                    FontSize="16"
+                                    TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}" />
                     </VerticalStackLayout>
                 </Grid>
             </Frame>
 
-            <!-- Time Picker with Icon -->
+            <!-- Start Time Picker -->
             <Frame CornerRadius="14" Padding="15" HasShadow="True"
-                   IsVisible="{Binding IsFixedTime}"
                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}">
                 <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
-                    <Image Source="clock.png" 
+                    <Image Source="clock.png"
                            HeightRequest="24"
                            WidthRequest="24"
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center" />
                     <VerticalStackLayout Grid.Column="1" Spacing="5">
-                        <Label Text="Appointment Time"
+                        <Label Text="Start Time"
                                FontSize="12"
-                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
+                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}" />
                         <TimePicker Time="{Binding SelectedTime}"
-                                   FontSize="16"
-                                   TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"
-                                   HorizontalOptions="Fill"/>
+                                    FontSize="16"
+                                    TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}" />
                     </VerticalStackLayout>
                 </Grid>
-            </Frame>         
-            
-            <!-- Time Picker with Icon -->
+            </Frame>
+
+            <!-- End Time Picker -->
             <Frame CornerRadius="14" Padding="15" HasShadow="True"
                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}"
-                   IsVisible="{Binding }">
+                   IsVisible="{Binding ShowEndTime}">
                 <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
-                    <Image Source="clock.png" 
+                    <Image Source="clock.png"
                            HeightRequest="24"
                            WidthRequest="24"
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center" />
                     <VerticalStackLayout Grid.Column="1" Spacing="5">
-                        <Label Text="Appointment Time"
+                        <Label Text="End Time"
                                FontSize="12"
-                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}"/>
+                               TextColor="{AppThemeBinding Light=#7F8C8D, Dark=#BDC3C7}" />
                         <TimePicker Time="{Binding EndedTime}"
-                                   FontSize="16"
-                                   TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}"
-                                   HorizontalOptions="Fill"/>
+                                    FontSize="16"
+                                    TextColor="{AppThemeBinding Light=#2C3E50, Dark=#ECF0F1}" />
                     </VerticalStackLayout>
                 </Grid>
             </Frame>
 
             <!-- Check Availability Button -->
-            <Border BackgroundColor="#4F378A"
-        StrokeShape="RoundRectangle 10"
-        >
+            <Border BackgroundColor="#4F378A" StrokeShape="RoundRectangle 10">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CheckAvailabilityCommand}" />
                 </Border.GestureRecognizers>
-
                 <Grid Padding="10">
                     <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
-                       
                         <Label Text="Check Availability"
-                   FontSize="16"
-                   TextColor="White"
-                   FontAttributes="Bold"/>
+                               FontSize="16"
+                               TextColor="White"
+                               FontAttributes="Bold" />
                     </HorizontalStackLayout>
                 </Grid>
             </Border>
 
             <!-- Confirm Booking Button -->
-            <Border BackgroundColor="#4F378A"
-        StrokeShape="RoundRectangle 10"
-        >
+            <Border BackgroundColor="#4F378A" StrokeShape="RoundRectangle 10">
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CreateBookingCommand}" />
                 </Border.GestureRecognizers>
-
                 <Grid Padding="10">
                     <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                         <Image Source="approve.png"
-                   HeightRequest="20"
-                   WidthRequest="20"/>
+                               HeightRequest="20"
+                               WidthRequest="20" />
                         <Label Text="Confirm Booking"
-                   FontSize="16"
-                   TextColor="White"
-                   FontAttributes="Bold"/>
+                               FontSize="16"
+                               TextColor="White"
+                               FontAttributes="Bold" />
                     </HorizontalStackLayout>
                 </Grid>
             </Border>
