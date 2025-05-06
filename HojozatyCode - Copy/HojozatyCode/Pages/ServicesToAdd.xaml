@@ -7,18 +7,19 @@
              BackgroundColor="#FAFAFA">
 
     <Grid RowDefinitions="*,Auto">
+
+        <!-- Scrollable Content -->
         <ScrollView>
             <VerticalStackLayout Padding="20" Spacing="25">
 
-                <!-- Header Section -->
+                <!-- Header -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Premium Services"
+                    <Label Text="Please Add Your Services"
                            FontSize="28"
                            FontAttributes="Bold"
                            TextColor="#2A1B4D"
                            HorizontalOptions="Start"/>
-
-                    <Label Text="Select from our exclusive services for a luxury experience"
+                    <Label Text="Select from the services for a luxury experience"
                            FontSize="16"
                            TextColor="#6B7280"
                            HorizontalOptions="Start"/>
@@ -26,24 +27,22 @@
 
                 <!-- Services List -->
                 <CollectionView ItemsSource="{Binding ServicesVenue}"
-                              IsVisible="{Binding HasServices}"
-                              SelectionMode="None"
-                              EmptyView="No services currently available"
-                              EmptyViewTemplate="{StaticResource NoServicesTemplate}">
+                                IsVisible="{Binding HasServices}"
+                                SelectionMode="None"
+                                EmptyViewTemplate="{StaticResource NoServicesTemplate}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
                     </CollectionView.ItemsLayout>
-
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Border BackgroundColor="White"
-                                  Padding="0"
-                                  StrokeThickness="0"
-                                  StrokeShape="RoundRectangle 20"
-                                  Shadow="{StaticResource CardShadow}">
+                                    Padding="0"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 20"
+                                    Shadow="{StaticResource CardShadow}">
                                 <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
-                                    ColumnDefinitions="*,Auto"
-                                    Padding="20">
+                                      ColumnDefinitions="*,Auto"
+                                      Padding="20">
 
                                     <!-- Service Name -->
                                     <Label Text="{Binding Name}"
@@ -51,19 +50,6 @@
                                            FontSize="20"
                                            FontAttributes="Bold"
                                            TextColor="#2A1B4D" />
-
-                                    <!-- Premium Badge -->
-                                    <Frame Grid.Row="0" Grid.Column="1"
-                                           CornerRadius="12"
-                                           Padding="12,4"
-                                           BackgroundColor="#F3EFFF"
-                                           BorderColor="#7F67BE"
-                                           HasShadow="False">
-                                        <Label Text="PREMIUM"
-                                               FontSize="12"
-                                               TextColor="#7F67BE"
-                                               FontAttributes="Bold"/>
-                                    </Frame>
 
                                     <!-- Service Description -->
                                     <Label Text="{Binding Description}"
@@ -85,6 +71,8 @@
                                           Margin="0,16,0,0"
                                           ColumnDefinitions="Auto,*,Auto"
                                           HeightRequest="40">
+
+                                        <!-- Decrease Button -->
                                         <Button Text="−"
                                                 Grid.Column="0"
                                                 WidthRequest="40"
@@ -94,13 +82,19 @@
                                                 FontAttributes="Bold"
                                                 FontSize="16"/>
 
-                                        <Label Text="1"
+                                        <!-- Quantity Entry -->
+                                        <Entry Text="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=SelectedQuantity}"
                                                Grid.Column="1"
+                                               Keyboard="Numeric"
                                                FontSize="16"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center"
-                                               TextColor="#4F378A"/>
+                                               BackgroundColor="White"
+                                               TextColor="#4F378A"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               HeightRequest="40"
+                                               Margin="8,0" />
 
+                                        <!-- Increase Button -->
                                         <Button Text="+"
                                                 Grid.Column="2"
                                                 WidthRequest="40"
@@ -115,24 +109,32 @@
                                     <Button Text="Add to Booking"
                                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                             Margin="0,20,0,0"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
-                                            CommandParameter="{Binding .}"
                                             BackgroundColor="#4F378A"
                                             TextColor="White"
                                             CornerRadius="14"
                                             FontAttributes="Bold"
                                             FontSize="16"
                                             HeightRequest="50"
-                                            Padding="0"/>
+                                            Padding="0"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
+                                            CommandParameter="{Binding .}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
+                <!-- No Services Message -->
+                <Label Text="No Services Avaliable For The Selected Venue"
+                       FontSize="16"
+                       TextColor="Gray"
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding NoServices}" />
+
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Next Button Fixed at Bottom -->
+        <!-- Fixed Next Button -->
         <Button Text="Next"
                 Grid.Row="1"
                 Margin="20"
@@ -145,6 +147,7 @@
                 Command="{Binding NextCommand}"/>
     </Grid>
 
+    <!-- Resources -->
     <ContentPage.Resources>
         <ResourceDictionary>
             <!-- Card Shadow -->
@@ -161,10 +164,6 @@
                            TextColor="#6B7280"
                            HorizontalOptions="Center"
                            Margin="0,20,0,0"/>
-                    <Label Text="We'll be adding new services soon"
-                           FontSize="14"
-                           TextColor="#9CA3AF"
-                           HorizontalOptions="Center"/>
                 </StackLayout>
             </DataTemplate>
         </ResourceDictionary>
