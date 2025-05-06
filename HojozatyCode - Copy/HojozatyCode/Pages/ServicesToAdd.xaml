@@ -3,72 +3,170 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ServicesToAdd"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
-             Title="ServicesToAdd">
+             Title="Premium Services"
+             BackgroundColor="#FAFAFA">
 
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="25">
 
+                <!-- Header Section -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Premium Services"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="#2A1B4D"
+                           HorizontalOptions="Start"/>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+                    <Label Text="Select from our exclusive services for a luxury experience"
+                           FontSize="16"
+                           TextColor="#6B7280"
+                           HorizontalOptions="Start"/>
+                </VerticalStackLayout>
 
-            <!-- قائمة الخدمات -->
-            <CollectionView ItemsSource="{Binding ServicesVenue}"
-                            IsVisible="{Binding HasServices}"
-                            SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BackgroundColor="#F8FAFC"
-                                Padding="16"
-                                Margin="0,0,0,10"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 12">
-                            <VerticalStackLayout Spacing="8">
+                <!-- Services List -->
+                <CollectionView ItemsSource="{Binding ServicesVenue}"
+                              IsVisible="{Binding HasServices}"
+                              SelectionMode="None"
+                              EmptyView="No services currently available"
+                              EmptyViewTemplate="{StaticResource NoServicesTemplate}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
+                    </CollectionView.ItemsLayout>
 
-                                <!-- اسم الخدمة -->
-                                <Label Text="{Binding Name}"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       TextColor="#2D3748" />
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="White"
+                                  Padding="0"
+                                  StrokeThickness="0"
+                                  StrokeShape="RoundRectangle 20"
+                                  Shadow="{StaticResource CardShadow}">
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
+                                    ColumnDefinitions="*,Auto"
+                                    Padding="20">
 
-                                <!-- وصف الخدمة -->
-                                <Label Text="{Binding Description}"
-                                       FontSize="14"
-                                       TextColor="#4A5568" />
+                                    <!-- Service Name -->
+                                    <Label Text="{Binding Name}"
+                                           Grid.Row="0" Grid.Column="0"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#2A1B4D" />
 
-                                <!-- السعر -->
-                                <Label Text="{Binding Price, StringFormat='السعر: {0:C}'}"
-                                       FontSize="14"
-                                       TextColor="#4A5568" />
+                                    <!-- Premium Badge -->
+                                    <Frame Grid.Row="0" Grid.Column="1"
+                                           CornerRadius="12"
+                                           Padding="12,4"
+                                           BackgroundColor="#F3EFFF"
+                                           BorderColor="#7F67BE"
+                                           HasShadow="False">
+                                        <Label Text="PREMIUM"
+                                               FontSize="12"
+                                               TextColor="#7F67BE"
+                                               FontAttributes="Bold"/>
+                                    </Frame>
 
-                                <Entry 
-                                    Placeholder="الكمية"
-                                    Keyboard="Numeric"
-                                    Text="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=SelectedQuantity}"
-                                    FontSize="14"
-                                    BackgroundColor="#FFFFFF"
-                                    TextColor="Black"
-                                />
+                                    <!-- Service Description -->
+                                    <Label Text="{Binding Description}"
+                                           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                           FontSize="14"
+                                           TextColor="#6B7280"
+                                           Margin="0,8,0,0"/>
 
-                                <!-- زر الإضافة -->
-                                <Button Text="أضف الخدمة"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
-                                        CommandParameter="{Binding .}"
-                                        BackgroundColor="#3B82F6"
-                                        TextColor="White"
-                                        CornerRadius="12" />
+                                    <!-- Price -->
+                                    <Label Text="{Binding Price, StringFormat='{0} JOD'}"
+                                           Grid.Row="2" Grid.Column="0"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="#4F378A"
+                                           Margin="0,12,0,0"/>
 
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                    <!-- Quantity Selector -->
+                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                          Margin="0,16,0,0"
+                                          ColumnDefinitions="Auto,*,Auto"
+                                          HeightRequest="40">
+                                        <Button Text="−"
+                                                Grid.Column="0"
+                                                WidthRequest="40"
+                                                BackgroundColor="#F3EFFF"
+                                                TextColor="#4F378A"
+                                                CornerRadius="12"
+                                                FontAttributes="Bold"
+                                                FontSize="16"/>
 
-            <!-- رسالة عدم وجود خدمات -->
-            <Label Text="لا توجد خدمات متاحة"
-                   FontSize="16"
-                   TextColor="Gray"
-                   HorizontalOptions="Center"
-                   IsVisible="{Binding NoServices}" />
+                                        <Label Text="1"
+                                               Grid.Column="1"
+                                               FontSize="16"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               TextColor="#4F378A"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                                        <Button Text="+"
+                                                Grid.Column="2"
+                                                WidthRequest="40"
+                                                BackgroundColor="#F3EFFF"
+                                                TextColor="#4F378A"
+                                                CornerRadius="12"
+                                                FontAttributes="Bold"
+                                                FontSize="16"/>
+                                    </Grid>
+
+                                    <!-- Add Button -->
+                                    <Button Text="Add to Booking"
+                                            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                                            Margin="0,20,0,0"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="#4F378A"
+                                            TextColor="White"
+                                            CornerRadius="14"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HeightRequest="50"
+                                            Padding="0"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Next Button Fixed at Bottom -->
+        <Button Text="Next"
+                Grid.Row="1"
+                Margin="20"
+                BackgroundColor="#4F378A"
+                TextColor="White"
+                CornerRadius="12"
+                FontAttributes="Bold"
+                FontSize="16"
+                HeightRequest="50"
+                Command="{Binding NextCommand}"/>
+    </Grid>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Card Shadow -->
+            <Shadow x:Key="CardShadow" Brush="#33000000" Offset="0,4" Radius="12" Opacity="0.1"/>
+
+            <!-- No Services Template -->
+            <DataTemplate x:Key="NoServicesTemplate">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="40">
+                    <Image Source="nofound.png"
+                           HeightRequest="120"
+                           Aspect="AspectFit"/>
+                    <Label Text="No services currently available"
+                           FontSize="18"
+                           TextColor="#6B7280"
+                           HorizontalOptions="Center"
+                           Margin="0,20,0,0"/>
+                    <Label Text="We'll be adding new services soon"
+                           FontSize="14"
+                           TextColor="#9CA3AF"
+                           HorizontalOptions="Center"/>
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 </ContentPage>
