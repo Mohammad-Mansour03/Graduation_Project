@@ -19,5 +19,5 @@ namespace HojozatyCode.Models
         // Price per unit
         [Column("price_per_unit")]
         public double PricePerUnit { get; set; }
-    }
+    }   
 }

@@ -2,11 +2,73 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ServicesToAdd"
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              Title="ServicesToAdd">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- قائمة الخدمات -->
+            <CollectionView ItemsSource="{Binding ServicesVenue}"
+                            IsVisible="{Binding HasServices}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BackgroundColor="#F8FAFC"
+                                Padding="16"
+                                Margin="0,0,0,10"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="8">
+
+                                <!-- اسم الخدمة -->
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#2D3748" />
+
+                                <!-- وصف الخدمة -->
+                                <Label Text="{Binding Description}"
+                                       FontSize="14"
+                                       TextColor="#4A5568" />
+
+                                <!-- السعر -->
+                                <Label Text="{Binding Price, StringFormat='السعر: {0:C}'}"
+                                       FontSize="14"
+                                       TextColor="#4A5568" />
+
+                                <Entry 
+                                    Placeholder="الكمية"
+                                    Keyboard="Numeric"
+                                    Text="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=SelectedQuantity}"
+                                    FontSize="14"
+                                    BackgroundColor="#FFFFFF"
+                                    TextColor="Black"
+                                />
+
+                                <!-- زر الإضافة -->
+                                <Button Text="أضف الخدمة"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#3B82F6"
+                                        TextColor="White"
+                                        CornerRadius="12" />
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- رسالة عدم وجود خدمات -->
+            <Label Text="لا توجد خدمات متاحة"
+                   FontSize="16"
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding NoServices}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

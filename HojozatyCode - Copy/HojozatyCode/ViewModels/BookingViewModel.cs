@@ -16,10 +16,11 @@ namespace HojozatyCode.ViewModels
 
 	public partial class BookingViewModel : ObservableObject, IQueryAttributable
 	{
-
+		//To deal with venue id that come from another page
 		[ObservableProperty]
 		private string venueIdRaw;
-
+		
+		//To store the VenueId that come from another page and dealing with it in quireies
 		[ObservableProperty]
 		private Guid venueId;
 
@@ -27,26 +28,29 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private Venue selectedVenue;
 
+		//ObservableCollection to store the host rules that related to the venue
 		[ObservableProperty]
 		private ObservableCollection<HostRules> hostRulesVenue = new ObservableCollection<HostRules>();
 
+		//Conditioners to check if the Venue has host rules or not
 		public bool HasHostRules => HostRulesVenue != null && HostRulesVenue.Count > 0;
 		public bool NoHostRules => !HasHostRules;
 
-
+		//ObservableCollection to store the all services that related to the venue
 		[ObservableProperty]
 		private ObservableCollection<ServiceItem> servicesVenue = new ObservableCollection<ServiceItem>();
 
-		[ObservableProperty]
-		private ObservableCollection<string> imageUrls = new ObservableCollection<string>();
+		//Conditionires to check if the venue has services or not
 		public bool HasServices => ServicesVenue != null && ServicesVenue.Count > 0;
 		public bool NoServices => !HasServices;
-
+		
+		//To display there is an error when user choose something wrong
 		[ObservableProperty]
 		private string errorMessage;
-
+		
+		//Conditioner to check if the venue has fixing time or no
 		[ObservableProperty]
-		private bool isFixedTime;
+		private bool hasFixedTime;
 
 		//Properties To Deal with the Calendar
 
@@ -54,27 +58,90 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<Booking> _venueBookings = new();
 
+		//Date time to store the Started Date that user choosen
 		[ObservableProperty]
 		private DateTime selectedDate = DateTime.Today;
 
+		//Time Span to store the Started time that user choosen
 		[ObservableProperty]
 		private TimeSpan selectedTime = DateTime.Now.TimeOfDay;
 		
+		//Time Span to store the Ended time that user choosen
 		[ObservableProperty]
 		private TimeSpan endedTime;
 
+		//Date time to store the Started Date and time that user choosen
 		public DateTime SelectedDateTime => SelectedDate.Date + SelectedTime;
 
+		[ObservableProperty]
+		private int selectedQuantity;
+
+		[ObservableProperty]
+		private Guid selectedBookingId;
+		
+		[ObservableProperty]
+		private Guid currentUserId;
+
+
+		ObservableCollection<BookingService> BookingServices { get; set; } = new ObservableCollection<BookingService>();
+
+
+		[RelayCommand]
+		private async Task AddSelectedService(ServiceItem service)
+		{
+			await Shell.Current.DisplayAlert("Prompt", "Inside the Add Selected Service Command", "OK");
+			
+			await Shell.Current.DisplayAlert("Prompt", $"Service Id {service.ServiceId}\n" +
+				$"Booking Id {SelectedBookingId}\n SelectedQuantity{SelectedQuantity}", "OK");
+
+
+			if (service is null || SelectedBookingId == Guid.Empty )
+			{
+				await Shell.Current.DisplayAlert("تنبيه", "يرجى اختيار خدمة وإدخال كمية صحيحة", "موافق");
+				return;
+			}
+
+			try
+			{
+				var totalPrice = service.Price * SelectedQuantity;
+
+				var bookingService = new BookingService
+				{
+					BookingId = SelectedBookingId,
+					ServiceId = service.ServiceId,
+					Quantity = SelectedQuantity,
+					TotalPrice = totalPrice
+				};
+
+				BookingServices.Add(bookingService);
+
+				var response = await SupabaseConfig.SupabaseClient
+					.From<BookingService>()
+					.Insert(bookingService);
+
+				await Shell.Current.DisplayAlert("تم", "تمت إضافة الخدمة إلى الحجز", "موافق");
+			}
+			catch (FileLoadException ex)
+			{
+				await Shell.Current.DisplayAlert("خطأ", ex.Message, "موافق");
+			}
+		}
+    
+
+
+		//Method that deals with every user changed for the Date (For SelectedDateTiem)
 		partial void OnSelectedDateChanged(DateTime value)
 		{
 			OnPropertyChanged(nameof(SelectedDateTime));
 		}
 
+		//Method that deals with every user changed for the Time (For SelectedDateTiem)
 		partial void OnSelectedTimeChanged(TimeSpan value)
 		{
 			OnPropertyChanged(nameof(SelectedDateTime));
 		}
 
+		//Command to load the all bookings that related to that venue and Store them inside the VenueBookings
 		[RelayCommand]
 		public async Task LoadBookingsAsync(Guid venueId)
 		{
@@ -120,6 +187,7 @@ namespace HojozatyCode.ViewModels
 
 			return true;
 		}
+		
 		/// <summary>
 		/// Create a new booking
 		/// </summary>
@@ -133,17 +201,29 @@ namespace HojozatyCode.ViewModels
 			var venue = SelectedVenue;
 			DateTime newBookingEnd;
 
+			//Check if the Selected date time isn't in the past
+			if(SelectedDateTime < DateTime.Now) 
+			{
+				await Shell.Current.DisplayAlert("Error", "You Can't Choose Past Date", "OK");
+				return;
+			}
+
+			//Check if the venue has fixed time or not (To store the right ended time)
 			if (venue.IsFixedDuration != null && venue.IsFixedDuration == true)
 			{
 				duration = (int)venue.FixedDurationInHours;
 				newBookingEnd = SelectedDateTime.AddHours(duration);
 			}
+
 			else
 			{
+
+				//Check if the ended time isn't before the started time
 				if (EndedTime > SelectedTime)
 				{
 					newBookingEnd = SelectedDate + EndedTime;
 				}
+				
 				else
 				{
 					await Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
@@ -156,7 +236,7 @@ namespace HojozatyCode.ViewModels
 			var newBookingStart = SelectedDateTime.AddHours(3);
 			newBookingEnd = newBookingEnd.AddHours(3);
 
-
+			//Check if the interval is available or not
 			if (!IsDateTimeAvailable(newBookingStart, newBookingEnd))
 			{
 				await Shell.Current.DisplayAlert("Conflict", $"Booking conflict from {newBookingStart.AddHours(-3)} to {newBookingEnd.AddHours(-3)}", "OK");
@@ -165,9 +245,11 @@ namespace HojozatyCode.ViewModels
 
 			var tempAuth = SupabaseConfig.SupabaseClient.Auth.CurrentUser;
 
+			CurrentUserId = Guid.Parse(tempAuth.Id);
+
 			var newBooking = new Booking
 			{
-				BookingId = Guid.NewGuid(),
+				//BookingId = Guid.NewGuid(),
 				UserId = Guid.Parse(tempAuth.Id),
 				VenueId = VenueId,
 				StartDateTime = newBookingStart,
@@ -178,12 +260,22 @@ namespace HojozatyCode.ViewModels
 				UpdatedAt = DateTime.UtcNow.AddHours(3)
 			};
 
+			//SelectedBookingId = newBooking.BookingId;
+
 			var response = await SupabaseConfig.SupabaseClient.From<Booking>().Insert(newBooking);
+
+			var insertBooking = response.Model;
+
+			SelectedBookingId = insertBooking.BookingId;
+
+			await Shell.Current.DisplayAlert("The Booking Id", $"Booking Id {SelectedBookingId}", "OK");
+
 
 			if (response.ResponseMessage.IsSuccessStatusCode)
 			{
 				VenueBookings.Add(newBooking);
 				await Shell.Current.DisplayAlert("Success", "Booking created!", "OK");
+				await Shell.Current.DisplayAlert("Number of Services", $"{ServicesVenue.Count}", "OK");
 				await Shell.Current.GoToAsync(nameof(Pages.ServicesToAdd));
 			}
 			else
@@ -192,11 +284,13 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-		// Constructor - private to enforce singleton pattern
+		// Constructor
 		public BookingViewModel()
 		{
-			// Initialize if needed
+			
 		}
+
+		//Method to deal with parameter that comes from another page
 		public async void ApplyQueryAttributes(IDictionary<string, object> query)
 		{
 			// نحصل على البيانات المرسلة باسم "SelectedVenue"
@@ -206,13 +300,12 @@ namespace HojozatyCode.ViewModels
 
 				if (SelectedVenue != null)
 				{
-					ImageUrls = SelectedVenue.ImageUrl.Split(',').ToObservableCollection();
-					if (SelectedVenue.IsFixedDuration != null)
+					if (SelectedVenue.IsFixedDuration != null && SelectedVenue.IsFixedDuration == true)
 					{
-						IsFixedTime = false;
+						HasFixedTime = false;
 					}
 					else
-						IsFixedTime = true;
+						HasFixedTime = true;
 
 					await LoadHostRules();
 					await LoadServices();
@@ -221,6 +314,7 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Method to Load the all host rules that related to the Venue and stored them inside the HostRulesVenue
 		private async Task LoadHostRules()
 		{
 			try
@@ -269,6 +363,7 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Method to load the all Services that related to the Venue and stored them inside the ServicesVenue
 		private async Task LoadServices()
 		{
 			try
@@ -313,7 +408,8 @@ namespace HojozatyCode.ViewModels
 						{
 							Name = serviceForId.Model.ServiceName,
 							Description = serviceForId.Model.Description,
-							Price = serviceId.PricePerUnit // نأخذ السعر من الجدول الوسيط
+							Price = serviceId.PricePerUnit, // نأخذ السعر من الجدول الوسيط
+							ServiceId = serviceId.ServiceId,
 						});
 					}
 				}
@@ -330,6 +426,7 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Command to navigate me to the BookingCalendarPage
 		[RelayCommand]
 		private async Task GoToBookingCalendarPage() 
 		{

@@ -129,7 +129,7 @@ namespace HojozatyCode.ViewModels
             }
         }
 
-		    //Navigation Command to navigate me to the filter page
+		//Navigation Command to navigate me to the filter page
 		[RelayCommand]
 		private async Task GoToFiltersPage()
 		{
