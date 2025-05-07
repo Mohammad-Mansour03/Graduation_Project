@@ -85,7 +85,44 @@ namespace HojozatyCode.ViewModels
 
 		ObservableCollection<BookingService> BookingServices { get; set; } = new ObservableCollection<BookingService>();
 
+		[RelayCommand]
+		private async Task DeleteService(ServiceItem bookingService)
+		{
+			try
+			{
+				// 1. Remove from database
+				await SupabaseConfig.SupabaseClient
+					.From<BookingService>()
+					.Where(bs => bs.BookingId == SelectedBookingId && bs.ServiceId == bookingService.ServiceId)
+					.Delete();
 
+				// 2. Update booking total price
+				var booking = await SupabaseConfig.SupabaseClient
+					.From<Booking>()
+					.Where(b => b.BookingId == SelectedBookingId)
+					.Get();
+
+				booking.Model.TotalPrice -= (bookingService.Price * bookingService.Quantity);
+				await booking.Model.Update<Booking>();
+
+				var tempBookingService = new BookingService
+				{
+					ServiceId = bookingService.ServiceId,
+					BookingId = SelectedBookingId,
+					Quantity = bookingService.Quantity,
+					TotalPrice = bookingService.Price
+				};
+
+				// 3. Remove from local collection
+				BookingServices.Remove(tempBookingService);
+
+				await Shell.Current.DisplayAlert("Success", "Service removed from booking", "OK");
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", $"Failed to delete service: {ex.Message}", "OK");
+			}
+		}
 
 		[RelayCommand]
 		private async Task AddSelectedService(ServiceItem service)
