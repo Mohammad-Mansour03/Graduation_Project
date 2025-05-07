@@ -80,10 +80,12 @@
                                                 TextColor="#4F378A"
                                                 CornerRadius="12"
                                                 FontAttributes="Bold"
-                                                FontSize="16"/>
+                                                FontSize="16"
+                                                Command="{Binding DecreasedQuantityCommand}"
+                                             />
 
                                         <!-- Quantity Entry -->
-                                        <Entry Text="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=SelectedQuantity}"
+                                        <Entry Text="{Binding Quantity}"
                                                Grid.Column="1"
                                                Keyboard="Numeric"
                                                FontSize="16"
@@ -102,7 +104,9 @@
                                                 TextColor="#4F378A"
                                                 CornerRadius="12"
                                                 FontAttributes="Bold"
-                                                FontSize="16"/>
+                                                FontSize="16"
+                                                Command="{Binding IncreaseQuantityCommand}"
+                                             />
                                     </Grid>
 
                                     <!-- Add Button -->

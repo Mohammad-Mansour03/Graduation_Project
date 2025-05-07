@@ -86,13 +86,14 @@ namespace HojozatyCode.ViewModels
 		ObservableCollection<BookingService> BookingServices { get; set; } = new ObservableCollection<BookingService>();
 
 
+
 		[RelayCommand]
 		private async Task AddSelectedService(ServiceItem service)
 		{
 			await Shell.Current.DisplayAlert("Prompt", "Inside the Add Selected Service Command", "OK");
 			
 			await Shell.Current.DisplayAlert("Prompt", $"Service Id {service.ServiceId}\n" +
-				$"Booking Id {SelectedBookingId}\n SelectedQuantity{SelectedQuantity}", "OK");
+				$"Booking Id {SelectedBookingId}\n SelectedQuantity{service.Quantity}", "OK");
 
 
 			if (service is null || SelectedBookingId == Guid.Empty )
@@ -101,23 +102,36 @@ namespace HojozatyCode.ViewModels
 				return;
 			}
 
+
 			try
 			{
-				var totalPrice = service.Price * SelectedQuantity;
+				var totalPrice = service.Price * service.Quantity;
 
 				var bookingService = new BookingService
 				{
 					BookingId = SelectedBookingId,
 					ServiceId = service.ServiceId,
-					Quantity = SelectedQuantity,
+					Quantity = service.Quantity,
 					TotalPrice = totalPrice
 				};
 
 				BookingServices.Add(bookingService);
 
+				//Insert the Booking Service
 				var response = await SupabaseConfig.SupabaseClient
 					.From<BookingService>()
 					.Insert(bookingService);
+
+				var bookingToUpdate = await SupabaseConfig.SupabaseClient
+					.From<Booking>()
+					.Where(b => b.BookingId == SelectedBookingId)
+					.Get();
+
+				if (bookingToUpdate.Model != null) 
+				{
+					bookingToUpdate.Model.TotalPrice += totalPrice;
+					await bookingToUpdate.Model.Update<Booking>();
+				}
 
 				await Shell.Current.DisplayAlert("تم", "تمت إضافة الخدمة إلى الحجز", "موافق");
 			}
@@ -127,7 +141,6 @@ namespace HojozatyCode.ViewModels
 			}
 		}
     
-
 
 		//Method that deals with every user changed for the Date (For SelectedDateTiem)
 		partial void OnSelectedDateChanged(DateTime value)
@@ -255,7 +268,7 @@ namespace HojozatyCode.ViewModels
 				StartDateTime = newBookingStart,
 				EndDateTime = newBookingEnd,
 				Status = "confirmed",
-				TotalPrice = 100,
+				TotalPrice = SelectedVenue.InitialPrice,
 				CreatedAt = DateTime.UtcNow.AddHours(3),  // Keep audit fields in UTC
 				UpdatedAt = DateTime.UtcNow.AddHours(3)
 			};
@@ -269,7 +282,6 @@ namespace HojozatyCode.ViewModels
 			SelectedBookingId = insertBooking.BookingId;
 
 			await Shell.Current.DisplayAlert("The Booking Id", $"Booking Id {SelectedBookingId}", "OK");
-
 
 			if (response.ResponseMessage.IsSuccessStatusCode)
 			{
