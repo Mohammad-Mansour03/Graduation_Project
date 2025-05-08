@@ -8,6 +8,7 @@ using Supabase.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 
@@ -359,6 +360,7 @@ namespace HojozatyCode.ViewModels
 					await LoadHostRules();
 					await LoadServices();
 					await LoadBookingsAsync(SelectedVenue.VenueId);
+					await CheckFavoriteStatusAsync(); // Add this line to check favorite status
 				}
 			}
 		}
@@ -480,6 +482,96 @@ namespace HojozatyCode.ViewModels
 		private async Task GoToBookingCalendarPage() 
 		{
 			await Shell.Current.GoToAsync(nameof(Pages.BookingCalendarPage));	
+		}
+
+		[ObservableProperty]
+		private bool isFavorite;
+
+		[RelayCommand]
+		public async Task ToggleFavorite()
+		{
+			if (SelectedVenue == null) return;
+
+			try
+			{
+				var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
+				if (session == null || session.User == null)
+				{
+					await Shell.Current.DisplayAlert("Error", "Please login to add favorites", "OK");
+					return;
+				}
+
+				var userId = Guid.Parse(session.User.Id);
+
+				// Check if venue is already a favorite
+				var existingFavorite = await SupabaseConfig.SupabaseClient
+					.From<UserFavorite>()
+					.Where(f => f.UserId == userId && f.VenueId == SelectedVenue.VenueId)
+					.Get();
+
+				if (existingFavorite != null && existingFavorite.Models.Count > 0)
+				{
+					// If it's a favorite, remove it
+					await SupabaseConfig.SupabaseClient
+						.From<UserFavorite>()
+						.Where(f => f.UserId == userId && f.VenueId == SelectedVenue.VenueId)
+						.Delete();
+
+					IsFavorite = false;
+					await Shell.Current.DisplayAlert("Success", "Removed from favorites", "OK");
+				}
+				else
+				{
+					// If not a favorite, add it
+					var newFavorite = new UserFavorite
+					{
+						UserId = userId,
+						VenueId = SelectedVenue.VenueId,
+						CreatedAt = DateTime.UtcNow
+					};
+
+					await SupabaseConfig.SupabaseClient
+						.From<UserFavorite>()
+						.Insert(newFavorite);
+
+					IsFavorite = true;
+					await Shell.Current.DisplayAlert("Success", "Added to favorites", "OK");
+				}
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", $"Failed to update favorites: {ex.Message}", "OK");
+			}
+		}
+
+		// Method to check if this venue is already a favorite
+		private async Task CheckFavoriteStatusAsync()
+		{
+			if (SelectedVenue == null) return;
+
+			try
+			{
+				var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
+				if (session == null || session.User == null)
+				{
+					IsFavorite = false;
+					return;
+				}
+
+				var userId = Guid.Parse(session.User.Id);
+
+				var existingFavorite = await SupabaseConfig.SupabaseClient
+					.From<UserFavorite>()
+					.Where(f => f.UserId == userId && f.VenueId == SelectedVenue.VenueId)
+					.Get();
+
+				IsFavorite = existingFavorite != null && existingFavorite.Models.Count > 0;
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"Error checking favorite status: {ex.Message}");
+				IsFavorite = false;
+			}
 		}
 	}
 }
