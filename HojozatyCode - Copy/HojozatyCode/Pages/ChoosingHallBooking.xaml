@@ -82,9 +82,10 @@
             </Button>
 
             <Button Style="{StaticResource IconButton}"
-                    ImageSource="heartoutline.png"
+                    ImageSource="{Binding IsFavorite, Converter={StaticResource BoolToImageConverter2}, ConverterParameter='heartoutline.png,heartfilled.png'}"
                     HorizontalOptions="End"
-                    VerticalOptions="Start">
+                    VerticalOptions="Start"
+                    Command="{Binding ToggleFavoriteCommand}">
                 <Button.Triggers>
                     <Trigger TargetType="Button" Property="IsPressed" Value="True">
                         <Setter Property="Opacity" Value="0.6"/>
