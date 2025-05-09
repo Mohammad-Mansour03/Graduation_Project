@@ -4,10 +4,17 @@ namespace HojozatyCode.Pages
 {
     public partial class HomePage : ContentPage
     {
-        public HomePage()
+		private readonly HomeViewModel _viewModel;
+		public HomePage()
         {
             InitializeComponent();
-            BindingContext = new HomeViewModel();
-        }
-    }
+			_viewModel = new HomeViewModel();
+			BindingContext = _viewModel;
+		}
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+			await _viewModel.LoadVenues();
+		}
+	}
 }

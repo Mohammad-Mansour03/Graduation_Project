@@ -38,7 +38,7 @@ namespace HojozatyCode.ViewModels
 
 			{ "Entertainment", new List<string> { "Farms", "Adventure Spots", "WorkShops" } },
 
-			{ "Work/Meeting Space", new List<string> { "ClassRooms/Office Spaces", "Farms", "Outdoor Space" , "Majls" } },
+			{ "Meeting", new List<string> { "ClassRooms/Office Spaces", "Farms", "Outdoor Space" , "Majls" } },
 
 			{ "Funeral", new List<string> { "Diwan", "Dedicated Funeral Halls" } },
 
@@ -668,7 +668,7 @@ namespace HojozatyCode.ViewModels
 
 			// Define categories
 			var exclusiveTypes = new HashSet<string> { "Funeral", "Photography", "Sports" };
-			var groupTypes = new HashSet<string> { "Wedding", "Work/Meeting Space", "Cultural Events", "Entertainment" };
+			var groupTypes = new HashSet<string> { "Wedding", "Meeting", "Cultural Events", "Entertainment" };
 
 			if (exclusiveTypes.Contains(spaceTypeValue))
 			{

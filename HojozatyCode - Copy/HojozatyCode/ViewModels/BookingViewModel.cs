@@ -112,7 +112,7 @@ namespace HojozatyCode.ViewModels
 					Quantity = bookingService.Quantity,
 					TotalPrice = bookingService.Price
 				};
-
+		
 				// 3. Remove from local collection
 				BookingServices.Remove(tempBookingService);
 

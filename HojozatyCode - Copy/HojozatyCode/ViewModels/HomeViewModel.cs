@@ -3,12 +3,48 @@ using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using System.Collections.ObjectModel;
 using HojozatyCode.Pages;
+using HojozatyCode.Services;
 namespace HojozatyCode.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
-        //Command for back icon (Navigate me to the Login and Signup page)
-        [RelayCommand]
+        [ObservableProperty]
+        ObservableCollection<Venue> homeVenues = new ();
+
+		public async Task LoadVenues()
+		{
+
+			string[] types = { "Wedding", "Meeting", "Funeral", "Photography", "Cultural Events", "Entertainment", "Sports" };
+
+			foreach (var type in types)
+			{
+				var result = await SupabaseConfig.SupabaseClient
+					.From<Venue>()
+					.Where(v => v.Type == type)
+					.Get();
+
+				var venue = result.Models.FirstOrDefault();
+				if (venue != null)
+				{
+					HomeVenues.Add(venue);
+				}
+			}
+		}
+
+		[RelayCommand]
+		public async Task VenueSelectedAsync(Venue selectedVenue)
+		{
+			if (selectedVenue == null) return;
+
+			var navParams = new Dictionary<string, object>
+			{
+				{ "SelectedVenue", selectedVenue }
+			};
+			await Shell.Current.GoToAsync(nameof(Pages.ChoosingHallBooking), navParams);
+		}
+
+		//Command for back icon (Navigate me to the Login and Signup page)
+		[RelayCommand]
         private async Task NavigateBack()
         {
             await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));

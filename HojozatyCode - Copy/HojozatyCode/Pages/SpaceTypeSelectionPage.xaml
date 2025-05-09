@@ -42,7 +42,7 @@
                 <Grid ColumnDefinitions="*,Auto">
                 
                     <!--Work/Meeting Space label-->
-                    <Label Text="Work/Meeting Space" 
+                    <Label Text="Meeting" 
                            VerticalOptions="Center"/>
                     
                     <!--Work/Meeting Space Checkbox-->
@@ -50,9 +50,9 @@
                                 Style="{StaticResource CheckboxButtonStyle}"
                                 Source="{Binding SelectedSpaceTypes,
                                 Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Work/Meeting Space'}"
+                                ConverterParameter='Meeting'}"
                                 Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Work/Meeting Space"/>
+                                CommandParameter="Meeting"/>
                 </Grid>
             
             </Border>
