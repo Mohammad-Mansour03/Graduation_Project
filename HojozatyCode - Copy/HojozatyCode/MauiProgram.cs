@@ -42,7 +42,8 @@ namespace HojozatyCode
             builder.Services.AddTransient<Pages.ExplorePage>();
             builder.Services.AddTransient<Pages.AdminApprovalPage>();
             builder.Services.AddTransient<Pages.EditPage>();
-      
+            builder.Services.AddTransient<Pages.FavouritePage>();
+            builder.Services.AddTransient<FavoriteViewModel>();
 
 #if ANDROID
             // Remove underline from Picker on Android

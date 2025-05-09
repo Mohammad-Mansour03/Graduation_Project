@@ -1,12 +1,156 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:converters="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.FavouritePage"
-             Title="FavouritePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Favorites">
+
+    <ContentPage.Resources>
+        <converters:BoolToImageConverter2 x:Key="BoolToImageConverter2"/>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,20,0,20">
+            <Label Text="Your Favorite Venues" 
+                   FontSize="28" 
+                   FontFamily="Montserrat-Bold" 
+                   TextColor="#1A202C"/>
+            <Label Text="Check out venues you've saved" 
+                   FontSize="16" 
+                   FontFamily="Montserrat-Regular" 
+                   TextColor="#4A5568"/>
+        </VerticalStackLayout>
+
+        <!-- Empty State -->
+        <VerticalStackLayout Grid.Row="1"
+                             IsVisible="{Binding IsEmpty}"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="20">
+            <Image Source="heart_outline.png" 
+                   HeightRequest="120" 
+                   WidthRequest="120"
+                   Opacity="0.6"/>
+            <Label Text="No Favorite Venues" 
+                   FontSize="22" 
+                   FontFamily="Montserrat-SemiBold" 
+                   TextColor="#4A5568"
+                   HorizontalOptions="Center"/>
+            <Label Text="Venues you like will appear here" 
+                   FontSize="16" 
+                   FontFamily="Montserrat-Regular" 
+                   TextColor="#718096"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Favorites List -->
+        <RefreshView Grid.Row="1" 
+                     Command="{Binding RefreshFavoritesCommand}"
+                     IsRefreshing="{Binding IsLoading}"
+                     IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBoolConverter}}">
+            <CollectionView ItemsSource="{Binding FavoriteVenues}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Remove"
+                                               BackgroundColor="#E53E3E"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoriteViewModel}}, Path=RemoveFavoriteCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            
+                            <Frame Margin="0,8" Padding="0" CornerRadius="12" HasShadow="True" BackgroundColor="White">
+                                <Grid ColumnDefinitions="120,*" RowDefinitions="*,Auto">
+                                    <Frame Grid.Column="0" Grid.RowSpan="2" Padding="0" CornerRadius="12" 
+                                           IsClippedToBounds="True" Margin="0">
+                                        <Image Source="{Binding ImageUrls[0]}"
+                                               Aspect="AspectFill"
+                                               HeightRequest="120"
+                                               WidthRequest="120"/>
+                                    </Frame>
+                                    
+                                    <VerticalStackLayout Grid.Column="1" Grid.Row="0" Padding="15,10,15,5" Spacing="4">
+                                        <Label Text="{Binding VenueName}" 
+                                               FontSize="18" 
+                                               FontFamily="Montserrat-SemiBold"
+                                               TextColor="#2D3748"
+                                               LineBreakMode="TailTruncation"/>
+                                        
+                                        <Label Text="{Binding Type}" 
+                                               FontSize="14" 
+                                               FontFamily="Montserrat-Regular"
+                                               TextColor="#718096"/>
+                                        
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Image Source="location.png" 
+                                                   WidthRequest="14" 
+                                                   HeightRequest="14"/>
+                                            <Label Text="{Binding Location}" 
+                                                   FontSize="14" 
+                                                   TextColor="#4A5568"/>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                    
+                                    <Border Grid.Column="1" Grid.Row="1" 
+                                            BackgroundColor="#F7FAFC"
+                                            Padding="10"
+                                            Stroke="#E2E8F0"
+                                            StrokeThickness="1"
+                                            StrokeShape="RoundRectangle 0,0,12,12">
+                                        <Grid ColumnDefinitions="Auto,*">
+                                            <VerticalStackLayout Grid.Column="0">
+                                                <Label Text="{Binding InitialPrice, StringFormat='{0:F0} JOD'}" 
+                                                       FontSize="16"
+                                                       FontFamily="Montserrat-SemiBold"
+                                                       TextColor="#4F378A"/>
+                                                <Label Text="per hour" 
+                                                       FontSize="12"
+                                                       TextColor="#718096"/>
+                                            </VerticalStackLayout>
+                                            
+                                            <Button Text="View Details"
+                                                    Grid.Column="1"
+                                                    BackgroundColor="#4F378A"
+                                                    TextColor="White"
+                                                    FontSize="14"
+                                                    FontFamily="Montserrat-SemiBold"
+                                                    CornerRadius="8"
+                                                    HeightRequest="40"
+                                                    WidthRequest="120"
+                                                    HorizontalOptions="End"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoriteViewModel}}, Path=VenueSelectedCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Loading indicator -->
+        <ActivityIndicator Grid.Row="1"
+                           IsRunning="{Binding IsLoading}"
+                           IsVisible="{Binding IsLoading}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Color="#4F378A"/>
+
+        <!-- Error message -->
+        <Label Grid.Row="1"
+               Text="{Binding ErrorMessage}"
+               IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"
+               TextColor="#E53E3E"
+               FontSize="16"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+    </Grid>
 </ContentPage>
