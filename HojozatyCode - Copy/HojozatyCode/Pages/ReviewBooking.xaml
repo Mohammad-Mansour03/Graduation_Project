@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.ReviewBooking"
+             Title="Review Booking"
+            >
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- Venue Information -->
+            <Frame BorderColor="LightGray" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding SelectedVenue.VenueName}"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+
+                    <Label Text="{Binding SelectedVenue.Location}"
+                           FontSize="14"
+                           TextColor="Gray"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Booking Time Details -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Padding="10">
+                <Label Text="Start Time:"
+                       Grid.Row="0" Grid.Column="0"
+                       FontAttributes="Bold"/>
+                <Label Text="{Binding SelectedDateTime , Mode=TwoWay}"
+                       Grid.Row="0" Grid.Column="1"
+                       HorizontalOptions="End"
+                       />
+
+            </Grid>
+            <Button
+                Command="{Binding ShowTimeCommand}"
+                />
+
+            <!-- Rest of your XAML remains the same -->
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

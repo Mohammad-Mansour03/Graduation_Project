@@ -17,6 +17,10 @@ namespace HojozatyCode.ViewModels
 
 	public partial class BookingViewModel : ObservableObject, IQueryAttributable
 	{
+		[ObservableProperty]
+		private string name = "Mohammad";
+
+
 		//To deal with venue id that come from another page
 		[ObservableProperty]
 		private string venueIdRaw;
@@ -72,20 +76,21 @@ namespace HojozatyCode.ViewModels
 		private TimeSpan endedTime;
 
 		//Date time to store the Started Date and time that user choosen
-		public DateTime SelectedDateTime => SelectedDate.Date + SelectedTime;
-
 		[ObservableProperty]
-		private int selectedQuantity;
+		public DateTime selectedDateTime;
 
+		//To Store the Current Booking ID
 		[ObservableProperty]
 		private Guid selectedBookingId;
 		
+		//To store the Current User ID
 		[ObservableProperty]
 		private Guid currentUserId;
 
-
+		//To Store the Services the user added for his booking
 		ObservableCollection<BookingService> BookingServices { get; set; } = new ObservableCollection<BookingService>();
 
+		//To delete the service from booking
 		[RelayCommand]
 		private async Task DeleteService(ServiceItem bookingService)
 		{
@@ -125,18 +130,19 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//To add the service for booking
 		[RelayCommand]
 		private async Task AddSelectedService(ServiceItem service)
 		{
-			await Shell.Current.DisplayAlert("Prompt", "Inside the Add Selected Service Command", "OK");
+		//	await Shell.Current.DisplayAlert("Prompt", "Inside the Add Selected Service Command", "OK");
 			
-			await Shell.Current.DisplayAlert("Prompt", $"Service Id {service.ServiceId}\n" +
-				$"Booking Id {SelectedBookingId}\n SelectedQuantity{service.Quantity}", "OK");
+			//await Shell.Current.DisplayAlert("Prompt", $"Service Id {service.ServiceId}\n" +
+				//$"Booking Id {SelectedBookingId}\n SelectedQuantity{service.Quantity}", "OK");
 
 
 			if (service is null || SelectedBookingId == Guid.Empty )
 			{
-				await Shell.Current.DisplayAlert("تنبيه", "يرجى اختيار خدمة وإدخال كمية صحيحة", "موافق");
+				await Shell.Current.DisplayAlert("Prompt", "Please Choose The Service", "OK");
 				return;
 			}
 
@@ -238,7 +244,7 @@ namespace HojozatyCode.ViewModels
 
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Create a new booking
 		/// </summary>
@@ -246,11 +252,20 @@ namespace HojozatyCode.ViewModels
 		/// <returns></returns>
 
 		[RelayCommand]
+		public async Task ShowTime()
+		{
+			await Shell.Current.DisplayAlert("Prompt" , $"{SelectedDateTime}" , "OK");
+		}
+
+
+		[RelayCommand]
 		public async Task CreateBooking()
 		{
 			int duration;
 			var venue = SelectedVenue;
 			DateTime newBookingEnd;
+
+			SelectedDateTime = SelectedDate + SelectedTime;
 
 			//Check if the Selected date time isn't in the past
 			if(SelectedDateTime < DateTime.Now) 
@@ -483,6 +498,17 @@ namespace HojozatyCode.ViewModels
 		{
 			await Shell.Current.GoToAsync(nameof(Pages.BookingCalendarPage));	
 		}
+
+
+		//Method to deals with The Review Page
+		[RelayCommand]
+		private async Task GoToReviewBooking() 
+		{
+			await Shell.Current.DisplayAlert("Prompt", $"Date Time {SelectedDateTime}", "OK");
+			await Shell.Current.GoToAsync(nameof(Pages.ReviewBooking));			
+		}
+
+
 
 		[ObservableProperty]
 		private bool isFavorite;

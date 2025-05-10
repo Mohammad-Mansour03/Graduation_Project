@@ -1,6 +1,7 @@
 ﻿using Supabase.Postgrest.Attributes;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace HojozatyCode.Models
 {
@@ -23,5 +24,6 @@ namespace HojozatyCode.Models
 		// Price per unit
 		[Column("quantity")]
 		public int Quantity { get; set; }
+
 	}
 }

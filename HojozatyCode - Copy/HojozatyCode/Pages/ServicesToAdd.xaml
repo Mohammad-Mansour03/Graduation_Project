@@ -160,7 +160,7 @@
                 FontAttributes="Bold"
                 FontSize="16"
                 HeightRequest="50"
-                Command="{Binding NextCommand}"/>
+                Command="{Binding GoToReviewBookingCommand}"/>
     </Grid>
 
     <!-- Resources -->
