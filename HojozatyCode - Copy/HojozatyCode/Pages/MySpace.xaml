@@ -1,4 +1,4 @@
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.MySpace"
@@ -73,19 +73,7 @@
                                                    HorizontalOptions="Fill"
                                                    VerticalOptions="Fill" />
                                         </Border>
-                                        <!-- Info Icon Button (top-right) -->
-                                        <ImageButton Source="info_icon.png"
-                                                     BackgroundColor="White"
-                                                     BorderColor="#4F378A"
-                                                     BorderWidth="5"
-                                                     CornerRadius="100"
-                                                     WidthRequest="30"
-                                                     HeightRequest="30"
-                                                     Padding="3"
-                                                     HorizontalOptions="End"
-                                                     VerticalOptions="Start"
-                                                     Margin="0,10,10,0"
-                                                     Command="{Binding NavigateToSpaceInformation}"/>
+                                        
                                     </Grid>
                                     <!-- Venue Info -->
                                     <Frame Grid.Row="1"
@@ -125,7 +113,7 @@
                                                     VerticalOptions="Center"
                                                     Grid.Row="0"
                                                     Grid.Column="1">
-                                                <Label Text="{Binding InitialPrice, StringFormat='${0}/Hr'}"
+                                                <Label Text="{Binding InitialPrice, StringFormat='JOD{0}/Hr'}"
                                                        TextColor="White"
                                                        FontSize="14"
                                                        FontAttributes="Bold"/>
@@ -141,15 +129,15 @@
                                                 <Button Text="Edit"
                                                         BackgroundColor="#4F378A"
                                                         TextColor="White"
-                                                        CornerRadius="8"
+                                                        BorderWidth="1"
+                                                        CornerRadius="20"
                                                         Padding="20,8"
                                                         Margin="0,0,10,0"
                                                         FontAttributes="Bold"
                                                         FontSize="13"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}},
                                                         Path=EditVenueCommand}"
-                                                        CommandParameter="{Binding .}" 
-                                                        />
+                                                        CommandParameter="{Binding .}"  />
 
                                                 <!-- Delete Button -->
                                                 <Button Text="Delete"
@@ -157,8 +145,9 @@
                                                         TextColor="#E74C3C"
                                                         BorderColor="#E74C3C"
                                                         BorderWidth="1"
-                                                        CornerRadius="8"
+                                                        CornerRadius="20"
                                                         Padding="20,8"
+                                                        Margin="0,0,10,0"
                                                         FontAttributes="Bold"
                                                         FontSize="13"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}}, 
