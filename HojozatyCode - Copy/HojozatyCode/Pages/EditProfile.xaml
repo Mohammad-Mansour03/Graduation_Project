@@ -4,28 +4,261 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.EditProfile"
              x:DataType="viewModels:EditProfileViewModel"
-             Title="EditProfile">
+             Title="Edit Profile"
+             BackgroundColor="#F5F5F5">
 
     <ContentPage.BindingContext>
         <viewModels:AccountPageViewModel />
     </ContentPage.BindingContext>
-    
-    <StackLayout Padding="20">
-        <Image Source="profile_icon.png" HeightRequest="100" WidthRequest="100" />
-        <!--<Button Text="Edit Photo" />-->
 
-        <Entry Text="{Binding FirstName}" Placeholder="First Name"/>
-        <Entry Text="{Binding MiddleName}" Placeholder="Middle Name"/>
-        <Entry Text="{Binding LastName}" Placeholder="Last Name"/>
-        <Entry Text="{Binding Email}" Placeholder="Email" IsEnabled="False"/>
-        <Entry Text="{Binding PhoneNumber}" Placeholder="Phone Number"/>
+    <ScrollView>
+        <Grid RowDefinitions="auto,auto,auto,auto" Padding="1">
+            <!-- Header with gradient background -->
+            <Grid HeightRequest="140">
+                <BoxView CornerRadius="5">
+                    <BoxView.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#4F378A" Offset="0.1"/>
+                            <GradientStop Color="#7E57C2" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </BoxView.Background>
+                </BoxView>
+                <Label Text="Edit Profile"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Grid>
 
-        <HorizontalStackLayout>
-            <Button Text="Save" Command="{Binding SaveUserDataCommand}" WidthRequest="150" HeightRequest="25" Margin="25" BackgroundColor="#4F378A"/>
+            <Label Text="Edit Profile"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Grid.Row="0"/>
 
-            <Button Text="Cancel" Command="{Binding CloseEditProfileCommand}" WidthRequest="150" HeightRequest="25" BackgroundColor="#4F378A"/>
-        </HorizontalStackLayout>
-        
-    </StackLayout>
+            <!-- Profile form container -->
+            <Frame Grid.Row="1"
+                   Margin="20,-40,20,0"
+                   CornerRadius="20"
+                   BackgroundColor="White"
+                   HasShadow="True"
+                   Padding="25,30,25,20">
+                <VerticalStackLayout Spacing="20">
 
+                    <!-- Profile picture -->
+                    <Frame HeightRequest="100" 
+                           WidthRequest="100"
+                           CornerRadius="50"
+                           HorizontalOptions="Center"
+                           BackgroundColor="#ECE6F0"
+                           Padding="0"
+                           IsClippedToBounds="True">
+                        <Image Source="profile_icon.png" 
+                               Aspect="AspectFill"
+                               HeightRequest="100"
+                               WidthRequest="100"/>
+                    </Frame>
+
+                    <!-- Form fields -->
+                    <VerticalStackLayout Spacing="15">
+                        <!-- First Name -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="FIRST NAME"
+                                   TextColor="#666666"
+                                   FontSize="12"
+                                   FontAttributes="Bold"/>
+                            <Border BackgroundColor="#FAFAFA"
+                                    StrokeShape="RoundRectangle 10" 
+                                    StrokeThickness="1"
+                                    Stroke="#E0E0E0"
+                                    Padding="15,0">
+                                <Entry Text="{Binding FirstName}" 
+                                       Placeholder="Enter first name"
+                                       PlaceholderColor="#9E9E9E"
+                                       TextColor="Black"
+                                       ClearButtonVisibility="WhileEditing"
+                                       FontSize="14"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Middle Name -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="MIDDLE NAME"
+                                   TextColor="#666666"
+                                   FontSize="12"
+                                   FontAttributes="Bold"/>
+                            <Border BackgroundColor="#FAFAFA"
+                                    StrokeShape="RoundRectangle 10" 
+                                    StrokeThickness="1"
+                                    Stroke="#E0E0E0"
+                                    Padding="15,0">
+                                <Entry Text="{Binding MiddleName}" 
+                                       Placeholder="Enter middle name"
+                                       PlaceholderColor="#9E9E9E"
+                                       TextColor="Black"
+                                       ClearButtonVisibility="WhileEditing"
+                                       FontSize="14"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Last Name -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="LAST NAME"
+                                   TextColor="#666666"
+                                   FontSize="12"
+                                   FontAttributes="Bold"/>
+                            <Border BackgroundColor="#FAFAFA"
+                                    StrokeShape="RoundRectangle 10" 
+                                    StrokeThickness="1"
+                                    Stroke="#E0E0E0"
+                                    Padding="15,0">
+                                <Entry Text="{Binding LastName}" 
+                                       Placeholder="Enter last name"
+                                       PlaceholderColor="#9E9E9E"
+                                       TextColor="Black"
+                                       ClearButtonVisibility="WhileEditing"
+                                       FontSize="14"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Email (disabled) -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="EMAIL"
+                                   TextColor="#666666"
+                                   FontSize="12"
+                                   FontAttributes="Bold"/>
+                            <Border BackgroundColor="#F5F5F5"
+                                    StrokeShape="RoundRectangle 10" 
+                                    StrokeThickness="1"
+                                    Stroke="#E0E0E0"
+                                    Padding="15,0">
+                                <Entry Text="{Binding Email}" 
+                                       Placeholder="Email"
+                                       PlaceholderColor="#9E9E9E"
+                                       TextColor="#666666"
+                                       IsEnabled="False"
+                                       FontSize="14"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Phone Number -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="PHONE NUMBER"
+                                   TextColor="#666666"
+                                   FontSize="12"
+                                   FontAttributes="Bold"/>
+                            <Border BackgroundColor="#FAFAFA"
+                                    StrokeShape="RoundRectangle 10" 
+                                    StrokeThickness="1"
+                                    Stroke="#E0E0E0"
+                                    Padding="15,0">
+                                <Entry Text="{Binding PhoneNumber}" 
+                                       Placeholder="Enter phone number"
+                                       PlaceholderColor="#9E9E9E"
+                                       TextColor="Black"
+                                       Keyboard="Telephone"
+                                       ClearButtonVisibility="WhileEditing"
+                                       FontSize="14"/>
+                            </Border>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Change Password Form -->
+            <Frame Grid.Row="2"
+        Margin="20,20,20,0"
+        CornerRadius="20"
+        BackgroundColor="White"
+        HasShadow="True"
+        Padding="25,30,25,20">
+                <VerticalStackLayout Spacing="15">
+                        <Label Text="Change Password"
+               FontSize="18"
+               FontAttributes="Bold"
+               TextColor="#4F378A"
+               HorizontalOptions="Center"/>
+
+                        <!-- Current Password -->
+                        <Border BackgroundColor="#FAFAFA"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="1"
+                Stroke="#E0E0E0"
+                Padding="15,0">
+                            <Entry Placeholder="Current Password"
+                   PlaceholderColor="#9E9E9E"
+                   TextColor="Black"
+                   IsPassword="True"
+                   FontSize="14"/>
+                        </Border>
+
+                        <!-- New Password -->
+                        <Border BackgroundColor="#FAFAFA"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="1"
+                Stroke="#E0E0E0"
+                Padding="15,0">
+                            <Entry Placeholder="New Password"
+                   PlaceholderColor="#9E9E9E"
+                   TextColor="Black"
+                   IsPassword="True"
+                   FontSize="14"/>
+                        </Border>
+
+                        <!-- Confirm New Password -->
+                        <Border BackgroundColor="#FAFAFA"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="1"
+                Stroke="#E0E0E0"
+                Padding="15,0">
+                            <Entry Placeholder="Confirm New Password"
+                   PlaceholderColor="#9E9E9E"
+                   TextColor="Black"
+                   IsPassword="True"
+                   FontSize="14"/>
+                        </Border>
+
+                        <Button Text="CHANGE PASSWORD"
+                BackgroundColor="Transparent"
+                TextColor="#4F378A"
+                BorderColor="#4F378A"
+                BorderWidth="1"
+                CornerRadius="10"
+                HeightRequest="40"
+                FontAttributes="Bold"
+                Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+            </Frame>
+
+
+            <!-- Buttons -->
+            <Grid Grid.Row="3"
+                  ColumnDefinitions="*,*" 
+                  ColumnSpacing="15"
+                  Padding="30,20,30,30">
+                <Button Text="CANCEL"
+                        Grid.Column="0"
+                        BackgroundColor="Transparent"
+                        TextColor="#4F378A"
+                        BorderColor="#4F378A"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        FontAttributes="Bold"
+                        Command="{Binding CloseEditProfileCommand}"/>
+
+                <Button Text="SAVE"
+                        Grid.Column="1"
+                        BackgroundColor="#4F378A"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        FontAttributes="Bold"
+                        Command="{Binding SaveUserDataCommand}"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>
