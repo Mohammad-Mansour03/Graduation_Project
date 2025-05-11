@@ -5,22 +5,19 @@
              x:Class="HojozatyCode.Pages.AccountPage"
              x:DataType="viewModels:AccountPageViewModel"
              Shell.NavBarIsVisible="False"
-             Title="AccountPage">
+             Title="AccountPage"
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>
         <viewModels:AccountPageViewModel />
     </ContentPage.BindingContext>
 
-    <!-- Main Layout -->
     <Grid Padding="20">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Icons Row -->
             <RowDefinition Height="Auto"/>
-            <!-- Title Row -->
             <RowDefinition Height="*"/>
-            <!-- Content Row -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -47,77 +44,116 @@
                      Margin="0,0,10,0"
                      Command="{Binding GoToEditProfileCommand}"/>
 
-        <!-- Title (Account) -->
+        <!-- Title -->
         <Label Text="Account"
                Grid.Row="1"
                Grid.ColumnSpan="2"
-               FontSize="24"
+               FontSize="28"
                FontAttributes="Bold"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               Padding="0,10,0,10"
-               Margin="-35,10,10,10"
+               HorizontalOptions="Start"
+               Margin="0,10,0,10"
                FontFamily="Title Page"
                TextColor="#4F378A"/>
+        
 
-        <!-- Main List of Options -->
-        <VerticalStackLayout Spacing="20" Margin="10,20,10,0" Grid.Row="2">
+        <!-- Content Area -->
+        <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="16" Margin="0,10">
 
-            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
+            <!-- Section: Spaces -->
+            <Label Text="Spaces" FontSize="16" FontAttributes="Bold" TextColor="#4F378A" Margin="5,0,0,0"/>
+            <BoxView HeightRequest="1" Color="#E0DCEC"/>
+
+            <!-- My Spaces -->
+            <Border Padding="12"
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White"
+                    HorizontalOptions="Fill">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
+                </Border.Shadow>
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToMySpaceCommand}" />
                 </Border.GestureRecognizers>
-                <HorizontalStackLayout>
-                    <Image Source="my_space_icon.png" WidthRequest="24" HeightRequest="24"/>
-                    <Label Text="My Spaces" FontSize="18" Margin="20,0,0,0"/>
+                <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                    <Image Source="my_space_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                    <Label Text="My Spaces" FontSize="18" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Border>
 
-            <!-- Add a Space -->
-            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
+            <!-- Add A Space -->
+            <Border Padding="12"
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White"
+                    HorizontalOptions="Fill">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
+                </Border.Shadow>
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToAddSpaceCommand}" />
                 </Border.GestureRecognizers>
-                <HorizontalStackLayout>
-                    <Image Source="add_space_icon_2.png" WidthRequest="20" HeightRequest="20"/>
-                    <Label Text="Add A Space" FontSize="18" Margin="20,0,0,0"/>
+                <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                    <Image Source="add_space_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                    <Label Text="Add A Space" FontSize="18" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Border>
 
+            <!-- Section: Preferences -->
+            <Label Text="Preferences" FontSize="16" FontAttributes="Bold" TextColor="#4F378A" Margin="5,20,0,0"/>
+            <BoxView HeightRequest="1" Color="#E0DCEC"/>
 
             <!-- Favorites -->
-            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
-                <HorizontalStackLayout>
-                    <Image Source="favourite_icon_2.png" WidthRequest="20" HeightRequest="20"/>
-                    <Label Text="Favourites" FontSize="18" Margin="20,0,0,0"/>
-                </HorizontalStackLayout>
-            </Border>
-
-            <!-- Payment Methods -->
-            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
-                <HorizontalStackLayout>
-                    <Image Source="payment_icon.png" WidthRequest="20" HeightRequest="20"/>
-                    <Label Text="Payments Methods" FontSize="18" Margin="20,0,0,0"/>
+            <Border Padding="12"
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White"
+                    HorizontalOptions="Fill">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
+                </Border.Shadow>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToFavoutritesCommand}" />
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                    <Image Source="favourite_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                    <Label Text="Favourites" FontSize="18" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Border>
 
             <!-- Notifications -->
-            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
-                <HorizontalStackLayout>
-                    <Image Source="notification_icon_2.png" WidthRequest="20" HeightRequest="20"/>
-                    <Label Text="Notifications" FontSize="18" Margin="20,0,0,0"/>
+            <Border Padding="12"
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White"
+                    HorizontalOptions="Fill">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
+                </Border.Shadow>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToNotificationsCommand}" />
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                    <Image Source="notification_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                    <Label Text="Notifications" FontSize="18" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Border>
 
+            <!-- Section: Account -->
+            <Label Text="Account" FontSize="16" FontAttributes="Bold" TextColor="#4F378A" Margin="5,20,0,0"/>
+            <BoxView HeightRequest="1" Color="#E0DCEC"/>
+
             <!-- Logout -->
-            <Border Padding="15" StrokeShape="RoundRectangle 10" StrokeThickness="1">
-                <HorizontalStackLayout>
-                    <Image Source="logout_icon.png" WidthRequest="20" HeightRequest="20"/>
-                    <Label Text="Logout" FontSize="18" TextColor="Red" Margin="20,0,0,0"/>
+            <Border Padding="12"
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="#FFE5E5"
+                    HorizontalOptions="Fill">
+                <Border.Shadow>
+                    <Shadow Brush="Red" Offset="2,2" Opacity="0.2" Radius="4"/>
+                </Border.Shadow>
+                <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                    <Image Source="logout_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                    <Label Text="Logout" FontSize="18" TextColor="Red" VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Border>
+
         </VerticalStackLayout>
 
     </Grid>
-
 </ContentPage>
