@@ -33,7 +33,8 @@
                     <Button Text="Logout" 
                             BackgroundColor="Transparent"
                             TextColor="#E74C3C"
-                            FontAttributes="Bold"/>
+                            FontAttributes="Bold"
+                            Command="{Binding LogoutCommand}"/>
                 </HorizontalStackLayout>
             </HorizontalStackLayout>
         </Frame>

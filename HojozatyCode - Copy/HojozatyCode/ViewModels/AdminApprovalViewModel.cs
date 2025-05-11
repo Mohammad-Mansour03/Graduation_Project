@@ -34,6 +34,24 @@ namespace HojozatyCode.ViewModels
                 }
             }
         }
+        [RelayCommand]
+        private async Task Logout()
+        {
+            try
+            {
+                await SupabaseConfig.SupabaseClient.Auth.SignOut();
+
+                await Shell.Current.GoToAsync(nameof(Pages.LogInPage));
+
+            }
+			catch (Exception ex)
+			{
+				// Optional: show error to user
+				await Shell.Current.DisplayAlert("Logout Failed", ex.Message, "OK");
+			}
+
+		}
+
 
         public AdminApprovalViewModel()
         {

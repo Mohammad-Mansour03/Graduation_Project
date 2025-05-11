@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HojozatyCode.Services;
+using HojozatyCode.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,30 @@ namespace HojozatyCode.ViewModels
 {
     public partial class AccountPageViewModel : ObservableObject
     {
-        //Navigte me to the Edit Profile Page
-        [RelayCommand]
+
+		[RelayCommand]
+		private async Task Logout()
+		{
+			try
+			{
+                await SupabaseConfig.SupabaseClient.Auth.SignOut();
+
+				// Clear any locally stored user data if needed
+			//	Preferences.Clear();
+
+				// Navigate back to the login page
+				await Shell.Current.GoToAsync(nameof(LogInPage));
+			}
+			catch (Exception ex)
+			{
+				// Optional: show error to user
+				await Shell.Current.DisplayAlert("Logout Failed", ex.Message, "OK");
+			}
+		}
+
+
+		//Navigte me to the Edit Profile Page
+		[RelayCommand]
         private async Task GoToEditProfile() 
         {
             await Shell.Current.GoToAsync(nameof(Pages.EditProfile));
