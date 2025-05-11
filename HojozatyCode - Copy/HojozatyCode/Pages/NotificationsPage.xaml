@@ -6,7 +6,6 @@
              x:DataType="viewModels:NotificationsViewModel"
              Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="True"
-             Title="Notifications"
              BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>
