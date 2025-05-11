@@ -78,7 +78,7 @@ namespace HojozatyCode.ViewModels
 				VenueEmail = Venue.VenueEmail;
 				VenueCapacity = Venue.Capacity;
 				InitialPrice = Venue.InitialPrice;
-				ImageUrl = Venue.ImageUrl;
+				ImageUrl = Venue.ImageUrls[0];
 			}
 		}
 
