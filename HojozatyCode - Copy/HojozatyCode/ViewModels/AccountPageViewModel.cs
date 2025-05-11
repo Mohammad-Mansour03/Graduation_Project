@@ -30,6 +30,20 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(Pages.HomePage));
         }
 
+        //Navigate me to the Favourites Page
+        [RelayCommand]
+        private async Task GoToFavoutrites()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.FavouritePage));
+        }
+
+        //Navigate me to the Notifications Page
+        [RelayCommand]
+        private async Task GoToNotifications()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.NotificationsPage));
+        }
+
         //Navigate me to the Add Space Page
 
         [RelayCommand]

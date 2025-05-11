@@ -3,79 +3,90 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels;assembly=HojozatyCode"
              x:Class="HojozatyCode.Pages.NotificationsPage"
+             x:DataType="viewModels:NotificationsViewModel"
              Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="True"
-             Title="Notifications">
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>
         <viewModels:NotificationsViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="Auto,Auto,Auto,*">
+    <Grid RowDefinitions="Auto,*">
+
         <!-- Header -->
-        <Grid Grid.Row="0" 
-              Padding="16" 
-              ColumnDefinitions="Auto,*"
-              BackgroundColor="White">
+        <Grid Grid.Row="0"
+              Padding="20,10"
+              BackgroundColor="White"
+              ColumnDefinitions="Auto,*">
+            <Label Text="Notifications"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#4F378A"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start" />
         </Grid>
 
         <!-- Notifications List -->
-        <CollectionView Grid.Row="3"
+        <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Notifications}"
                         Margin="16,10">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="16,8" 
-                          ColumnDefinitions="Auto,Auto,*,Auto"
-                          RowDefinitions="Auto,Auto">
-                        <!-- Status Indicator -->
-                        <Ellipse Fill="{Binding StatusColor}"
-                                HeightRequest="8"
-                                WidthRequest="8"
-                                VerticalOptions="Center"
-                                Margin="0,0,8,0"/>
+                    <Border Stroke="{x:Null}" BackgroundColor="LightGray" StrokeShape="RoundRectangle 10" Margin="0,0,0,10" Padding="12">
+                        <Grid ColumnDefinitions="Auto,Auto,*,Auto" RowDefinitions="Auto">
 
-                        <!-- Icon -->
-                        <Image Grid.Column="1"
-                               Source="{Binding IconSource}"
-                               HeightRequest="24"
-                               WidthRequest="24"
-                               Margin="0,0,12,0"/>
+                            <!-- Status Dot -->
+                            <Ellipse Fill="{Binding StatusColor}"
+                                     HeightRequest="10"
+                                     WidthRequest="10"
+                                     VerticalOptions="Center"
+                                     Margin="0,0,8,0"/>
 
-                        <!-- Content -->
-                        <VerticalStackLayout Grid.Column="2" Spacing="4">
-                            <Label Text="{Binding Title}"
-                                   FontAttributes="Bold"/>
-                            <Label Text="{Binding Subtitle}"
-                                   TextColor="Gray"
-                                   FontSize="14"/>
-                        </VerticalStackLayout>
+                            <!-- Icon -->
+                            <Image Grid.Column="1"
+                                   Source="{Binding IconSource}"
+                                   HeightRequest="28"
+                                   WidthRequest="28"
+                                   VerticalOptions="Center"
+                                   Margin="0,0,12,0"/>
 
-                        <!-- Timestamp -->
-                        <Label Grid.Column="3"
-                               Text="{Binding Timestamp, StringFormat='{0:h:mm tt}'}"
-                               TextColor="Gray"
-                               FontSize="12"
-                               VerticalOptions="Start"/>
+                            <!-- Title & Subtitle -->
+                            <VerticalStackLayout Grid.Column="2" Spacing="2" VerticalOptions="Center">
+                                <Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       FontSize="16"
+                                       TextColor="Black"/>
+                                <Label Text="{Binding Subtitle}"
+                                       FontSize="13"
+                                       TextColor="Gray"/>
+                            </VerticalStackLayout>
 
-                        <!-- Tap Gesture -->
-                        <Grid.GestureRecognizers>
-                           
-                            <TapGestureRecognizer 
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
-                                Path=BindingContext.NotificationTappedCommand}"
-                                CommandParameter="{Binding}"/>
-                        
-                        </Grid.GestureRecognizers>
-                    
-                    </Grid>
-              
+                            <!-- Timestamp -->
+                            <Frame Grid.Column="3"
+                                   Padding="6,2"
+                                   BackgroundColor="#E0E0E0"
+                                   CornerRadius="12"
+                                   HasShadow="False"
+                                   VerticalOptions="Start"
+                                   HorizontalOptions="End">
+                                <Label Text="{Binding Timestamp, StringFormat='{0:h:mm tt}'}"
+                                       FontSize="12"
+                                       TextColor="Gray"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Frame>
+
+                            <!-- Tap Gesture -->
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.NotificationTappedCommand}"
+                                    CommandParameter="{Binding}" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
-            
             </CollectionView.ItemTemplate>
-        
         </CollectionView>
-    
     </Grid>
-
 </ContentPage>

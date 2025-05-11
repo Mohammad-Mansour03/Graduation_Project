@@ -7,6 +7,7 @@
              Shell.TabBarIsVisible="False">
 
     <Grid RowDefinitions="Auto,*,Auto">
+
         <!-- Header -->
         <Frame Grid.Row="0"
                BackgroundColor="White"
@@ -14,21 +15,22 @@
                CornerRadius="0"
                HasShadow="True">
             <HorizontalStackLayout Spacing="15">
-                <Label Text="🏨 Azure Suites Admin" 
+                <Label Text="Admin Dashboard" 
                        FontSize="24"
                        FontAttributes="Bold"
                        TextColor="#2C3E50"/>
 
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="EndAndExpand">
+                <HorizontalStackLayout HorizontalOptions="EndAndExpand" Spacing="10">
                     <VerticalStackLayout>
-                        <Label Text="Raad Admin" 
+                        <Label Text="Admin User" 
                                FontSize="16"
                                TextColor="#2C3E50"/>
                         <Label Text="Administrator" 
                                FontSize="12"
                                TextColor="#7F8C8D"/>
                     </VerticalStackLayout>
-                    <Button Text="🚪 Logout" 
+                    <!--PLease Add Logout Functionalty-->
+                    <Button Text="Logout" 
                             BackgroundColor="Transparent"
                             TextColor="#E74C3C"
                             FontAttributes="Bold"/>
@@ -39,169 +41,79 @@
         <!-- Main Content -->
         <ScrollView Grid.Row="1" Padding="20">
             <VerticalStackLayout Spacing="25">
-                <!-- Dashboard Cards with Horizontal Scroll -->
+
+                <!-- Summary Cards -->
                 <ScrollView Orientation="Horizontal">
                     <HorizontalStackLayout Spacing="20">
-                        <!-- Total Revenue Card -->
-                        <Frame BackgroundColor="White"
-                               CornerRadius="15"
-                               Padding="20"
-                               HeightRequest="120"
-                               WidthRequest="300">
+                        <Frame Style="{StaticResource DashboardCardStyle}">
                             <VerticalStackLayout>
-                                <Label Text="📊 Total Revenue" 
-                                       TextColor="#7F8C8D"
-                                       FontSize="14"/>
-                                <Label Text="$52,420" 
-                                       TextColor="#2C3E50"
-                                       FontSize="28"
-                                       FontAttributes="Bold"/>
-                                <Label Text="↑ 18.4% this month" 
-                                       TextColor="#2ECC71"
-                                       FontSize="12"/>
+                                <Label Text="Total Revenue" FontSize="14" TextColor="#7F8C8D"/>
+                                <Label Text="$52,420" FontSize="28" FontAttributes="Bold" TextColor="#2C3E50"/>
+                                <Label Text="18.4% this month" FontSize="12" TextColor="#2ECC71"/>
                             </VerticalStackLayout>
                         </Frame>
 
-                        <!-- Active Reservations Card -->
-                        <Frame BackgroundColor="White"
-                               CornerRadius="15"
-                               Padding="20"
-                               HeightRequest="120"
-                               WidthRequest="300">
+                        <Frame Style="{StaticResource DashboardCardStyle}">
                             <VerticalStackLayout>
-                                <Label Text="📅 Active Reservations" 
-                                       TextColor="#7F8C8D"
-                                       FontSize="14"/>
-                                <Label Text="24" 
-                                       TextColor="#2C3E50"
-                                       FontSize="28"
-                                       FontAttributes="Bold"/>
-                                <Label Text="3 new today" 
-                                       TextColor="#3498DB"
-                                       FontSize="12"/>
+                                <Label Text="Active Reservations" FontSize="14" TextColor="#7F8C8D"/>
+                                <Label Text="24" FontSize="28" FontAttributes="Bold" TextColor="#2C3E50"/>
+                                <Label Text="3 new today" FontSize="12" TextColor="#3498DB"/>
                             </VerticalStackLayout>
                         </Frame>
 
-                        <!-- Active Clients Card -->
-                        <Frame BackgroundColor="White"
-                               CornerRadius="15"
-                               Padding="20"
-                               HeightRequest="120"
-                               WidthRequest="300">
+                        <Frame Style="{StaticResource DashboardCardStyle}">
                             <VerticalStackLayout>
-                                <Label Text="💼 Active Clients" 
-                                       TextColor="#7F8C8D"
-                                       FontSize="14"/>
-                                <Label Text="142" 
-                                       TextColor="#2C3E50"
-                                       FontSize="28"
-                                       FontAttributes="Bold"/>
-                                <Label Text="12 new this week" 
-                                       TextColor="#9B59B6"
-                                       FontSize="12"/>
+                                <Label Text="Active Clients" FontSize="14" TextColor="#7F8C8D"/>
+                                <Label Text="142" FontSize="28" FontAttributes="Bold" TextColor="#2C3E50"/>
+                                <Label Text="12 new this week" FontSize="12" TextColor="#9B59B6"/>
                             </VerticalStackLayout>
                         </Frame>
                     </HorizontalStackLayout>
                 </ScrollView>
 
-                <!-- Reservations Table -->
-                
-
-                <!-- Venue Approvals -->
-                <Frame BackgroundColor="White"
-                       CornerRadius="15"
-                       HasShadow="True"
-                       Margin="0,20,0,0"
-                       Padding="20">
+                <!-- Venue Approvals Summary -->
+                <Frame BackgroundColor="White" CornerRadius="15" HasShadow="True" Padding="20">
                     <VerticalStackLayout Spacing="15">
-                        <Label Text="Venue Approvals" 
-                               FontSize="20" 
-                               FontAttributes="Bold"
-                               TextColor="#2C3E50"/>
-                               
-                        <Label Text="{Binding PendingVenues.Count, StringFormat='You have {0} pending venues to review'}"
+                        <Label Text="Venue Approvals" FontSize="20" FontAttributes="Bold" TextColor="#2C3E50"/>
+                        <Label Text="{Binding PendingVenues.Count, StringFormat='You have {0} pending venues'}"
                                TextColor="#7F8C8D"
                                FontSize="16"/>
-                               
-                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
-                            <!-- <Button Text="Review Pending Venues"
-                                    BackgroundColor="#3498DB"
-                                    TextColor="White"
-                                    CornerRadius="10"
-                                    Clicked="OnApprovalButtonClicked"
-                                    Grid.Column="0"/> -->
-                                    
-                            <Frame BackgroundColor="#FEF9C3" 
-                                   CornerRadius="10"
-                                   Padding="15,10"
-                                   Grid.Column="1">
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <Frame BackgroundColor="#FEF9C3" CornerRadius="10" Padding="15,10">
                                 <HorizontalStackLayout>
-                                    <Label Text="⏳" FontSize="18"/>
-                                    <Label Text="{Binding PendingVenues.Count}" 
-                                           FontAttributes="Bold" 
-                                           FontSize="18"
-                                           TextColor="#CA8A04"
-                                           VerticalOptions="Center"
-                                           Margin="5,0,0,0"/>
+                                    <Label Text="Pending" FontSize="16" TextColor="#CA8A04"/>
+                                    <Label Text="{Binding PendingVenues.Count}" FontAttributes="Bold" FontSize="18" TextColor="#CA8A04" Margin="5,0,0,0"/>
                                 </HorizontalStackLayout>
                             </Frame>
-                            
-                            <Frame BackgroundColor="#DCFCE7" 
-                                   CornerRadius="10"
-                                   Padding="15,10"
-                                   Grid.Column="2">
+
+                            <Frame BackgroundColor="#DCFCE7" CornerRadius="10" Padding="15,10">
                                 <HorizontalStackLayout>
-                                    <Label Text="✓" FontSize="18"/>
-                                    <Label Text="0" 
-                                           FontAttributes="Bold" 
-                                           FontSize="18"
-                                           TextColor="#16A34A"
-                                           VerticalOptions="Center"
-                                           Margin="5,0,0,0"/>
+                                    <Label Text="Approved" FontSize="16" TextColor="#16A34A"/>
+                                    <Label Text="0" FontAttributes="Bold" FontSize="18" TextColor="#16A34A" Margin="5,0,0,0"/>
                                 </HorizontalStackLayout>
                             </Frame>
                         </Grid>
                     </VerticalStackLayout>
                 </Frame>
 
-                <!-- Add this after the above Frame -->
-                <Frame BackgroundColor="White"
-                       CornerRadius="15"
-                       HasShadow="True"
-                       Margin="0,20,0,0"
-                       Padding="15">
+                <!-- Pending Venues List -->
+                <Frame BackgroundColor="White" CornerRadius="15" HasShadow="True" Padding="15">
                     <VerticalStackLayout Spacing="15">
-                        <Label Text="Recent Pending Venues" 
-                               FontSize="18" 
-                               FontAttributes="Bold"
-                               TextColor="#2C3E50"/>
-                               
-                        <CollectionView ItemsSource="{Binding PendingVenues}" 
-                                       HeightRequest="250"
-                                       EmptyView="No pending venues to display">
+                        <Label Text="Recent Pending Venues" FontSize="18" FontAttributes="Bold" TextColor="#2C3E50"/>
+                        <CollectionView ItemsSource="{Binding PendingVenues}" HeightRequest="250" EmptyView="No pending venues.">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame Margin="0,5" 
-                                           Padding="15"
-                                           BackgroundColor="#F4F7FA"
-                                           CornerRadius="10">
+                                    <Frame Margin="0,5" Padding="15" BackgroundColor="#F4F7FA" CornerRadius="10">
                                         <Grid ColumnDefinitions="*,Auto">
                                             <VerticalStackLayout Spacing="5">
-                                                <Label Text="{Binding VenueName}" 
-                                                       FontAttributes="Bold"
-                                                       TextColor="#2C3E50"
-                                                       FontSize="16"/>
-                                                <Label Text="{Binding Type}" 
-                                                       TextColor="#7F8C8D"
-                                                       FontSize="14"/>
-                                                <Label Text="{Binding Location}" 
-                                                       TextColor="#7F8C8D"
-                                                       FontSize="14"/>
+                                                <Label Text="{Binding VenueName}" FontSize="16" FontAttributes="Bold" TextColor="#2C3E50"/>
+                                                <Label Text="{Binding Type}" FontSize="14" TextColor="#7F8C8D"/>
+                                                <Label Text="{Binding Location}" FontSize="14" TextColor="#7F8C8D"/>
                                             </VerticalStackLayout>
-                                            
                                             <Button Text="Review"
                                                     Grid.Column="1"
-                                                    BackgroundColor="#3498DB"
+                                                    BackgroundColor="#4F378A"
                                                     TextColor="White"
                                                     CornerRadius="8"
                                                     HeightRequest="40"
@@ -215,28 +127,20 @@
                         </CollectionView>
                     </VerticalStackLayout>
                 </Frame>
+
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Settings Footer -->
-        <Frame Grid.Row="2"
-               BackgroundColor="White"
-               Padding="15"
-               CornerRadius="0"
-               HasShadow="True">
+        <!--
+        <Frame Grid.Row="2" BackgroundColor="White" Padding="15" CornerRadius="0" HasShadow="True">
             <ScrollView Orientation="Horizontal">
                 <HorizontalStackLayout Spacing="30">
-                    <Button Text="⚙ Notification Preferences"
-                            BackgroundColor="Transparent"
-                            TextColor="#7F8C8D"/>
-                    <Button Text="👥 User Permissions"
-                            BackgroundColor="Transparent"
-                            TextColor="#7F8C8D"/>
-                    <Button Text="💳 Payments Billing"
-                            BackgroundColor="Transparent"
-                            TextColor="#7F8C8D"/>
+                    <Button Text="Notification Preferences" BackgroundColor="Transparent" TextColor="#7F8C8D"/>
+                    <Button Text="User Permissions" BackgroundColor="Transparent" TextColor="#7F8C8D"/>
+                    <Button Text="Payments  Billing" BackgroundColor="Transparent" TextColor="#7F8C8D"/>
                 </HorizontalStackLayout>
             </ScrollView>
         </Frame>
+        -->
     </Grid>
 </ContentPage>
