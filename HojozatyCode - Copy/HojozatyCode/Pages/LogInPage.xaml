@@ -81,6 +81,14 @@
                 </Grid>
             </Frame>
 
+            <!-- Forgot Password -->
+            <Button Text="Forgot Password?"
+                    FontSize="14"
+                    BackgroundColor="Transparent"
+                    TextColor="#4F378A"
+                    HorizontalOptions="End"
+                    Command="{Binding ForgotPasswordCommand}" />
+
             <!-- Error -->
             <Label Text="{Binding ErrorMessage}"
                    FontSize="14"
