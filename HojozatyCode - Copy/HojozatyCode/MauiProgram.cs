@@ -46,8 +46,8 @@ namespace HojozatyCode
             builder.Services.AddTransient<Pages.ExplorePage>();
             builder.Services.AddTransient<Pages.AdminApprovalPage>();
             builder.Services.AddTransient<Pages.EditPage>();
+            builder.Services.AddSingleton<FavoriteViewModel>();
             builder.Services.AddTransient<Pages.FavouritePage>();
-            builder.Services.AddTransient<FavoriteViewModel>();
             builder.Services.AddTransient<Pages.ReviewBooking>();
 
 #if ANDROID

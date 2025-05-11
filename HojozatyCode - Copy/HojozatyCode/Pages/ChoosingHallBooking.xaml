@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:conv="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.ChoosingHallBooking"
              Title="Venue Details"
-             BackgroundColor="#F8F9FA">
-
-    <ContentPage.Resources>
+             BackgroundColor="#F8F9FA">    <ContentPage.Resources>
+        <conv:BoolToImageConverter2 x:Key="BoolToImageConverter2" />
         <Style TargetType="Label" x:Key="SectionHeader">
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontFamily" Value="Montserrat-SemiBold"/>
@@ -19,6 +19,18 @@
             <Setter Property="CornerRadius" Value="22"/>
             <Setter Property="Margin" Value="20"/>
             <Setter Property="ZIndex" Value="1"/>
+        </Style>
+        <!-- Heart Icon Button Style -->
+        <Style TargetType="Button" x:Key="HeartButton" BasedOn="{StaticResource IconButton}">
+            <Setter Property="BackgroundColor" Value="#33FFFFFF"/>
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <Shadow Brush="#000000" Offset="0,2" Opacity="0.3" Radius="4" />
+                </Setter.Value>
+            </Setter>
         </Style>
     </ContentPage.Resources>
 
@@ -81,7 +93,7 @@
                 </Button.Triggers>
             </Button>
 
-            <Button Style="{StaticResource IconButton}"
+            <Button Style="{StaticResource HeartButton}"
                     ImageSource="{Binding IsFavorite, Converter={StaticResource BoolToImageConverter2}, ConverterParameter='heartoutline.png,heartfilled.png'}"
                     HorizontalOptions="End"
                     VerticalOptions="Start"

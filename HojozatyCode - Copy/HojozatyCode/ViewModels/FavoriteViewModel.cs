@@ -7,8 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace HojozatyCode.ViewModels
-{
-    public partial class FavoriteViewModel : ObservableObject
+{    public partial class FavoriteViewModel : ObservableObject
     {
         [ObservableProperty]
         private ObservableCollection<Venue> favoriteVenues = new();
@@ -22,17 +21,20 @@ namespace HojozatyCode.ViewModels
         [ObservableProperty]
         private string errorMessage;
 
-        // Add this flag to prevent multiple loads
+        // Flags to prevent multiple loads
         private bool _isInitialized = false;
+        private bool _isLoadingData = false;
 
         public FavoriteViewModel()
         {
-            // Do not directly call async method from constructor
-            // Instead, use the dispatcher to queue it properly
-            MainThread.BeginInvokeOnMainThread(async () => 
+            // Only queue this once
+            if (!_isInitialized)
             {
-                await InitializeAsync();
-            });
+                MainThread.BeginInvokeOnMainThread(async () => 
+                {
+                    await InitializeAsync();
+                });
+            }
         }
 
         private async Task InitializeAsync()
@@ -44,25 +46,37 @@ namespace HojozatyCode.ViewModels
             IsLoading = false;
             
             _isInitialized = true;
-        }
-
-        [RelayCommand]
+        }        [RelayCommand]
         public async Task RefreshFavorites()
         {
+            // Prevent refresh if already loading
+            if (IsLoading || _isLoadingData) 
+            {
+                Debug.WriteLine("RefreshFavorites - Already loading data, ignoring this refresh");
+                return;
+            }
+            
             IsLoading = true;
             await LoadFavoritesAsync();
             IsLoading = false;
-        }
-
-        public async Task LoadFavoritesAsync()
+        }public async Task LoadFavoritesAsync()
         {
-            if (SupabaseConfig.SupabaseClient == null)
-                await SupabaseConfig.InitializeAsync();
-
-            ErrorMessage = string.Empty;
-
+            // Prevent concurrent loads by checking the _isLoadingData flag
+            if (_isLoadingData) 
+            {
+                Debug.WriteLine("LoadFavoritesAsync - Already loading data, skipping this call");
+                return;
+            }
+            
+            _isLoadingData = true;
+            
             try
             {
+                if (SupabaseConfig.SupabaseClient == null)
+                    await SupabaseConfig.InitializeAsync();
+
+                ErrorMessage = string.Empty;
+
                 // Get current user ID
                 var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
                 if (session == null || session.User == null)
@@ -118,11 +132,16 @@ namespace HojozatyCode.ViewModels
                 }
 
                 IsEmpty = FavoriteVenues.Count == 0;
-            }
-            catch (Exception ex)
+            }            catch (Exception ex)
             {
                 Debug.WriteLine($"Error loading favorites: {ex.Message}");
                 ErrorMessage = "Failed to load favorites. Please try again.";
+            }
+            finally
+            {
+                // Always release the lock
+                _isLoadingData = false;
+                Debug.WriteLine("LoadFavoritesAsync - Finished loading data");
             }
         }
 
