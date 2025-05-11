@@ -15,7 +15,7 @@ namespace HojozatyCode
             Routing.RegisterRoute(nameof(Pages.ChatPage), typeof(Pages.ChatPage));
             Routing.RegisterRoute(nameof(Pages.FavouritePage), typeof(Pages.FavouritePage));
             Routing.RegisterRoute(nameof(Pages.AccountPage), typeof(Pages.AccountPage));
-            Routing.RegisterRoute(nameof(Pages.ExplorePage), typeof(Pages.ExplorePage));
+           
             Routing.RegisterRoute(nameof(Pages.EditProfile), typeof(Pages.EditProfile));
             Routing.RegisterRoute(nameof(Pages.NotificationsPage), typeof(Pages.NotificationsPage));
             Routing.RegisterRoute(nameof(Pages.SpaceInformationPage), typeof(Pages.SpaceInformationPage));

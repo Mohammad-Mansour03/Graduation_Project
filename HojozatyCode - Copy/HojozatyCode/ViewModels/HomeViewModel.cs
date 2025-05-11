@@ -51,12 +51,6 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
         }
 
-        //Navigate me to the Explore page
-        [RelayCommand]
-        private async Task GoToExplore()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.ExplorePage));
-        }
        
         //Navigate me to the Account Page
         [RelayCommand]
