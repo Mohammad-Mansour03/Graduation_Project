@@ -1,5 +1,4 @@
 ﻿
-
 namespace HojozatyCode
 {
     public partial class AppShell : Shell
@@ -36,6 +35,7 @@ namespace HojozatyCode
             Routing.RegisterRoute(nameof(Pages.BookingCalendarPage), typeof(Pages.BookingCalendarPage));
             Routing.RegisterRoute(nameof(Pages.ServicesToAdd), typeof(Pages.ServicesToAdd));
             Routing.RegisterRoute(nameof(Pages.ReviewBooking), typeof(Pages.ReviewBooking));
+            //Routing.RegisterRoute(nameof(Pages.ForgotPasswordPage), typeof(Pages.ForgotPasswordPage));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
         }

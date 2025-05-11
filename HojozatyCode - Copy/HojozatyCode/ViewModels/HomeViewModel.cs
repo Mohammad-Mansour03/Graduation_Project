@@ -16,6 +16,7 @@ namespace HojozatyCode.ViewModels
 
 			string[] types = { "Wedding", "Meeting", "Funeral", "Photography", "Cultural Events", "Entertainment", "Sports" };
 
+
 			foreach (var type in types)
 			{
 				var result = await SupabaseConfig.SupabaseClient
@@ -24,7 +25,7 @@ namespace HojozatyCode.ViewModels
 					.Get();
 
 				var venue = result.Models.FirstOrDefault();
-				if (venue != null)
+				if (venue != null && !HomeVenues.Any(v => v.VenueId == venue.VenueId))
 				{
 					HomeVenues.Add(venue);
 				}

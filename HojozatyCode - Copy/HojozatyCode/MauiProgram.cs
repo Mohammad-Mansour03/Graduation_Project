@@ -19,8 +19,12 @@ namespace HojozatyCode
                 .UseMauiCommunityToolkit()
                 .UseMauiMaps();
 
+			builder.ConfigureEssentials(essentials =>
+			{
+				essentials.AddAppAction("reset_password", "Reset Password", icon: "icon.png");
+			});
 #if DEBUG
-            builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
 
             // Register ViewModels
