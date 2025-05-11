@@ -41,9 +41,3 @@ jobs:
       
     - name: Build Android App (Debug)
       run: dotnet build "HojozatyCode - Copy/HojozatyCode/HojozatyCode.csproj" -c Debug -f net9.0-android
-      
-    - name: Archive APK files
-      uses: actions/upload-artifact@master
-      with:
-        name: android-apk-files
-        path: "HojozatyCode - Copy/HojozatyCode/bin/Debug/net9.0-android/**/*.apk"
