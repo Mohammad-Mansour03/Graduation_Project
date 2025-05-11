@@ -38,6 +38,9 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string errorMessage;
 
+
+
+
 		//The command to Go out from the profile info page
 		[RelayCommand]
         private async Task CancelAsync()

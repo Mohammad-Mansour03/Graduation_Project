@@ -42,7 +42,64 @@ namespace HojozatyCode.ViewModels
 		//Properety to sotre the user gender
 		[ObservableProperty]
 		private string gender;
-		
+
+		[ObservableProperty]
+		private string currentPassword;
+
+		[ObservableProperty]
+		private string newPassword;
+
+		[ObservableProperty]
+		private string confirmNewPassword;
+
+		[RelayCommand]
+		private async Task ChangePassword() 
+		{
+			await Shell.Current.DisplayAlert("Prompt", "Inside the Change Password Method", "OK");
+
+			try
+			{
+				var client = SupabaseConfig.SupabaseClient;
+				var email = client.Auth.CurrentUser?.Email;
+
+				if (string.IsNullOrWhiteSpace(email))
+				{
+					await Shell.Current.DisplayAlert("Error", "User email not found.", "OK");
+					return;
+				}
+
+				// Step 1: Re-authenticate the user with current password
+				var session = await client.Auth.SignIn(email: email, password: CurrentPassword);
+
+				if (session == null || session.User == null)
+				{
+					await Shell.Current.DisplayAlert("Error", "Current password is incorrect.", "OK");
+					return;
+				}
+
+				// Step 2: Update the password
+				var result = await client.Auth.Update(new Supabase.Gotrue.UserAttributes
+				{
+					Password = NewPassword
+				});
+
+				if (result != null && result.UserMetadata != null)
+				{
+					await Shell.Current.DisplayAlert("Success", "Password changed successfully.", "OK");
+				}
+				else
+				{
+					await Shell.Current.DisplayAlert("Error", "Failed to change password.", "OK");
+				}
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+			}
+		}
+
+
+
 		//The Constructor to make fitching for user data
 		public EditProfileViewModel()
 		{
