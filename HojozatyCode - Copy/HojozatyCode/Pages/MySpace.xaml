@@ -67,7 +67,7 @@
                                         <Border StrokeShape="RoundRectangle 15,15,0,0"
                                                 Margin="0"
                                                 Padding="0">
-                                            <Image Source="{Binding ImageUrl}"
+                                            <Image Source="{Binding ImageUrls[0]}"
                                                    Aspect="AspectFill"
                                                    HeightRequest="220"
                                                    HorizontalOptions="Fill"

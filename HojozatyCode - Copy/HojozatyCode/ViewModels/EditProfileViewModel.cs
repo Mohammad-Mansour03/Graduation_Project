@@ -60,7 +60,28 @@ namespace HojozatyCode.ViewModels
 			try
 			{
 				var client = SupabaseConfig.SupabaseClient;
+			
 				var email = client.Auth.CurrentUser?.Email;
+
+				if (string.IsNullOrWhiteSpace(CurrentPassword)
+					|| string.IsNullOrWhiteSpace(NewPassword)
+					|| string.IsNullOrWhiteSpace(ConfirmNewPassword)) 
+				{
+					await Shell.Current.DisplayAlert("Error", "Please fill in all password fields.", "OK");
+					return;
+				}
+
+				if (NewPassword.Length < 8) 
+				{
+					await Shell.Current.DisplayAlert("Error", "Password must be at least 8 characters.", "OK");
+					return;
+				}
+
+				if (NewPassword != ConfirmNewPassword)
+				{
+					await Shell.Current.DisplayAlert("Error", "New passwords do not match.", "OK");
+					return;
+				}
 
 				if (string.IsNullOrWhiteSpace(email))
 				{

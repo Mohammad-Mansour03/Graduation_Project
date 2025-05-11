@@ -23,19 +23,19 @@
 
                     <!-- Outer Circle Effect (Optional Glow Background) -->
                     <Frame CornerRadius="60"
-                      BackgroundColor="#EFE9FB"
-                  HasShadow="False"
-                 Padding="0"
-                  IsClippedToBounds="True"
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center"
-                 HeightRequest="120"
-                 WidthRequest="120">
+                           BackgroundColor="#EFE9FB"
+                           HasShadow="False"
+                           Padding="0"
+                           IsClippedToBounds="True"
+                          HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     HeightRequest="120"
+                     WidthRequest="120">
                         <!-- Venue Image -->
                         <Image Source="{Binding ImageUrl}"
-               Aspect="AspectFill"
-               HorizontalOptions="Fill"
-               VerticalOptions="Fill" />
+                               Aspect="AspectFill"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill" />
                     </Frame>
 
                     <Image Source="camera.png"
