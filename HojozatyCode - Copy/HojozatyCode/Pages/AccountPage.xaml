@@ -71,8 +71,8 @@
                 <Border.Shadow>
                     <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
                 </Border.Shadow>
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToMySpaceCommand}" />
+                <Border.GestureRecognizers >
+                    <TapGestureRecognizer Command="{Binding GoToMySpaceCommand}" Tapped="OnBorderTapped"  />
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="my_space_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
@@ -89,7 +89,7 @@
                     <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
                 </Border.Shadow>
                 <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToAddSpaceCommand}" />
+                    <TapGestureRecognizer Command="{Binding GoToAddSpaceCommand}"  Tapped="OnBorderTapped" />
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="add_space_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
@@ -110,7 +110,7 @@
                     <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
                 </Border.Shadow>
                 <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToFavoutritesCommand}" />
+                    <TapGestureRecognizer Command="{Binding GoToFavoutritesCommand}"  Tapped="OnBorderTapped" />
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="favourite_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
@@ -127,7 +127,7 @@
                     <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
                 </Border.Shadow>
                 <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToNotificationsCommand}" />
+                    <TapGestureRecognizer Command="{Binding GoToNotificationsCommand}"  Tapped="OnBorderTapped" />
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="notification_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
@@ -147,6 +147,10 @@
                 <Border.Shadow>
                     <Shadow Brush="Red" Offset="2,2" Opacity="0.2" Radius="4"/>
                 </Border.Shadow>
+                <!--add command here please-->
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LogoutCommand}" Tapped="OnBorderTapped" />
+                </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="logout_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
                     <Label Text="Logout" FontSize="18" TextColor="Red" VerticalOptions="Center"/>

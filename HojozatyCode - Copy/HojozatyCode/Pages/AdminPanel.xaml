@@ -113,7 +113,7 @@
                                             </VerticalStackLayout>
                                             <Button Text="Review"
                                                     Grid.Column="1"
-                                                    BackgroundColor="#3498DB"
+                                                    BackgroundColor="#4F378A"
                                                     TextColor="White"
                                                     CornerRadius="8"
                                                     HeightRequest="40"
