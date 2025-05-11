@@ -25,5 +25,8 @@ namespace HojozatyCode.Models
 		[Column("quantity")]
 		public int Quantity { get; set; }
 
+		[IgnoreDataMember]
+		public string Name { get; set; }
+
 	}
 }

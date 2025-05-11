@@ -17,9 +17,6 @@ namespace HojozatyCode.ViewModels
 
 	public partial class BookingViewModel : ObservableObject, IQueryAttributable
 	{
-		[ObservableProperty]
-		private string name = "Mohammad";
-
 
 		//To deal with venue id that come from another page
 		[ObservableProperty]
@@ -75,6 +72,9 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private TimeSpan endedTime;
 
+		[ObservableProperty]
+		private DateTime endedDateTime;
+
 		//Date time to store the Started Date and time that user choosen
 		[ObservableProperty]
 		public DateTime selectedDateTime;
@@ -88,7 +88,12 @@ namespace HojozatyCode.ViewModels
 		private Guid currentUserId;
 
 		//To Store the Services the user added for his booking
-		ObservableCollection<BookingService> BookingServices { get; set; } = new ObservableCollection<BookingService>();
+		[ObservableProperty]
+		ObservableCollection<BookingService> bookingServices = new ObservableCollection<BookingService>();
+
+		[ObservableProperty]
+		private double totalPrice;
+		
 
 		//To delete the service from booking
 		[RelayCommand]
@@ -108,7 +113,7 @@ namespace HojozatyCode.ViewModels
 					.Where(b => b.BookingId == SelectedBookingId)
 					.Get();
 
-				booking.Model.TotalPrice -= (bookingService.Price * bookingService.Quantity);
+				TotalPrice = booking.Model.TotalPrice -= (bookingService.Price * bookingService.Quantity);
 				await booking.Model.Update<Booking>();
 
 				var tempBookingService = new BookingService
@@ -116,7 +121,8 @@ namespace HojozatyCode.ViewModels
 					ServiceId = bookingService.ServiceId,
 					BookingId = SelectedBookingId,
 					Quantity = bookingService.Quantity,
-					TotalPrice = bookingService.Price
+					TotalPrice = bookingService.Price,
+					Name = bookingService.Name
 				};
 		
 				// 3. Remove from local collection
@@ -127,6 +133,54 @@ namespace HojozatyCode.ViewModels
 			catch (Exception ex)
 			{
 				await Shell.Current.DisplayAlert("Error", $"Failed to delete service: {ex.Message}", "OK");
+			}
+		}
+
+		[RelayCommand]
+		private async Task CheckAvailability() 
+		{
+			SelectedDateTime = SelectedDate + SelectedTime;
+
+			DateTime newBookingEnd;
+			//Check if the Selected date time isn't in the past
+			if (SelectedDateTime < DateTime.Now)
+			{
+				await Shell.Current.DisplayAlert("Error", "You Can't Choose Past Date", "OK");
+				return;
+			}
+
+			//Check if the venue has fixed time or not (To store the right ended time)
+			if (SelectedVenue.IsFixedDuration != null && SelectedVenue.IsFixedDuration == true)
+			{
+				newBookingEnd = EndedDateTime = SelectedDateTime.AddHours((int)SelectedVenue.FixedDurationInHours);
+			}
+
+			else
+			{
+
+				//Check if the ended time isn't before the started time
+				if (EndedTime > SelectedTime)
+				{
+					newBookingEnd = EndedDateTime = SelectedDate + EndedTime;
+				}
+
+				else
+				{
+					await Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
+					return;
+				}
+			}
+
+
+			if (!IsDateTimeAvailable(SelectedDateTime, newBookingEnd))
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is reserved from {SelectedDateTime} to {newBookingEnd} at this time", "OK");
+				return;
+			}
+			else 
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is available from {SelectedDateTime} to {newBookingEnd} at this time", "OK");
+				return;
 			}
 		}
 
@@ -156,7 +210,8 @@ namespace HojozatyCode.ViewModels
 					BookingId = SelectedBookingId,
 					ServiceId = service.ServiceId,
 					Quantity = service.Quantity,
-					TotalPrice = totalPrice
+					TotalPrice = totalPrice,
+					Name = service.Name
 				};
 
 				BookingServices.Add(bookingService);
@@ -173,7 +228,7 @@ namespace HojozatyCode.ViewModels
 
 				if (bookingToUpdate.Model != null) 
 				{
-					bookingToUpdate.Model.TotalPrice += totalPrice;
+					TotalPrice = bookingToUpdate.Model.TotalPrice += totalPrice;
 					await bookingToUpdate.Model.Update<Booking>();
 				}
 
@@ -278,7 +333,7 @@ namespace HojozatyCode.ViewModels
 			if (venue.IsFixedDuration != null && venue.IsFixedDuration == true)
 			{
 				duration = (int)venue.FixedDurationInHours;
-				newBookingEnd = SelectedDateTime.AddHours(duration);
+				newBookingEnd = EndedDateTime = SelectedDateTime.AddHours(duration);
 			}
 
 			else
@@ -287,7 +342,7 @@ namespace HojozatyCode.ViewModels
 				//Check if the ended time isn't before the started time
 				if (EndedTime > SelectedTime)
 				{
-					newBookingEnd = SelectedDate + EndedTime;
+					newBookingEnd =  EndedDateTime = SelectedDate + EndedTime;
 				}
 				
 				else
@@ -325,6 +380,8 @@ namespace HojozatyCode.ViewModels
 				CreatedAt = DateTime.UtcNow.AddHours(3),  // Keep audit fields in UTC
 				UpdatedAt = DateTime.UtcNow.AddHours(3)
 			};
+
+			TotalPrice = newBooking.TotalPrice;
 
 			//SelectedBookingId = newBooking.BookingId;
 

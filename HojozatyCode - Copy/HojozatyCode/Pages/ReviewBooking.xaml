@@ -18,6 +18,10 @@
                     <Label Text="{Binding SelectedVenue.Location}"
                            FontSize="14"
                            TextColor="Gray"/>
+
+                    <Label Text="{Binding SelectedVenue.VenueContactPhone}"
+                           FontSize="14"
+                           TextColor="Gray"/>
                 </VerticalStackLayout>
             </Frame>
 
@@ -29,14 +33,92 @@
                 <Label Text="{Binding SelectedDateTime , Mode=TwoWay}"
                        Grid.Row="0" Grid.Column="1"
                        HorizontalOptions="End"
-                       />
+                       />      
+             
+
+            </Grid>    
+            
+            <!-- Booking Time Details -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Padding="10">
+                <Label Text="Start Time:"
+                       Grid.Row="0" Grid.Column="0"
+                       FontAttributes="Bold"/>
+                <Label Text="{Binding EndedDateTime , Mode=TwoWay}"
+                       Grid.Row="0" Grid.Column="1"
+                       HorizontalOptions="End"
+                       />      
+             
+
+            </Grid>      
+            <!-- Booking Time Details -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Padding="10">
+                <Label Text="Total Price"
+                       Grid.Row="0" Grid.Column="0"
+                       FontAttributes="Bold"/>
+                <Label Text="{Binding TotalPrice , Mode=TwoWay}"
+                       Grid.Row="0" Grid.Column="1"
+                       HorizontalOptions="End"
+                       />      
+             
 
             </Grid>
             <Button
                 Command="{Binding ShowTimeCommand}"
                 />
 
+            <CollectionView ItemsSource="{Binding BookingServices}">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <!-- Outer Border for a Unified Look -->
+                        <Border Stroke="Gray"
+                       StrokeThickness="1"
+                       StrokeShape="RoundRectangle 20"
+                       Padding="10"
+                       Margin="5"
+                       BackgroundColor="Transparent"
+                       HorizontalOptions="FillAndExpand">
+
+                            <Grid ColumnDefinitions="*,Auto,Auto" 
+                         ColumnSpacing="10">
+
+                                <!-- Name Entry -->
+                                <Entry Grid.Column="0"
+                              Text="{Binding Name}"
+                              IsReadOnly="True"
+                              FontSize="16"
+                              TextColor="Black"
+                              Margin="5"
+                              HorizontalOptions="FillAndExpand"/>
+
+                         
+                          
+                                <!-- Price Entry -->
+                                <Entry Grid.Column="1"
+                              Text="{Binding TotalPrice}"
+                              IsReadOnly="True"
+                              FontSize="16"
+                              TextColor="Black"
+                              Margin="5"
+                              WidthRequest="60"
+                              HorizontalTextAlignment="Center"/>
+
+            
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+            
             <!-- Rest of your XAML remains the same -->
         </VerticalStackLayout>
+        
+        
     </ScrollView>
 </ContentPage>
