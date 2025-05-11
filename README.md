@@ -78,8 +78,4 @@ We welcome contributions from the community! To contribute:
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
-## Contact
-For any inquiries or support, feel free to reach out:
-- **Email**: support@hojozaty.com
-- **Website**: [Hojozaty.com](https://hojozaty.com)
 
