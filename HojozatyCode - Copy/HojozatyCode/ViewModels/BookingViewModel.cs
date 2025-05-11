@@ -232,17 +232,18 @@ namespace HojozatyCode.ViewModels
 					await bookingToUpdate.Model.Update<Booking>();
 				}
 
-				await Shell.Current.DisplayAlert("تم", "تمت إضافة الخدمة إلى الحجز", "موافق");
-			}
-			catch (FileLoadException ex)
-			{
-				await Shell.Current.DisplayAlert("خطأ", ex.Message, "موافق");
-			}
-		}
-    
+                await Shell.Current.DisplayAlert("Done", "The service has been added to the booking", "OK");
+            }
+            catch (FileLoadException ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            }
 
-		//Method that deals with every user changed for the Date (For SelectedDateTiem)
-		partial void OnSelectedDateChanged(DateTime value)
+        }
+
+
+        //Method that deals with every user changed for the Date (For SelectedDateTiem)
+        partial void OnSelectedDateChanged(DateTime value)
 		{
 			OnPropertyChanged(nameof(SelectedDateTime));
 		}

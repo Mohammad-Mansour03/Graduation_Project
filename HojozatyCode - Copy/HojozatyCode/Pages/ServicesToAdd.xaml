@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ServicesToAdd"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
-             Title="Premium Services"
              BackgroundColor="#FAFAFA">
 
     <Grid RowDefinitions="*,Auto">
@@ -14,12 +13,12 @@
 
                 <!-- Header -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Please Add Your Services"
+                    <Label Text="Please Choose Your Services"
                            FontSize="28"
                            FontAttributes="Bold"
                            TextColor="#2A1B4D"
                            HorizontalOptions="Start"/>
-                    <Label Text="Select from the services for a luxury experience"
+                    <Label Text="Pick the services you'd like included in your booking"
                            FontSize="16"
                            TextColor="#6B7280"
                            HorizontalOptions="Start"/>
@@ -81,8 +80,7 @@
                                                 CornerRadius="12"
                                                 FontAttributes="Bold"
                                                 FontSize="16"
-                                                Command="{Binding DecreasedQuantityCommand}"
-                                             />
+                                                Command="{Binding DecreasedQuantityCommand}" />
 
                                         <!-- Quantity Entry -->
                                         <Entry Text="{Binding Quantity}"
@@ -105,12 +103,11 @@
                                                 CornerRadius="12"
                                                 FontAttributes="Bold"
                                                 FontSize="16"
-                                                Command="{Binding IncreaseQuantityCommand}"
-                                             />
+                                                Command="{Binding IncreaseQuantityCommand}" />
                                     </Grid>
 
-                                    <!-- Add Button -->
-                                    <Button Text="Add to Booking"
+                                    <!-- Select Button -->
+                                    <Button Text="Select Service"
                                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                             Margin="0,20,0,0"
                                             BackgroundColor="#4F378A"
@@ -122,18 +119,6 @@
                                             Padding="0"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
                                             CommandParameter="{Binding .}"/>
-                                    <!-- Delete Button -->
-                                    <Button Text="Delete"
-                                            Grid.Row="5" Grid.Column="1"
-                                            Margin="0,20,0,0"
-                                            BackgroundColor="#FF3B30"
-                                            TextColor="White"
-                                            CornerRadius="14"
-                                            FontAttributes="Bold"
-                                            FontSize="14"
-                                            HeightRequest="40"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=DeleteServiceCommand}"
-                                            CommandParameter="{Binding .}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -141,7 +126,7 @@
                 </CollectionView>
 
                 <!-- No Services Message -->
-                <Label Text="No Services Avaliable For The Selected Venue"
+                <Label Text="No services available for this venue"
                        FontSize="16"
                        TextColor="Gray"
                        HorizontalOptions="Center"
@@ -175,7 +160,7 @@
                     <Image Source="nofound.png"
                            HeightRequest="120"
                            Aspect="AspectFit"/>
-                    <Label Text="No services currently available"
+                    <Label Text="No services available at the moment"
                            FontSize="18"
                            TextColor="#6B7280"
                            HorizontalOptions="Center"

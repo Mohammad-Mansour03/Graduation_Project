@@ -5,7 +5,8 @@
              xmlns:conv="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.ChoosingHallBooking"
              Title="Venue Details"
-             BackgroundColor="#F8F9FA">    <ContentPage.Resources>
+             BackgroundColor="#F8F9FA">
+    <ContentPage.Resources>
         <conv:BoolToImageConverter2 x:Key="BoolToImageConverter2" />
         <Style TargetType="Label" x:Key="SectionHeader">
             <Setter Property="FontSize" Value="22"/>
