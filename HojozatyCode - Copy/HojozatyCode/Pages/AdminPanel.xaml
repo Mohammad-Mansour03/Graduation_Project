@@ -29,6 +29,7 @@
                                FontSize="12"
                                TextColor="#7F8C8D"/>
                     </VerticalStackLayout>
+                    <!--PLease Add Logout Functionalty-->
                     <Button Text="Logout" 
                             BackgroundColor="Transparent"
                             TextColor="#E74C3C"
