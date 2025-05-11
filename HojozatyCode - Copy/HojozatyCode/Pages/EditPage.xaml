@@ -32,11 +32,11 @@
                      HeightRequest="120"
                      WidthRequest="120">
                         <!-- Venue Image -->
-                        <Image Source="{Binding ImageUrl}"
-                               Aspect="AspectFill"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Fill" />
-                    </Frame>
+                        <Image Source="{Binding ImageUrls[0]}"
+                          Aspect="AspectFill"
+                          HorizontalOptions="Fill"
+                          VerticalOptions="Fill" />
+                            </Frame>
 
                     <Image Source="camera.png"
            HeightRequest="26"
@@ -54,7 +54,7 @@
                        HorizontalOptions="Center"/>
 
                 <BoxView HeightRequest="2"
-                         WidthRequest="60"
+                         WidthRequest="240"
                          Color="#4F378A"
                          HorizontalOptions="Center"
                          CornerRadius="1"/>
