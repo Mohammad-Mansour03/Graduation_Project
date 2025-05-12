@@ -62,9 +62,7 @@
              
 
             </Grid>
-            <Button
-                Command="{Binding ShowTimeCommand}"
-                />
+
 
             <CollectionView ItemsSource="{Binding BookingServices}">
 
