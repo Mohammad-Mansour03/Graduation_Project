@@ -169,7 +169,7 @@
                         <VerticalStackLayout Spacing="12">
                             <HorizontalStackLayout Spacing="8">
                                 <Image Source="location.png" HeightRequest="18" WidthRequest="18"/>
-                                <Label Text="Amman, Jordan" FontSize="14" FontFamily="Montserrat-Medium" TextColor="#4A5568"/>
+                                <Label Text="{Binding SelectedVenue.Location}" FontSize="14" FontFamily="Montserrat-Medium" TextColor="#4A5568"/>
                             </HorizontalStackLayout>
 
                             <BoxView HeightRequest="1" Color="#CBD5E0" Margin="0,8"/>
@@ -260,9 +260,28 @@
                                         <Grid ColumnDefinitions="24,*" ColumnSpacing="10">
                                             <Image Source="service_icon.png" HeightRequest="20" WidthRequest="20" VerticalOptions="Center"/>
                                             <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                                <Label Text="{Binding Name}" FontSize="14" FontFamily="Montserrat-SemiBold" TextColor="#2D3748"/>
-                                                <Label Text="{Binding Description}" FontSize="13" FontFamily="Montserrat-Regular" TextColor="#4A5568"/>
-                                                <Label Text="{Binding Price}" FontSize="13" FontFamily="Montserrat-Regular" TextColor="#4A5568"/>
+                                                <!-- Name and Price aligned horizontally -->
+                                                <Grid ColumnDefinitions="*,Auto">
+                                                    <Label Text="{Binding Name}"
+                                                     FontSize="14"
+                                                      FontFamily="Montserrat-SemiBold"
+                                                     TextColor="#2D3748"
+                                                        Grid.Column="0"/>
+
+                                                    <Label Text="{Binding Price,StringFormat='JOD {0:F2}'}"
+                                                      FontSize="14"
+                                                     FontFamily="Montserrat-SemiBold"
+                                                 TextColor="#7C3AED"
+                                                 Grid.Column="1"
+                                                 HorizontalOptions="End"/>
+                                                </Grid>
+
+                                                <!-- description below -->
+                                                <Label Text="{Binding Description}"
+                                                  FontSize="13"
+                                                 FontFamily="Montserrat-Regular"
+                                                 TextColor="#4A5568"
+                                                 IsVisible="{Binding Description, Converter={StaticResource StringNotEmptyConverter}}"/>
                                             </VerticalStackLayout>
                                         </Grid>
                                     </Border>
