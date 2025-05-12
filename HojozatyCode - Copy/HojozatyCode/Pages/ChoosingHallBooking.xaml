@@ -26,7 +26,6 @@
         </Style>
 
         <Style TargetType="Button" x:Key="HeartButton" BasedOn="{StaticResource IconButton}">
-            <Setter Property="BackgroundColor" Value="#33FFFFFF" />
             <Setter Property="WidthRequest" Value="50" />
             <Setter Property="HeightRequest" Value="50" />
             <Setter Property="Padding" Value="6" />
@@ -103,17 +102,42 @@
             </Button>
 
             <!-- Favorite Button -->
-            <Button Style="{StaticResource HeartButton}"
+            <Button
+                 x:Name="FavoriteButton"
+                    Style="{StaticResource HeartButton}"
                     ImageSource="{Binding IsFavorite, Converter={StaticResource BoolToImageConverter2}, ConverterParameter='heartoutline.png,heartfilled.png'}"
-                    HorizontalOptions="End"
-                    VerticalOptions="Start"
-                    Command="{Binding ToggleFavoriteCommand}">
+                     WidthRequest="32"
+                      HeightRequest="32"
+                     HorizontalOptions="End"
+                     VerticalOptions="Start"
+                     Command="{Binding ToggleFavoriteCommand}"
+                     Clicked="FavoriteButton_Clicked">
+
+                <!-- Visual States for Favorited/Unfavorited -->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Favorited">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#FFDDEEFF" />
+                                <Setter Property="Scale" Value="1.1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unfavorited">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                <Setter Property="Scale" Value="1.0" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+
                 <Button.Triggers>
                     <Trigger TargetType="Button" Property="IsPressed" Value="True">
                         <Setter Property="Opacity" Value="0.6"/>
                     </Trigger>
                 </Button.Triggers>
             </Button>
+
         </Grid>
 
         <!-- Main Content Area -->
