@@ -1,14 +1,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
+             Shell.TabBarIsVisible="False"
              x:Class="HojozatyCode.Pages.ReviewPage"
-             Title="ReviewPage">
+             BackgroundColor="#F9F6FC">
 
 
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Review Your Submission" 
+            <Label Text="Review Your Venue" 
                    FontSize="32" 
                    FontAttributes="Bold" 
                    TextColor="Black"/>
@@ -42,31 +43,31 @@
             </Frame>
 
             <!-- Space Type -->
-            <Label Text="Space Type:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding SpaceType}" FontSize="16"/>
+            <Label Text="Space Type:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Label Text="{Binding SpaceType}" FontSize="16" TextColor="#454545"/>
 
             <!-- Space Name -->
-            <Label Text="Space Name:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding SpaceName}" FontSize="16"/>
+            <Label Text="Space Name:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Label Text="{Binding SpaceName}" FontSize="16" TextColor="#454545"/>
 
             <!-- City -->
-            <Label Text="City:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding City}" FontSize="16"/>
+            <Label Text="City:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Label Text="{Binding City}" FontSize="16" TextColor="#454545"/>
 
             <!-- Address -->
-            <Label Text="Address:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding Address}" FontSize="16"/>
+            <Label Text="Address:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Label Text="{Binding Address}" FontSize="16" TextColor="#454545"/>
 
             <!-- Type of Space -->
-            <Label Text="Type of Space:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding Category}" FontSize="16"/>
+            <Label Text="Type of Space:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Label Text="{Binding Category}" FontSize="16" TextColor="#454545"/>
 
             <!-- Description -->
-            <Label Text="Description:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding Description}" FontSize="16"/>
+            <Label Text="Description:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Label Text="{Binding Description}" FontSize="16" TextColor="#454545"/>
 
             <!-- Services Provided -->
-            <Label Text="Services Provided:" FontSize="18" FontAttributes="Bold"/>
+            <Label Text="Services Provided:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
             <CollectionView ItemsSource="{Binding Services}">
 
                 <CollectionView.ItemTemplate>
@@ -90,7 +91,7 @@
                                        Text="{Binding Name}"
                                        IsReadOnly="True"
                                        FontSize="16"
-                                       TextColor="Black"
+                                       TextColor="#454545"
                                        Margin="5"
                                        HorizontalOptions="FillAndExpand"/>
 
@@ -99,7 +100,7 @@
                                        Text="{Binding Price}"
                                        IsReadOnly="True"
                                        FontSize="16"
-                                       TextColor="Black"
+                                       TextColor="#454545"
                                        Margin="5"
                                        WidthRequest="60"
                                        HorizontalTextAlignment="Center"/>
@@ -125,12 +126,12 @@
             </CollectionView>
             
             <!-- Policies -->
-            <Label Text="Cancellation Policy:" FontSize="18" FontAttributes="Bold"/>
-            <Label Text="{Binding SelectedPolicy}" FontSize="16"/>
+            <Label Text="Cancellation Policy:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Label Text="{Binding SelectedPolicy}" FontSize="16" TextColor="#454545"/>
 
             <!-- House Rules-->
-            <Label Text="House Rules : " FontSize="18" FontAttributes="Bold"/>
-            <CollectionView ItemsSource="{Binding HouseRules}">
+            <Label Text="House Rules : " FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <CollectionView ItemsSource="{Binding HouseRules}" >
 
                 <CollectionView.ItemTemplate>
 
@@ -150,24 +151,24 @@
                                 <!-- House Rule Name -->
                                 <Label Text="House Rule Name:"
                                FontSize="14"
-                               TextColor="Gray"/>
+                               TextColor="Black"/>
 
                                 <Entry Text="{Binding HouseRuleName}"
                                        IsReadOnly="True"
                                        FontSize="16"
-                                       TextColor="Black"
+                                       TextColor="#454545"
                                        Margin="5"
                                        HorizontalOptions="FillAndExpand"/>
 
                                 <!-- House Rule Description -->
                                 <Label Text="House Rule Description:"
                                        FontSize="14"
-                                       TextColor="Gray"/>   
+                                       TextColor="Black"/>   
 
                                 <Entry Text="{Binding HouseRuleDescription}"
                                        IsReadOnly="True"
                                        FontSize="16"
-                                       TextColor="Black"
+                                       TextColor="#454545"
                                        Margin="5"
                                        HorizontalOptions="FillAndExpand"/>
 

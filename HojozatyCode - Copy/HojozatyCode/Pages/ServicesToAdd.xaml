@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ServicesToAdd"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
-             BackgroundColor="#FAFAFA">
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#F9F6FC">
 
     <Grid RowDefinitions="*,Auto">
 
