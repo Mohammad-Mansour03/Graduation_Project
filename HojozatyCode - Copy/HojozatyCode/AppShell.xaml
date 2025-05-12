@@ -1,45 +1,35 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="HojozatyCode.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:HojozatyCode"
     xmlns:pages="clr-namespace:HojozatyCode.Pages"
-    Shell.TabBarBackgroundColor="#F3EDF7"
-    Shell.TabBarTitleColor="#1D1B20"
-    Shell.TabBarUnselectedColor="#49454F"
-    Shell.TabBarForegroundColor="#65558F"
-    Title="HojozatyCode">
+    x:Class="HojozatyCode.AppShell"
+    Shell.TabBarBackgroundColor="LightGrey"
+    Shell.TabBarTitleColor="#4F378A"
+    Shell.TabBarUnselectedColor="Black"
+    Shell.TabBarForegroundColor="#4F378A">
 
- 
-        <TabBar>
-    
-            <Tab Title="Home" Icon="home_icon.png">
-                <ShellContent Route="Home" ContentTemplate="{DataTemplate pages:HomePage}" />
-            </Tab>
-    
-            <Tab Title="My Space" Icon="my_space_icon_3.png">
-                <ShellContent ContentTemplate="{DataTemplate pages:MySpace}" />
-            </Tab>
-            
-            <Tab Title="Favourite" Icon="favourite_icon.png">
-                <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />
-            </Tab>
-            
-            <Tab Title="AddSpace" Icon="add_space_icon.png">
-                <ShellContent Route="AddSpace" ContentTemplate="{DataTemplate pages:SpaceTypeSelectionPage}" />
-            </Tab>
-            
-            <Tab Title="Account" Icon="account_icon_1.png">
-                <ShellContent ContentTemplate="{DataTemplate pages:AccountPage}" />
-            </Tab>
+    <TabBar>
+        <Tab Title="Home" Icon="home_icon.png">
+            <ShellContent Route="Home" ContentTemplate="{DataTemplate pages:HomePage}" />
+        </Tab>
+
+        <Tab Title="My Space" Icon="my_space_icon_3.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:MySpace}" />
+        </Tab>
+
+        <!-- No "Add Space" tab here -->
         
-        </TabBar>
+
+        <Tab Title="Favourite" Icon="favourite_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />
+        </Tab>
+
+        <Tab Title="Account" Icon="account_icon_1.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:AccountPage}" />
+        </Tab>
+    </TabBar>
+
     
-    
-    <!--<ShellContent
-     Route="LoginSignupPage" ContentTemplate="{DataTemplate pages:LoginSignupPage}"
-    />-->
-  
+
 
 </Shell>
