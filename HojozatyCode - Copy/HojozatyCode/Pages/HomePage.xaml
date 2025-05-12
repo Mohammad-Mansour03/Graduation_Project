@@ -36,7 +36,7 @@
                            TextColor="#4F378A" />
                 </VerticalStackLayout>
                 
-                <!--Notification and profile icons-->
+                <!--Notification-->
                 <HorizontalStackLayout Spacing="10" 
                                        VerticalOptions="Start" 
                                        HorizontalOptions="End">
@@ -47,14 +47,8 @@
                            WidthRequest="30"
                            Margin="10,10,0,0"
                            Command="{Binding NavigateToNotificationsCommand}"/>
-                    
-                    <ImageButton Source="account_icon.png" 
-                           HeightRequest="30"
-                           WidthRequest="30"
-                           Margin="10,10,0,0"
-                           Command="{Binding GoToAccountCommand}"/>
 
-                           
+
                 </HorizontalStackLayout>
             </Grid>
 
