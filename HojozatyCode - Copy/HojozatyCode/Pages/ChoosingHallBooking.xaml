@@ -57,15 +57,15 @@
                     <DataTemplate>
                         <Frame HasShadow="True"
                                Padding="0"
-                               CornerRadius="25"
+                               CornerRadius="0"
                                BackgroundColor="White"
                                BorderColor="#E0E0E0"
                                HeightRequest="280"
-                               WidthRequest="640"
+                               WidthRequest="530"
                                IsClippedToBounds="True">
                             <Image Source="{Binding .}"
                                    Aspect="AspectFill"
-                                   WidthRequest="340"
+                                   WidthRequest="450"
                                    HeightRequest="280">
                                 <Image.Triggers>
                                     <Trigger TargetType="Image" Property="IsVisible" Value="True">
