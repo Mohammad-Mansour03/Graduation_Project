@@ -108,7 +108,7 @@
                                     </Grid>
 
                                     <!-- Select Button -->
-                                    <Button Text="Select Service"
+                                    <Button Text="Add Service"
                                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                             Margin="0,20,0,0"
                                             BackgroundColor="#4F378A"
