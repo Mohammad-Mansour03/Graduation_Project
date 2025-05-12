@@ -117,6 +117,13 @@
             </CollectionView>
             
             <!-- Rest of your XAML remains the same -->
+            <Button Text="Pay with Card (Demo)"
+                    BackgroundColor="#635BFF"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="48"
+                    Clicked="OnPayWithCardClicked"
+                    Margin="0,20,0,0"/>
         </VerticalStackLayout>
         
         
