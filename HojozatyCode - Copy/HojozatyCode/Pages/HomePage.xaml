@@ -5,30 +5,24 @@
              x:Class="HojozatyCode.Pages.HomePage"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
-             Title="HomePage">
+             BackgroundColor="#F9F6FC">
     
 
     <ScrollView>
         <StackLayout Padding="30" Spacing="20">
             
             <!-- Header Section -->
-            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" >
+            <Grid>
                 <VerticalStackLayout>
                     
-                   <!--Back icon-->
-                    <ImageButton Source="back_icon.png"
-                             HeightRequest="30" WidthRequest="30"
-                             VerticalOptions="Center" 
-                             HorizontalOptions="Start"
-                             Padding="5"
-                             Margin="-15,10,0,0"
-                             Command="{Binding NavigateBackCommand}"/>
+                   
                     
                     <!--The Header Content-->
                     <Label Text="What are you planning in " 
-                           FontSize="18" 
+                           FontSize="25" 
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
+                           TextColor="Black"
                            Margin="0,40,0,0"/>
                     <Label Text="Jordan?" 
                            FontSize="18" 
@@ -37,7 +31,7 @@
                            TextColor="#4F378A" />
                 </VerticalStackLayout>
                 
-                <!--Notification and profile icons-->
+                <!--Notification-->
                 <HorizontalStackLayout Spacing="10" 
                                        VerticalOptions="Start" 
                                        HorizontalOptions="End">
@@ -48,18 +42,12 @@
                            WidthRequest="30"
                            Margin="10,10,0,0"
                            Command="{Binding NavigateToNotificationsCommand}"/>
-                    
-                    <ImageButton Source="account_icon.png" 
-                           HeightRequest="30"
-                           WidthRequest="30"
-                           Margin="10,10,0,0"
-                           Command="{Binding GoToAccountCommand}"/>
 
-                           
+
                 </HorizontalStackLayout>
             </Grid>
 
-            
+            <BoxView HeightRequest="1" Color="#E0DCEC"/>
 
 
 
@@ -69,8 +57,8 @@
                 
                     <!--Wedding Activity-->
                     <Border StrokeShape="RoundRectangle 12" 
-                            WidthRequest="100" 
-                            HeightRequest="100"
+                            WidthRequest="120" 
+                            HeightRequest="120"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
                         
@@ -96,8 +84,8 @@
 
                     <!--Meeting Activity-->
                     <Border StrokeShape="RoundRectangle 12"
-                            WidthRequest="100" 
-                            HeightRequest="100" 
+                            WidthRequest="120" 
+                            HeightRequest="120"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
                         <Border.GestureRecognizers>
@@ -121,8 +109,8 @@
 
                     <!--Funeral Activity-->
                     <Border StrokeShape="RoundRectangle 12"
-                            WidthRequest="100" 
-                            HeightRequest="100"
+                            WidthRequest="120" 
+                            HeightRequest="120" 
                             BackgroundColor="#ECE6EE"
                             Padding="5">
                         <Border.GestureRecognizers>
@@ -146,8 +134,8 @@
 
                     <!--Photography Activity-->
                     <Border StrokeShape="RoundRectangle 12" 
-                            WidthRequest="100" 
-                            HeightRequest="100" 
+                            WidthRequest="120" 
+                            HeightRequest="120" 
                             BackgroundColor="#ECE6EE"
                             Padding="5">
                         <Border.GestureRecognizers>
@@ -171,8 +159,8 @@
 
                     <!--Cultural Events Activity-->
                     <Border StrokeShape="RoundRectangle 12" 
-                            WidthRequest="100" 
-                            HeightRequest="100" 
+                            WidthRequest="120" 
+                            HeightRequest="120"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
                         <Border.GestureRecognizers>
@@ -196,8 +184,8 @@
 
                     <!--Entertainment Social Activity-->
                     <Border StrokeShape="RoundRectangle 12" 
-                            WidthRequest="100" 
-                            HeightRequest="100" 
+                            WidthRequest="120" 
+                            HeightRequest="120"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
                         <Border.GestureRecognizers>
@@ -221,8 +209,8 @@
 
                     <!--Sports Activity-->
                     <Border StrokeShape="RoundRectangle 12" 
-                            WidthRequest="100" 
-                            HeightRequest="100" 
+                            WidthRequest="120" 
+                            HeightRequest="120"
                             BackgroundColor="#ECE6EE"
                             Padding="5">
                         <Border.GestureRecognizers>
@@ -281,7 +269,8 @@
             </Border>-->
 
             <!-- Venues Section -->
-            <Label Text="Available venues"
+            <BoxView HeightRequest="1" Color="#E0DCEC"/>
+            <Label Text="Available venues" FontAttributes="Bold" FontSize="23" TextColor="Black"
   Style="{StaticResource SectionTitle}" />
 
             <CollectionView ItemsSource="{Binding HomeVenues}"

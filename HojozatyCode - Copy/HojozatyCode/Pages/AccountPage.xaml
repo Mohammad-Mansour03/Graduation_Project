@@ -5,7 +5,7 @@
              x:Class="HojozatyCode.Pages.AccountPage"
              x:DataType="viewModels:AccountPageViewModel"
              Shell.NavBarIsVisible="False"
-             Title="AccountPage"
+             Shell.TabBarIsVisible="True"
              BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>
@@ -25,15 +25,6 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Back Icon -->
-        <ImageButton Source="back_icon.png"
-                     HeightRequest="30" WidthRequest="30"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Start"
-                     Padding="5"
-                     Margin="-15,10,0,0"
-                     Command="{Binding GoBackCommand}"/>
-
         <!-- Profile Icon -->
         <ImageButton Source="profile_icon.png"
                      Grid.Column="1"
@@ -48,7 +39,7 @@
         <Label Text="Account"
                Grid.Row="1"
                Grid.ColumnSpan="2"
-               FontSize="28"
+               FontSize="30"
                FontAttributes="Bold"
                HorizontalOptions="Start"
                Margin="0,10,0,10"
@@ -76,7 +67,7 @@
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="my_space_icon.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
-                    <Label Text="My Spaces" FontSize="18" VerticalOptions="Center"/>
+                    <Label Text="My Spaces" FontSize="18" VerticalOptions="Center" TextColor="Black"/>
                 </HorizontalStackLayout>
             </Border>
 
@@ -93,7 +84,7 @@
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="add_space_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
-                    <Label Text="Add A Space" FontSize="18" VerticalOptions="Center"/>
+                    <Label Text="Add A Space" FontSize="18" VerticalOptions="Center" TextColor="Black"/>
                 </HorizontalStackLayout>
             </Border>
 
@@ -114,7 +105,7 @@
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="favourite_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
-                    <Label Text="Favourites" FontSize="18" VerticalOptions="Center"/>
+                    <Label Text="Favourites" FontSize="18" VerticalOptions="Center" TextColor="Black"/>
                 </HorizontalStackLayout>
             </Border>
 
@@ -131,7 +122,7 @@
                 </Border.GestureRecognizers>
                 <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                     <Image Source="notification_icon_2.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
-                    <Label Text="Notifications" FontSize="18" VerticalOptions="Center"/>
+                    <Label Text="Notifications" FontSize="18" VerticalOptions="Center" TextColor="Black"/>
                 </HorizontalStackLayout>
             </Border>
 

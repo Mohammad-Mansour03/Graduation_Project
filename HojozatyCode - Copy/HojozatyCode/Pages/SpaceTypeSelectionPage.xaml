@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
+             Shell.TabBarIsVisible="True"
              x:Class="HojozatyCode.Pages.SpaceTypeSelectionPage"
-             Title="Space Kind">
+             BackgroundColor="#F9F6FC">
 
     <!-- Add the converter to resources (Convert Between the Check boxes)-->
     <ContentPage.Resources>
@@ -31,7 +32,8 @@
                 Text="What Kind Of Space Would you Like to Add"
                 FontSize="32"
                 FontAttributes="Bold"
-                LineBreakMode="WordWrap"/>
+                LineBreakMode="WordWrap"
+                TextColor="Black"/>
             
             <!--Work / Meeting Space-->
             <Border Stroke="LightGray" 
@@ -43,7 +45,8 @@
                 
                     <!--Work/Meeting Space label-->
                     <Label Text="Meeting" 
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
                     
                     <!--Work/Meeting Space Checkbox-->
                     <ImageButton Grid.Column="1" 
@@ -67,7 +70,8 @@
                     
                   <!--Wedding Space label-->
                     <Label Text="Wedding" 
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
                  
                     <!--Wedding Space Checkbox-->
                     <ImageButton Grid.Column="1" 
@@ -90,7 +94,8 @@
                 
                     <!--Funeral Space label-->
                     <Label Text="Funeral" 
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
                     
                     <!--Funeral Space Checkbox-->
                     <ImageButton Grid.Column="1" 
@@ -113,7 +118,8 @@
                 
                     <!--Entertainment Space Label-->
                     <Label Text="Entertainment" 
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
                     
                     <!--Entertainment Space Checkbox-->
                     <ImageButton Grid.Column="1" 
@@ -136,7 +142,8 @@
                     
                     <!--Photography Space Label-->
                     <Label Text="Photography" 
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
                     
                     <!--Photography Space Checkbox-->
                     <ImageButton Grid.Column="1" 
@@ -160,7 +167,8 @@
 
                     <!--Cultural Event Label-->
                     <Label Text="Cultural Events" 
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
                     
                     <!--Cultural Event Checkbox-->
                     <ImageButton Grid.Column="1" 
@@ -183,7 +191,8 @@
 
                     <!--Sports Space Label-->
                     <Label Text="Sports" 
-                           VerticalOptions="Center"/>
+                           VerticalOptions="Center"
+                           TextColor="Black"/>
                     
                     <!--Sports Space Checkbox-->
                     <ImageButton Grid.Column="1" 

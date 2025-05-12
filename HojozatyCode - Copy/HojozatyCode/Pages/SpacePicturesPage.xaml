@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.SpacePicturesPage"
+             Shell.TabBarIsVisible="False"
              x:DataType="viewModels:AddSpaceViewModel"
-             Title="Your Space Pictures">
+             BackgroundColor="#F9F6FC">
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
@@ -12,7 +13,9 @@
             <Label 
                 Text="Add Pictures Of Your Space"
                 FontSize="32"
-                FontAttributes="Bold"/>
+                FontAttributes="Bold"
+                TextColor="Black"/>
+            <BoxView HeightRequest="1" Color="#E0DCEC"/>
 
             <Grid RowDefinitions="Auto,Auto,Auto"
                   ColumnDefinitions="*,*,*"

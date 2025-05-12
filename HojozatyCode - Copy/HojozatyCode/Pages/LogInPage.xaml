@@ -4,7 +4,6 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.LogInPage"
              x:DataType="viewModels:LogInViewModel"
-             Title="LogInPage"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#F9F6FC">
@@ -56,7 +55,7 @@
                    CornerRadius="20"
                    HasShadow="True"
                    Padding="10"
-                   HeightRequest="60">
+                   HeightRequest="70">
                 <Entry Placeholder="Email"
                        Text="{Binding EmailL}" />
             </Frame>
@@ -66,7 +65,7 @@
                    CornerRadius="20"
                    HasShadow="True"
                    Padding="10"
-                   HeightRequest="60">
+                   HeightRequest="70">
                 <Grid ColumnDefinitions="*,Auto">
                     <Entry x:Name="PasswordEntry"
                            Placeholder="Password"

@@ -2,12 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              xmlns:models="clr-namespace:HojozatyCode.Models"
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.FiltersPage"
              x:DataType="viewModels:FilterVenueViewModel"
-             Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True"
-             Title="Filters"
-             BackgroundColor="{StaticResource BackgroundColor}">
+             Shell.NavBarIsVisible="True"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
         <!-- Color Palette -->
@@ -65,10 +65,14 @@
             <Setter Property="Stroke" Value="#E7E0EC" />
             <Setter Property="Padding" Value="16" />
         </Style>
+        
     </ContentPage.Resources>
 
+   
     <ScrollView>
+
         <VerticalStackLayout Padding="16" Spacing="24">
+            
 
             <!-- PRICE RANGE -->
             <Label Text="Price Range" Style="{StaticResource SectionTitle}" />

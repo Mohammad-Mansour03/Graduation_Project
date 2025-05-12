@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.MySpace"
-             BackgroundColor="#F8F9FA">
+             Shell.TabBarIsVisible="True"
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>
         <vm:MySpaceViewModel />
@@ -15,7 +16,7 @@
             <VerticalStackLayout Spacing="25" Padding="20">
                 <!-- Header Section -->
                 <StackLayout Spacing="5">
-                    <Label Text="My Venues"
+                    <Label Text="My Spaces"
                            FontSize="28"
                            FontAttributes="Bold"
                            TextColor="#2C3E50"
