@@ -17,8 +17,10 @@
             <ShellContent ContentTemplate="{DataTemplate pages:MySpace}" />
         </Tab>
 
-        <!-- No "Add Space" tab here -->
-        
+        <Tab Title="AddSpace" Icon="add_space_icon.png">
+            <ShellContent Route="AddSpace" ContentTemplate="{DataTemplate pages:SpaceTypeSelectionPage}" />
+        </Tab>
+
 
         <Tab Title="Favourite" Icon="favourite_icon.png">
             <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />

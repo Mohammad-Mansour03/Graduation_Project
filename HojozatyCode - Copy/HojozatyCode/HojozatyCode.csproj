@@ -85,9 +85,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiXaml Update="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
     <MauiXaml Update="Pages\AccountPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
