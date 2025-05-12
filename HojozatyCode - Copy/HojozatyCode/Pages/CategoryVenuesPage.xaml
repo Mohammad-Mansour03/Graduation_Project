@@ -4,7 +4,7 @@
              x:Class="HojozatyCode.Pages.CategoryVenuesPage"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              Shell.TabBarIsVisible="True"
-             BackgroundColor="#FAFAFA">
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
         <Color x:Key="PrimaryColor">#4F378A</Color>

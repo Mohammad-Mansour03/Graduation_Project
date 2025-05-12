@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.BookingCalendarPage"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="{AppThemeBinding Light=#F8F9FA, Dark=#121212}">
+             BackgroundColor="#F9F6FC">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">

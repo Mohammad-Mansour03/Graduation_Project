@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
              Shell.TabBarIsVisible="True"
-             x:Class="HojozatyCode.Pages.FavouritePage">
+             x:Class="HojozatyCode.Pages.FavouritePage"
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
         <converters:BoolToImageConverter2 x:Key="BoolToImageConverter2"/>

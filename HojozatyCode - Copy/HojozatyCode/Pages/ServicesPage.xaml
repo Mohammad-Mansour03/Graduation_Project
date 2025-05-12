@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              Shell.TabBarIsVisible="False"
-             x:Class="HojozatyCode.Pages.ServicesPage">
+             x:Class="HojozatyCode.Pages.ServicesPage"
+             BackgroundColor="#F9F6FC">
    
     
     

@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.EditPage"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#FAFAFB">
+             BackgroundColor="#F9F6FC">
     
 
     <ContentPage.BindingContext>

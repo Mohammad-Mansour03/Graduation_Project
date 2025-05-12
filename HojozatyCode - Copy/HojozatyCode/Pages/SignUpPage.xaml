@@ -7,7 +7,7 @@
              x:DataType="viewModels:SignUpViewModel"
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#ECE6F0">
+             BackgroundColor="#F9F6FC">
     
     <ContentPage.BindingContext>
         <viewModels:SignUpViewModel />

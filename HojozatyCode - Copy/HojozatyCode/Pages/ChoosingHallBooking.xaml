@@ -5,7 +5,7 @@
              xmlns:conv="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.ChoosingHallBooking"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#F8F9FA">
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
         <conv:BoolToImageConverter2 x:Key="BoolToImageConverter2" />

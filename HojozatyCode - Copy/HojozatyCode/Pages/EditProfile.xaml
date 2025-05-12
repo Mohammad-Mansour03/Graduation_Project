@@ -5,7 +5,7 @@
              x:Class="HojozatyCode.Pages.EditProfile"
              x:DataType="viewModels:EditProfileViewModel"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#F5F5F5">
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>
         <viewModels:AccountPageViewModel />

@@ -7,7 +7,7 @@
              x:DataType="viewModels:FilterVenueViewModel"
              Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="{StaticResource BackgroundColor}">
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
         <!-- Color Palette -->
