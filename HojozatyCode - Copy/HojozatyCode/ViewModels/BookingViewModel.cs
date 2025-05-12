@@ -657,5 +657,12 @@ namespace HojozatyCode.ViewModels
 				IsFavorite = false;
 			}
 		}
+
+		 [RelayCommand]
+		  private async Task HomeClicked()
+        {
+            // Navigate to HomePage 
+           await Shell.Current.GoToAsync("//Home");
+        }
 	}
 }
