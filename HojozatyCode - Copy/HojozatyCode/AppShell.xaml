@@ -14,7 +14,7 @@
         </Tab>
 
         <Tab Title="My Space" Icon="my_space_icon_3.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:MySpace}" />
+            <ShellContent Route="MySpace" ContentTemplate="{DataTemplate pages:MySpace}" />
         </Tab>
 
         <Tab Title="AddSpace" Icon="add_space_icon.png">
@@ -23,11 +23,11 @@
 
 
         <Tab Title="Favourite" Icon="favourite_icon.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:FavouritePage}" />
+            <ShellContent Route="Favourite" ContentTemplate="{DataTemplate pages:FavouritePage}" />
         </Tab>
 
         <Tab Title="Account" Icon="account_icon_1.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:AccountPage}" />
+            <ShellContent Route="Account" ContentTemplate="{DataTemplate pages:AccountPage}" />
         </Tab>
     </TabBar>
 

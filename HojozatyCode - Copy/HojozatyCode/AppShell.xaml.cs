@@ -35,6 +35,7 @@ namespace HojozatyCode
             //Routing.RegisterRoute(nameof(Pages.ForgotPasswordPage), typeof(Pages.ForgotPasswordPage));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
+
         }
     }
 }
