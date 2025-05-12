@@ -5,7 +5,7 @@
              x:Class="HojozatyCode.Pages.NotificationsPage"
              x:DataType="viewModels:NotificationsViewModel"
              Shell.NavBarIsVisible="True"
-             Shell.TabBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
              BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>

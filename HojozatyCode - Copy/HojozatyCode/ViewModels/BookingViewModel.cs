@@ -93,12 +93,10 @@ namespace HojozatyCode.ViewModels
 
 		[ObservableProperty]
 		private double totalPrice;
+		
 
-      
-
-
-        //To delete the service from booking
-        [RelayCommand]
+		//To delete the service from booking
+		[RelayCommand]
 		private async Task DeleteService(ServiceItem bookingService)
 		{
 			try
@@ -141,36 +139,20 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task CheckAvailability() 
 		{
-			var newBookingStart = SelectedDateTime = SelectedDate + SelectedTime;
+			SelectedDateTime = SelectedDate + SelectedTime;
 
-			var newBookingEnd = CalculateEndTime();
-
-			if (newBookingEnd == DateTime.Now) 
+			DateTime newBookingEnd;
+			//Check if the Selected date time isn't in the past
+			if (SelectedDateTime < DateTime.Now)
 			{
+				await Shell.Current.DisplayAlert("Error", "You Can't Choose Past Date", "OK");
 				return;
 			}
-
-			if (!IsDateTimeAvailable(SelectedDateTime.AddHours(3), newBookingEnd.AddHours(3)))
-			{
-				await Shell.Current.DisplayAlert("Warning", $"Venue is reserved  at this time", "OK");
-				return;
-			}
-			else 
-			{
-				await Shell.Current.DisplayAlert("Warning", $"Venue is available at this time", "OK");
-				return;
-			}
-		}
-
-		private DateTime CalculateEndTime() 
-		{
-			DateTime newEnd = DateTime.Now;
 
 			//Check if the venue has fixed time or not (To store the right ended time)
 			if (SelectedVenue.IsFixedDuration != null && SelectedVenue.IsFixedDuration == true)
 			{
-				var duration = (int)SelectedVenue.FixedDurationInHours;
-				newEnd = EndedDateTime = SelectedDateTime.AddHours(duration);
+				newBookingEnd = EndedDateTime = SelectedDateTime.AddHours((int)SelectedVenue.FixedDurationInHours);
 			}
 
 			else
@@ -179,16 +161,27 @@ namespace HojozatyCode.ViewModels
 				//Check if the ended time isn't before the started time
 				if (EndedTime > SelectedTime)
 				{
-					newEnd = EndedDateTime = SelectedDate + EndedTime;
+					newBookingEnd = EndedDateTime = SelectedDate + EndedTime;
 				}
+
 				else
 				{
-					Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
-					return DateTime.Now;
+					await Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
+					return;
 				}
 			}
 
-			return newEnd;
+
+			if (!IsDateTimeAvailable(SelectedDateTime, newBookingEnd))
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is reserved from {SelectedDateTime} to {newBookingEnd} at this time", "OK");
+				return;
+			}
+			else 
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is available from {SelectedDateTime} to {newBookingEnd} at this time", "OK");
+				return;
+			}
 		}
 
 		//To add the service for booking
@@ -315,11 +308,18 @@ namespace HojozatyCode.ViewModels
 		/// <returns></returns>
 
 		[RelayCommand]
+		public async Task ShowTime()
+		{
+			await Shell.Current.DisplayAlert("Prompt" , $"{SelectedDateTime}" , "OK");
+		}
+
+
+		[RelayCommand]
 		public async Task CreateBooking()
 		{
-			//int duration;
+			int duration;
 			var venue = SelectedVenue;
-		//	DateTime newBookingEnd;
+			DateTime newBookingEnd;
 
 			SelectedDateTime = SelectedDate + SelectedTime;
 
@@ -330,19 +330,33 @@ namespace HojozatyCode.ViewModels
 				return;
 			}
 
-			EndedDateTime = CalculateEndTime();
-
-			if (EndedDateTime == DateTime.Now) 
+			//Check if the venue has fixed time or not (To store the right ended time)
+			if (venue.IsFixedDuration != null && venue.IsFixedDuration == true)
 			{
-				return;
+				duration = (int)venue.FixedDurationInHours;
+				newBookingEnd = EndedDateTime = SelectedDateTime.AddHours(duration);
 			}
 
-			var newBookingStart = SelectedDateTime.AddHours(3);
-			var newBookingEnd = EndedDateTime.AddHours(3);
-			//await Shell.Current.DisplayAlert("Prompt", $"Selected date time value was {SelectedDateTime} To {newBookingEnd}", "OK");
+			else
+			{
 
-			//var newBookingStart = SelectedDateTime.AddHours(3);
-			//newBookingEnd = newBookingEnd.AddHours(3);
+				//Check if the ended time isn't before the started time
+				if (EndedTime > SelectedTime)
+				{
+					newBookingEnd =  EndedDateTime = SelectedDate + EndedTime;
+				}
+				
+				else
+				{
+					await Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
+					return;
+				}
+			}
+	
+			await Shell.Current.DisplayAlert("Prompt", $"Selected date time value was {SelectedDateTime} To {newBookingEnd}", "OK");
+
+			var newBookingStart = SelectedDateTime.AddHours(3);
+			newBookingEnd = newBookingEnd.AddHours(3);
 
 			//Check if the interval is available or not
 			if (!IsDateTimeAvailable(newBookingStart, newBookingEnd))
@@ -643,5 +657,12 @@ namespace HojozatyCode.ViewModels
 				IsFavorite = false;
 			}
 		}
+
+		 [RelayCommand]
+		  private async Task HomeClicked()
+        {
+            // Navigate to HomePage 
+           await Shell.Current.GoToAsync("//Home");
+        }
 	}
 }

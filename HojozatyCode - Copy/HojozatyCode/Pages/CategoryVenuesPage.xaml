@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.CategoryVenuesPage"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
-             Shell.TabBarIsVisible="True"
-             BackgroundColor="#F9F6FC">
+             BackgroundColor="#FAFAFA">
 
     <ContentPage.Resources>
         <Color x:Key="PrimaryColor">#4F378A</Color>

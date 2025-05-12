@@ -23,11 +23,11 @@ public partial class AccountPage : ContentPage
         // Animate: quick shrink and bounce back
         await border.ScaleTo(0.95, 80, Easing.CubicIn);
         await border.ScaleTo(1.0, 80, Easing.CubicOut);
-         
-        //// Execute command (optional)
-        //if (BindingContext is AccountPageViewModel vm && vm.GoToMySpaceCommand?.CanExecute(null) == true)
-        //{
-        //    vm.GoToMySpaceCommand.Execute(null);
-        //}
+
+        // Execute command (optional)
+        if (BindingContext is AccountPageViewModel vm && vm.GoToMySpaceCommand?.CanExecute(null) == true)
+        {
+            vm.GoToMySpaceCommand.Execute(null);
+        }
     }
 }

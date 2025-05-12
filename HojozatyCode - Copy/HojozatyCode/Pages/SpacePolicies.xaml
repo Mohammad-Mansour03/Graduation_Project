@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
-             Shell.TabBarIsVisible="False"
              x:Class="HojozatyCode.Pages.SpacePolicies"
-             BackgroundColor="#F9F6FC">
+             Title="SpacePolicies">
     <ScrollView>
         
         <VerticalStackLayout Padding="20" Spacing="15">
@@ -15,7 +14,6 @@
                    FontSize="32"
                    FontAttributes="Bold"
                    TextColor="Black"/>
-            <BoxView HeightRequest="1" Color="#E0DCEC"/>
 
 
             <!-- Cancellation Policy Section -->
@@ -35,8 +33,7 @@
                 
                     <Entry Text="Flexible"
                            IsReadOnly="True" 
-                           Margin="5"
-                           TextColor="Black"/>
+                           Margin="5"/>
                 
                 </Border>
                 
@@ -62,8 +59,7 @@
                  
                     <Entry Text="Moderate" 
                            IsReadOnly="True"
-                           Margin="5"
-                           TextColor="Black"/>
+                           Margin="5"/>
                 
                 </Border>
                 
@@ -85,14 +81,13 @@
                 <!--Strict Cancellation Policy-->
                 <Border Stroke="Black" 
                         StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"/>
-
-                <Entry Text="Strict" 
+                        HeightRequest="50">
+               
+                    <Entry Text="Strict" 
                            IsReadOnly="True" 
-                           Margin="5"
-                           TextColor="Black"/>
-
-
+                           Margin="5"/>
+                </Border>
+              
                 <!--Strict Radio Button-->
                 <RadioButton x:Name="StrictRadioButton"
                      GroupName="CancellationPolicy"
@@ -100,7 +95,6 @@
                                  Mode=TwoWay, 
                                  Converter={StaticResource StringToBoolConverter}, 
                                  ConverterParameter=Strict}"
-                             BorderColor="Black"
                      Grid.Column="1" 
                      VerticalOptions="Center"
                     />
@@ -113,15 +107,12 @@
                    FontAttributes="Bold"
                    TextColor="Black"
                    Margin="0,20,0,0" />
-            <Frame CornerRadius="40" Background="LightGray" HeightRequest="70">
+
             <Switch IsToggled="{Binding IsFixedDuration}" 
                       ThumbColor="#673AB7" 
-                      OnColor="#D1C4E9"
-                    BackgroundColor="LightGray" 
-                    />
-            </Frame>
+                      OnColor="#D1C4E9" />
 
-            <!-- Show this only if IsFixedDuration is true -->
+                        <!-- Show this only if IsFixedDuration is true -->
             <Border Stroke="LightGray"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 12"
@@ -178,8 +169,7 @@
 
                         <Editor Placeholder="Description"
                                 HeightRequest="100"
-                                Text="{Binding NewHouseRuleDescription}"
-                                TextColor="Black"/>
+                                Text="{Binding NewHouseRuleDescription}"/>
 
                     </VerticalStackLayout>
 
@@ -193,8 +183,7 @@
                         HeightRequest="50"
                         Margin="0,30,0,0"
                         BackgroundColor="#673AB7" 
-                        CornerRadius="20"
-                        TextColor="White">
+                        CornerRadius="12">
                 </Button>
                 
             </VerticalStackLayout>

@@ -4,8 +4,9 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ProfileInfo"
              x:DataType="viewModels:ProfileInfoViewModel"
+             Title="ProfileInfo"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#F9F6FC">
+             BackgroundColor="#ECE6F0">
     
     <ContentPage.BindingContext>
         <viewModels:ProfileInfoViewModel />

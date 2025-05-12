@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HojozatyCode.Pages.ChatPage"
+             Title="ChatPage"
+             BackgroundColor="#F3F4F6">
+    
+    <!-- Main Grid Layout with three sections: Header, Chat Messages, and Input Bar -->
+    <Grid RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header Section -->
+        <Grid Padding="16,12" BackgroundColor="#F3F4F6">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <!-- Profile Image Button -->
+                <ImageButton Grid.Column="0" 
+                             Source="https://cdn4.iconfinder.com/data/icons/linecon/512/photo-256.png"
+                             BackgroundColor="Transparent"
+                             HeightRequest="32"
+                             WidthRequest="32"/>
+                
+                <!-- User Info -->
+                <StackLayout Grid.Column="1" Orientation="Vertical" Margin="16,0">
+                    <Label Text="OWNER" 
+                           FontAttributes="Bold"
+                           TextColor="#1F2937"
+                           FontSize="16"/>
+                    <Label Text="Active 19m ago"
+                           TextColor="#6B7280"
+                           FontSize="12"/>
+                </StackLayout>
+            </Grid>
+        </Grid>
+        
+        <!-- Chat Messages Section -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="16" Spacing="16">
+                
+                <!-- Template Card Message -->
+                <Border BackgroundColor="#FFFFFF" 
+                        StrokeShape="RoundRectangle 16"
+                        Padding="16">
+                    <Border.Shadow>
+                        <Shadow Brush="#20000000" Offset="0,2" Radius="10"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout>
+                        <Image Source="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_22.jpg-gFTIW9Lozwa4RaopIwmxviHyMUft8m.jpeg"
+                               HeightRequest="120"
+                               Aspect="AspectFill"/>
+                        <Label Text="BRIX Templates | Premium"
+                               FontAttributes="Bold"
+                               TextColor="#1F2937"
+                               Margin="0,12,0,4"/>
+                        <Label Text="Webflow Templates &amp; UI Kits"
+                               TextColor="#6B7280"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Voice Message Bubble -->
+                <Border BackgroundColor="#6B46C1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="16,12">
+                    <Border.Shadow>
+                        <Shadow Brush="#20000000" Offset="0,2" Radius="10"/>
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <!-- Play Button -->
+                        <ImageButton 
+                                Source="https://cdn2.iconfinder.com/data/icons/css-vol-2/24/play-button-512.png"
+                                BackgroundColor="Transparent"
+                                HeightRequest="24"
+                                WidthRequest="24"/>
+                        
+                        <!-- Audio Placeholder -->
+                        <Border Grid.Column="1"
+                                BackgroundColor="White"
+                                Opacity="0.3"
+                                HeightRequest="24"
+                                Margin="12,0"
+                                StrokeShape="RoundRectangle 12"/>
+                        
+                        <!-- Audio Duration Label -->
+                        <Label Grid.Column="2"
+                               Text="14:37"
+                               TextColor="White"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+                
+                <!-- Text Message Bubble -->
+                <Border BackgroundColor="#FFFFFF"
+                        Padding="16,12"
+                        StrokeShape="RoundRectangle 20"
+                        HorizontalOptions="Start">
+                    <Border.Shadow>
+                        <Shadow Brush="#20000000" Offset="0,2" Radius="10"/>
+                    </Border.Shadow>
+                    <Label Text="Thanks! I found this template"
+                           TextColor="#1F2937"/>
+                </Border>
+                
+                <!-- Reply Message Bubbles -->
+                <Border BackgroundColor="#6B46C1"
+                        Padding="16,12"
+                        StrokeShape="RoundRectangle 20"
+                        HorizontalOptions="End">
+                    <Border.Shadow>
+                        <Shadow Brush="#20000000" Offset="0,2" Radius="10"/>
+                    </Border.Shadow>
+                    <Label Text="Yes, we offer web design and web development services!"
+                           TextColor="White"/>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Input Bar Section -->
+        <Grid Grid.Row="2" 
+              ColumnDefinitions="Auto,Auto,*,Auto"
+              Padding="12,8"
+              ColumnSpacing="12"
+              BackgroundColor="#FFFFFF">
+            
+            <!-- Gallery Button -->
+            <ImageButton Grid.Column="0"
+                         Source="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/picture-256.png"
+                         HeightRequest="24"
+                         WidthRequest="24"
+                         BackgroundColor="Transparent"/>
+            
+            <!-- Microphone Button -->
+            <ImageButton Grid.Column="1"
+                         HeightRequest="24"
+                         WidthRequest="24"
+                         Source="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-mic-outline-256.png"
+                         BackgroundColor="Transparent"/>
+            
+            <!-- Message Input Field -->
+            <Border Grid.Column="2"
+                    BackgroundColor="#F3F4F6"
+                    Padding="16,8"
+                    StrokeShape="RoundRectangle 20">
+                <Entry x:Name="MessageEntry"
+                       Placeholder="Type a message..."
+                       PlaceholderColor="#9CA3AF"
+                       TextColor="#1F2937"
+                       VerticalOptions="Center"/>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

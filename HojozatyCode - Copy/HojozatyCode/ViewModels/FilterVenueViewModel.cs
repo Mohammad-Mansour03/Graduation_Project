@@ -116,13 +116,7 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-        [RelayCommand]
-        private async Task NavigateBack()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.CategoryVenuesPage));
-        }
-
-        [RelayCommand]
+		[RelayCommand]
 		public async Task ApplyFilters()
 		{
 			//	var client = SupabaseConfig.SupabaseClient;

@@ -4,7 +4,8 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.AdminApprovalPage"
              x:DataType="viewModels:AdminApprovalViewModel"
-             BackgroundColor="#F9F6FC">
+             Title="Venue Review"
+             BackgroundColor="#F5F6FA">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">

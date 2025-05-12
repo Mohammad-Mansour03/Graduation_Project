@@ -52,14 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="NewPage1.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <MauiXaml Remove="NewPage1.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Resources\mipmap\logo.png" />
   </ItemGroup>
 
@@ -82,6 +74,9 @@
     <Compile Update="Pages\SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\BookingSuccessPage.xaml.cs">
+      <DependentUpon>BookingSuccessPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -95,6 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Pages\BookingCalendarPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Pages\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Pages\ChoosingHallBooking.xaml">
@@ -143,6 +141,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Pages\SuccessPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Pages\BookingSuccessPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>

@@ -1,80 +1,83 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
-             Shell.TabBarIsVisible="False"
              x:Class="HojozatyCode.Pages.SuccessPage"
-             BackgroundColor="#F9F6FC">
+             Title="Success">
 
-    <VerticalStackLayout Spacing="24" 
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Center"
-                        Padding="24">
+    <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto">
 
-        <!-- Success Icon Container -->
-        <Border HorizontalOptions="Center"
-                WidthRequest="120"
-                HeightRequest="120"
-                Stroke="Transparent"
-                BackgroundColor="#4F378A"
-                StrokeShape="RoundRectangle 60"
-                Padding="0">
-            <Label Text="✓"
-                   FontSize="48"
+        <!-- Success Icon -->
+        <Border Grid.Row="0"
+                WidthRequest="216"
+                HeightRequest="226" 
+                StrokeShape="RoundRectangle 15" 
+                BackgroundColor="#4CAF50"
+                Padding="10">
+            
+            <Label Text="✓" 
+                   FontSize="100"
                    TextColor="White"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"/>
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"/>
         </Border>
 
-        <!-- Success Messages -->
-        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-            <Label Text="Success!"
-                   FontSize="32"
-                   FontAttributes="Bold"
-                   TextColor="#1F2937"
-                   HorizontalOptions="Center"/>
+        <!-- Success Message -->
+        <Label Grid.Row="1"
+               Text="Success!"
+               FontSize="28" 
+               FontAttributes="Bold" 
+               TextColor="Black"
+               HorizontalOptions="Center"
+               Margin="0,20,0,10" />      
+        
+        <!-- The Place Was Added Message -->
+        <Label Grid.Row="2"
+               Text="The Place Was Added!"
+               FontSize="28" 
+               FontAttributes="Bold" 
+               TextColor="Black"
+               HorizontalOptions="Center"
+               Margin="0,20,0,10" />
 
-            <Label Text="The place was added successfully "
-                   VerticalTextAlignment="Center"
-                   FontSize="18"
-                   TextColor="#6B7280"
-                   HorizontalOptions="Center"/>
-            <Label Text="and under review "
-                VerticalTextAlignment="Center"
+        <!-- My Spaces Button -->
+        <Button Grid.Row="3" 
+                Text="My Spaces"
+                BackgroundColor="#4F378A"
+                TextColor="White"
+                CornerRadius="25"
+                WidthRequest="160"
+                HeightRequest="50"
                 FontSize="18"
-                TextColor="#6B7280"
-                 HorizontalOptions="Center"/>
-        </VerticalStackLayout>
+                HorizontalOptions="Center"
+                Command="{Binding GoToMySpaceCommand}"/>
 
-        <!-- Action Buttons -->
-        <VerticalStackLayout Spacing="16" WidthRequest="260">
-            <Button Text="My Spaces"
-                    BackgroundColor="#4F378A"
-                    TextColor="White"
-                    CornerRadius="12"
-                    HeightRequest="50"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    Command="{Binding GoToMySpaceCommand}"/>
+        <!-- Add Another Space Button -->
+        <Button Grid.Row="4"
+                Text="Add Another Space"
+                BackgroundColor="#4F378A"
+                TextColor="White"
+                CornerRadius="25"
+                WidthRequest="160"
+                HeightRequest="50"
+                FontSize="18"
+                HorizontalOptions="Center"
+                Margin="0,10,0,0"
+                Command="{Binding GoToAddSpaceCommand}"/>
 
-            <Button Text="Add Another Space"
-                    BackgroundColor="Transparent"
-                    TextColor="#4F378A"
-                    BorderColor="#4F378A"
-                    BorderWidth="2"
-                    CornerRadius="12"
-                    HeightRequest="50"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    Command="{Binding GoToAddSpaceCommand}"/>
+        <!-- Close Button -->
+        <Button Grid.Row="5"
+                Text="Close"
+                BackgroundColor="#4F378A"
+                TextColor="White"
+                CornerRadius="25"
+                WidthRequest="160"
+                HeightRequest="50"
+                FontSize="18"
+                HorizontalOptions="Center"
+                Margin="0,10,0,0"
+                Command="{Binding GoToHomeCommand}" />
 
-            <Button Text="Close"
-                    BackgroundColor="Transparent"
-                    TextColor="#6B7280"
-                    BorderColor="Transparent"
-                    HeightRequest="50"
-                    FontSize="16"
-                    Command="{Binding GoToHomeCommand}"/>
-        </VerticalStackLayout>
+    </Grid>
 
-    </VerticalStackLayout>
 </ContentPage>
