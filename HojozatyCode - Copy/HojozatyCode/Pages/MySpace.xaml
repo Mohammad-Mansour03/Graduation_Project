@@ -15,7 +15,7 @@
             <VerticalStackLayout Spacing="25" Padding="20">
                 <!-- Header Section -->
                 <StackLayout Spacing="5">
-                    <Label Text="My Spaces"
+                    <Label Text="My Venues"
                            FontSize="28"
                            FontAttributes="Bold"
                            TextColor="#2C3E50"
