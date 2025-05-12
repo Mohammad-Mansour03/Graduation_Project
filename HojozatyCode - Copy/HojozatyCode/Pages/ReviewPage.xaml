@@ -8,7 +8,7 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Review Your Submission" 
+            <Label Text="Review Your Venue" 
                    FontSize="32" 
                    FontAttributes="Bold" 
                    TextColor="Black"/>
