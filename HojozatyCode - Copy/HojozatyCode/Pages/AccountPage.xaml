@@ -39,7 +39,7 @@
         <Label Text="Account"
                Grid.Row="1"
                Grid.ColumnSpan="2"
-               FontSize="28"
+               FontSize="30"
                FontAttributes="Bold"
                HorizontalOptions="Start"
                Margin="0,10,0,10"
