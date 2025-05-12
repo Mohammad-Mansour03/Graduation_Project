@@ -49,6 +49,7 @@
             <CollectionView x:Name="ImagesCollection"
                             ItemsSource="{Binding SelectedVenue.ImageUrls}"
                             HeightRequest="280"
+                            WidthRequest="640"
                             HorizontalScrollBarVisibility="Never">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" SnapPointsType="MandatorySingle" SnapPointsAlignment="Center" />
@@ -58,11 +59,10 @@
                         <Frame HasShadow="True"
                                Padding="0"
                                CornerRadius="25"
-                               Margin="10,0"
                                BackgroundColor="White"
                                BorderColor="#E0E0E0"
                                HeightRequest="280"
-                               WidthRequest="340"
+                               WidthRequest="640"
                                IsClippedToBounds="True">
                             <Image Source="{Binding .}"
                                    Aspect="AspectFill"
@@ -70,7 +70,7 @@
                                    HeightRequest="280">
                                 <Image.Triggers>
                                     <Trigger TargetType="Image" Property="IsVisible" Value="True">
-                                        <Setter Property="Scale" Value="1.0"/>
+                                        <Setter Property="Scale" Value="1.2"/>
                                     </Trigger>
                                 </Image.Triggers>
                             </Image>
