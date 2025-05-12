@@ -4,8 +4,7 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.HomePage"
              Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="True"
-             Title="HomePage">
+             Shell.TabBarIsVisible="True">
     
 
     <ScrollView>

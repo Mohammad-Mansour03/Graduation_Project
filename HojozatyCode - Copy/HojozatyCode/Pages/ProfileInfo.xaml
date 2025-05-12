@@ -4,7 +4,6 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ProfileInfo"
              x:DataType="viewModels:ProfileInfoViewModel"
-             Title="ProfileInfo"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#ECE6F0">
     

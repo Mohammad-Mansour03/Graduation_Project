@@ -4,8 +4,8 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.AccountPage"
              x:DataType="viewModels:AccountPageViewModel"
-             Shell.NavBarIsVisible="False"
-             Title="AccountPage"
+             Shell.NavBarIsVisible="True"
+             Shell.TabBarIsVisible="True"
              BackgroundColor="#F9F6FC">
 
     <ContentPage.BindingContext>
@@ -24,15 +24,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Back Icon -->
-        <ImageButton Source="back_icon.png"
-                     HeightRequest="30" WidthRequest="30"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Start"
-                     Padding="5"
-                     Margin="-15,10,0,0"
-                     Command="{Binding GoBackCommand}"/>
 
         <!-- Profile Icon -->
         <ImageButton Source="profile_icon.png"

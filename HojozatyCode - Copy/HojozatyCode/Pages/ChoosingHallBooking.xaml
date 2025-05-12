@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              xmlns:conv="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.ChoosingHallBooking"
-             Title="Venue Details"
+             Shell.TabBarIsVisible="False"
              BackgroundColor="#F8F9FA">
 
     <ContentPage.Resources>

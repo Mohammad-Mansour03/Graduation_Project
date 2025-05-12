@@ -4,7 +4,7 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.EditProfile"
              x:DataType="viewModels:EditProfileViewModel"
-             Title="Edit Profile"
+             Shell.TabBarIsVisible="False"
              BackgroundColor="#F5F5F5">
 
     <ContentPage.BindingContext>

@@ -93,10 +93,12 @@ namespace HojozatyCode.ViewModels
 
 		[ObservableProperty]
 		private double totalPrice;
-		
 
-		//To delete the service from booking
-		[RelayCommand]
+      
+
+
+        //To delete the service from booking
+        [RelayCommand]
 		private async Task DeleteService(ServiceItem bookingService)
 		{
 			try

@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.SpacePicturesPage"
-             x:DataType="viewModels:AddSpaceViewModel"
-             Title="Your Space Pictures">
+             Shell.TabBarIsVisible="False"
+             x:DataType="viewModels:AddSpaceViewModel">
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">

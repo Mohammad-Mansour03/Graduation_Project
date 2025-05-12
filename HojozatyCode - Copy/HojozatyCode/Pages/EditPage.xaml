@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.EditPage"
-             BackgroundColor="#FAFAFB"
-             Title="Edit Venue">
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#FAFAFB">
+    
 
     <ContentPage.BindingContext>
         <vm:MySpaceViewModel />

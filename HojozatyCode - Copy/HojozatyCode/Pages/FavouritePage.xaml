@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
-             x:Class="HojozatyCode.Pages.FavouritePage"
-             Title="Favorites">
+             Shell.TabBarIsVisible="True"
+             x:Class="HojozatyCode.Pages.FavouritePage">
 
     <ContentPage.Resources>
         <converters:BoolToImageConverter2 x:Key="BoolToImageConverter2"/>

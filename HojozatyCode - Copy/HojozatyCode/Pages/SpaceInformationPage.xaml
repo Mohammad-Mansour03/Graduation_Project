@@ -5,8 +5,8 @@
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.SpaceInformationPage"
-             x:DataType="viewModels:AddSpaceViewModel"
-             Title="Space Information">
+             Shell.TabBarIsVisible="False"
+             x:DataType="viewModels:AddSpaceViewModel">
 
     <ContentPage.Resources>
         <ResourceDictionary>

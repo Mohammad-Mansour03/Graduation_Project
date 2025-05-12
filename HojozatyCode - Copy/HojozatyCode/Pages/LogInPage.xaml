@@ -4,7 +4,6 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.LogInPage"
              x:DataType="viewModels:LogInViewModel"
-             Title="LogInPage"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#F9F6FC">
