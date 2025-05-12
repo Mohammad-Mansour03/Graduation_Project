@@ -4,7 +4,7 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.AccountPage"
              x:DataType="viewModels:AccountPageViewModel"
-             Shell.NavBarIsVisible="True"
+             Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="True"
              BackgroundColor="#F9F6FC">
 

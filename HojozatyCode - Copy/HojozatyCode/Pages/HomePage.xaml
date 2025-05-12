@@ -11,17 +11,10 @@
         <StackLayout Padding="30" Spacing="20">
             
             <!-- Header Section -->
-            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" >
+            <Grid>
                 <VerticalStackLayout>
                     
-                   <!--Back icon-->
-                    <ImageButton Source="back_icon.png"
-                             HeightRequest="30" WidthRequest="30"
-                             VerticalOptions="Center" 
-                             HorizontalOptions="Start"
-                             Padding="5"
-                             Margin="-15,10,0,0"
-                             Command="{Binding NavigateBackCommand}"/>
+                   
                     
                     <!--The Header Content-->
                     <Label Text="What are you planning in " 
