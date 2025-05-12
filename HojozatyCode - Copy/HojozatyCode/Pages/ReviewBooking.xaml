@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.ReviewBooking"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#F9FAFB">
+             BackgroundColor="#F9F6FC">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="SectionCard" TargetType="Frame">

@@ -3,7 +3,7 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              Shell.TabBarIsVisible="False"
              x:Class="HojozatyCode.Pages.SuccessPage"
-             BackgroundColor="#F9FAFB">
+             BackgroundColor="#F9F6FC">
 
     <VerticalStackLayout Spacing="24" 
                         VerticalOptions="Center" 

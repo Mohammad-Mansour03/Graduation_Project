@@ -4,7 +4,7 @@
              x:Class="HojozatyCode.Pages.ServicesToAdd"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#FAFAFA">
+             BackgroundColor="#F9F6FC">
 
     <Grid RowDefinitions="*,Auto">
 
@@ -108,7 +108,7 @@
                                     </Grid>
 
                                     <!-- Select Button -->
-                                    <Button Text="Select Service"
+                                    <Button Text="Add Service"
                                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                             Margin="0,20,0,0"
                                             BackgroundColor="#4F378A"

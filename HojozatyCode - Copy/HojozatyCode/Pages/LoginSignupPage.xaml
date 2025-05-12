@@ -6,7 +6,7 @@
              x:Class="HojozatyCode.Pages.LoginSignupPage"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              x:DataType="viewModels:LoginSignupViewModel"
-             BackgroundColor="White">
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">

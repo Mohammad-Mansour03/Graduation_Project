@@ -7,7 +7,7 @@
              x:DataType="viewModels:SignUpViewModel"
              Shell.TabBarIsVisible="False"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#ECE6F0">
+             BackgroundColor="#F9F6FC">
     
     <ContentPage.BindingContext>
         <viewModels:SignUpViewModel />
@@ -48,7 +48,7 @@
                 Background="White"
                 StrokeShape="RoundRectangle 20" 
                 StrokeThickness="1"
-                HeightRequest="60"
+                HeightRequest="70"
                 Padding="10">
                 <Entry  Placeholder="Email" 
                         FontSize="18" 
@@ -62,7 +62,7 @@
               Background="White"
               StrokeShape="RoundRectangle 20" 
               StrokeThickness="1"
-              HeightRequest="60"
+              HeightRequest="70"
               Padding="10">
                 <Grid ColumnDefinitions="*,Auto">
                     <Entry x:Name="PasswordEntry" 
@@ -86,7 +86,7 @@
               Background="White"
               StrokeShape="RoundRectangle 20" 
               StrokeThickness="1"
-              HeightRequest="60"
+              HeightRequest="70"
               Padding="10">
                 <Grid ColumnDefinitions="*,Auto">
                     <Entry x:Name="ConfirmPasswordEntry" 

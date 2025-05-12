@@ -5,7 +5,7 @@
              xmlns:conv="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.ChoosingHallBooking"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="#F8F9FA">
+             BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
         <conv:BoolToImageConverter2 x:Key="BoolToImageConverter2" />
@@ -48,7 +48,7 @@
             <CollectionView x:Name="ImagesCollection"
                             ItemsSource="{Binding SelectedVenue.ImageUrls}"
                             HeightRequest="280"
-                            WidthRequest="640"
+                            WidthRequest="610"
                             HorizontalScrollBarVisibility="Never">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" SnapPointsType="MandatorySingle" SnapPointsAlignment="Center" />
@@ -225,7 +225,7 @@
                                         <VerticalStackLayout Spacing="4" Padding="10,8">
                                             <Label FontSize="14"
                                                    FontFamily="Montserrat-Regular"
-                                                   TextColor="#2D3748"
+                                                   TextColor="#454545"
                                                    LineHeight="1.5"
                                                    LineBreakMode="WordWrap">
                                                 <Label.FormattedText>
