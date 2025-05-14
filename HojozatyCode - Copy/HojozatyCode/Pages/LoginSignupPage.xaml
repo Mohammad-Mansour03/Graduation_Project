@@ -60,7 +60,6 @@
                 <Button Text="Sign up"
                         BackgroundColor="#4F378A"
                         TextColor="White"
-                        Shadow="None"
                         Command="{Binding SignUpCommand}"/>
 
                 <Button Text="Login"
@@ -68,7 +67,6 @@
                         TextColor="#4F378A"
                         BorderColor="#4F378A"
                         BorderWidth="1.5"
-                        Shadow="None"
                         Command="{Binding LogInCommand}"/>
             </VerticalStackLayout>
         </VerticalStackLayout>
@@ -83,6 +81,6 @@
                    FontFamily="Montserrat"
                    HorizontalTextAlignment="Center"/>
         </StackLayout>
-        
+
     </Grid>
 </ContentPage>

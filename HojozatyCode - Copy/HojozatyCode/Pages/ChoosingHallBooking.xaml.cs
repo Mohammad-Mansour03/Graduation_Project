@@ -24,4 +24,7 @@ public partial class ChoosingHallBooking : ContentPage
         bool isFavorite = (BindingContext as BookingViewModel)?.IsFavorite ?? false; // Check the binding context property
         VisualStateManager.GoToState(FavoriteButton, isFavorite ? "Favorited" : "Unfavorited");
     }
+
+   
+
 }

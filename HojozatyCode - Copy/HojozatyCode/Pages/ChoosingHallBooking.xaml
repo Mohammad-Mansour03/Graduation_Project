@@ -122,6 +122,8 @@
                                 <Setter Property="Scale" Value="1.1" />
                             </VisualState.Setters>
                         </VisualState>
+                    </VisualStateGroup>
+                    <VisualStateGroup x:Name="UnfavoritedStates">
                         <VisualState x:Name="Unfavorited">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" Value="Transparent" />
