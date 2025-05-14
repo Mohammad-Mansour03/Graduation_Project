@@ -44,9 +44,6 @@ namespace HojozatyCode.Models
         [Column("age")]
         public int AgeC { get; set; }
 
-        //store the user type
-        [Column("user_type")]
-        public string UserTypeC { get; set; }
 
         //store when the account was created 
         [Column("date_created")]
