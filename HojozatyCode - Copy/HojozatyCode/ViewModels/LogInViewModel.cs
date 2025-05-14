@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HojozatyCode.Models;
 using HojozatyCode.Services;
 using System.Threading.Tasks;
 
@@ -83,19 +84,35 @@ namespace HojozatyCode.ViewModels
 
 				else
 				{
-					// Try signing in with email and password
-					var response = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailL, PasswordL);
+					// Check if the email was already signed in before
+					var response = await SupabaseConfig.SupabaseClient
+						.From<User>()
+						.Where(x => x.EmailC == EmailL)
+						.Get();
 
-					// Check if the login was successful
-					if (response.User != null)
+				
+					if (response.Models.FirstOrDefault() == null)
 					{
-						// Login was successful, navigate to the HomePage
-						await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+						await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+						return;
+					
 					}
 					else
 					{
-						// Show an error message if login fails (e.g., invalid credentials)
-						await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+						//Check if the email and password was mathed
+						var result = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailL, PasswordL);
+						
+						// Login was successful, navigate to the HomePage
+						if (result != null)
+						{
+							await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+						}
+
+						else 
+						{
+							await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+							return;
+						}
 					}
 				}
 			}

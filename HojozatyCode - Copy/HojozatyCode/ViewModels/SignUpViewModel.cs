@@ -150,10 +150,10 @@ namespace HojozatyCode.ViewModels
 							"A confirmation email has been sent. Please check your inbox to verify your email.",
 							"OK");
 
-						//// Poll every 3 seconds to check if user confirmed their email
-						//for (int i = 0; i < 20; i++) // 20 attempts = ~1 minute
-						//{
-						//	await Task.Delay(1000); // Wait 3 seconds
+						// Poll every 3 seconds to check if user confirmed their email
+						for (int i = 0; i < 20; i++) // 20 attempts = ~1 minute
+						{
+							await Task.Delay(11000); // Wait 3 seconds
 
 							var session = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailF, PasswordF);
 
@@ -162,7 +162,7 @@ namespace HojozatyCode.ViewModels
 								await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
 								return;
 							}
-						//}
+						}
 
 						await Shell.Current.DisplayAlert("Still Not Confirmed",
 							"Email not confirmed yet. Please confirm your email before continuing.", "OK");
