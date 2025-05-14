@@ -112,6 +112,7 @@ namespace HojozatyCode.ViewModels
 					PhoneC = PhoneP,
 					AgeC = AgeP,
 					GenderC = GenderP,
+					DateCreatedC = DateTime.Now
 				};
 
 				//Add the user to the Profile table in the database
