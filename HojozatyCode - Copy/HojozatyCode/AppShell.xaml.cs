@@ -32,7 +32,9 @@ namespace HojozatyCode
             Routing.RegisterRoute(nameof(Pages.BookingCalendarPage), typeof(Pages.BookingCalendarPage));
             Routing.RegisterRoute(nameof(Pages.ServicesToAdd), typeof(Pages.ServicesToAdd));
             Routing.RegisterRoute(nameof(Pages.ReviewBooking), typeof(Pages.ReviewBooking));
-            //Routing.RegisterRoute(nameof(Pages.ForgotPasswordPage), typeof(Pages.ForgotPasswordPage));
+            Routing.RegisterRoute(nameof(Pages.ForgotPasswordPage), typeof(Pages.ForgotPasswordPage));
+            Routing.RegisterRoute(nameof(Pages.EnterOTPPage), typeof(Pages.EnterOTPPage));
+            Routing.RegisterRoute(nameof(Pages.ResetPasswordPage), typeof(Pages.ResetPasswordPage));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
 

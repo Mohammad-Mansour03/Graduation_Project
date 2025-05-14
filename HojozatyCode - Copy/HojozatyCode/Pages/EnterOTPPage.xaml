@@ -1,0 +1,17 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:HojozatyCode.ViewModels"
+             x:Class="HojozatyCode.Pages.EnterOTPPage"
+             Title="Verify OTP">
+
+    <ContentPage.BindingContext>
+        <viewmodel:EnterOtpViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20">
+        <Label Text="Enter the OTP sent to your email" />
+        <Entry Placeholder="OTP Code" Text="{Binding OtpCode}" Keyboard="Numeric" />
+        <Button Text="Verify OTP" Command="{Binding VerifyOtpCommand}" />
+        <Label Text="{Binding Message}" TextColor="Red" />
+    </VerticalStackLayout>
+</ContentPage>

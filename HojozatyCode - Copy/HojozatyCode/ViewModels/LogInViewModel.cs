@@ -53,8 +53,14 @@ namespace HojozatyCode.ViewModels
 
         }
 
-        //Make the Login logic for the program
-        [RelayCommand]
+		[RelayCommand]
+		private async Task ForgotPassword()
+		{
+			await Shell.Current.GoToAsync(nameof(Pages.ForgotPasswordPage));
+		}
+
+		//Make the Login logic for the program
+		[RelayCommand]
         private async Task LogInAsync()
         {
 			try
