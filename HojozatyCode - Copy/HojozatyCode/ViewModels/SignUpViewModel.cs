@@ -128,6 +128,17 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 
+				var result = await SupabaseConfig.SupabaseClient
+					.From<User>()
+					.Where(x => x.EmailC == EmailF)
+					.Get();
+
+				if (result.Models.FirstOrDefault() != null) 
+				{
+					await Shell.Current.DisplayAlert("Warning", "The Email Already Signed Up Before", "OK");
+					return;
+				}
+
 				// Try to sign up
 				var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(EmailF, PasswordF);
 
@@ -139,10 +150,10 @@ namespace HojozatyCode.ViewModels
 							"A confirmation email has been sent. Please check your inbox to verify your email.",
 							"OK");
 
-						// Poll every 3 seconds to check if user confirmed their email
-						for (int i = 0; i < 20; i++) // 20 attempts = ~1 minute
-						{
-							await Task.Delay(3000); // Wait 3 seconds
+						//// Poll every 3 seconds to check if user confirmed their email
+						//for (int i = 0; i < 20; i++) // 20 attempts = ~1 minute
+						//{
+						//	await Task.Delay(1000); // Wait 3 seconds
 
 							var session = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailF, PasswordF);
 
@@ -151,7 +162,7 @@ namespace HojozatyCode.ViewModels
 								await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
 								return;
 							}
-						}
+						//}
 
 						await Shell.Current.DisplayAlert("Still Not Confirmed",
 							"Email not confirmed yet. Please confirm your email before continuing.", "OK");
@@ -169,14 +180,7 @@ namespace HojozatyCode.ViewModels
 			}
 			catch (Exception ex)
 			{
-				if (ex.Message.Contains("User already registered") || ex.Message.Contains("already been registered"))
-				{
-					ErrorMessage = "This email is already in use. Try logging in instead.";
-				}
-				else
-				{
-					await Shell.Current.DisplayAlert("Sign Up Failed", ex.Message, "OK");
-				}
+				await Shell.Current.DisplayAlert("Sign Up Failed", ex.Message, "OK");
 			}
 		}
 
