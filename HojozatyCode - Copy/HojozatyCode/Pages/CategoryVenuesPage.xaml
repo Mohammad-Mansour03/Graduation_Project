@@ -40,14 +40,15 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="5" Padding="10">
+          
             <!-- Top Info Row -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
-            Stroke="{StaticResource BorderColor}"                   
-            StrokeThickness="2" 
-            StrokeShape="RoundRectangle 12"
-            Padding="6"
-            Grid.Column="0">
+                        Stroke="{StaticResource BorderColor}"                   
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 12"
+                        Padding="6"
+                        Grid.Column="0">
                     <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
                         
                         <Label Text="{Binding Category}"  FontSize="Medium" />
@@ -56,46 +57,32 @@
                 </Border>
 
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
-            Stroke="{StaticResource BorderColor}" 
-            StrokeThickness="2" 
-            StrokeShape="RoundRectangle 12"
-            Padding="6"
-            Grid.Column="1">
+                        Stroke="{StaticResource BorderColor}" 
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 12"
+                        Padding="6"
+                        Grid.Column="1">
                     <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
                         <Picker ItemsSource="{Binding Cities}"
-                    SelectedItem="{Binding SelectedCity, Mode=TwoWay}" FontSize="Medium" 
-                    Title="Choose City" />
+                                SelectedItem="{Binding SelectedCity, Mode=TwoWay}" FontSize="Medium" 
+                                Title="Choose City" />
                         <Image Source="location.png" HeightRequest="16" WidthRequest="16" />
                     </HorizontalStackLayout>
                 </Border>
             </Grid>
 
-            <!-- Date Picker and Filter -->
+            <!--Filter -->
             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                <Border BackgroundColor="{StaticResource SurfaceColor}"
-               StrokeThickness="2"
-            StrokeShape="RoundRectangle 12"
-            Padding="6"
-            VerticalOptions="Center">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenDatePickerCommand}" />
-                    </Border.GestureRecognizers>
-                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Image Source="calenadar.png" HeightRequest="20" WidthRequest="20" />
-                        <Label Text="Select date and time" 
-                   FontSize="Medium" 
-                   TextColor="{StaticResource OnSurfaceColor}" />
-                    </HorizontalStackLayout>
-                </Border>
+
 
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
-            StrokeShape="RoundRectangle 12"
+                        StrokeShape="RoundRectangle 12"
                         StrokeThickness="2"
-            Padding="6"
-            Grid.Column="1"
-            VerticalOptions="Center"
-            WidthRequest="50"
-            HeightRequest="40">
+                        Padding="6"
+                        Grid.Column="1"
+                        VerticalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="40">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoToFiltersPageCommand}" />
                     </Border.GestureRecognizers>

@@ -8,6 +8,7 @@ namespace HojozatyCode.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
+        //Collection to store some venues to display them inside the Home Page
         [ObservableProperty]
         ObservableCollection<Venue> homeVenues = new ();
 
@@ -25,6 +26,7 @@ namespace HojozatyCode.ViewModels
 					.Get();
 
 				var venue = result.Models.FirstOrDefault();
+
 				if (venue != null && !HomeVenues.Any(v => v.VenueId == venue.VenueId))
 				{
 					HomeVenues.Add(venue);
@@ -32,15 +34,18 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+        //Navigate to Choosing Hall Booking with passing the right Venue
 		[RelayCommand]
 		public async Task VenueSelectedAsync(Venue selectedVenue)
 		{
-			if (selectedVenue == null) return;
+			if (selectedVenue == null) 
+                return;
 
 			var navParams = new Dictionary<string, object>
 			{
 				{ "SelectedVenue", selectedVenue }
 			};
+
 			await Shell.Current.GoToAsync(nameof(Pages.ChoosingHallBooking), navParams);
 		}
 
@@ -75,8 +80,9 @@ namespace HojozatyCode.ViewModels
             }
         }
        
+        //Navigate to the Categoty Venue page with passing the right category
         [RelayCommand]
-        private async Task NavigateToCategory(string category )
+        private async Task NavigateToCategory(string category)
         {
             try
             {
@@ -88,6 +94,7 @@ namespace HojozatyCode.ViewModels
 
                 await Shell.Current.GoToAsync($"{nameof(CategoryVenuesPage)}", true, parameters);
             }
+
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
@@ -95,10 +102,5 @@ namespace HojozatyCode.ViewModels
             }
         }
 
-         [RelayCommand]
-        private async Task NavigateToAdminApprovalAsync()
-        {
-            await Shell.Current.GoToAsync(nameof(Pages.AdminApprovalPage));
-        }
     }
 }

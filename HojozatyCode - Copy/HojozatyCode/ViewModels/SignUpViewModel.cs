@@ -83,13 +83,13 @@ namespace HojozatyCode.ViewModels
 		}
 
 		//Method to Validate the email if it was correct or not
-		private bool ValidateEmail(string email) 
+		private bool IsValidEmail(string email) 
 		{
 			return Regex.IsMatch(EmailF, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$");
 		}
 			
 		//Method to Validate the Password if it was correct or not
-		private bool ValidatePassword(string password) 
+		private bool IsValidPasswrod(string password) 
 		{
 			return Regex.IsMatch(PasswordF, @"^.{8,}$"); 
 		}
@@ -112,7 +112,7 @@ namespace HojozatyCode.ViewModels
 				}
 
 				//Check if the email has a correct d
-				if (!ValidateEmail(EmailF))
+				if (!IsValidEmail(EmailF))
 				{
 					ErrorMessage = "Please enter a valid email";
 					return;
@@ -125,7 +125,7 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 
-				if (!ValidatePassword(PasswordF))
+				if (!IsValidPasswrod(PasswordF))
 				{
 					ErrorMessage = "Password must be at least 8 characters long";
 					return;

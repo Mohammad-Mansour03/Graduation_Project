@@ -12,10 +12,12 @@ public partial class CategoryVenuesPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel = vm;
     }
+
 	private VenueFilter filterData;
 	public VenueFilter FilterData
 	{
 		get => filterData;
+
 		set
 		{
 			filterData = value;
@@ -24,5 +26,6 @@ public partial class CategoryVenuesPage : ContentPage
 				viewModel.ApplyFilterCommand.Execute(filterData);
 			}
 		}
+
 	}
 }

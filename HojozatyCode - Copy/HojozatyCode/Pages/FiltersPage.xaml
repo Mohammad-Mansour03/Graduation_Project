@@ -106,44 +106,20 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- INSTANT BOOK TOGGLE -->
-            <Label Text="Booking Options" Style="{StaticResource SectionTitle}" />
-            <Border Style="{StaticResource OptionBorder}">
-                <VerticalStackLayout Spacing="8">
-                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
-                        <Label Text="Instant Book"
-                               FontSize="16"/>
-                        <Switch IsToggled="{Binding InstantBook}"
-                                OnColor="{StaticResource PrimaryColor}"
-                                ThumbColor="White"/>
-                    </HorizontalStackLayout>
-                    <Label Text="Only show venues that can be booked instantly"
-                           FontSize="13"
-                           TextColor="{StaticResource SecondaryColor}"/>
-                </VerticalStackLayout>
-            </Border>
+            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
+                <Picker ItemsSource="{Binding FiltersCities}"
+               SelectedItem="{Binding FilterCity, Mode=TwoWay}" FontSize="Medium" 
+               Title="Choose City" />
+                <Image Source="location.png" HeightRequest="16" WidthRequest="16" />
+            </HorizontalStackLayout>
 
-            <!-- SPACE TYPES -->
-            <Label Text="Select Space Types" Style="{StaticResource SectionTitle}" />
-            <Border Style="{StaticResource OptionBorder}">
-                <CollectionView ItemsSource="{Binding SpaceTypes}"
-                                SelectionMode="None">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"
-                                           ItemSpacing="12"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:SpaceType">
-                            <HorizontalStackLayout Spacing="12">
-                                <CheckBox IsChecked="{Binding IsSelected}" />
-                                <Label Text="{Binding Name}"
-                                       VerticalOptions="Center"/>
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Border>
-
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}" 
+                FontSize="14" 
+                TextColor="Red" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center" 
+        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
             <!-- ACTION BUTTONS -->
             <HorizontalStackLayout Spacing="16"
                                    Margin="0,8,0,24">

@@ -51,7 +51,7 @@
 
 
 
-            <!--The Activites types (Wedding , Meeting , Funeral , More)-->
+            <!--The Activitse types (Wedding , Meeting , Funeral , More)-->
             <ScrollView Orientation="Horizontal">
                 <HorizontalStackLayout Spacing="10" Padding="0,10">
                 
@@ -233,40 +233,7 @@
                     </Border>
                 </HorizontalStackLayout>
             </ScrollView>
-            
-            <!-- Inspiration Section --><!--
-            <Border StrokeShape="RoundRectangle 12"
-                    BackgroundColor="#FFE1DE"
-                    Padding="15">
-                <Grid>
-                    --><!-- Main Content --><!--
-                    <VerticalStackLayout Spacing="5">
-                        <Label Text="Find new inspiration"
-                               FontSize="16"
-                               FontAttributes="Bold"/>
-                        <Label Text="Not sure what to book?"
-                               FontSize="12"/>
-                      
-                        --><!--Explore Button--><!--
-                        <Button Text="Explore" 
-                         BackgroundColor="#E85C4A" 
-                            TextColor="White" 
-                            CornerRadius="30" 
-                            HorizontalOptions="Start"
-                            WidthRequest="90" 
-                           Margin="0,15,0,0"
-                           Command="{Binding GoToExploreCommand}"/>
-                    </VerticalStackLayout>-->
 
-                    <!--Flower Image Positioned to the Right --><!--
-                    <Image Source="flower.png"
-                           WidthRequest="100" 
-                           HeightRequest="100" 
-                           HorizontalOptions="End" 
-                           VerticalOptions="Center" 
-                           Margin="0,0,-20,-50"/>
-                </Grid>
-            </Border>-->
 
             <!-- Venues Section -->
             <BoxView HeightRequest="1" Color="#E0DCEC"/>
@@ -301,8 +268,8 @@
                                 <Grid BackgroundColor="Transparent">
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer 
-                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:HomeViewModel}}, Path=VenueSelectedCommand}"
-                           CommandParameter="{Binding .}" />
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:HomeViewModel}}, Path=VenueSelectedCommand}"
+                                            CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
                                 </Grid>
 
@@ -311,28 +278,31 @@
 
                                 <!-- Info (Name, Price, Rating) -->
                                 <Grid Padding="16"
-                         RowDefinitions="*,Auto"
-                         ColumnDefinitions="*,Auto">
+                                      RowDefinitions="*,Auto"
+                                      ColumnDefinitions="*,Auto">
+                        
                                     <Label Text="{Binding VenueName}"
-                          FontSize="20"
-                          TextColor="White"
-                          FontFamily="OpenSans-Bold"
-                          Grid.Row="0"
-                          Grid.Column="0"
-                          VerticalOptions="Start" />
+                                            FontSize="20"
+                                            TextColor="White"
+                                            FontFamily="OpenSans-Bold"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            VerticalOptions="Start" />
 
                                     <!-- Price Tag -->
                                     <Border BackgroundColor="#493971"
-                           StrokeShape="RoundRectangle 10"
-                           Padding="8,4"
-                           HorizontalOptions="Start"
-                           VerticalOptions="Start"
-                           Grid.Row="0"
-                           Grid.Column="1">
+                                           StrokeShape="RoundRectangle 10"
+                                           Padding="8,4"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Start"
+                                           Grid.Row="0"
+                                           Grid.Column="1">
+                                 
                                         <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
-                              TextColor="White"
-                              FontSize="14"
-                              FontFamily="OpenSans-SemiBold" />
+                                                TextColor="White"
+                                                FontSize="14"
+                                                FontFamily="OpenSans-SemiBold" />
+                                   
                                     </Border>
 
                                     <!-- Rating -->
@@ -344,7 +314,7 @@
                                         <Label Text="{Binding Rating}" TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
                                         <Label Text="★" TextColor="Gold" FontSize="14"/>
                                         <Label Text="{Binding RatingCount, StringFormat='({0})'}"
-                              TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
+                                             TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Grid>

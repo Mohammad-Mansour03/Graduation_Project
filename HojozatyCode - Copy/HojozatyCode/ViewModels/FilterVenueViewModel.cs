@@ -11,26 +11,10 @@ using System.Threading.Tasks;
 
 namespace HojozatyCode.ViewModels
 {
-	public partial class FilterVenueViewModel : ObservableObject, IQueryAttributable
+	public partial class FilterVenueViewModel : ObservableObject
 	{
-		[ObservableProperty]
-		ObservableCollection<SpaceType> spaceTypes = new();
 
-		// ⬅️ الأنواع اللي المستخدم اختارها
-		[ObservableProperty]
-		private ObservableCollection<string> selectedSpaceTypes = new();
-
-		//// ⬅️ السعر الأقصى المختار من السلايدر
-		//[ObservableProperty]
-		//private double maxPrice = 5000;
-
-		// ⬅️ النتيجة بعد التصفية
-		[ObservableProperty]
-		private ObservableCollection<Venue> filteredVenues = new();
-
-
-
-		// خصائص مرتبطة بالـ UI للفلترة
+		//Properties Related to the Filter
 		[ObservableProperty]
 		private double minPrice;
 
@@ -43,78 +27,87 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private int maxCapacity;
 
-
-		// ⬅️ الحضور المختار
 		[ObservableProperty]
-		private string selectedAttendees = "Any";
+		private CitieisEnum filterCity;
 
-		public void ApplyQueryAttributes(IDictionary<string, object> query)
-		{
-			if (query.TryGetValue("category", out var cat))
-			{
-				string category = cat?.ToString() ?? "";
+		[ObservableProperty]
+		private string errorMessage;
 
-				List<SpaceType> types = category switch
-				{
-					"Wedding" => new()
-				{
-					new SpaceType { Name = "Halls" },
-					new SpaceType { Name = "Farms" },
-					new SpaceType { Name = "Hotels" },
-					new SpaceType { Name = "Outdoors"}
-				},
-					"Entertainment" => new()
-				{
-					new SpaceType { Name = "Farms" },
-					new SpaceType { Name = "Adventure Spots" },
-					new SpaceType { Name = "WorkShops" },
-				},
-					"Meeting" => new()
-				{
-					new SpaceType { Name = "ClassRooms/Office Spaces" },
-					new SpaceType { Name = "Farms" },
-					new SpaceType { Name = "Outdoor Space" },
-					new SpaceType { Name = "Majls" },
-				},
-					"Funeral" => new()
-				{
-					new SpaceType { Name = "Diwan" },
-					new SpaceType { Name = "Dedicated Funeral Halls"  },
+		//Collection to store the all cities
+		public ObservableCollection<CitieisEnum> FiltersCities { get; set; } =
+			new ObservableCollection<CitieisEnum>((CitieisEnum[])Enum.
+			GetValues(typeof(CitieisEnum)));
+
+	
+
+		//public void ApplyQueryAttributes(IDictionary<string, object> query)
+		//{
+		//	if (query.TryGetValue("category", out var cat))
+		//	{
+		//		string category = cat?.ToString() ?? "";
+
+		//		List<SpaceType> types = category switch
+		//		{
+		//			"Wedding" => new()
+		//		{
+		//			new SpaceType { Name = "Halls" },
+		//			new SpaceType { Name = "Farms" },
+		//			new SpaceType { Name = "Hotels" },
+		//			new SpaceType { Name = "Outdoors"}
+		//		},
+		//			"Entertainment" => new()
+		//		{
+		//			new SpaceType { Name = "Farms" },
+		//			new SpaceType { Name = "Adventure Spots" },
+		//			new SpaceType { Name = "WorkShops" },
+		//		},
+		//			"Meeting" => new()
+		//		{
+		//			new SpaceType { Name = "ClassRooms/Office Spaces" },
+		//			new SpaceType { Name = "Farms" },
+		//			new SpaceType { Name = "Outdoor Space" },
+		//			new SpaceType { Name = "Majls" },
+		//		},
+		//			"Funeral" => new()
+		//		{
+		//			new SpaceType { Name = "Diwan" },
+		//			new SpaceType { Name = "Dedicated Funeral Halls"  },
 					
-				},
-					"Photography" => new()
-				{
-					new SpaceType { Name = "Photography Studios" },
-					new SpaceType { Name = "Outdoor Photography Spaces" },
-					new SpaceType { Name = "Product Photography Spaces" },
-				},
-					"Sport" => new()
-				{
-					new SpaceType { Name = "Staduim" },
+		//		},
+		//			"Photography" => new()
+		//		{
+		//			new SpaceType { Name = "Photography Studios" },
+		//			new SpaceType { Name = "Outdoor Photography Spaces" },
+		//			new SpaceType { Name = "Product Photography Spaces" },
+		//		},
+		//			"Sport" => new()
+		//		{
+		//			new SpaceType { Name = "Staduim" },
 				
-				},
-					"Cultural Events" => new()
-				{
-					new SpaceType { Name = "Farms" },
-					new SpaceType { Name = "Majls" },
-					new SpaceType { Name = "Cultural Evening Venues" },
-					new SpaceType { Name = "Theaters and Cultural Halls" },
-				},
-					_ => new() 
-					{
-						new SpaceType{ Name = "No Category Value"}
-					}
-				};
+		//		},
+		//			"Cultural Events" => new()
+		//		{
+		//			new SpaceType { Name = "Farms" },
+		//			new SpaceType { Name = "Majls" },
+		//			new SpaceType { Name = "Cultural Evening Venues" },
+		//			new SpaceType { Name = "Theaters and Cultural Halls" },
+		//		},
+		//			_ => new() 
+		//			{
+		//				new SpaceType{ Name = "No Category Value"}
+		//			}
+		//		};
 
-				// Update on the UI thread for immediate refresh
-				MainThread.BeginInvokeOnMainThread(() => {
-					SpaceTypes = new ObservableCollection<SpaceType>(types);
-				});
+		//		// Update on the UI thread for immediate refresh
+		//		MainThread.BeginInvokeOnMainThread(() => {
+		//			SpaceTypes = new ObservableCollection<SpaceType>(types);
+		//		});
 				
-				// Add this to verify the collection is populated
-				Shell.Current.DisplayAlert("Prompt",$"{SpaceTypes?.Count}","OK");
-			}
-		}
+		//		// Add this to verify the collection is populated
+		//		Shell.Current.DisplayAlert("Prompt",$"{SpaceTypes?.Count}","OK");
+		//	}
+		//}
+
 
         [RelayCommand]
         private async Task NavigateBack()
@@ -122,40 +115,59 @@ namespace HojozatyCode.ViewModels
             await Shell.Current.GoToAsync(nameof(Pages.CategoryVenuesPage));
         }
 
+		//Method to Store the Filter Data That user entered it
         [RelayCommand]
 		public async Task ApplyFilters()
 		{
-			//	var client = SupabaseConfig.SupabaseClient;
-
-			//	var venues = await client.From<Venue>().Get();
-
-			//	var filtered = venues.Models
-			//		.Where(v =>
-			//			v.InitialPrice <= MaxPrice &&
-			//			(SelectedAttendees == "Any" ||
-			//			 (SelectedAttendees == "50 - 100" && v.Capacity >= 50 && v.Capacity <= 100) ||
-			//			 (SelectedAttendees == "100 - 200" && v.Capacity >= 100 && v.Capacity <= 200)) &&
-			//			(SelectedSpaceTypes.Count == 0 || SelectedSpaceTypes.Contains(v.Type))
-			//		)
-			//		.ToList();
-
-			//	FilteredVenues = new ObservableCollection<Venue>(filtered);
-			//}
-
-			await Shell.Current.DisplayAlert("Prompt", "Inside the apply filter method", "OK");
+			if (MinPrice < 0) 
+			{
+				ErrorMessage = "The Min Price must be 0 or greater";
+				MinPrice = 0;
+				return;
+			}
+			
+			if (MaxPrice < 0) 
+			{
+				ErrorMessage = "The Max Price must be 0 or greater";
+				MaxPrice = 0;
+				return;
+			}	
+			
+			if (MinCapacity < 0) 
+			{
+				ErrorMessage = "The Min Capacity must be 0 or greater";
+				MinCapacity = 0;
+				return;
+			}	
+			
+			if (MaxCapacity < 0) 
+			{
+				ErrorMessage = "The Max Capacity must be 0 or greater";
+				MinPrice = 0;
+				return;
+			}	
+			
 			var filter = new VenueFilter
 			{
 				MinPrice = MinPrice,
 				MaxPrice = MaxPrice,
 				MinCapacity = MinCapacity,
-				MaxCapacity = MaxCapacity
+				MaxCapacity = MaxCapacity,
+				FilterCity = FilterCity,
 			};
 
-			// نرجع للصفحة السابقة (CategoryVenuePage) ونرسل بيانات الفلتر معها
+			// We will move to the previous page with filtered data
 			await Shell.Current.GoToAsync("..", new Dictionary<string, object>
 			{
 				{ "FilterData", filter }
 			});
+		}
+
+		//Clear The All Data
+		[RelayCommand]
+		public void ClearFilters() 
+		{
+			MinPrice = MaxPrice = MinCapacity = MaxCapacity = 0;
 		}
 
 	}
