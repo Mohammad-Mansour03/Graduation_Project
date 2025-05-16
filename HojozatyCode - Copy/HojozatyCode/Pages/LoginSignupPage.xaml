@@ -57,18 +57,22 @@
                                  Opacity="0"
                                  Scale="0.95">
 
+                <!--Sign Up Button-->
                 <Button Text="Sign up"
                         BackgroundColor="#4F378A"
                         TextColor="White"
                         Command="{Binding SignUpCommand}"/>
 
+                <!--Log in Button-->
                 <Button Text="Login"
                         BackgroundColor="Transparent"
                         TextColor="#4F378A"
                         BorderColor="#4F378A"
                         BorderWidth="1.5"
                         Command="{Binding LogInCommand}"/>
+                
             </VerticalStackLayout>
+            
         </VerticalStackLayout>
 
         <StackLayout Grid.Row="6" Grid.Column="1"

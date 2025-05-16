@@ -53,11 +53,18 @@ namespace HojozatyCode.ViewModels
 
         }
 
+		//Command to navigate me to the Forgot Password Page
 		[RelayCommand]
 		private async Task ForgotPassword()
 		{
 			await Shell.Current.GoToAsync(nameof(Pages.ForgotPasswordPage));
 		}
+
+		private bool IsAdminEmail()
+		{
+			return string.Equals(EmailL, "admin@hojoz.com") && string.Equals(PasswordL, "admin1234");
+		}
+
 
 		//Make the Login logic for the program
 		[RelayCommand]
@@ -78,34 +85,32 @@ namespace HojozatyCode.ViewModels
 					ErrorMessage = "Please Enter your password";
 					return;
 				}
-
-				if (string.Equals(EmailL, "admin@hojoz.com"))
+					
+				//Check if the Email and password was for Admin or to User
+				if (IsAdminEmail())
 				{
-					if (string.Equals(PasswordL, "admin1234"))
-					{
-						await Shell.Current.GoToAsync(nameof(Pages.AdminPanel));
-					}
-
+					await Shell.Current.GoToAsync(nameof(Pages.AdminPanel));
 				}
 
 				else
 				{
-					// Check if the email was already signed in before
+					// Check if the email was created and authenticated or not
 					var response = await SupabaseConfig.SupabaseClient
 						.From<User>()
 						.Where(x => x.EmailC == EmailL)
 						.Get();
 
-				
+					//If the email not found (The email not authenticate yet)
 					if (response.Models.FirstOrDefault() == null)
 					{
-						await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+						ErrorMessage = "\t\t\t\t\t\tLogin Failed\nInvalid email or password.";
 						return;
 					
 					}
+
 					else
 					{
-						//Check if the email and password was mathed
+						//Check if the email and password was matched
 						var result = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailL, PasswordL);
 						
 						// Login was successful, navigate to the HomePage
@@ -116,16 +121,16 @@ namespace HojozatyCode.ViewModels
 
 						else 
 						{
-							await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+							ErrorMessage = "\t\t\t\t\t\tLogin Failed\nInvalid email or password.";
 							return;
 						}
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				// Catch other generic exceptions
-				await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+				await Shell.Current.DisplayAlert("Login Failed", $"Invalid email or password{ex.Message}.", "OK");
 			}
 		}
     }

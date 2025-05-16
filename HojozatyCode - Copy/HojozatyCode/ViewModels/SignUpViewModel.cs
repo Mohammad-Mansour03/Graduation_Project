@@ -82,6 +82,21 @@ namespace HojozatyCode.ViewModels
 			OnPropertyChanged(nameof(EyeIconConfirmPasswordSource));
 		}
 
+		//Method to Validate the email if it was correct or not
+		private bool ValidateEmail(string email) 
+		{
+			return Regex.IsMatch(EmailF, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$");
+		}
+			
+		//Method to Validate the Password if it was correct or not
+		private bool ValidatePassword(string password) 
+		{
+			return Regex.IsMatch(PasswordF, @"^.{8,}$"); 
+		}
+
+
+
+
 		[RelayCommand]
 		private async Task SignUpAsync()
 		{
@@ -89,27 +104,28 @@ namespace HojozatyCode.ViewModels
 			{
 				ErrorMessage = string.Empty;
 
-				// Validate email
+				// Validate if the user enter the email entry
 				if (string.IsNullOrWhiteSpace(EmailF))
 				{
 					ErrorMessage = "Please enter your email";
 					return;
 				}
 
-				if (!Regex.IsMatch(EmailF, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$"))
+				//Check if the email has a correct d
+				if (!ValidateEmail(EmailF))
 				{
 					ErrorMessage = "Please enter a valid email";
 					return;
 				}
 
-				// Validate password
+				// Validate if the user enter the password entry
 				if (string.IsNullOrWhiteSpace(PasswordF))
 				{
 					ErrorMessage = "Please enter your password";
 					return;
 				}
 
-				if (!Regex.IsMatch(PasswordF, @"^.{8,}$"))
+				if (!ValidatePassword(PasswordF))
 				{
 					ErrorMessage = "Password must be at least 8 characters long";
 					return;
@@ -128,6 +144,8 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 
+
+				//Check if the email was already exist or not
 				var result = await SupabaseConfig.SupabaseClient
 					.From<User>()
 					.Where(x => x.EmailC == EmailF)
@@ -135,7 +153,7 @@ namespace HojozatyCode.ViewModels
 
 				if (result.Models.FirstOrDefault() != null) 
 				{
-					await Shell.Current.DisplayAlert("Warning", "The Email Already Signed Up Before", "OK");
+					ErrorMessage = "The Email Already Signed Up Before";
 					return;
 				}
 
@@ -153,7 +171,7 @@ namespace HojozatyCode.ViewModels
 						// Poll every 3 seconds to check if user confirmed their email
 						for (int i = 0; i < 20; i++) // 20 attempts = ~1 minute
 						{
-							await Task.Delay(11000); // Wait 3 seconds
+							await Task.Delay(11000); // Wait 11 seconds
 
 							var session = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailF, PasswordF);
 

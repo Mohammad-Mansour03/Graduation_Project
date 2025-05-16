@@ -16,7 +16,7 @@
     <Grid RowDefinitions="*, Auto, Auto, *, Auto, *" 
           ColumnDefinitions="20, *, 20">
 
-        <!-- Close Icon -->
+        <!-- Back Icon -->
         <ImageButton Source="back_icon.png" 
                      Grid.Row="0" Grid.Column="0" 
                      HorizontalOptions="Start"
@@ -41,6 +41,7 @@
 
         <!-- The Email and passwords entries -->
         <StackLayout Grid.Row="2" Grid.Column="1" Spacing="20">
+       
             <!--Email Entry-->
             <Label Text="Email" FontSize="18" TextColor="Black" />
             <Border
