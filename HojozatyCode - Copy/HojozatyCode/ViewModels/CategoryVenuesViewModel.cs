@@ -116,11 +116,11 @@ namespace HojozatyCode.ViewModels
 
 
 				var venuesResult = await client
-	             .From<Venue>()
-	             .Filter("type", Supabase.Postgrest.Constants.Operator.Equals, categoryName)
-	             .Filter("status", Supabase.Postgrest.Constants.Operator.Equals, "Approved")
-	             .Filter("city", Supabase.Postgrest.Constants.Operator.Equals, cityConvert)
-	             .Get();
+					.From<Venue>()
+					.Filter("status", Supabase.Postgrest.Constants.Operator.Equals, "Approved")
+					.Filter("city", Supabase.Postgrest.Constants.Operator.Equals, cityConvert)
+					.Filter("type", Supabase.Postgrest.Constants.Operator.ILike, $"%{categoryName}%")
+					.Get();
 
 				Venues.Clear();
 
