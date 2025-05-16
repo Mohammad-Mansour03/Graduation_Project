@@ -88,6 +88,24 @@
                 </HorizontalStackLayout>
             </Border>
 
+            <!-- My Bookings -->
+
+            <Border Padding="12"
+                StrokeShape="RoundRectangle 20"
+                BackgroundColor="White"
+                HorizontalOptions="Fill">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="2,2" Opacity="0.2" Radius="4"/>
+                </Border.Shadow>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToMyBookingsCommand}" Tapped="OnBorderTapped" />
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                    <Image Source="booking.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                    <Label Text="My Bookings" FontSize="18" VerticalOptions="Center" TextColor="Black"/>
+                </HorizontalStackLayout>
+            </Border>
+
             <!-- Section: Preferences -->
             <Label Text="Preferences" FontSize="16" FontAttributes="Bold" TextColor="#4F378A" Margin="5,20,0,0"/>
             <BoxView HeightRequest="1" Color="#E0DCEC"/>
