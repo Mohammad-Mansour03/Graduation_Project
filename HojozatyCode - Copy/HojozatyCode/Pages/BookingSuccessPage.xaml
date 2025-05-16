@@ -2,63 +2,61 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.BookingSuccessPage"
-             Title="Book Appointment"
-             BackgroundColor="{AppThemeBinding Light=#F8F9FA, Dark=#121212}"
-              Shell.TabBarIsVisible="True">
-    <ScrollView>
-        <Grid VerticalOptions="Center" HorizontalOptions="Center"
-              RowSpacing="20" Padding="20"
-              RowDefinitions="Auto,Auto,Auto,Auto" 
-              MaximumWidthRequest="500">
-            
-            <!-- Success Icon -->
-            <Border Grid.Row="0"
-                    WidthRequest="120"
-                    HeightRequest="120"
-                    StrokeShape="RoundRectangle 25"
-                    BackgroundColor="#4CAF50"
-                    Padding="10"
-                    Margin="0,20,0,10"
-                    HorizontalOptions="Center">
-                <Label Text="✓"
-                       FontSize="70"
-                       TextColor="White"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"/>
-            </Border>
-            
-            <!-- Success Message -->
-            <Label Grid.Row="1"
-                   Text="Booking and Payment Successful!"
+             Shell.TabBarIsVisible="True"
+             BackgroundColor="#F9F6FC">
+
+    <VerticalStackLayout Spacing="24"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Padding="24"
+                        MaximumWidthRequest="500">
+
+        <!-- Success Icon Container -->
+        <Border HorizontalOptions="Center"
+                WidthRequest="120"
+                HeightRequest="120"
+                Stroke="Transparent"
+                BackgroundColor="#4F378A"
+                StrokeShape="RoundRectangle 60"
+                Padding="0"
+                Margin="0,20,0,10">
+            <Label Text="✓"
+                   FontSize="48"
+                   TextColor="White"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+        </Border>
+
+        <!-- Success Messages -->
+        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+            <Label Text="Booking and Payment Successful!"
                    FontSize="24"
                    FontAttributes="Bold"
-                   TextColor="#222"
+                   TextColor="#1F2937"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"
                    MaxLines="2"
-                   LineBreakMode="WordWrap" />
-            
-            <Label Grid.Row="2"
-                   Text="Thank you for your booking.&#10;You will receive a confirmation soon."
+                   LineBreakMode="WordWrap"/>
+
+            <Label Text="Thank you for your booking.&#10;You will receive a confirmation soon."
                    FontSize="16"
-                   TextColor="#666"
+                   TextColor="#6B7280"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"
                    Margin="0,0,0,20"/>
-            
-            <!-- Back to Home Button -->
-            <!-- <Button Grid.Row="3"
-                    Text="Back to Home"
-                    BackgroundColor="#4F378A"
-                    TextColor="White"
-                    CornerRadius="25"
-                    WidthRequest="200"
-                    HeightRequest="54"
-                    FontSize="18"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    Margin="0,10,0,20"
-                    Command="{Binding HomeClickedCommand}"/> -->
-        </Grid>
-    </ScrollView>
+        </VerticalStackLayout>
+
+        <!-- Back to Home Button -->
+        <Button Text="Back to Home"
+                BackgroundColor="#4F378A"
+                TextColor="White"
+                CornerRadius="25"
+                WidthRequest="200"
+                HeightRequest="54"
+                FontSize="18"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                Margin="0,10,0,20"
+                Command="{Binding HomeClickedCommand}" />
+    </VerticalStackLayout>
 </ContentPage>

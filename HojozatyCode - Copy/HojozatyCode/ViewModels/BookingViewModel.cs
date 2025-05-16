@@ -613,8 +613,14 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-		// Method to check if this venue is already a favorite
-		private async Task CheckFavoriteStatusAsync()
+
+        [RelayCommand]
+        private async Task HomeClicked()
+        {
+            await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+        }
+        // Method to check if this venue is already a favorite
+        private async Task CheckFavoriteStatusAsync()
 		{
 			if (SelectedVenue == null) return;
 
