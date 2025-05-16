@@ -21,8 +21,6 @@ namespace HojozatyCode.Models
         [Column("end_datetime")]
         public DateTime EndDateTime { get; set; }
         
-        [Column("status")]
-        public string Status { get; set; }
         
         [Column("total_price")]
         public double TotalPrice { get; set; }

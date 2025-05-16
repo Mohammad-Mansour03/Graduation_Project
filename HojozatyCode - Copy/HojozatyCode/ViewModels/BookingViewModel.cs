@@ -362,7 +362,6 @@ namespace HojozatyCode.ViewModels
 				VenueId = VenueId,
 				StartDateTime = newBookingStart,
 				EndDateTime = newBookingEnd,
-				Status = "confirmed",
 				TotalPrice = SelectedVenue.InitialPrice,
 				CreatedAt = DateTime.UtcNow.AddHours(3),  // Keep audit fields in UTC
 				UpdatedAt = DateTime.UtcNow.AddHours(3)
