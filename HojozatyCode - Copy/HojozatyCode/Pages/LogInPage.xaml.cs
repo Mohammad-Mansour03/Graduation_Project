@@ -10,6 +10,7 @@ namespace HojozatyCode.Pages
             BindingContext = new LogInViewModel();
         }
 
+        //For Front-End Design
         protected override async void OnAppearing()
         {
             base.OnAppearing();

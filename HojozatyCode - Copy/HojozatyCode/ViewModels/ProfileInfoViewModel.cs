@@ -38,17 +38,20 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string errorMessage;
 
-
-
-
 		//The command to Go out from the profile info page
 		[RelayCommand]
         private async Task CancelAsync()
         {
             await Shell.Current.GoToAsync(nameof(Pages.SignUpPage));
         }
+
+		//Method to validate if the phone have the correct number
+		private bool IsPhoneValid(string phone) 
+		{
+			return Regex.IsMatch(PhoneP, @"^(?:\+962|0)7[789]\d{7}$");
+		}
 		
-		//The Commant to sotre the user information in the Profile table in database 
+		//The Command to sotre the user information in the Profile table in database 
         [RelayCommand]
         private async Task NextAsync()
         {
@@ -81,7 +84,7 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 
-				if (!Regex.IsMatch(PhoneP, @"^(?:\+962|0)7[789]\d{7}$"))
+				if (!IsPhoneValid(PhoneP))
 				{
 					ErrorMessage = "Please Enter Valid Phone Number";
 					return;
@@ -98,8 +101,6 @@ namespace HojozatyCode.ViewModels
 					ErrorMessage = "Please Enter The Gender";
 					return;
 				}
-
-
 
 				//Make the user object to store the user information and saved it in the database
 				var newUserProfile = new User
@@ -138,17 +139,3 @@ namespace HojozatyCode.ViewModels
 
 	}
 }
-
-
-//Handle Changes in gender selection
-//partial void OnIsMaleChanged(bool value)
-//{
-//	if (value)
-//              IsFemale = false; // If male is selected, unselect female
-//}
-
-//partial void OnIsFemaleChanged(bool value)
-//{
-//          if (value)
-//              IsMale = false;//if female is selected , unselect male
-//}

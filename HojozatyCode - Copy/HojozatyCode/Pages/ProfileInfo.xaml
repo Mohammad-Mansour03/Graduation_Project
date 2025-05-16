@@ -5,6 +5,7 @@
              x:Class="HojozatyCode.Pages.ProfileInfo"
              x:DataType="viewModels:ProfileInfoViewModel"
              Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
              BackgroundColor="#F9F6FC">
     
     <ContentPage.BindingContext>

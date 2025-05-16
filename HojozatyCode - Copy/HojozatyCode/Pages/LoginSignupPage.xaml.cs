@@ -12,6 +12,7 @@ namespace HojozatyCode.Pages
             AnimatePage();
         }
 
+        //Animation For Logo
         private async void AnimatePage()
         {
             // Animate Logo
