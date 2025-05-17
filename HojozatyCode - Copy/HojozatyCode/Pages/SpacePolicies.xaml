@@ -33,7 +33,7 @@
                         StrokeShape="RoundRectangle 15" 
                         HeightRequest="50">
                 
-                    <Entry Text="Flexible 100% of money reservation will reatined to the user"
+                    <Entry Text="Flexible 100% of reservation money will be reatined to the user"
                            IsReadOnly="True" 
                            Margin="5"
                            TextColor="Black"/>
@@ -60,7 +60,7 @@
                         StrokeShape="RoundRectangle 15"
                         HeightRequest="50">
 
-                    <Entry Text="Moderate 50% of money reservation will reatined to the user" 
+                    <Entry Text="Moderate 50% of reservation money will be reatined to the user" 
                            IsReadOnly="True"
                            Margin="5"
                            TextColor="Black"/>
@@ -87,7 +87,7 @@
                         StrokeShape="RoundRectangle 15" 
                         HeightRequest="50"/>
 
-                <Entry Text="Strict 30% of money reservation will reatined to the user" 
+                <Entry Text="Strict 30% of reservation money will be reatined to the user" 
                            IsReadOnly="True" 
                            Margin="5"
                            TextColor="Black"/>
