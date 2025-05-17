@@ -13,6 +13,7 @@ public partial class SpaceTypeSelectionPage : ContentPage
         _viewModel = viewModel;
     }
     
+    //To dealing with if the user renetred to it reset the all data
     protected override void OnAppearing()
     {
         base.OnAppearing();

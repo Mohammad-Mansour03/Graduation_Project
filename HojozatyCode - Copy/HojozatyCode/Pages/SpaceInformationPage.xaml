@@ -42,36 +42,20 @@
            
             </Border>
 
-            <!--Space City-->
-            <Border Stroke="LightGray" 
-                    Padding="10"
-                    Margin="0,10,0,0" 
-                    StrokeShape="RoundRectangle 15">
-            
-                <VerticalStackLayout Spacing="5">
-                
-                    <Entry Placeholder="City"
-                           Text="{Binding City}"
-                           TextColor="Black"/>
-                
-                </VerticalStackLayout>
-            
+            <Border BackgroundColor="{StaticResource SurfaceColor}" 
+                     Stroke="{StaticResource BorderColor}" 
+                     StrokeThickness="2" 
+                     StrokeShape="RoundRectangle 12"
+                     Padding="6"
+                     Grid.Column="1">
+                <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Picker ItemsSource="{Binding Cities}"
+                 SelectedItem="{Binding SelectedCity, Mode=TwoWay}" FontSize="Medium" 
+                 Title="Choose City" />
+                    <Image Source="location.png" HeightRequest="16" WidthRequest="16" />
+                </HorizontalStackLayout>
             </Border>
 
-            <!--Space Address-->
-            <!-- <Border Stroke="LightGray" 
-                    Padding="10"
-                    Margin="0,10,0,0" 
-                    StrokeShape="RoundRectangle 15">
-            
-                <VerticalStackLayout Spacing="5">
-            
-                    <Entry Placeholder="Address"
-                           Text="{Binding Address}"/>
-                
-                </VerticalStackLayout>
-            
-            </Border> -->
 
             <!--Space Phone-->
             <Border Stroke="LightGray" 

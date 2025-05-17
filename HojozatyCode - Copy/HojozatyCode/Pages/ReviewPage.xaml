@@ -54,9 +54,7 @@
             <Label Text="City:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
             <Label Text="{Binding City}" FontSize="16" TextColor="#454545"/>
 
-            <!-- Address -->
-            <Label Text="Address:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Label Text="{Binding Address}" FontSize="16" TextColor="#454545"/>
+
 
             <!-- Type of Space -->
             <Label Text="Type of Space:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>

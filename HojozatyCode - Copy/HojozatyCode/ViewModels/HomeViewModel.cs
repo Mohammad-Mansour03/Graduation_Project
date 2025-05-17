@@ -22,7 +22,8 @@ namespace HojozatyCode.ViewModels
 			{
 				var result = await SupabaseConfig.SupabaseClient
 					.From<Venue>()
-					.Where(v => v.Type == type)
+					.Filter("status", Supabase.Postgrest.Constants.Operator.Equals, "Approved")
+			        .Filter("type", Supabase.Postgrest.Constants.Operator.ILike, $"%{type}%")
 					.Get();
 
 				var venue = result.Models.FirstOrDefault();

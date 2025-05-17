@@ -19,14 +19,15 @@ namespace HojozatyCode.ViewModels
 	{
 		private readonly Client _supabaseClient;
 
+	
 		//(SpaceSelcetion Page)
 		//Collection Properety to sotre Collection of spaces types the user
 		//Can choose for one space
 		[ObservableProperty]
 		private ObservableCollection<string> selectedSpaceTypes;
 
-		// Properety to sotre the all spaces type in specific format inside 
-		//the database table (type1, type2, ...)
+	//Properety to sotre the all spaces type in specific format inside 
+	//the database table (type1, type2, ...)
 		[ObservableProperty]
 		private string spaceType;
 
@@ -45,7 +46,7 @@ namespace HojozatyCode.ViewModels
 			{ "Photography", new List<string> { "Photography Studios", "Outdoor Photography Spaces" ,
 				"Product Photography Spaces" } },
 
-			{ "Sports", new List<string> { "Staduim" } },
+			{ "Sports", new List<string> { "Staduim" } },	
 
 			{ "Cultural Events", new List<string> { "Farms", "Majls", "Cultrual Evening Venues" , "Theaters and Cultural halls" } }
 		};
@@ -55,9 +56,15 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<string> availableCategories = new();
 
+		//(Space Information Page)
 		//Properety to store the venue owner
 		[ObservableProperty]
 		private string ownerName;
+
+		//Collection to store the all cities
+		public ObservableCollection<CitieisEnum> Cities { get; set; } =
+			new ObservableCollection<CitieisEnum>((CitieisEnum[])Enum.
+			GetValues(typeof(CitieisEnum)));
 
 		//Properety to store the space name
 		[ObservableProperty]
@@ -65,7 +72,12 @@ namespace HojozatyCode.ViewModels
 
 		//Properety to store the City venue
 		[ObservableProperty]
-		private string city;
+		private string city;	
+		
+		//Properety to store the City venue
+		[ObservableProperty]
+		private CitieisEnum? selectedCity;
+
 
 		//Properety to sotre the Venue Address 
 		//=====>>> You must using Map API to store the Address
@@ -208,8 +220,7 @@ namespace HojozatyCode.ViewModels
 			// Validate if at least one space type is selected
 			if (SelectedSpaceTypes.Count == 0)
 			{
-				await Shell.Current.DisplayAlert("Validation Error",
-					"Please select at least one space type.", "OK");
+				ErrorMessage = 	"Please select at least one space type.";
 				return;
 			}
 
@@ -229,18 +240,15 @@ namespace HojozatyCode.ViewModels
 			}
 
 			//Check if the City is null
-			if (String.IsNullOrEmpty(City))
+			if (SelectedCity == null)
 			{
 				ErrorMessage = "Please Enter The Venue City";
 				return;
 			}
-
-			//Check if the Address is null            
-			// if (String.IsNullOrEmpty(Address))
-			// {
-			// 	ErrorMessage = "Please Enter The Venue Address";
-			// 	return;
-			// }
+			else 
+			{
+				City = Enum.GetName(typeof(CitieisEnum), SelectedCity);
+			}
 
 			//Check if the Phone is null
 			if (String.IsNullOrEmpty(Phone))
@@ -324,6 +332,12 @@ namespace HojozatyCode.ViewModels
 				return;
 			}
 
+			if (!IsCategoryValidForSelectedTypes(Category))
+			{
+				ErrorMessage = "The Category You Choose not available for all space types that you choosed";
+				return;
+			}
+
 			await Shell.Current.GoToAsync(nameof(SpacePicturesPage));
 		}
 
@@ -335,7 +349,7 @@ namespace HojozatyCode.ViewModels
 			// Validate if at least one image is selected
 			if (!SelectedImages.Any(x => x != null))
 			{
-				await Shell.Current.DisplayAlert("Validation", "Please select at least one image.", "OK");
+				ErrorMessage =  "Please select at least one image.";
 				return;
 			}
 
@@ -343,6 +357,7 @@ namespace HojozatyCode.ViewModels
 			var imagesToUpload = SelectedImages
 								.Where(img => img != null).ToList();
 
+			//Generate Venue Object to passed it to the Venue Table
 			var venue = new Venue
 			{
 				// No VenueId - let Supabase generate it
@@ -367,7 +382,6 @@ namespace HojozatyCode.ViewModels
 			{
 				// Set the CurrentVenueId property with the ID from the database
 				CurrentVenueId = result.VenueId.Value;
-				//    await Shell.Current.DisplayAlert("Success", $"Venue created with ID: {CurrentVenueId}", "OK");
 
 				// Navigate to ServicesPage
 				await Shell.Current.GoToAsync(nameof(ServicesPage));
@@ -390,7 +404,8 @@ namespace HojozatyCode.ViewModels
 		{
 			// Ensure we have the cancellation policy updated
 			await UpdateCancellationPolicyAsync(CurrentVenueId, SelectedPolicy);
-			
+
+			bool flag = true;
 			// Parse the venue's ImageUrl into a list of image URLs
 			if (CurrentVenueId != Guid.Empty)
 			{
@@ -400,11 +415,18 @@ namespace HojozatyCode.ViewModels
 					var venueResponse = await _supabaseClient
 						.From<Venue>()
 						.Where(v => v.VenueId == CurrentVenueId)
-						.Get();
-						
-					if (venueResponse != null && venueResponse.Models.Count > 0)
+						.Single();
+
+					if (venueResponse.CancellationPolicy == null) 
 					{
-						var venueImageUrl = venueResponse.Models[0].ImageUrl;
+						ErrorMessage = "Please Enter Your Cancellation Policy";
+						return;
+					}
+
+
+					if (venueResponse != null )
+					{
+						var venueImageUrl = venueResponse.ImageUrl;
 						if (!string.IsNullOrEmpty(venueImageUrl))
 						{
 							// Split by comma and remove empty entries
@@ -426,6 +448,8 @@ namespace HojozatyCode.ViewModels
 				}
 			}
 			
+		
+
 			await Shell.Current.GoToAsync(nameof(ReviewPage));
 		}
 
@@ -437,16 +461,17 @@ namespace HojozatyCode.ViewModels
 
 		// Command to navigate to the HomePage
 		[RelayCommand]
-		private async Task GoToHome(){
+		private async Task GoToHome()
+		{
 			try
-    {
-        // Reset the navigation stack to the AddSpace tab
-        await Shell.Current.GoToAsync("//Home");
-    }
-    catch (Exception ex)
-    {
-        await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
-    }
+			{
+				// Reset the navigation stack to the AddSpace tab
+				await Shell.Current.GoToAsync("//Home");
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
+			}
 		}	
 		// Command to navigate to the HomePage
 		[RelayCommand]
@@ -541,6 +566,20 @@ namespace HojozatyCode.ViewModels
 			// Reset other fields
 			SelectedPolicy = string.Empty;
 			CurrentVenueId = Guid.Empty;
+		}
+
+		//Method to check if the Category you choosed available for your space types
+		private bool IsCategoryValidForSelectedTypes(string selectedCategory)
+		{
+			foreach (var type in SelectedSpaceTypes)
+			{
+				if (!SpaceTypeCategories.TryGetValue(type, out var categories) || !categories.Contains(selectedCategory))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		// Command to add an image to the selected images collection
@@ -640,6 +679,7 @@ namespace HojozatyCode.ViewModels
 		#endregion
 
 		#region Space Type Commands
+		
 		//Method to update the Availiable Categories for every space type
 		private void UpdateAvailableCategories()
 		{
@@ -675,11 +715,8 @@ namespace HojozatyCode.ViewModels
 				// If an exclusive type is selected but the user has already selected a group type, show an alert
 				if (SelectedSpaceTypes.Any(type => groupTypes.Contains(type)))
 				{
-					await Shell.Current.DisplayAlert(
-						"Invalid Selection",
-						"You cannot select 'Funeral', 'Photography', or 'Sports' with other types.",
-						"OK"
-					);
+					ErrorMessage = "You cannot select 'Funeral', 'Photography', or 'Sports' with other types.";
+					
 					return; // Stop execution to prevent invalid selection
 				}
 
@@ -700,11 +737,7 @@ namespace HojozatyCode.ViewModels
 				// If the user has already selected an exclusive type, show an alert
 				if (SelectedSpaceTypes.Any(type => exclusiveTypes.Contains(type)))
 				{
-					await Shell.Current.DisplayAlert(
-						"Invalid Selection",
-						"You cannot select 'Weeding', 'Meeting', 'Cultural Events', or 'Entertainment' with 'Funeral', 'Photography', or 'Sports'.",
-						"OK"
-					);
+					ErrorMessage = "You cannot select 'Weeding', 'Meeting', 'Cultural Events', or 'Entertainment' with 'Funeral', 'Photography', or 'Sports'.";
 					return; // Stop execution to prevent invalid selection
 				}
 
@@ -745,7 +778,7 @@ namespace HojozatyCode.ViewModels
 			if (string.IsNullOrWhiteSpace(NewServiceName) || NewServicePrice <= 0)
 				return;
 
-			var service = new ServiceItem { Name = NewServiceName, Price = NewServicePrice };
+			var service = new ServiceItem { Name = NewServiceName.ToLower(), Price = NewServicePrice };
 			Services.Add(service);
 
 			// Store in Supabase
@@ -762,17 +795,16 @@ namespace HojozatyCode.ViewModels
 			{
 				// Check if the service exists
 				var response = await _supabaseClient
-					.From<Service>()
-					.Where(s => s.ServiceName == service.Name)
-					.Get();
+							.From<Service>()
+							.Filter("service_name", Supabase.Postgrest.Constants.Operator.Equals, service.Name.ToLower())
+							.Single();
 
-				var existingService = response.Models.FirstOrDefault();
-
+				
 				Guid serviceId;
 
-				if (existingService != null)
+				if (response != null)
 				{
-					serviceId = existingService.ServiceId;
+					serviceId = response.ServiceId;
 				}
 				else
 				{
@@ -829,12 +861,12 @@ namespace HojozatyCode.ViewModels
 			}
 			try
 			{
-				var serviceRecord = await _supabaseClient
-							   .From<Service>()
-							   .Where(s => s.ServiceName == service.Name)
-							   .Single();
 
-			
+				var serviceRecord = await _supabaseClient
+					.From<Service>()
+					.Filter("service_name", Supabase.Postgrest.Constants.Operator.Equals, service.Name.ToLower())
+					.Single();
+
 				if (serviceRecord == null)
 				{
 					await Shell.Current.DisplayAlert("Error", "Service not found in database", "OK");
@@ -912,16 +944,6 @@ namespace HojozatyCode.ViewModels
 					.Set(v => v.FixedDurationInHours , FixedDurationInHours)
 					.Update();
 
-
-				if (response != null && response.Models.Count > 0)
-				{
-					await Shell.Current.DisplayAlert("Done","Cancellation policy updated successfully.", "Ok");
-				}
-
-				else
-				{
-					await Shell.Current.DisplayAlert("Error", "Error to update Cancellation policy", "Ok");
-				}
 			}
 			catch (Exception ex)
 			{

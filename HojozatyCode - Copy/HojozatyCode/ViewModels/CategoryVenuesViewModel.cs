@@ -11,6 +11,7 @@ namespace HojozatyCode.ViewModels
     public partial class CategoryVenuesViewModel : ObservableObject
     {
 
+
 		// The Current Category
 		public string SelectedCategory { get; set; }
 
@@ -27,11 +28,13 @@ namespace HojozatyCode.ViewModels
             new ObservableCollection<CitieisEnum>((CitieisEnum[])Enum.
             GetValues(typeof(CitieisEnum)));
         
+        private bool isFiltered = false;
+
         //Store the City that the user choose
 		[ObservableProperty]
 		private CitieisEnum selectedCity;
 
-		//Properety to store list of Venues related to that categroy
+		//Properety to store list of Venues related to that categroy that will display inside the Category Venue Page
 		[ObservableProperty]
         private ObservableCollection<Venue> venues = new();
 
@@ -48,6 +51,8 @@ namespace HojozatyCode.ViewModels
         //Method to load the Correct subcategories and the correct venues
         private async Task LoadVenuesForCategory(string categoryName)
         {
+            if (isFiltered) return;
+
             SelectedCategory = categoryName;
 
             //Store the all subcategories with their related photos
@@ -112,9 +117,10 @@ namespace HojozatyCode.ViewModels
                 //Returen the all venues related to this category
                 var client = SupabaseConfig.SupabaseClient;
 
+                //Convert the City from Enum to String
                 var cityConvert = Enum.GetName(typeof(CitieisEnum) , SelectedCity);
 
-
+                //Return the Venue Result depending on the Venue must Approved , City , and it's Category
 				var venuesResult = await client
 					.From<Venue>()
 					.Filter("status", Supabase.Postgrest.Constants.Operator.Equals, "Approved")
@@ -123,6 +129,7 @@ namespace HojozatyCode.ViewModels
 					.Get();
 
 				Venues.Clear();
+
 
                 //Store the all venues return from supabase to store it inside the Venue Observable properety
                 foreach (var venue in venuesResult.Models)
@@ -141,7 +148,7 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task GoToFiltersPage()
 		{
-            if (!string.IsNullOrEmpty(Category))
+            if (!string.IsNullOrEmpty(Category) )
 			{
 				await Shell.Current.GoToAsync($"{nameof(Pages.FiltersPage)}?category={Category}");
 			}
@@ -153,24 +160,33 @@ namespace HojozatyCode.ViewModels
         public async Task ApplyFilterAsync(VenueFilter filter)
         {
 
+            isFiltered = true;
+
 			var cityConvert = Enum.GetName(typeof(CitieisEnum), filter.FilterCity);
 
-			// Reture the all venues that related to the category
+		
+
+            // Reture the all venues that related to the category
 			var response = await SupabaseConfig.SupabaseClient
-                .From<Venue>()
-                .Where(v => v.Type == SelectedCategory && v.City == cityConvert)
-                .Get();
+                    .From<Venue>()
+					.Filter("status", Supabase.Postgrest.Constants.Operator.Equals, "Approved")
+					.Filter("city", Supabase.Postgrest.Constants.Operator.Equals, cityConvert)
+					.Filter("type", Supabase.Postgrest.Constants.Operator.ILike, $"%{SelectedCategory}%")
+					.Get();
 
             var filtered = response.Models;
+            
+            // Filtering the Venues depending on your data 
+			 filtered = response.Models				
+	                    .Where(v =>
+		                    (filter.MinPrice == 0 || v.InitialPrice >= filter.MinPrice) &&
+		                    (filter.MaxPrice == 0 || v.InitialPrice <= filter.MaxPrice) &&
+		                    (filter.MinCapacity == 0 || v.Capacity >= filter.MinCapacity) &&
+		                    (filter.MaxCapacity == 0 || v.Capacity <= filter.MaxCapacity)
+	                    )
+	                    .ToList();
 
-			// Filtering the Venues depending on your data 
-			 filtered = response.Models
-                .Where(v => (v.InitialPrice >= filter.MinPrice && v.InitialPrice <= filter.MaxPrice)
-                    && (v.Capacity >= filter.MinCapacity && v.Capacity <= filter.MaxCapacity)
-                   )
-                .ToList();
-    
-            Venues.Clear();
+           	Venues.Clear();
 
             foreach (var venue in filtered)
             {
@@ -179,12 +195,14 @@ namespace HojozatyCode.ViewModels
 
 		}
 
+        //Method to deal with the Selected City Changing
 		partial void OnSelectedCityChanged(CitieisEnum value)
 		{
             if (!string.IsNullOrEmpty(SelectedCategory))
 				MainThread.BeginInvokeOnMainThread(async () => await LoadVenuesForCategory(SelectedCategory));
 		}
 
+        //Command to navigate me to the Venues Booking Process 
 		[RelayCommand]
         public async Task VenueSelectedAsync(Venue selectedVenue) 
         {

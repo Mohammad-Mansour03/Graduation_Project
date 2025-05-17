@@ -21,6 +21,7 @@ public partial class CategoryVenuesPage : ContentPage
 		set
 		{
 			filterData = value;
+
 			if (filterData != null)
 			{
 				viewModel.ApplyFilterCommand.Execute(filterData);
