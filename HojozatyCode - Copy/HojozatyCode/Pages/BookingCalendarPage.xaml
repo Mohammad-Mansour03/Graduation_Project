@@ -62,7 +62,7 @@
             <!-- End Time Picker -->
             <Frame CornerRadius="14" Padding="15" HasShadow="True"
                    BackgroundColor="#FFFFFF"
-                   IsVisible="{Binding ShowEndTime}">
+                   IsVisible="{Binding HasFixedTime}">
                 <Grid ColumnDefinitions="30,*" ColumnSpacing="15">
                     <Image Source="clock.png"
                            HeightRequest="24"

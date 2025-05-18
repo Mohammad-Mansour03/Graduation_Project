@@ -92,18 +92,17 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		ObservableCollection<BookingService> bookingServices = new ObservableCollection<BookingService>();
 
+
 		//Property to store the Total Price for Booking
 		[ObservableProperty]
 		private double totalPrice;
 
-<<<<<<< Updated upstream
 		[ObservableProperty]
 		private string displayLocation;
-=======
+
 		//Property to deal which heart will appear to the user
 		[ObservableProperty]
 		private bool isFavorite;
->>>>>>> Stashed changes
 
 		//To delete the service from booking
 		[RelayCommand]
@@ -146,6 +145,7 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Command to check the Availability Booking for this DateTime
 		[RelayCommand]
 		private async Task CheckAvailability() 
 		{
@@ -203,12 +203,7 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task AddSelectedService(ServiceItem service)
 		{
-		//	await Shell.Current.DisplayAlert("Prompt", "Inside the Add Selected Service Command", "OK");
-			
-			//await Shell.Current.DisplayAlert("Prompt", $"Service Id {service.ServiceId}\n" +
-				//$"Booking Id {SelectedBookingId}\n SelectedQuantity{service.Quantity}", "OK");
-
-
+		
 			if (service is null || SelectedBookingId == Guid.Empty )
 			{
 				await Shell.Current.DisplayAlert("Prompt", "Please Choose The Service", "OK");
@@ -248,7 +243,10 @@ namespace HojozatyCode.ViewModels
 				}
 
                 await Shell.Current.DisplayAlert("Done", "The service has been added to the booking", "OK");
-            }
+				
+				service.Quantity = 0;
+				
+			}
             catch (FileLoadException ex)
             {
                 await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
@@ -299,6 +297,7 @@ namespace HojozatyCode.ViewModels
 
 			foreach (var booking in VenueBookings)
 			{
+				//if it's not available return false
 				if (booking.StartDateTime < newBookingEnd && newBookingStart < booking.EndDateTime)
 				{
 					return false;
@@ -317,78 +316,75 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		public async Task CreateBooking()
 		{
-			//int duration;
-			var venue = SelectedVenue;
-		//	DateTime newBookingEnd;
-
-			SelectedDateTime = SelectedDate + SelectedTime;
-
-			//Check if the Selected date time isn't in the past
-			if(SelectedDateTime < DateTime.Now) 
+			try
 			{
-				await Shell.Current.DisplayAlert("Error", "You Can't Choose Past Date", "OK");
-				return;
+				var venue = SelectedVenue;
+
+				SelectedDateTime = SelectedDate + SelectedTime;
+
+				//Check if the Selected date time isn't in the past
+				if (SelectedDateTime < DateTime.Now)
+				{
+					await Shell.Current.DisplayAlert("Error", "You Can't Choose Past Date", "OK");
+					return;
+				}
+
+				EndedDateTime = CalculateEndTime();
+
+				if (EndedDateTime == DateTime.Now)
+				{
+					return;
+				}
+
+				var newBookingStart = SelectedDateTime.AddHours(3);
+				var newBookingEnd = EndedDateTime.AddHours(3);
+
+				//Check if the interval is available or not
+				if (!IsDateTimeAvailable(newBookingStart, newBookingEnd))
+				{
+					await Shell.Current.DisplayAlert("Conflict", $"Booking conflict from {newBookingStart.AddHours(-3)} to {newBookingEnd.AddHours(-3)}", "OK");
+					return;
+				}
+
+				var tempAuth = SupabaseConfig.SupabaseClient.Auth.CurrentUser;
+
+				CurrentUserId = Guid.Parse(tempAuth.Id);
+
+				var newBooking = new Booking
+				{
+					//BookingId = Guid.NewGuid(),
+					UserId = Guid.Parse(tempAuth.Id),
+					VenueId = VenueId,
+					StartDateTime = newBookingStart,
+					EndDateTime = newBookingEnd,
+					TotalPrice = SelectedVenue.InitialPrice,
+					CreatedAt = DateTime.UtcNow.AddHours(3),
+					UpdatedAt = DateTime.UtcNow.AddHours(3)
+				};
+
+				TotalPrice = newBooking.TotalPrice;
+
+				//SelectedBookingId = newBooking.BookingId;
+
+				var response = await SupabaseConfig.SupabaseClient.From<Booking>().Insert(newBooking);
+
+				var insertBooking = response.Model;
+
+				SelectedBookingId = insertBooking.BookingId;
+
+				if (response.ResponseMessage.IsSuccessStatusCode)
+				{
+					VenueBookings.Add(newBooking);
+					await Shell.Current.GoToAsync(nameof(Pages.ServicesToAdd));
+				}
+				else
+				{
+					await Shell.Current.DisplayAlert("Error", "Failed to create booking", "OK");
+				}
 			}
-
-			EndedDateTime = CalculateEndTime();
-
-			if (EndedDateTime == DateTime.Now) 
+			catch (Exception ex) 
 			{
-				return;
-			}
-
-			var newBookingStart = SelectedDateTime.AddHours(3);
-			var newBookingEnd = EndedDateTime.AddHours(3);
-			//await Shell.Current.DisplayAlert("Prompt", $"Selected date time value was {SelectedDateTime} To {newBookingEnd}", "OK");
-
-			//var newBookingStart = SelectedDateTime.AddHours(3);
-			//newBookingEnd = newBookingEnd.AddHours(3);
-
-			//Check if the interval is available or not
-			if (!IsDateTimeAvailable(newBookingStart, newBookingEnd))
-			{
-				await Shell.Current.DisplayAlert("Conflict", $"Booking conflict from {newBookingStart.AddHours(-3)} to {newBookingEnd.AddHours(-3)}", "OK");
-				return;
-			}
-
-			var tempAuth = SupabaseConfig.SupabaseClient.Auth.CurrentUser;
-
-			CurrentUserId = Guid.Parse(tempAuth.Id);
-
-			var newBooking = new Booking
-			{
-				//BookingId = Guid.NewGuid(),
-				UserId = Guid.Parse(tempAuth.Id),
-				VenueId = VenueId,
-				StartDateTime = newBookingStart,
-				EndDateTime = newBookingEnd,
-				TotalPrice = SelectedVenue.InitialPrice,
-				CreatedAt = DateTime.UtcNow.AddHours(3),  // Keep audit fields in UTC
-				UpdatedAt = DateTime.UtcNow.AddHours(3)
-			};
-
-			TotalPrice = newBooking.TotalPrice;
-
-			//SelectedBookingId = newBooking.BookingId;
-
-			var response = await SupabaseConfig.SupabaseClient.From<Booking>().Insert(newBooking);
-
-			var insertBooking = response.Model;
-
-			SelectedBookingId = insertBooking.BookingId;
-
-			await Shell.Current.DisplayAlert("The Booking Id", $"Booking Id {SelectedBookingId}", "OK");
-
-			if (response.ResponseMessage.IsSuccessStatusCode)
-			{
-				VenueBookings.Add(newBooking);
-				await Shell.Current.DisplayAlert("Success", "Booking created!", "OK");
-				await Shell.Current.DisplayAlert("Number of Services", $"{ServicesVenue.Count}", "OK");
-				await Shell.Current.GoToAsync(nameof(Pages.ServicesToAdd));
-			}
-			else
-			{
-				await Shell.Current.DisplayAlert("Error", "Failed to create booking", "OK");
+				await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
 			}
 		}
 
@@ -409,13 +405,6 @@ namespace HojozatyCode.ViewModels
 				{
 					SelectedVenue = venueData as Venue;
 
-<<<<<<< Updated upstream
-					await LoadHostRules();
-					await LoadServices();
-					await LoadBookingsAsync(SelectedVenue.VenueId);
-					await CheckFavoriteStatusAsync();
-                    await LoadLocationInfoAsync(); // Add this line to get the human-readable location
-=======
 					if (SelectedVenue != null)
 					{
 						if (SelectedVenue.IsFixedDuration != null 
@@ -431,12 +420,13 @@ namespace HojozatyCode.ViewModels
 						await LoadServices();
 						await LoadBookingsAsync(SelectedVenue.VenueId);
 						await CheckFavoriteStatusAsync(); // Add this line to check favorite status
+						await LoadLocationInfoAsync(); // Add this line to get the human-readable location
+
 					}
 				}
 				catch (Exception ex) 
 				{
 					await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
->>>>>>> Stashed changes
 				}
 			}
 		}
@@ -753,7 +743,7 @@ namespace HojozatyCode.ViewModels
 			catch (Exception ex)
 			{
 				// Log the error and fall back to coordinates or city name
-				Debug.WriteLine($"Error during reverse geocoding: {ex.Message}");
+				await Shell.Current.DisplayAlert("Error",$"Error during reverse geocoding: {ex.Message}" , "OK");
 				DisplayLocation = !string.IsNullOrEmpty(SelectedVenue.City) ? 
 					SelectedVenue.City : 
 					SelectedVenue.Location;
