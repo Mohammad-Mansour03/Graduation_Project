@@ -286,16 +286,15 @@
 
             <!-- Review Button -->
             <Button Text="Review"
-        BackgroundColor="#4F378A" 
-        TextColor="White" 
-        CornerRadius="25"
-        FontSize="Large"
-        HeightRequest="50"
-        WidthRequest="250"
-        Margin="0,30,0,30"
-        Command="{Binding NavigateToReviewPageCommand}"
-        HorizontalOptions="Center"/>
-
+             BackgroundColor="#4F378A" 
+             TextColor="White" 
+             CornerRadius="25"
+             FontSize="Large"
+              HeightRequest="50"
+             WidthRequest="250"
+             Margin="0,30,0,30"
+             Command="{Binding NavigateToReviewPageCommand}"
+             HorizontalOptions="Center"/>
 
         </VerticalStackLayout>
         
