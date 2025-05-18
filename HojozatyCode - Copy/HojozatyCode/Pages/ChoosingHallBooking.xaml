@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              xmlns:conv="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.ChoosingHallBooking"
-             Shell.TabBarIsVisible="False"
+             Shell.TabBarIsVisible="True"
              BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
@@ -88,7 +88,7 @@
                 </BoxView.Background>
             </BoxView>
 
-            <!-- Back Button -->
+             <!--Back Button--><!-- 
             <Button Style="{StaticResource IconButton}"
                     ImageSource="back_arrow.png"
                     HorizontalOptions="Start"
@@ -99,13 +99,15 @@
                         <Setter Property="Opacity" Value="0.6"/>
                     </Trigger>
                 </Button.Triggers>
-            </Button>
+            </Button>-->
 
             <!-- Favorite Button -->
             <Button
                  x:Name="FavoriteButton"
                     Style="{StaticResource HeartButton}"
-                    ImageSource="{Binding IsFavorite, Converter={StaticResource BoolToImageConverter2}, ConverterParameter='heartoutline.png,heartfilled.png'}"
+                    ImageSource="{Binding IsFavorite,
+                Converter={StaticResource BoolToImageConverter2}, 
+                ConverterParameter='heartoutline.png,heartfilled.png'}"
                      WidthRequest="32"
                       HeightRequest="32"
                      HorizontalOptions="End"
@@ -189,7 +191,10 @@
                         </VerticalStackLayout>
                     </Border>
 
-                    <!-- Features -->
+                    
+                    <!--I don't understand why you used this?????-->
+                    
+                    <!-- Features --><!--
                     <VerticalStackLayout Spacing="12">
                         <FlexLayout Wrap="Wrap" JustifyContent="Start" BindableLayout.ItemsSource="{Binding VenueFeatures}">
                             <BindableLayout.ItemTemplate>
@@ -207,7 +212,7 @@
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </FlexLayout>
-                    </VerticalStackLayout>
+                    </VerticalStackLayout>-->
 
                     <BoxView HeightRequest="1" Color="#E2E8F0" Margin="0,10"/>
 
