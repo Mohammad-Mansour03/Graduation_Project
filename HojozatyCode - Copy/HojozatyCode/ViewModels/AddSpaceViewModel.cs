@@ -216,6 +216,8 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task NavigateToSpaceInformationAsync()
 		{
+			ErrorMessage = string.Empty;
+
 			// Validate if at least one space type is selected
 			if (SelectedSpaceTypes.Count == 0)
 			{
@@ -231,6 +233,7 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task NavigateToSpacePicturesAsync()
 		{
+			ErrorMessage = string.Empty;
 			//Check if the Space name is null
 			if (String.IsNullOrEmpty(SpaceName))
 			{
@@ -345,6 +348,8 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task NavigateToServicesPageAsync()
 		{
+			ErrorMessage = string.Empty;
+
 			// Validate if at least one image is selected
 			if (!SelectedImages.Any(x => x != null))
 			{
@@ -394,13 +399,26 @@ namespace HojozatyCode.ViewModels
 
 		// Command to navigate to the SpacePoliciesPage
 		[RelayCommand]
-		private async Task NavigateToSpacePoliciesPageAsync() =>
-			await Shell.Current.GoToAsync(nameof(SpacePolicies));
+		private async Task NavigateToSpacePoliciesPageAsync()
+		{
+			ErrorMessage = string.Empty;
+
+			try
+			{
+				await Shell.Current.GoToAsync(nameof(SpacePolicies));
+			}
+			catch (Exception ex) 
+			{
+				await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+			}
+		}
 
 		// Command to navigate to the ReviewPage
 		[RelayCommand]
 		private async Task NavigateToReviewPageAsync()
 		{
+			ErrorMessage = string.Empty;
+
 			// Ensure we have the cancellation policy updated
 			await UpdateCancellationPolicyAsync(CurrentVenueId, SelectedPolicy);
 

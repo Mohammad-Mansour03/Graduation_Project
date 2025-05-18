@@ -10,6 +10,8 @@ public partial class ChoosingHallBooking : ContentPage
         BindingContext = vm;
     }
 
+    
+    //For Favourite Design 
     private async void FavoriteButton_Clicked(object sender, EventArgs e)
     {
         // Simple scaling animation for the "pop" effect

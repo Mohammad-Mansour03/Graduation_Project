@@ -92,15 +92,21 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		ObservableCollection<BookingService> bookingServices = new ObservableCollection<BookingService>();
 
+		//Property to store the Total Price for Booking
 		[ObservableProperty]
 		private double totalPrice;
 
+<<<<<<< Updated upstream
 		[ObservableProperty]
 		private string displayLocation;
+=======
+		//Property to deal which heart will appear to the user
+		[ObservableProperty]
+		private bool isFavorite;
+>>>>>>> Stashed changes
 
-
-        //To delete the service from booking
-        [RelayCommand]
+		//To delete the service from booking
+		[RelayCommand]
 		private async Task DeleteService(ServiceItem bookingService)
 		{
 			try
@@ -263,7 +269,8 @@ namespace HojozatyCode.ViewModels
 			OnPropertyChanged(nameof(SelectedDateTime));
 		}
 
-		//Command to load the all bookings that related to that venue and Store them inside the VenueBookings
+		//Command to load the all bookings that related to
+	   //that venue and Store them inside the VenueBookings
 		[RelayCommand]
 		public async Task LoadBookingsAsync(Guid venueId)
 		{
@@ -277,15 +284,6 @@ namespace HojozatyCode.ViewModels
 
 			if (response.Models != null)
 				VenueBookings = new ObservableCollection<Booking>(response.Models);
-
-			await Shell.Current.DisplayAlert("Prompt", "Inside The Load Bookings Async", "OK");
-
-			foreach (var book in VenueBookings) 
-			{
-				book.StartDateTime = book.StartDateTime.ToLocalTime();
-				book.EndDateTime = book.EndDateTime.ToLocalTime();
-				await Shell.Current.DisplayAlert("Prompt", $"{book.StartDateTime.AddHours(-3)} To {book.EndDateTime.AddHours(-3)}", "OK");
-			}
 
 		}
 
@@ -403,25 +401,42 @@ namespace HojozatyCode.ViewModels
 		//Method to deal with parameter that comes from another page
 		public async void ApplyQueryAttributes(IDictionary<string, object> query)
 		{
-			// نحصل على البيانات المرسلة باسم "SelectedVenue"
+			// We Get the recieved data and dealing with it as SelectedVenue
 			if (query.TryGetValue("SelectedVenue", out var venueData))
 			{
-				SelectedVenue = venueData as Venue;
 
-				if (SelectedVenue != null)
+				try
 				{
-					if (SelectedVenue.IsFixedDuration != null && SelectedVenue.IsFixedDuration == true)
-					{
-						HasFixedTime = false;
-					}
-					else
-						HasFixedTime = true;
+					SelectedVenue = venueData as Venue;
 
+<<<<<<< Updated upstream
 					await LoadHostRules();
 					await LoadServices();
 					await LoadBookingsAsync(SelectedVenue.VenueId);
 					await CheckFavoriteStatusAsync();
                     await LoadLocationInfoAsync(); // Add this line to get the human-readable location
+=======
+					if (SelectedVenue != null)
+					{
+						if (SelectedVenue.IsFixedDuration != null 
+							&& SelectedVenue.IsFixedDuration == true)
+						{
+							HasFixedTime = false;
+						}
+
+						else
+							HasFixedTime = true;
+
+						await LoadHostRules();
+						await LoadServices();
+						await LoadBookingsAsync(SelectedVenue.VenueId);
+						await CheckFavoriteStatusAsync(); // Add this line to check favorite status
+					}
+				}
+				catch (Exception ex) 
+				{
+					await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+>>>>>>> Stashed changes
 				}
 			}
 		}
@@ -441,7 +456,7 @@ namespace HojozatyCode.ViewModels
 
 				//Get Host Rules Id's related to this Venue 
 				var hostRulesVenues = await SupabaseConfig.SupabaseClient
-						   .From<HostRulesVenues>() // هذا يمثل الجدول الوسيط
+						   .From<HostRulesVenues>()
 						   .Where(x => x.VenueId == SelectedVenue.VenueId)
 						   .Get();
 
@@ -449,7 +464,6 @@ namespace HojozatyCode.ViewModels
 
 				if (hostRuleIds.Count == 0)
 				{
-					await Shell.Current.DisplayAlert("Prompt", $"The Count of Host rules was {hostRuleIds.Count}", "OK");
 					HostRulesVenue = new ObservableCollection<HostRules>();
 					return;
 				}
@@ -466,6 +480,7 @@ namespace HojozatyCode.ViewModels
 				}
 
 				OnPropertyChanged(nameof(HasHostRules));
+
 				OnPropertyChanged(nameof(NoHostRules));
 
 			}
@@ -475,7 +490,8 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-		//Method to load the all Services that related to the Venue and stored them inside the ServicesVenue
+		//Method to load the all Services that
+		//related to the Venue and stored them inside the ServicesVenue
 		private async Task LoadServices()
 		{
 			try
@@ -488,9 +504,9 @@ namespace HojozatyCode.ViewModels
 
 				ServicesVenue.Clear();
 
-				//Get Host Rules Id's related to this Venue 
+				//Get Services Id's related to this Venue 
 				var servicesVenues = await SupabaseConfig.SupabaseClient
-						   .From<VenueServices>() // هذا يمثل الجدول الوسيط
+						   .From<VenueServices>() 
 						   .Where(x => x.VenueId == SelectedVenue.VenueId)
 						   .Get();
 
@@ -498,7 +514,6 @@ namespace HojozatyCode.ViewModels
 
 				if (serviceVenueId.Count == 0)
 				{
-					await Shell.Current.DisplayAlert("Prompt", $"The Count of Services was {serviceVenueId.Count}", "OK");
 					ServicesVenue = new ObservableCollection<ServiceItem>();
 					return;
 				}
@@ -506,29 +521,31 @@ namespace HojozatyCode.ViewModels
 
 				var serviceDisplayList = new ObservableCollection<ServiceItem>();
 
-				// Step 2: Get the HostRules based on these IDs
+				// Step 2: Get the Services based on these IDs (To return their information from Service Table )
 				foreach (var serviceId in serviceVenueId)
 				{
 					var serviceForId = await SupabaseConfig.SupabaseClient
 									.From<Service>()
 									.Where(x => x.ServiceId == serviceId.ServiceId)
-									.Get();
+									.Single();
 
-					if (serviceForId.Model != null)
+					if (serviceForId != null)
 					{
 						serviceDisplayList.Add(new ServiceItem
 						{
-							Name = serviceForId.Model.ServiceName,
-							Description = serviceForId.Model.Description,
-							Price = serviceId.PricePerUnit, // نأخذ السعر من الجدول الوسيط
+							Name = serviceForId.ServiceName,
+							Description = serviceForId.Description,
+							Price = serviceId.PricePerUnit, 
 							ServiceId = serviceId.ServiceId,
 						});
 					}
 				}
+
 				ServicesVenue = serviceDisplayList;
 
 
 				OnPropertyChanged(nameof(HasServices));
+
 				OnPropertyChanged(nameof(NoServices));
 
 			}
@@ -542,7 +559,14 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task GoToBookingCalendarPage() 
 		{
-			await Shell.Current.GoToAsync(nameof(Pages.BookingCalendarPage));	
+			try
+			{
+				await Shell.Current.GoToAsync(nameof(Pages.BookingCalendarPage));
+			}
+			catch (Exception ex) 
+			{
+				await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+			}
 		}
 
 
@@ -556,9 +580,7 @@ namespace HojozatyCode.ViewModels
 
 
 
-		[ObservableProperty]
-		private bool isFavorite;
-
+		//Command to deal with Favourite Venues
 		[RelayCommand]
 		public async Task ToggleFavorite()
 		{
@@ -567,6 +589,7 @@ namespace HojozatyCode.ViewModels
 			try
 			{
 				var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
+
 				if (session == null || session.User == null)
 				{
 					await Shell.Current.DisplayAlert("Error", "Please login to add favorites", "OK");
@@ -590,7 +613,7 @@ namespace HojozatyCode.ViewModels
 						.Delete();
 
 					IsFavorite = false;
-					await Shell.Current.DisplayAlert("Success", "Removed from favorites", "OK");
+					await Shell.Current.DisplayAlert("Success", "The Venue Removed from your favorites", "OK");
 				}
 				else
 				{
@@ -607,7 +630,7 @@ namespace HojozatyCode.ViewModels
 						.Insert(newFavorite);
 
 					IsFavorite = true;
-					await Shell.Current.DisplayAlert("Success", "Added to favorites", "OK");
+					await Shell.Current.DisplayAlert("Success", "The Venue Added to your favorites", "OK");
 				}
 			}
 			catch (Exception ex)
@@ -622,6 +645,7 @@ namespace HojozatyCode.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(Pages.HomePage));
         }
+
         // Method to check if this venue is already a favorite
         private async Task CheckFavoriteStatusAsync()
 		{
@@ -647,7 +671,7 @@ namespace HojozatyCode.ViewModels
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine($"Error checking favorite status: {ex.Message}");
+				await Shell.Current.DisplayAlert("Error",$"Error checking favorite status: {ex.Message}" , "OK");
 				IsFavorite = false;
 			}
 		}
