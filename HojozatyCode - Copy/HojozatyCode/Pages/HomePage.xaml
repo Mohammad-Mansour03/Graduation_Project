@@ -32,9 +32,10 @@
                 </VerticalStackLayout>
 
                 <!--Notification-->
-                       <HorizontalStackLayout Spacing="10" 
-                       VerticalOptions="Start" 
-                       HorizontalOptions="End">
+                <HorizontalStackLayout Spacing="10" 
+                                       VerticalOptions="Start" 
+                                       HorizontalOptions="End">
+
 
                     <!--
                  <ImageButton Source="notification_icon.png" 
@@ -45,16 +46,12 @@
                         -->
 
                     <!-- Account Button -->
-                    <Border StrokeShape="RoundRectangle 10"
-                      BackgroundColor="#4F378A"
-                     Padding="6"
-                     Margin="10,10,0,0">
-                        <ImageButton Source="account_icon.png" 
+                    
+                     <ImageButton Source="account_icon.png" 
                      HeightRequest="30" 
                      WidthRequest="30"
-                     BackgroundColor="Transparent"
                      Command="{Binding GoToAccountCommand}" />
-                    </Border>
+                   
 
                 </HorizontalStackLayout>
             </Grid>
