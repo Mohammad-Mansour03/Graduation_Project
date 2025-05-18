@@ -46,30 +46,20 @@ namespace HojozatyCode.ViewModels
             IsLoading = false;
             
             _isInitialized = true;
-        }        [RelayCommand]
-        public async Task RefreshFavorites()
-        {
-            // Prevent refresh if already loading
-            if (IsLoading || _isLoadingData) 
-            {
-                Debug.WriteLine("RefreshFavorites - Already loading data, ignoring this refresh");
-                return;
-            }
-            
-            IsLoading = true;
-            await LoadFavoritesAsync();
-            IsLoading = false;
-        }public async Task LoadFavoritesAsync()
+        }     
+        
+        
+        public async Task LoadFavoritesAsync()
         {
             // Prevent concurrent loads by checking the _isLoadingData flag
-            if (_isLoadingData) 
+            if (_isLoadingData)
             {
                 Debug.WriteLine("LoadFavoritesAsync - Already loading data, skipping this call");
                 return;
             }
-            
+
             _isLoadingData = true;
-            
+
             try
             {
                 if (SupabaseConfig.SupabaseClient == null)
@@ -79,6 +69,7 @@ namespace HojozatyCode.ViewModels
 
                 // Get current user ID
                 var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
+              
                 if (session == null || session.User == null)
                 {
                     ErrorMessage = "No user is logged in";
@@ -132,16 +123,17 @@ namespace HojozatyCode.ViewModels
                 }
 
                 IsEmpty = FavoriteVenues.Count == 0;
-            }            catch (Exception ex)
+            }  
+            
+            catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading favorites: {ex.Message}");
+               await Shell.Current.DisplayAlert("Error",$"Error loading favorites: {ex.Message}","OK");
                 ErrorMessage = "Failed to load favorites. Please try again.";
             }
             finally
             {
                 // Always release the lock
                 _isLoadingData = false;
-                Debug.WriteLine("LoadFavoritesAsync - Finished loading data");
             }
         }
 
@@ -188,7 +180,6 @@ namespace HojozatyCode.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error removing favorite: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error", "Failed to remove venue from favorites", "OK");
             }
         }

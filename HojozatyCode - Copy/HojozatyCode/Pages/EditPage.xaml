@@ -28,24 +28,24 @@
                            HasShadow="False"
                            Padding="0"
                            IsClippedToBounds="True"
-                          HorizontalOptions="Center"
-                     VerticalOptions="Center"
-                     HeightRequest="120"
-                     WidthRequest="120">
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         HeightRequest="120"
+                         WidthRequest="120">
+                        
                         <!-- Venue Image -->
-                        <Image Source="{Binding ImageUrls[0]}"
-                          Aspect="AspectFill"
-                          HorizontalOptions="Fill"
-                          VerticalOptions="Fill" />
-                            </Frame>
+                        <Image Source="{Binding ImageUrl}"
+                               Aspect="AspectFill"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill" />
+                    </Frame>
 
                     <Image Source="camera.png"
-           HeightRequest="26"
-           WidthRequest="26"
-           HorizontalOptions="End"
-           VerticalOptions="End"
-           Margin="4"/>
-
+                           HeightRequest="26"
+                           WidthRequest="26"
+                           HorizontalOptions="End"
+                           VerticalOptions="End"
+                           Margin="4"/>
                 </Grid>
 
                 <Label Text="Edit Venue Details"
@@ -180,7 +180,14 @@
                 </VerticalStackLayout>
             </Frame>
 
-    
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}" 
+                    FontSize="14" 
+                    TextColor="Red" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" 
+                    IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+
             <!-- Buttons -->
             <Grid Padding="0" HorizontalOptions="Center">
                 <HorizontalStackLayout Spacing="15"
@@ -224,7 +231,7 @@
                  HeightRequest="40"
                    WidthRequest="170"
                  Command="{Binding DeleteVenueEditCommand}"
-             CommandParameter="{Binding Venue}"/>
+                 CommandParameter="{Binding Venue}"/>
             </VerticalStackLayout>
             </Grid>
             

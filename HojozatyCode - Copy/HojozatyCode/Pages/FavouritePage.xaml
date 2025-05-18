@@ -31,6 +31,7 @@
                              VerticalOptions="Center"
                              HorizontalOptions="Center"
                              Spacing="20">
+            
             <Image Source="heart_outline.png" 
                    HeightRequest="120" 
                    WidthRequest="120"
@@ -48,10 +49,7 @@
         </VerticalStackLayout>
 
         <!-- Favorites List -->
-        <RefreshView Grid.Row="1" 
-                     Command="{Binding RefreshFavoritesCommand}"
-                     IsRefreshing="{Binding IsLoading}"
-                     IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBoolConverter}}">
+  
             <CollectionView ItemsSource="{Binding FavoriteVenues}"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
@@ -144,7 +142,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </RefreshView>
 
         <!-- Error message -->
         <Label Grid.Row="1"

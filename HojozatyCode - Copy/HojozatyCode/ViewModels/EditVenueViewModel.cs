@@ -16,7 +16,6 @@ namespace HojozatyCode.ViewModels
 
 	public partial class EditVenueViewModel : ObservableObject , IQueryAttributable
 	{
-		
 
 		[ObservableProperty]
 		private Venue venue;
@@ -61,10 +60,13 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string city;	
 		
-		//Properety to sotre the venue city 
+		//Properety to sotre the venue Image 
 		[ObservableProperty]
 		private string imageUrl;
 
+		//Property to store the ErrorMessage
+		[ObservableProperty]
+		private string errorMessage;
 
 		public void ApplyQueryAttributes(IDictionary<string, object> query)
 		{
@@ -72,7 +74,7 @@ namespace HojozatyCode.ViewModels
 			{
 				Venue = venueToEdit;
 
-				// ننسخ القيم إلى الخصائص الأخرى لعرضها وتحريرها
+				// Copy the Values inside my properties
 				VenueName = Venue.VenueName;
 				VenuePhone = Venue.VenueContactPhone;
 				VenueEmail = Venue.VenueEmail;
@@ -94,13 +96,13 @@ namespace HojozatyCode.ViewModels
 
 				if (!IsValidEmail(VenueEmail))
 				{
-					await Shell.Current.DisplayAlert("Error", "Please Enter Valid Email", "Ok");
+					ErrorMessage ="Please Enter Valid Email";
 					return;
 				}
 
 				if (!IsValidPhone(VenuePhone)) 
 				{
-					await Shell.Current.DisplayAlert("Error", "Please Enter Valid Phone", "Ok");
+					ErrorMessage = "Please Enter Valid Phone";
 					return;
 				}
 
@@ -128,7 +130,7 @@ namespace HojozatyCode.ViewModels
 				if (response != null)
 				{
 					await Shell.Current.DisplayAlert("Success", "Profile updated successfully!", "OK");
-					await Shell.Current.GoToAsync(nameof(Pages.MySpace));
+					await Shell.Current.GoToAsync("//MySpace");
 				}
 
 			}
@@ -156,8 +158,17 @@ namespace HojozatyCode.ViewModels
 		{
 			var client = SupabaseConfig.SupabaseClient;
 
+			bool isConfirmed = await Shell.Current.DisplayAlert(
+			  "Delete Confirmation",
+			 $"Are your sure you want to delete : {venue.VenueName}",
+			  "Yes", "No");
+
+			if (!isConfirmed)
+				return;
+
 			try
 			{
+
 				await SupabaseConfig.SupabaseClient
 							   .From<Venue>()
 							   .Where(v => v.VenueId == venue.VenueId)
@@ -165,7 +176,7 @@ namespace HojozatyCode.ViewModels
 
 				await Shell.Current.DisplayAlert("Done", $"Your Venue Deleted Successfully", "OK");
 
-				await Shell.Current.GoToAsync(nameof (Pages.MySpace));	
+				await Shell.Current.GoToAsync("//MySpace");	
 
 			}
 			catch (Exception ex)

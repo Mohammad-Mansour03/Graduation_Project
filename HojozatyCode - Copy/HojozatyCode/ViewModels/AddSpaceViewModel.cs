@@ -19,7 +19,6 @@ namespace HojozatyCode.ViewModels
 	{
 		private readonly Client _supabaseClient;
 
-	
 		//(SpaceSelcetion Page)
 		//Collection Properety to sotre Collection of spaces types the user
 		//Can choose for one space

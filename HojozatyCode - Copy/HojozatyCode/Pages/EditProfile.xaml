@@ -225,6 +225,14 @@
                                Text="{Binding ConfirmNewPassword}"/>
                     </Border>
 
+                    <!-- Error Message -->
+                    <Label Text="{Binding ErrorMessage}" 
+                            FontSize="14" 
+                            TextColor="Red" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+                    
                     <Button Text="CHANGE PASSWORD"
                             BackgroundColor="Transparent"
                             TextColor="#4F378A"

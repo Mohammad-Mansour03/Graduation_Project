@@ -12,8 +12,13 @@ namespace HojozatyCode.ViewModels
         [ObservableProperty]
         ObservableCollection<Venue> homeVenues = new ();
 
+        private bool _hasLoaded = false;
 		public async Task LoadVenues()
 		{
+            if (_hasLoaded)
+                return;
+
+            _hasLoaded = true;
 
 			string[] types = { "Wedding", "Meeting", "Funeral", "Photography", "Cultural Events", "Entertainment", "Sports" };
 

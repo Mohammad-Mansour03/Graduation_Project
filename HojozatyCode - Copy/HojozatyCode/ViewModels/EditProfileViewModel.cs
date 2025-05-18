@@ -43,20 +43,25 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string gender;
 
+		//Properety to store the Current Password
 		[ObservableProperty]
 		private string currentPassword;
 
+		//Properety to store the New Password
 		[ObservableProperty]
 		private string newPassword;
 
+		//Properety to store the Confirm Password
 		[ObservableProperty]
 		private string confirmNewPassword;
 
+		[ObservableProperty]
+		private string errorMessage;
+
+		//Command To deal with change Password
 		[RelayCommand]
 		private async Task ChangePassword() 
 		{
-			await Shell.Current.DisplayAlert("Prompt", "Inside the Change Password Method", "OK");
-
 			try
 			{
 				var client = SupabaseConfig.SupabaseClient;
@@ -67,19 +72,19 @@ namespace HojozatyCode.ViewModels
 					|| string.IsNullOrWhiteSpace(NewPassword)
 					|| string.IsNullOrWhiteSpace(ConfirmNewPassword)) 
 				{
-					await Shell.Current.DisplayAlert("Error", "Please fill in all password fields.", "OK");
+					ErrorMessage = "Please fill in all password fields.";
 					return;
 				}
 
 				if (NewPassword.Length < 8) 
 				{
-					await Shell.Current.DisplayAlert("Error", "Password must be at least 8 characters.", "OK");
+					ErrorMessage = "Password must be at least 8 characters.";
 					return;
 				}
 
 				if (NewPassword != ConfirmNewPassword)
 				{
-					await Shell.Current.DisplayAlert("Error", "New passwords do not match.", "OK");
+					ErrorMessage = "New passwords do not match.";
 					return;
 				}
 
@@ -107,6 +112,7 @@ namespace HojozatyCode.ViewModels
 				if (result != null && result.UserMetadata != null)
 				{
 					await Shell.Current.DisplayAlert("Success", "Password changed successfully.", "OK");
+					ErrorMessage = string.Empty;
 				}
 				else
 				{
@@ -115,11 +121,9 @@ namespace HojozatyCode.ViewModels
 			}
 			catch (Exception ex)
 			{
-				await Shell.Current.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+				await Shell.Current.DisplayAlert("Error", $"An error occurred: {ex.Message}\nWrong Password", "OK");
 			}
 		}
-
-
 
 		//The Constructor to make fitching for user data
 		public EditProfileViewModel()
@@ -196,6 +200,7 @@ namespace HojozatyCode.ViewModels
 				if (response != null)
 				{
 					await Shell.Current.DisplayAlert("Success", "Profile updated successfully!", "OK");
+					await Shell.Current.GoToAsync("//Account");
 				}
 			}
 			catch (Exception ex)
@@ -215,7 +220,7 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task CloseEditProfile() 
 		{
-			await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+			await Shell.Current.GoToAsync("//Home");
 		}
 	}
 }

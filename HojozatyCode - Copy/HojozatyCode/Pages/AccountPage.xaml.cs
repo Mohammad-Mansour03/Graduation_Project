@@ -10,11 +10,8 @@ public partial class AccountPage : ContentPage
 		BindingContext = new AccountPageViewModel();
 	}
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
 
-    }
-
+    //For Click Button Design
     private async void OnBorderTapped(object sender, EventArgs e)
     {
         var border = sender as Border;
@@ -24,10 +21,6 @@ public partial class AccountPage : ContentPage
         await border.ScaleTo(0.95, 80, Easing.CubicIn);
         await border.ScaleTo(1.0, 80, Easing.CubicOut);
          
-        //// Execute command (optional)
-        //if (BindingContext is AccountPageViewModel vm && vm.GoToMySpaceCommand?.CanExecute(null) == true)
-        //{
-        //    vm.GoToMySpaceCommand.Execute(null);
-        //}
+
     }
 }

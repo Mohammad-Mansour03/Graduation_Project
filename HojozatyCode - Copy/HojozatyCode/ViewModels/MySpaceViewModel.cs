@@ -91,7 +91,7 @@ namespace HojozatyCode.ViewModels
             if (venue == null)
                 return;
 
-            // تأكيد الحذف من المستخدم
+            //Prompt for user to resure the delete
             bool isConfirmed = await Shell.Current.DisplayAlert(
                 "Delete Confirmation",
                $"Are your sure you want to delete : {venue.VenueName}",
