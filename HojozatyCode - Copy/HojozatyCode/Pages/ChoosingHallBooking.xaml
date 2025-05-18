@@ -171,9 +171,9 @@
                         <VerticalStackLayout Spacing="12">
                             <HorizontalStackLayout Spacing="8">
                                 <Image Source="location.png" HeightRequest="18" WidthRequest="18"/>
-                                <Label Text="{Binding SelectedVenue.Location}" FontSize="14" FontFamily="Montserrat-Medium" TextColor="#4A5568"/>
+                                <Label Text="{Binding DisplayLocation}" FontSize="14" FontFamily="Montserrat-Medium" TextColor="#4A5568"/>
                             </HorizontalStackLayout>
-
+                            
                             <BoxView HeightRequest="1" Color="#CBD5E0" Margin="0,8"/>
 
                             <Grid ColumnDefinitions="*,*">

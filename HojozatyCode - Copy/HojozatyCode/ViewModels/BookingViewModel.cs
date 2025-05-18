@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
 using Microsoft.Maui.Devices;
+using Microsoft.Maui.Devices.Sensors;
 using Supabase.Interfaces;
 using System;
 using System.Collections.ObjectModel;
@@ -94,7 +95,8 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private double totalPrice;
 
-      
+		[ObservableProperty]
+		private string displayLocation;
 
 
         //To delete the service from booking
@@ -418,7 +420,8 @@ namespace HojozatyCode.ViewModels
 					await LoadHostRules();
 					await LoadServices();
 					await LoadBookingsAsync(SelectedVenue.VenueId);
-					await CheckFavoriteStatusAsync(); // Add this line to check favorite status
+					await CheckFavoriteStatusAsync();
+                    await LoadLocationInfoAsync(); // Add this line to get the human-readable location
 				}
 			}
 		}
@@ -646,6 +649,90 @@ namespace HojozatyCode.ViewModels
 			{
 				Debug.WriteLine($"Error checking favorite status: {ex.Message}");
 				IsFavorite = false;
+			}
+		}
+
+		private async Task LoadLocationInfoAsync()
+		{
+			if (SelectedVenue == null || string.IsNullOrEmpty(SelectedVenue.Location))
+			{
+				DisplayLocation = "Location unavailable";
+				return;
+			}
+			
+			try
+			{
+				// Parse the location string assuming format is "latitude,longitude"
+				var parts = SelectedVenue.Location.Split(',');
+				if (parts.Length != 2 || !double.TryParse(parts[0], out double latitude) || 
+					!double.TryParse(parts[1], out double longitude))
+				{
+					// If not in expected format, just display the raw value
+					DisplayLocation = SelectedVenue.Location;
+					return;
+				}
+				
+				// Use MAUI Geocoding
+				var geocoder = Microsoft.Maui.Devices.Sensors.Geocoding.Default;
+				var placemarks = await geocoder.GetPlacemarksAsync(latitude, longitude);
+				var placemark = placemarks?.FirstOrDefault();
+				
+				if (placemark != null)
+				{
+					// Format the address in a more detailed, readable way
+					var addressParts = new List<string>();
+					
+					// Street-level details
+					if (!string.IsNullOrEmpty(placemark.SubThoroughfare))
+						addressParts.Add(placemark.SubThoroughfare);
+						
+					if (!string.IsNullOrEmpty(placemark.Thoroughfare))
+						addressParts.Add(placemark.Thoroughfare);
+					
+					// Neighborhood/district
+					if (!string.IsNullOrEmpty(placemark.SubLocality))
+						addressParts.Add(placemark.SubLocality);
+						
+					// City
+					if (!string.IsNullOrEmpty(placemark.Locality))
+						addressParts.Add(placemark.Locality);
+					
+					// County/district
+					if (!string.IsNullOrEmpty(placemark.SubAdminArea) && placemark.SubAdminArea != placemark.Locality)
+						addressParts.Add(placemark.SubAdminArea);
+						
+					// State/province
+					if (!string.IsNullOrEmpty(placemark.AdminArea))
+						addressParts.Add(placemark.AdminArea);
+						
+					// Build the display string
+					DisplayLocation = string.Join(", ", addressParts.Where(p => !string.IsNullOrEmpty(p)));
+					
+					// Fallbacks if we couldn't build a good address
+					if (string.IsNullOrEmpty(DisplayLocation))
+						DisplayLocation = !string.IsNullOrEmpty(placemark.CountryName) ? 
+							placemark.CountryName : 
+							SelectedVenue.Location;
+							
+					// Add postal code as additional information if available
+					if (!string.IsNullOrEmpty(placemark.PostalCode))
+						DisplayLocation += $" {placemark.PostalCode}";
+				}
+				else
+				{
+					// Try to use the City field from the Venue if available
+					DisplayLocation = !string.IsNullOrEmpty(SelectedVenue.City) ? 
+						SelectedVenue.City : 
+						SelectedVenue.Location;
+				}
+			}
+			catch (Exception ex)
+			{
+				// Log the error and fall back to coordinates or city name
+				Debug.WriteLine($"Error during reverse geocoding: {ex.Message}");
+				DisplayLocation = !string.IsNullOrEmpty(SelectedVenue.City) ? 
+					SelectedVenue.City : 
+					SelectedVenue.Location;
 			}
 		}
 	}
