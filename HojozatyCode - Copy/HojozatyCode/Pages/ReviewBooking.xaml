@@ -159,6 +159,16 @@
            FontSize="16"
         HeightRequest="50"
         Clicked="OnPayWithCardClicked"
+        Margin="0,12,0,12"/>     
+            
+            <Button Text="Cancel Booking"
+        BackgroundColor="#4F378A"
+        TextColor="White"
+          FontAttributes="Bold"
+        CornerRadius="12"
+           FontSize="16"
+        HeightRequest="50"
+        Command="{Binding CancelBookingCommand}"
         Margin="0,12,0,12"/>
             
         </VerticalStackLayout>

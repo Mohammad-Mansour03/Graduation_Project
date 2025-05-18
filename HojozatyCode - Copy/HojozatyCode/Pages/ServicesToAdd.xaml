@@ -126,7 +126,19 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <!-- Services List -->
+                <!-- Fixed Next Button -->
+                <Button Text="Next"
+            Grid.Row="1"
+            Margin="20"
+            BackgroundColor="#4F378A"
+            TextColor="White"
+            CornerRadius="12"
+            FontAttributes="Bold"
+            FontSize="16"
+            HeightRequest="50"
+            Command="{Binding GoToReviewBookingCommand}"/>
+                
+                <!--Services List--> 
                 <CollectionView ItemsSource="{Binding BookingServices}"
                                 IsVisible="{Binding HasServices}"
                                 SelectionMode="None"
@@ -145,21 +157,21 @@
                                       ColumnDefinitions="*,Auto"
                                       Padding="20">
 
-                                    <!-- Service Name -->
+                                     <!--Service Name--> 
                                     <Label Text="{Binding Name}"
                                            Grid.Row="0" Grid.Column="0"
                                            FontSize="20"
                                            FontAttributes="Bold"
                                            TextColor="#2A1B4D" />
 
-                                    <!-- Service Description -->
+                                     <!--Service Description--> 
                                     <Label Text="{Binding Quantity}"
                                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                            FontSize="14"
                                            TextColor="#6B7280"
                                            Margin="0,8,0,0"/>
 
-                                    <!-- Price -->
+                                     <!--Price--> 
                                     <Label Text="{Binding TotalPrice, StringFormat='{0} JOD'}"
                                            Grid.Row="2" Grid.Column="0"
                                            FontSize="18"
@@ -168,7 +180,7 @@
                                            Margin="0,12,0,0"/>
 
 
-                                    <!-- Select Button -->
+                                     <!--Select Button--> 
                                     <Button Text="Delete Service"
                                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                             Margin="0,20,0,0"
@@ -179,7 +191,7 @@
                                             FontSize="16"
                                             HeightRequest="50"
                                             Padding="0"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=DeleteService}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=DeleteServiceCommand}"
                                             CommandParameter="{Binding .}"/>
                                 </Grid>
                             </Border>
@@ -189,22 +201,13 @@
 
 
 
-                <!-- Fixed Next Button -->
-                <Button Text="Next"
-                Grid.Row="1"
-                Margin="20"
-                BackgroundColor="#4F378A"
-                TextColor="White"
-                CornerRadius="12"
-                FontAttributes="Bold"
-                FontSize="16"
-                HeightRequest="50"
-                Command="{Binding GoToReviewBookingCommand}"/>
+
             </VerticalStackLayout>
+            
         </ScrollView>
     </Grid>
 
-    
+  
     <!-- Resources -->
     <ContentPage.Resources>
         <ResourceDictionary>

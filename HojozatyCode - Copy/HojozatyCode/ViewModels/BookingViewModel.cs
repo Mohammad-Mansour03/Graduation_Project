@@ -106,7 +106,7 @@ namespace HojozatyCode.ViewModels
 
 		//To delete the service from booking
 		[RelayCommand]
-		private async Task DeleteService(ServiceItem bookingService)
+		private async Task DeleteService(BookingService bookingService)
 		{
 			try
 			{
@@ -122,20 +122,11 @@ namespace HojozatyCode.ViewModels
 					.Where(b => b.BookingId == SelectedBookingId)
 					.Get();
 
-				TotalPrice = booking.Model.TotalPrice -= (bookingService.Price * bookingService.Quantity);
+				TotalPrice = booking.Model.TotalPrice -= (bookingService.TotalPrice);
 				await booking.Model.Update<Booking>();
 
-				var tempBookingService = new BookingService
-				{
-					ServiceId = bookingService.ServiceId,
-					BookingId = SelectedBookingId,
-					Quantity = bookingService.Quantity,
-					TotalPrice = bookingService.Price,
-					Name = bookingService.Name
-				};
-		
 				// 3. Remove from local collection
-				BookingServices.Remove(tempBookingService);
+				BookingServices.Remove(bookingService);
 
 				await Shell.Current.DisplayAlert("Success", "Service removed from booking", "OK");
 			}
@@ -247,7 +238,7 @@ namespace HojozatyCode.ViewModels
 				service.Quantity = 0;
 				
 			}
-            catch (FileLoadException ex)
+            catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
             }
@@ -564,8 +555,40 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task GoToReviewBooking() 
 		{
-			await Shell.Current.DisplayAlert("Prompt", $"Date Time {SelectedDateTime}", "OK");
-			await Shell.Current.GoToAsync(nameof(Pages.ReviewBooking));			
+			try
+			{
+				await Shell.Current.GoToAsync(nameof(Pages.ReviewBooking));
+			}
+			catch (Exception ex) 
+			{
+				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+			}
+		}
+
+		[RelayCommand]
+		private async Task CancelBooking()
+		{
+			try
+			{
+
+				bool isCancelled = await Shell.Current.DisplayAlert("Warning", "Are you sure you want to cancel your booking", "Yes", "NO");
+
+				if (isCancelled)
+				{
+					await SupabaseConfig.SupabaseClient
+					.From<Booking>()
+					.Where(v => v.BookingId == SelectedBookingId)
+					.Delete();
+
+
+					await Shell.Current.GoToAsync("//Home");
+				}
+
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", $"Failed to cancel booking: {ex.Message}", "OK");
+			}
 		}
 
 
@@ -633,7 +656,14 @@ namespace HojozatyCode.ViewModels
         [RelayCommand]
         private async Task HomeClicked()
         {
-            await Shell.Current.GoToAsync(nameof(Pages.HomePage));
+			try
+			{
+				await Shell.Current.GoToAsync("//Home");
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+			}
         }
 
         // Method to check if this venue is already a favorite
