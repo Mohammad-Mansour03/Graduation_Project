@@ -189,7 +189,14 @@ namespace HojozatyCode.ViewModels
 		[RelayCommand]
 		private async Task CloseEdit()
 		{
-			await Shell.Current.GoToAsync(nameof(Pages.MySpace));
+			try
+			{
+				await Shell.Current.GoToAsync("//MySpace");
+			}
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+			}
 		}
 	}
 }
