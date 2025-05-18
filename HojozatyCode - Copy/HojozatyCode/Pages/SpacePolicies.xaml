@@ -20,92 +20,110 @@
 
             <!-- Cancellation Policy Section -->
             <Label Text="Cancellation Policy"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="Black"
-                   Margin="0,10,0,0"/>
+       FontSize="24"
+       FontAttributes="Bold"
+       TextColor="Black"
+       Margin="0,10,0,0"/>
 
-            
-            <Grid ColumnDefinitions="*,Auto">
-               
-                <!--Flexible Cancellation Policy-->
-                <Border Stroke="Black" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50">
-                
-                    <Entry Text="Flexible 100% of reservation money will be reatined to the user"
-                           IsReadOnly="True" 
-                           Margin="5"
-                           TextColor="Black"/>
-                
-                </Border>
-                
-                <!--Flexible Cancellation Policy Radio button-->
-                <RadioButton x:Name="FlexibleRadioButton"
-                     GroupName="CancellationPolicy"
-                     IsChecked="{Binding SelectedPolicy, 
-                                Mode=TwoWay, Converter={StaticResource StringToBoolConverter}, 
-                                ConverterParameter=Flexible}"
-                     Grid.Column="1" 
-                     VerticalOptions="Center"
-                    />
+            <VerticalStackLayout Spacing="12">
 
-            </Grid>
+                <!-- Flexible Policy -->
+                <Frame BorderColor="Black"
+           CornerRadius="15"
+           Padding="15"
+           HasShadow="False"
+           BackgroundColor="White">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Flexible"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       TextColor="Black"/>
+                            <Label Text="The guest receives a full refund."
+                       FontSize="14"
+                       TextColor="Red"
+                       LineBreakMode="WordWrap"/>
+                            <Label Text="You will not keep any part of the payment if the guest cancels."
+                       FontSize="12"
+                       TextColor="Red"
+                       LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                        <RadioButton x:Name="FlexibleRadioButton"
+                         GroupName="CancellationPolicy"
+                         IsChecked="{Binding SelectedPolicy, 
+                                     Mode=TwoWay, 
+                                     Converter={StaticResource StringToBoolConverter}, 
+                                     ConverterParameter=Flexible}"
+                         Grid.Column="1"
+                         VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
+                <!-- Moderate Policy -->
+                <Frame BorderColor="Black"
+           CornerRadius="15"
+           Padding="15"
+           HasShadow="False"
+           BackgroundColor="White">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Moderate"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       TextColor="Black"/>
+                            <Label Text="The guest receives a 50% refund."
+                       FontSize="14"
+                       TextColor="Red"
+                       LineBreakMode="WordWrap"/>
+                            <Label Text="You will keep half of the reservation amount if the guest cancels."
+                       FontSize="12"
+                       TextColor="Red"
+                       LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                        <RadioButton x:Name="ModerateRadioButton"
+                         GroupName="CancellationPolicy"
+                         IsChecked="{Binding SelectedPolicy, 
+                                     Mode=TwoWay, 
+                                     Converter={StaticResource StringToBoolConverter}, 
+                                     ConverterParameter=Moderate}"
+                         Grid.Column="1"
+                         VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-            <Grid ColumnDefinitions="*,Auto">
-                
-                <!--Moderate Canclleation Policy-->
-                <Border Stroke="Black"
-                        StrokeShape="RoundRectangle 15"
-                        HeightRequest="50">
+                <!-- Strict Policy -->
+                <Frame BorderColor="Black"
+           CornerRadius="15"
+           Padding="15"
+           HasShadow="False"
+           BackgroundColor="White">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Strict"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       TextColor="Black"/>
+                            <Label Text="The guest receives only 30% back."
+                       FontSize="14"
+                       TextColor="Red"
+                       LineBreakMode="WordWrap"/>
+                            <Label Text="You will keep 70% of the payment if the guest cancels."
+                       FontSize="12"
+                       TextColor="Red"
+                       LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                        <RadioButton x:Name="StrictRadioButton"
+                         GroupName="CancellationPolicy"
+                         IsChecked="{Binding SelectedPolicy, 
+                                     Mode=TwoWay, 
+                                     Converter={StaticResource StringToBoolConverter}, 
+                                     ConverterParameter=Strict}"
+                         Grid.Column="1"
+                         VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
 
-                    <Entry Text="Moderate 50% of reservation money will be reatined to the user" 
-                           IsReadOnly="True"
-                           Margin="5"
-                           TextColor="Black"/>
-                
-                </Border>
-                
-                <!--Moderate Radio Button-->
-                <RadioButton x:Name="ModerateRadioButton"
-                     GroupName="CancellationPolicy"
-                     IsChecked="{Binding SelectedPolicy, 
-                                Mode=TwoWay,
-                                Converter={StaticResource StringToBoolConverter}, 
-                                ConverterParameter=Moderate}"
-                     Grid.Column="1" 
-                     VerticalOptions="Center"
-                    />
-            </Grid>
-
-
-            <Grid ColumnDefinitions="*,Auto">
-             
-                <!--Strict Cancellation Policy-->
-                <Border Stroke="Black" 
-                        StrokeShape="RoundRectangle 15" 
-                        HeightRequest="50"/>
-
-                <Entry Text="Strict 30% of reservation money will be reatined to the user" 
-                           IsReadOnly="True" 
-                           Margin="5"
-                           TextColor="Black"/>
-
-
-                <!--Strict Radio Button-->
-                <RadioButton x:Name="StrictRadioButton"
-                     GroupName="CancellationPolicy"
-                     IsChecked="{Binding SelectedPolicy, 
-                                 Mode=TwoWay, 
-                                 Converter={StaticResource StringToBoolConverter}, 
-                                 ConverterParameter=Strict}"
-                             BorderColor="Black"
-                     Grid.Column="1" 
-                     VerticalOptions="Center"
-                    />
-          
-            </Grid>
+            </VerticalStackLayout>
 
             <!-- Fixed Duration Section -->
             <Label Text="Is Duration Fixed?"
@@ -187,15 +205,15 @@
 
                 <!-- Add Button -->
                 <Button Text="ADD"
-                        FontSize="Large"
-                        Command="{Binding AddHouseRuleCommand}"
-                        WidthRequest="150" 
-                        HeightRequest="50"
-                        Margin="0,30,0,0"
-                        BackgroundColor="#673AB7" 
-                        CornerRadius="20"
-                        TextColor="White">
-                </Button>
+        FontSize="Large"
+        Command="{Binding AddHouseRuleCommand}"
+        HeightRequest="50"
+        WidthRequest="150"
+        Margin="0,30,0,0"
+        BackgroundColor="#4F378A"
+        CornerRadius="20"
+        TextColor="White"
+        HorizontalOptions="Center"/>
                 
             </VerticalStackLayout>
 
@@ -268,14 +286,16 @@
 
             <!-- Review Button -->
             <Button Text="Review"
-                    BackgroundColor="#673AB7" 
-                    TextColor="White" 
-                    CornerRadius="25"
-                    FontSize="Large"
-                    HeightRequest="50"
-                    WidthRequest="250"
-                    Margin="100"
-                    Command="{Binding NavigateToReviewPageCommand}"/>
+        BackgroundColor="#4F378A" 
+        TextColor="White" 
+        CornerRadius="25"
+        FontSize="Large"
+        HeightRequest="50"
+        WidthRequest="250"
+        Margin="0,30,0,30"
+        Command="{Binding NavigateToReviewPageCommand}"
+        HorizontalOptions="Center"/>
+
 
         </VerticalStackLayout>
         
