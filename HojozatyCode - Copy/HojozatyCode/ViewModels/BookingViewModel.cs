@@ -97,6 +97,7 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private double totalPrice;
 
+		//Property to store the Location to display string
 		[ObservableProperty]
 		private string displayLocation;
 
@@ -406,13 +407,13 @@ namespace HojozatyCode.ViewModels
 
 						else
 							HasFixedTime = true;
-
+					
+						await LoadLocationInfoAsync();
 						await LoadHostRules();
 						await LoadServices();
 						await LoadBookingsAsync(SelectedVenue.VenueId);
-						await CheckFavoriteStatusAsync(); // Add this line to check favorite status
-						await LoadLocationInfoAsync(); // Add this line to get the human-readable location
-
+						await CheckFavoriteStatusAsync(); 
+		
 					}
 				}
 				catch (Exception ex) 
@@ -565,6 +566,7 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Method to Cancel Booking before Payment
 		[RelayCommand]
 		private async Task CancelBooking()
 		{
@@ -580,7 +582,7 @@ namespace HojozatyCode.ViewModels
 					.Where(v => v.BookingId == SelectedBookingId)
 					.Delete();
 
-
+					await Shell.Current.DisplayAlert("Prompt", "Your Booking was cancelled", "OK");
 					await Shell.Current.GoToAsync("//Home");
 				}
 
@@ -590,8 +592,6 @@ namespace HojozatyCode.ViewModels
 				await Shell.Current.DisplayAlert("Error", $"Failed to cancel booking: {ex.Message}", "OK");
 			}
 		}
-
-
 
 		//Command to deal with Favourite Venues
 		[RelayCommand]
@@ -696,6 +696,7 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Method to Load Location Information
 		private async Task LoadLocationInfoAsync()
 		{
 			if (SelectedVenue == null || string.IsNullOrEmpty(SelectedVenue.Location))

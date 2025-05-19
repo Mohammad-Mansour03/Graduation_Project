@@ -68,19 +68,26 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string errorMessage;
 
-		public void ApplyQueryAttributes(IDictionary<string, object> query)
+		public async void ApplyQueryAttributes(IDictionary<string, object> query)
 		{
-			if (query.TryGetValue("VenueToEdit", out var venueObj) && venueObj is Venue venueToEdit)
+			try
 			{
-				Venue = venueToEdit;
+				if (query.ContainsKey("VenueToEdit") && query["VenueToEdit"] is Venue venue)
+				{
+					Venue = venue;
 
-				// Copy the Values inside my properties
-				VenueName = Venue.VenueName;
-				VenuePhone = Venue.VenueContactPhone;
-				VenueEmail = Venue.VenueEmail;
-				VenueCapacity = Venue.Capacity;
-				InitialPrice = Venue.InitialPrice;
-				ImageUrl = Venue.ImageUrls[0];
+					// Copy the Values inside my properties
+					VenueName = Venue.VenueName;
+					VenuePhone = Venue.VenueContactPhone;
+					VenueEmail = Venue.VenueEmail;
+					VenueCapacity = Venue.Capacity;
+					InitialPrice = Venue.InitialPrice;
+					ImageUrl = Venue.ImageUrls[0];
+				}
+			}
+			catch (Exception ex) 
+			{
+				await Shell.Current.DisplayAlert("Error" , ex.Message , "OK");
 			}
 		}
 

@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.Maui.Controls;
 using System;
 using HojozatyCode.Pages;
+using Microsoft.Maui.Devices;
 
 namespace HojozatyCode.ViewModels
 {
@@ -25,67 +26,120 @@ namespace HojozatyCode.ViewModels
         [ObservableProperty]
         private bool isLoading = false;
 
+        
         //The Constructor
         public MySpaceViewModel()
         {
             Venues = new ObservableCollection<Venue>();
         }
 
-        //Method to Load the Owner's Venues
-        public async Task LoadVenuesAsync()
-        {
-            if (SupabaseConfig.SupabaseClient == null)
-                await SupabaseConfig.InitializeAsync();
+		// Method to Load the Owner's Venues
+		public async Task LoadVenuesAsync()
+		{
+			if (IsLoading)
+				return;
 
-            // IsLoading = true;
+			if (SupabaseConfig.SupabaseClient == null)
+				await SupabaseConfig.InitializeAsync();
 
-            try
-            {
-                // Assuming you have a way to get the current logged-in user's ID
-                var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
+			IsLoading = true;
 
-                if (session == null || session.User == null)
-                {
-                    IsLoading = false;
-                    await Shell.Current.DisplayAlert("Error", "No User logged in", "OK");
-                    return;
-                }
+			try
+			{
+				var session = SupabaseConfig.SupabaseClient.Auth.CurrentSession;
 
-                var userId = session.User.Id;
+				if (session == null || session.User == null)
+				{
+					IsLoading = false;
+					await Shell.Current.DisplayAlert("Error", "No User logged in", "OK");
+					return;
+				}
 
-                Guid userIdGuid = Guid.Parse(userId);
+				var userId = session.User.Id;
+				Guid userIdGuid = Guid.Parse(userId);
 
+				var response = await SupabaseConfig.SupabaseClient
+					.From<Venue>()
+					.Select("*")
+					.Where(v => v.OwnerId == userIdGuid)
+					.Get();
 
-                var response = await SupabaseConfig.SupabaseClient
-                    .From<Venue>()
-                    .Select("*")
-                    .Where(v => v.OwnerId == userIdGuid)
-                    .Get();
+				Venues.Clear();
 
-                Venues.Clear();
+				foreach (var venue in response.Models)
+				{
+					try
+					{
+						venue.DisplayAddress = await TryGetDisplayAddressAsync(venue.Location, venue.City);
+					}
+					catch (Exception ex)
+					{
+						await Shell.Current.DisplayAlert("Error", $"Error during reverse geocoding: {ex.Message}", "OK");
+						venue.DisplayAddress = !string.IsNullOrEmpty(venue.City) ? venue.City : venue.Location;
+					}
 
-                foreach (var venue in response.Models)
-                {
-                    Venues.Add(venue);
-                }
+					Venues.Add(venue);
+				}
 
-				// Check if the list is empty and update the IsEmpty flag
 				IsEmpty = Venues.Count == 0;
 			}
-            catch (Exception ex)
-            {
-                // Handle the error (log or show message to user)
-                await Shell.Current.DisplayAlert("Error", $"Error loading venues: {ex.Message}", "OK");
-            }
-            finally
-            {
-                IsLoading = false;
-            }
-        }
+			catch (Exception ex)
+			{
+				await Shell.Current.DisplayAlert("Error", $"Error loading venues: {ex.Message}", "OK");
+			}
+			finally
+			{
+				IsLoading = false;
+			}
+		}
+
+		private async Task<string> TryGetDisplayAddressAsync(string location, string cityFallback)
+		{
+			try
+			{
+				var parts = location.Split(',');
+				if (parts.Length != 2 ||
+					!double.TryParse(parts[0], out double latitude) ||
+					!double.TryParse(parts[1], out double longitude))
+					return location;
+
+				var geocoder = Microsoft.Maui.Devices.Sensors.Geocoding.Default;
+				var placemarksResult = await geocoder.GetPlacemarksAsync(latitude, longitude);
+				var placemarks = placemarksResult?.ToList(); // Prevent disposal issue
+				var placemark = placemarks?.FirstOrDefault();
+
+				if (placemark == null)
+					return !string.IsNullOrEmpty(cityFallback) ? cityFallback : location;
+
+				var addressParts = new List<string>
+		{
+			placemark.SubThoroughfare,
+			placemark.Thoroughfare,
+			placemark.SubLocality,
+			placemark.Locality,
+			placemark.SubAdminArea != placemark.Locality ? placemark.SubAdminArea : null,
+			placemark.AdminArea
+		};
+
+				var address = string.Join(", ", addressParts.Where(p => !string.IsNullOrEmpty(p)));
+
+				if (string.IsNullOrEmpty(address))
+					address = !string.IsNullOrEmpty(placemark.CountryName) ? placemark.CountryName : location;
+
+				if (!string.IsNullOrEmpty(placemark.PostalCode))
+					address += $" {placemark.PostalCode}";
+
+				return address;
+			}
+			catch
+			{
+				return !string.IsNullOrEmpty(cityFallback) ? cityFallback : location;
+			}
+		}
 
 
-        //Command to delete the venue
-        [RelayCommand]
+		//Command to delete the venue
+		[RelayCommand]
         public async Task DeleteVenue(Venue venue)
         {
             if (venue == null)
@@ -123,12 +177,19 @@ namespace HojozatyCode.ViewModels
 
 		private async void GoToEditPage(Venue selectedVenue)
 		{
-			var navParams = new Dictionary<string, object>
-	                        {
-		                        { "VenueToEdit", selectedVenue }
-	                        };
+			try
+			{
+				var navParams = new Dictionary<string, object>
+							{
+								{ "VenueToEdit", selectedVenue }
+							};
 
-			await Shell.Current.GoToAsync(nameof(EditPage), navParams);
+				await Shell.Current.GoToAsync(nameof(EditPage), navParams);
+			}
+			catch (Exception ex) 
+			{
+				await Shell.Current.DisplayAlert("Error" , ex.Message, "OK");	
+			}
 		}
 
 		//Command to navigate me to the Add Space Page

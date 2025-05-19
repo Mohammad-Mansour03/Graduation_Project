@@ -1,5 +1,5 @@
-    using Supabase.Postgrest.Attributes;
-    using System;
+using Supabase.Postgrest.Attributes;
+using System;
     using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -76,6 +76,12 @@ namespace HojozatyCode.Models
         // Add the new IsFixedDuration column
         [Column("fixed_duration_in_hours")]
         public int? FixedDurationInHours { get; set; }
+
+
+        [IgnoreDataMember]
+        public string DisplayAddress
+        { get; set; }
+            
 
 
         [IgnoreDataMember]

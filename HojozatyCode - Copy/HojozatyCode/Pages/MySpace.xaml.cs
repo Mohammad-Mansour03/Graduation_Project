@@ -8,7 +8,8 @@ public partial class MySpace : ContentPage
 	public MySpace()
 	{
 		InitializeComponent();
-		_viewModel = (MySpaceViewModel)BindingContext;
+		_viewModel = new MySpaceViewModel();
+		BindingContext = _viewModel;
 	}
 
 	protected override async void OnAppearing()

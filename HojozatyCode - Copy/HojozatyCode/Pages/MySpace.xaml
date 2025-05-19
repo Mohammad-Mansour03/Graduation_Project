@@ -97,7 +97,7 @@
                                                    Grid.Column="0"/>
                                             <!-- Location -->
                                             <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Spacing="10">
-                                                <Label Text="{Binding Location}"
+                                                <Label Text="{Binding DisplayAddress}"
                                                        FontSize="13"
                                                        TextColor="#7F8C8D">
                                                     <Label.FontFamily>
