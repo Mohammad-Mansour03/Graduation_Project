@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
+using CommunityToolkit.Maui.Core.Extensions;
+using Microsoft.Maui.Devices;
 
 namespace HojozatyCode.ViewModels
 {
@@ -86,6 +88,7 @@ namespace HojozatyCode.ViewModels
 
                 foreach (var venue in venues.Where(v => v != null))
                 {
+                    venue.DisplayAddress = await GetActualAddres(venue);
                     PendingVenues.Add(venue);
                 }
             }
@@ -94,13 +97,103 @@ namespace HojozatyCode.ViewModels
                 await Shell.Current.DisplayAlert("Error", "Failed to load venues", "OK");
             }
         }
-        
-        //Command to Load the Selected Venue
-        private async void LoadSelectedVenue(Guid venueId)
+
+        public async Task<string> GetActualAddres(Venue venue) 
+        {
+            string displayLocation = string.Empty;
+
+			if (venue == null || string.IsNullOrEmpty(venue.Location))
+			{
+				displayLocation = "Location unavailable";
+				return displayLocation;
+			}
+
+			try
+			{
+				// Parse the location string assuming format is "latitude,longitude"
+				var parts = venue.Location.Split(',');
+				if (parts.Length != 2 || !double.TryParse(parts[0], out double latitude) ||
+					!double.TryParse(parts[1], out double longitude))
+				{
+					// If not in expected format, just display the raw value
+					displayLocation = venue.Location;
+					return displayLocation;
+				}
+
+				// Use MAUI Geocoding
+				var geocoder = Microsoft.Maui.Devices.Sensors.Geocoding.Default;
+				var placemarks = await geocoder.GetPlacemarksAsync(latitude, longitude);
+				var placemark = placemarks?.FirstOrDefault();
+
+				if (placemark != null)
+				{
+					// Format the address in a more detailed, readable way
+					var addressParts = new List<string>();
+
+					// Street-level details
+					if (!string.IsNullOrEmpty(placemark.SubThoroughfare))
+						addressParts.Add(placemark.SubThoroughfare);
+
+					if (!string.IsNullOrEmpty(placemark.Thoroughfare))
+						addressParts.Add(placemark.Thoroughfare);
+
+					// Neighborhood/district
+					if (!string.IsNullOrEmpty(placemark.SubLocality))
+						addressParts.Add(placemark.SubLocality);
+
+					// City
+					if (!string.IsNullOrEmpty(placemark.Locality))
+						addressParts.Add(placemark.Locality);
+
+					// County/district
+					if (!string.IsNullOrEmpty(placemark.SubAdminArea) && placemark.SubAdminArea != placemark.Locality)
+						addressParts.Add(placemark.SubAdminArea);
+
+					// State/province
+					if (!string.IsNullOrEmpty(placemark.AdminArea))
+						addressParts.Add(placemark.AdminArea);
+
+					// Build the display string
+					displayLocation = string.Join(", ", addressParts.Where(p => !string.IsNullOrEmpty(p)));
+
+					// Fallbacks if we couldn't build a good address
+					if (string.IsNullOrEmpty(displayLocation))
+						displayLocation = !string.IsNullOrEmpty(placemark.CountryName) ?
+							placemark.CountryName :
+							venue.Location;
+
+					// Add postal code as additional information if available
+					if (!string.IsNullOrEmpty(placemark.PostalCode))
+						displayLocation += $" {placemark.PostalCode}";
+				}
+				else
+				{
+					// Try to use the City field from the Venue if available
+					displayLocation = !string.IsNullOrEmpty(venue.City) ?
+						venue.City :
+						venue.Location;
+				}
+                return displayLocation;
+			}
+			catch (Exception ex)
+			{
+				// Log the error and fall back to coordinates or city name
+				await Shell.Current.DisplayAlert("Error", $"Error during reverse geocoding: {ex.Message}", "OK");
+				displayLocation = !string.IsNullOrEmpty(venue.City) ?
+					venue.City :
+					venue.Location;
+                return null;
+			}
+
+
+
+		}
+
+		//Command to Load the Selected Venue
+		private async void LoadSelectedVenue(Guid venueId)
         {
             try
             {
-                await Shell.Current.DisplayAlert("Prompt", $"number of Images{VenueImageUrls.Count()}", "OK");
                 // First check if it's in our already loaded collection
                 var venue = PendingVenues.FirstOrDefault(v => v.VenueId == venueId);
 
@@ -119,7 +212,10 @@ namespace HojozatyCode.ViewModels
 						var newUrls = new ObservableCollection<string>(venue.ImageUrls);
 						VenueImageUrls = newUrls;
 
-						await Shell.Current.DisplayAlert("Prompt", $"number of Images{VenueImageUrls.Count()} AFTERRRRR", "OK");
+                       
+                         
+                        venue.DisplayAddress = await GetActualAddres(venue);
+
 
 					}
 				}
@@ -129,27 +225,20 @@ namespace HojozatyCode.ViewModels
                     SelectedVenue = venue;
 
 
-                    //if (!string.IsNullOrEmpty(venue.ImageUrl))
-                    //{
-                    //    VenueImageUrls = venue.ImageUrl
-                    //        .Split(',')
-                    //        .Where(url => !string.IsNullOrWhiteSpace(url))
-                    //        .ToList();
+                    if (!string.IsNullOrEmpty(venue.ImageUrl))
+                    {
+                        VenueImageUrls = venue.ImageUrl
+                            .Split(',')
+                            .Where(url => !string.IsNullOrWhiteSpace(url))
+                            .ToObservableCollection();
 
-                    // Force property change notification
-
-                    //    // Debug output
-                    //    Debug.WriteLine($"Found {VenueImageUrls.Count} image URLs");
-                    //    foreach (var url in VenueImageUrls)
-                    //    {
-                    //        Debug.WriteLine($"Image URL: {url}");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    VenueImageUrls = new List<string>();
-                    //    Debug.WriteLine("No image URLs found");
-                    //}
+      
+                    }
+                    else
+                    {
+                        VenueImageUrls = new ObservableCollection<string>();
+                       await Shell.Current.DisplayAlert("Prompt","No image URLs found","OK");
+                    }
                 }
             }
             catch (Exception ex)
@@ -158,8 +247,10 @@ namespace HojozatyCode.ViewModels
             }
         }
 
-        //Command to Accept the Venue
-        [RelayCommand]
+
+
+		//Command to Accept the Venue
+		[RelayCommand]
         private async Task AcceptAsync(Venue venue)
         {
             // Use either the passed venue or the selected venue

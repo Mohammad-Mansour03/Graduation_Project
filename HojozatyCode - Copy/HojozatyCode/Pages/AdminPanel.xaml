@@ -110,7 +110,7 @@
                                             <VerticalStackLayout Spacing="5">
                                                 <Label Text="{Binding VenueName}" FontSize="16" FontAttributes="Bold" TextColor="#2C3E50"/>
                                                 <Label Text="{Binding Type}" FontSize="14" TextColor="#7F8C8D"/>
-                                                <Label Text="{Binding Location}" FontSize="14" TextColor="#7F8C8D"/>
+                                                <Label Text="{Binding DisplayAddress}" FontSize="14" TextColor="#7F8C8D"/>
                                             </VerticalStackLayout>
                                             <Button Text="Review"
                                                     Grid.Column="1"
