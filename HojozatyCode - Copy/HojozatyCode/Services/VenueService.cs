@@ -195,15 +195,16 @@ namespace HojozatyCode.Services
                     .From<Venue>()
                     .Where(v => v.Status == "Pending")
                     .Get();
-                Console.WriteLine($"Fetched {response.Models.Count} pending venues.");
-                Console.WriteLine($"Venue details: {response.Models[0].VenueName}");
+
                 return response.Models;
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching pending venues: {ex.Message}");
                 return new List<Venue>();
             }
+
         }
 
         /// <summary>
@@ -217,12 +218,10 @@ namespace HojozatyCode.Services
             {
                 if (venue == null)
                 {
-                    Console.WriteLine("Cannot update null venue");
+                   await Shell.Current.DisplayAlert("Error","Cannot update null venue","OK");
                     return false;
                 }
 
-                Console.WriteLine($"Updating venue status: {venue.VenueName} to {venue.Status}");
-                Console.WriteLine($"Venue ID: {venue.VenueId}");
                 
                 // Only update the Status field
                 var response = await SupabaseConfig.SupabaseClient
@@ -235,8 +234,7 @@ namespace HojozatyCode.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating venue status: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                await Shell.Current.DisplayAlert("Error",$"Stack trace: {ex.Message}" , "OK"); ;
                 return false;
             }
         }
@@ -252,26 +250,23 @@ namespace HojozatyCode.Services
             {
                 if (venue == null)
                 {
-                    Console.WriteLine("Cannot delete null venue");
+                    await Shell.Current.DisplayAlert("Error", "Cannot delete null venue", "OK");
                     return false;
                 }
 
-                Console.WriteLine($"Marking venue as rejected: {venue.VenueName}");
-                Console.WriteLine($"Venue ID: {venue.VenueId}");
-                
-                // Only update the Status field
-                var response = await SupabaseConfig.SupabaseClient
+           
+                // Delete the venue from table
+                await SupabaseConfig.SupabaseClient
                     .From<Venue>()
                     .Where(v => v.VenueId == venue.VenueId)
-                    .Set(v => v.Status, "Rejected")
-                    .Update();
-
-                return response != null && response.Models.Count > 0;
+                    .Delete();
+                    
+                return true;
+                
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting venue: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                await Shell.Current.DisplayAlert("Error", $"Stack trace: {ex.Message}", "OK");
                 return false;
             }
         }

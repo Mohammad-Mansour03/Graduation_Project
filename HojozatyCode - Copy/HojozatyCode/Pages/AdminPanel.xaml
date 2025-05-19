@@ -28,7 +28,8 @@
                                FontSize="12"
                                TextColor="#7F8C8D"/>
                     </VerticalStackLayout>
-                    <!--PLease Add Logout Functionalty-->
+                    
+                    
                     <Button Text="Logout" 
                             BackgroundColor="Transparent"
                             TextColor="#E74C3C"
@@ -90,7 +91,7 @@
                             <Frame BackgroundColor="#DCFCE7" CornerRadius="10" Padding="15,10">
                                 <HorizontalStackLayout>
                                     <Label Text="Approved" FontSize="16" TextColor="#16A34A"/>
-                                    <Label Text="0" FontAttributes="Bold" FontSize="18" TextColor="#16A34A" Margin="5,0,0,0"/>
+                                    <Label Text="{Binding NumberOfApprovedVenues}" FontAttributes="Bold" FontSize="18" TextColor="#16A34A" Margin="5,0,0,0"/>
                                 </HorizontalStackLayout>
                             </Frame>
                         </Grid>
@@ -131,16 +132,5 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <!--
-        <Frame Grid.Row="2" BackgroundColor="White" Padding="15" CornerRadius="0" HasShadow="True">
-            <ScrollView Orientation="Horizontal">
-                <HorizontalStackLayout Spacing="30">
-                    <Button Text="Notification Preferences" BackgroundColor="Transparent" TextColor="#7F8C8D"/>
-                    <Button Text="User Permissions" BackgroundColor="Transparent" TextColor="#7F8C8D"/>
-                    <Button Text="Payments  Billing" BackgroundColor="Transparent" TextColor="#7F8C8D"/>
-                </HorizontalStackLayout>
-            </ScrollView>
-        </Frame>
-        -->
     </Grid>
 </ContentPage>

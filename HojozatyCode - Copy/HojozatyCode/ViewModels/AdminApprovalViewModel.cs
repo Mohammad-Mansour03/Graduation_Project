@@ -12,15 +12,22 @@ namespace HojozatyCode.ViewModels
     [QueryProperty(nameof(SelectedVenueId), "venueId")]
     public partial class AdminApprovalViewModel : ObservableObject
     {
+        //Collection to store all Pending Venues
         [ObservableProperty]
         private ObservableCollection<Venue> pendingVenues;
-        
+
         [ObservableProperty]
+        private int numberOfApprovedVenues;
+
+		//Properety to store the Venue that the admin selected
+		[ObservableProperty]
         private Venue selectedVenue;
         
+        //Collection to store the all venue images
         [ObservableProperty]
         private List<string> venueImageUrls;
 
+        //Property to store the Passed venue id
         private string selectedVenueId;
         public string SelectedVenueId
         {
@@ -31,9 +38,12 @@ namespace HojozatyCode.ViewModels
                 if (!string.IsNullOrEmpty(value))
                 {
                     LoadSelectedVenue(Guid.Parse(value));
+                    OnPropertyChanged(nameof(SelectedVenue.ImageUrls));
                 }
             }
         }
+
+        //Command to log out the Admin
         [RelayCommand]
         private async Task Logout()
         {
@@ -56,14 +66,24 @@ namespace HojozatyCode.ViewModels
         public AdminApprovalViewModel()
         {
             PendingVenues = new ObservableCollection<Venue>();
-            LoadPendingVenues();
         }
 
-        private async void LoadPendingVenues()
+      //Command to Load all venues with Pending Status 
+        public async void LoadPendingVenues()
         {
             try
             {
+                PendingVenues.Clear();
+
                 var venues = await VenueService.GetPendingVenuesAsync();
+
+                var allVenues = await SupabaseConfig.SupabaseClient
+                    .From<Venue>()
+                    .Where(x => x.Status == "Approved")
+                    .Get();
+
+                NumberOfApprovedVenues = allVenues.Models.Count();
+
                 foreach (var venue in venues.Where(v => v != null))
                 {
                     PendingVenues.Add(venue);
@@ -71,18 +91,18 @@ namespace HojozatyCode.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading pending venues: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error", "Failed to load venues", "OK");
             }
         }
         
+        //Command to Load the Selected Venue
         private async void LoadSelectedVenue(Guid venueId)
         {
             try
             {
                 // First check if it's in our already loaded collection
                 var venue = PendingVenues.FirstOrDefault(v => v.VenueId == venueId);
-                
+
                 if (venue == null)
                 {
                     // If not found in the collection, fetch it directly
@@ -90,54 +110,56 @@ namespace HojozatyCode.ViewModels
                         .From<Venue>()
                         .Where(v => v.VenueId == venueId)
                         .Get();
-                        
+
                     if (response != null && response.Models.Count > 0)
                     {
                         venue = response.Models[0];
-                    }
+                        VenueImageUrls = venue.ImageUrls;
+
+					}
                 }
-                
+
                 if (venue != null)
                 {
                     SelectedVenue = venue;
                     
-                    // Use identical code from AddSpaceViewModel for consistency
-                    if (!string.IsNullOrEmpty(venue.ImageUrl))
-                    {
-                        VenueImageUrls = venue.ImageUrl
-                            .Split(',')
-                            .Where(url => !string.IsNullOrWhiteSpace(url))
-                            .ToList();
+                   
+                    //if (!string.IsNullOrEmpty(venue.ImageUrl))
+                    //{
+                    //    VenueImageUrls = venue.ImageUrl
+                    //        .Split(',')
+                    //        .Where(url => !string.IsNullOrWhiteSpace(url))
+                    //        .ToList();
                         
-                        // Force property change notification
-                        OnPropertyChanged(nameof(VenueImageUrls));
+                    //    // Force property change notification
+                    //    OnPropertyChanged(nameof(VenueImageUrls));
                         
-                        // Debug output
-                        Debug.WriteLine($"Found {VenueImageUrls.Count} image URLs");
-                        foreach (var url in VenueImageUrls)
-                        {
-                            Debug.WriteLine($"Image URL: {url}");
-                        }
-                    }
-                    else
-                    {
-                        VenueImageUrls = new List<string>();
-                        Debug.WriteLine("No image URLs found");
-                    }
+                    //    // Debug output
+                    //    Debug.WriteLine($"Found {VenueImageUrls.Count} image URLs");
+                    //    foreach (var url in VenueImageUrls)
+                    //    {
+                    //        Debug.WriteLine($"Image URL: {url}");
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    VenueImageUrls = new List<string>();
+                    //    Debug.WriteLine("No image URLs found");
+                    //}
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading selected venue: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error", "Failed to load venue details", "OK");
+                await Shell.Current.DisplayAlert("Error", ex.Message , "OK");
             }
         }
 
+        //Command to Accept the Venue
         [RelayCommand]
         private async Task AcceptAsync(Venue venue)
         {
             // Use either the passed venue or the selected venue
-            venue = venue ?? SelectedVenue;
+           // venue = venue ?? SelectedVenue;
             
             try
             {
@@ -147,7 +169,6 @@ namespace HojozatyCode.ViewModels
                     return;
                 }
 
-                Console.WriteLine($"AcceptAsync received venue: {venue.VenueName}, ID: {venue.VenueId}");
                 venue.Status = "Approved";
                 bool success = await VenueService.UpdateVenueStatusAsync(venue);
                 
@@ -164,16 +185,16 @@ namespace HojozatyCode.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in AcceptAsync: {ex}");
                 await Shell.Current.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
         }
 
+        //Command to Delete the venue
         [RelayCommand]
         private async Task DeleteAsync(Venue venue)
         {
             // Use either the passed venue or the selected venue
-            venue = venue ?? SelectedVenue;
+          //  venue = venue ?? SelectedVenue;
             
             if (venue == null)
             {
@@ -186,10 +207,13 @@ namespace HojozatyCode.ViewModels
                 bool confirmed = await Shell.Current.DisplayAlert("Confirm", 
                     "Are you sure you want to reject this venue?", "Yes", "No");
                 
-                if (!confirmed) return;
+                if (!confirmed)
+                    return;
                 
                 venue.Status = "Rejected";
+
                 bool success = await VenueService.DeleteVenueAsync(venue);
+
                 if (success)
                 {
                     PendingVenues.Remove(venue);
