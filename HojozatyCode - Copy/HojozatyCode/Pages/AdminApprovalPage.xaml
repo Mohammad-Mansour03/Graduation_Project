@@ -43,7 +43,7 @@
             <Frame HeightRequest="250" Padding="0" CornerRadius="10" IsClippedToBounds="True">
                 <Grid>
                     <CarouselView HeightRequest="250" 
-                                 ItemsSource="{Binding SelectedVenue.ImageUrls}" 
+                                 ItemsSource="{Binding VenueImageUrls}" 
                                  IndicatorView="indicatorView">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>

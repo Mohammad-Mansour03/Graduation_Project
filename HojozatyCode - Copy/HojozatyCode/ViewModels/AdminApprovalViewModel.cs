@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
 
 namespace HojozatyCode.ViewModels
 {
@@ -25,7 +26,7 @@ namespace HojozatyCode.ViewModels
         
         //Collection to store the all venue images
         [ObservableProperty]
-        private List<string> venueImageUrls;
+        private ObservableCollection<string> venueImageUrls = new();
 
         //Property to store the Passed venue id
         private string selectedVenueId;
@@ -38,7 +39,6 @@ namespace HojozatyCode.ViewModels
                 if (!string.IsNullOrEmpty(value))
                 {
                     LoadSelectedVenue(Guid.Parse(value));
-                    OnPropertyChanged(nameof(SelectedVenue.ImageUrls));
                 }
             }
         }
@@ -100,6 +100,7 @@ namespace HojozatyCode.ViewModels
         {
             try
             {
+                await Shell.Current.DisplayAlert("Prompt", $"number of Images{VenueImageUrls.Count()}", "OK");
                 // First check if it's in our already loaded collection
                 var venue = PendingVenues.FirstOrDefault(v => v.VenueId == venueId);
 
@@ -114,26 +115,29 @@ namespace HojozatyCode.ViewModels
                     if (response != null && response.Models.Count > 0)
                     {
                         venue = response.Models[0];
-                        VenueImageUrls = venue.ImageUrls;
+
+						var newUrls = new ObservableCollection<string>(venue.ImageUrls);
+						VenueImageUrls = newUrls;
+
+						await Shell.Current.DisplayAlert("Prompt", $"number of Images{VenueImageUrls.Count()} AFTERRRRR", "OK");
 
 					}
-                }
+				}
 
                 if (venue != null)
                 {
                     SelectedVenue = venue;
-                    
-                   
+
+
                     //if (!string.IsNullOrEmpty(venue.ImageUrl))
                     //{
                     //    VenueImageUrls = venue.ImageUrl
                     //        .Split(',')
                     //        .Where(url => !string.IsNullOrWhiteSpace(url))
                     //        .ToList();
-                        
-                    //    // Force property change notification
-                    //    OnPropertyChanged(nameof(VenueImageUrls));
-                        
+
+                    // Force property change notification
+
                     //    // Debug output
                     //    Debug.WriteLine($"Found {VenueImageUrls.Count} image URLs");
                     //    foreach (var url in VenueImageUrls)
