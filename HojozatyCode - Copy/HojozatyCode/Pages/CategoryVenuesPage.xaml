@@ -40,7 +40,7 @@
 
     <ScrollView>
         <VerticalStackLayout Spacing="5" Padding="10">
-          
+
             <!-- Top Info Row -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                 <Border BackgroundColor="{StaticResource SurfaceColor}" 
@@ -50,7 +50,6 @@
                         Padding="6"
                         Grid.Column="0">
                     <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
-                        
                         <Label Text="{Binding Category}"  FontSize="Medium" />
                         <Image Source="category.png" HeightRequest="20" WidthRequest="20" />
                     </HorizontalStackLayout>
@@ -65,28 +64,9 @@
                     <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
                         <Picker ItemsSource="{Binding Cities}"
                                 SelectedItem="{Binding SelectedCity, Mode=TwoWay}" FontSize="Medium" 
-                                Title="Choose City" />
+                                Title="Choose City"/>
                         <Image Source="location.png" HeightRequest="16" WidthRequest="16" />
                     </HorizontalStackLayout>
-                </Border>
-            </Grid>
-
-            <!--Filter -->
-            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-
-
-                <Border BackgroundColor="{StaticResource SurfaceColor}" 
-                        StrokeShape="RoundRectangle 12"
-                        StrokeThickness="2"
-                        Padding="6"
-                        Grid.Column="1"
-                        VerticalOptions="Center"
-                        WidthRequest="50"
-                        HeightRequest="40">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToFiltersPageCommand}" />
-                    </Border.GestureRecognizers>
-                    <Image Source="filter.png" HeightRequest="16" WidthRequest="16" HorizontalOptions="Center" VerticalOptions="Center"  />
                 </Border>
             </Grid>
 
@@ -97,10 +77,10 @@
             <CollectionView ItemsSource="{Binding SubCategories}"
                             ItemsLayout="HorizontalList"
                             HeightRequest="150"
-                            Margin="0,0,0,20">
+                            Margin="0,0,0,0">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <VerticalStackLayout WidthRequest="110" Margin="4" Spacing="6">
+                        <VerticalStackLayout WidthRequest="110" Margin="4" Spacing="6" >
                             <Border Stroke="{StaticResource BorderColor}"
                                     StrokeThickness="1"
                                     StrokeShape="RoundRectangle 12"
@@ -120,30 +100,55 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Venues Section -->
-            <Label Text="Available venues"
-       Style="{StaticResource SectionTitle}" />
+            <!-- Venues Section with Inline Filter -->
+            <Grid ColumnDefinitions="*,Auto"
+                  Margin="0,0,0,12"
+                  VerticalOptions="Center">
+                <Label Text="Available venues"
+                       Style="{StaticResource SectionTitle}" 
+                       Grid.Column="0"
+                       VerticalOptions="Center" />
 
+                <Border BackgroundColor="LightGray"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="10,6"
+                        Grid.Column="1"
+                        Stroke="Black"
+                        VerticalOptions="Center">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToFiltersPageCommand}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                        <Image Source="filter.png" HeightRequest="16" WidthRequest="16" />
+                        <Label Text="Filter" TextColor="Black" FontSize="14" FontFamily="OpenSans-SemiBold"/>
+                    </HorizontalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Venues List -->
             <CollectionView ItemsSource="{Binding Venues}"
-                EmptyView="No venues found for this category"
-                Margin="0,0,0,20">
+                            EmptyView="No venues found for this category"
+                            Margin="0,0,0,20">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border StrokeThickness="0"
-                    StrokeShape="RoundRectangle 16"
-                    BackgroundColor="{StaticResource SurfaceColor}"
-                    Margin="0,0,0,24"
-                    Padding="0">
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="{StaticResource SurfaceColor}"
+                                Margin="0,0,0,24"
+                                Padding="0">
                             <Grid>
-                                <!-- Horizontal Images Carousel -->
+                                <!-- Images Carousel -->
                                 <CollectionView ItemsSource="{Binding ImageUrls}"
-                                    HeightRequest="200">
+                                                HeightRequest="200"
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="Fill">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding .}"
-                                       Aspect="AspectFill"
-                                       HeightRequest="200"
-                                       WidthRequest="400" />
+                                                   Aspect="AspectFill"
+                                                   HorizontalOptions="Fill"
+                                                   VerticalOptions="Fill"
+                                                   HeightRequest="200" />
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
@@ -152,8 +157,8 @@
                                 <Grid BackgroundColor="Transparent">
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer 
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CategoryVenuesViewModel}}, Path=VenueSelectedCommand}"
-                                CommandParameter="{Binding .}" />
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CategoryVenuesViewModel}}, Path=VenueSelectedCommand}"
+                                            CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
                                 </Grid>
 
@@ -162,40 +167,40 @@
 
                                 <!-- Info (Name, Price, Rating) -->
                                 <Grid Padding="16"
-                          RowDefinitions="*,Auto"
-                          ColumnDefinitions="*,Auto">
+                                      RowDefinitions="*,Auto"
+                                      ColumnDefinitions="*,Auto">
                                     <Label Text="{Binding VenueName}"
-                               FontSize="20"
-                               TextColor="White"
-                               FontFamily="OpenSans-Bold"
-                               Grid.Row="0"
-                               Grid.Column="0"
-                               VerticalOptions="Start" />
+                                           FontSize="20"
+                                           TextColor="White"
+                                           FontFamily="OpenSans-Bold"
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           VerticalOptions="Start" />
 
                                     <!-- Price Tag -->
                                     <Border BackgroundColor="#493971"
-                                StrokeShape="RoundRectangle 10"
-                                Padding="8,4"
-                                HorizontalOptions="Start"
-                                VerticalOptions="Start"
-                                Grid.Row="0"
-                                Grid.Column="1">
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="8,4"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start"
+                                            Grid.Row="0"
+                                            Grid.Column="1">
                                         <Label Text="{Binding InitialPrice, StringFormat='From ${0}/Hr'}"
-                                   TextColor="White"
-                                   FontSize="14"
-                                   FontFamily="OpenSans-SemiBold" />
+                                               TextColor="White"
+                                               FontSize="14"
+                                               FontFamily="OpenSans-SemiBold" />
                                     </Border>
 
                                     <!-- Rating -->
                                     <HorizontalStackLayout Grid.Row="1"
-                                               Grid.Column="1"
-                                               HorizontalOptions="End"
-                                               VerticalOptions="End"
-                                               Spacing="4">
+                                                           Grid.Column="1"
+                                                           HorizontalOptions="End"
+                                                           VerticalOptions="End"
+                                                           Spacing="4">
                                         <Label Text="{Binding Rating}" TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
                                         <Label Text="★" TextColor="Gold" FontSize="14"/>
                                         <Label Text="{Binding RatingCount, StringFormat='({0})'}"
-                                   TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
+                                               TextColor="White" FontSize="14" FontFamily="OpenSans-SemiBold"/>
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Grid>
@@ -203,6 +208,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
