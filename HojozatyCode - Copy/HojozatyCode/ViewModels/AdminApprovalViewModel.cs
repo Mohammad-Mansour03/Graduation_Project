@@ -211,11 +211,8 @@ namespace HojozatyCode.ViewModels
 
 						var newUrls = new ObservableCollection<string>(venue.ImageUrls);
 						VenueImageUrls = newUrls;
-
-                       
-                         
+   
                         venue.DisplayAddress = await GetActualAddres(venue);
-
 
 					}
 				}
