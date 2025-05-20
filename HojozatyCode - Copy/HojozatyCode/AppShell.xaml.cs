@@ -36,6 +36,7 @@ namespace HojozatyCode
             Routing.RegisterRoute(nameof(Pages.EnterOTPPage), typeof(Pages.EnterOTPPage));
             Routing.RegisterRoute(nameof(Pages.ResetPasswordPage), typeof(Pages.ResetPasswordPage));
             Routing.RegisterRoute(nameof(Pages.MyBookings), typeof(Pages.MyBookings));
+            Routing.RegisterRoute(nameof(Pages.EditBooking), typeof(Pages.EditBooking));
 
             GoToAsync(nameof(Pages.LoginSignupPage));
 

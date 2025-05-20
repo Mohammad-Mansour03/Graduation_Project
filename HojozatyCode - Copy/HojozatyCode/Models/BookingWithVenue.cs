@@ -22,5 +22,7 @@ namespace HojozatyCode.Models
 		public string Location { get; set; }
 		public string VenueEmail { get; set; }
 		public List<string> ImageUrls { get; set; }
+
+		public string CancellationPolicy {  get; set; }
 	}
 }

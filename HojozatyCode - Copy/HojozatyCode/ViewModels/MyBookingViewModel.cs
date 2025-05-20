@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
 using HojozatyCode.Services;
 using System;
@@ -25,7 +26,68 @@ namespace HojozatyCode.ViewModels
             LoadBooking();
         }
 
-        private async Task LoadBooking() 
+
+		[RelayCommand]
+		private async Task DeleteBooking(BookingWithVenue booking) 
+		{
+			try
+			{
+				string warningMessage = booking.CancellationPolicy switch
+				{
+					"Flexible" => "According to the flexible cancellation policy, you will be refunded the full amount you paid.",
+					"Moderate" => "According to the moderate cancellation policy, you will only be refunded 50% of the amount you paid.",
+					"Strict" => "According to the moderate cancellation policy, you will only be refunded 30% of the amount you paid."
+				};
+
+				var confirm = await Shell.Current.DisplayAlert(
+						"Delete Booking",
+						$"{warningMessage}\n\nAre you sure you want to delete this booking?",
+						"Yes", "Cancel");
+				
+				if (!confirm)
+					return;
+
+				await SupabaseConfig.SupabaseClient
+					.From<Booking>()
+					.Where(b => b.BookingId == booking.BookingId)
+					.Delete();
+
+				MyBookings.Remove(booking);
+				await Shell.Current.DisplayAlert("Deleted", "Booking deleted successfully", "OK");
+
+			}
+			catch (Exception ex) 
+			{
+				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+			}
+
+		}
+
+		[RelayCommand]
+		private async Task EditBookingAsync(BookingWithVenue booking)
+		{
+			try
+			{
+				var venue = await SupabaseConfig.SupabaseClient
+					.From<Venue>()
+					.Where(v => v.VenueId == booking.VenueId)
+					.Single();
+
+			await Shell.Current.GoToAsync(nameof(Pages.EditBooking), true, new Dictionary<string, object>
+			{
+				{ "Booking", booking },
+				{ "Venue", venue }
+			});
+			}
+			catch (Exception ex) 
+			{
+				await Shell.Current.DisplayAlert("Error inside the EditBookingAsync" , ex.Message, "OK");	
+			}
+		}
+
+
+		//Method to load the all booking related to the user
+		private async Task LoadBooking() 
         {
             try
             {
@@ -73,7 +135,8 @@ namespace HojozatyCode.ViewModels
                         VenueEmail = venue.VenueEmail,
                         Location = venue.DisplayAddress,
                         VenueName = venue.VenueName,
-                        ImageUrls = venue.ImageUrls
+                        ImageUrls = venue.ImageUrls,
+						CancellationPolicy = venue.CancellationPolicy,
                     });
                 }
 
@@ -84,6 +147,7 @@ namespace HojozatyCode.ViewModels
             }
         }
 
+		//Method to return the actual address for the venue
 		public async Task<string> GetActualAddres(Venue venue)
 		{
 			string displayLocation = string.Empty;
