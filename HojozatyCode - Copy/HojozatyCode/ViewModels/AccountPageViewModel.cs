@@ -33,6 +33,20 @@ namespace HojozatyCode.ViewModels
 		}
 
 
+        //Navigate me to the MyBooking Page
+        [RelayCommand]
+        private async Task GoToMyBookings() 
+        {
+            try
+            {
+                await Shell.Current.GoToAsync(nameof(Pages.MyBookings));
+            }
+            catch (Exception ex) 
+            {
+                await Shell.Current.DisplayAlert("Error" , ex.Message , "OK");
+            }
+        }
+
 		//Navigte me to the Edit Profile Page
 		[RelayCommand]
         private async Task GoToEditProfile() 

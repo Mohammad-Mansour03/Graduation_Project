@@ -127,6 +127,9 @@
     <MauiXaml Update="Pages\LoginSignupPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Pages\MyBookings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Pages\MySpace.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
