@@ -116,7 +116,7 @@
                                                 <Label Text="{Binding InitialPrice, StringFormat='{0:F0} JOD'}"
                                                        FontSize="16"
                                                        FontFamily="Montserrat-SemiBold"
-                                                       TextColor="#7C3AED"/>
+                                                       TextColor="#4F378A"/>
                                                 <Label Text="per hour"
                                                        FontSize="12"
                                                        TextColor="#9CA3AF"/>
@@ -124,7 +124,7 @@
 
                                             <Button Text="View Details"
                                                     Grid.Column="1"
-                                                    BackgroundColor="#7C3AED"
+                                                    BackgroundColor="#4F378A"
                                                     TextColor="White"
                                                     FontSize="14"
                                                     FontFamily="Montserrat-SemiBold"
