@@ -3,44 +3,153 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.MyBookings"
              xmlns:pages="clr-namespace:HojozatyCode.Pages"
-             Title="MyBookings">
-    <CollectionView ItemsSource="{Binding MyBookings}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Frame BorderColor="LightGray" CornerRadius="12" Margin="5" Padding="10">
-                    <StackLayout Spacing="8">
-                        <Label Text="{Binding VenueName}" FontAttributes="Bold" FontSize="20" />
-                        <Label Text="{Binding Location}" FontSize="14" TextColor="DarkGray"/>
-                        <Image Source="{Binding ImageUrls[0]}" HeightRequest="200" Aspect="AspectFill" />
+             xmlns:conv="clr-namespace:HojozatyCode.Converters"
+             BackgroundColor="#F9F6FC">
 
-                        <Label Text="{Binding StartDateTime, StringFormat='From: {0:MMM dd, yyyy hh:mm tt}'}" />
-                        <Label Text="{Binding EndDateTime, StringFormat='To: {0:MMM dd, yyyy hh:mm tt}'}" />
-                        <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}" />
-                        <Label Text="{Binding Capacity, StringFormat='Capacity: {0} people'}" />
-                        <Label Text="{Binding VenueEmail, StringFormat='Contact: {0}'}" />
-                        <Label Text="{Binding CreatedAt, StringFormat='Booked on: {0:MMM dd, yyyy}'}"
-                           FontSize="12" TextColor="Gray"/>
+    <ContentPage.Resources>
+        <conv:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+    </ContentPage.Resources>
 
-                        <Button Text="Edit"
-                                BackgroundColor="#2196F3" 
-                                TextColor="White"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type pages:MyBookings}}, Path=BindingContext.EditBookingCommand}"
-                                CommandParameter="{Binding .}" />       
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header -->
+        <Frame BackgroundColor="#4F378A"
+               CornerRadius="0"
+               Padding="20,10"
+               HasShadow="True">
+            <Label Text="My Bookings"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+        </Frame>
 
-                        <Button Text="Delete"
-                               BackgroundColor="Red" 
-                               TextColor="White"
-                               Command="{Binding Source={RelativeSource AncestorType={x:Type pages:MyBookings}}, Path=BindingContext.DeleteBookingCommand}"
-                               CommandParameter="{Binding .}" />
-                    </StackLayout>
-                </Frame>
-               
-     
-              
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-    
-    
-    
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <!-- Bookings List -->
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding RefreshBookingsCommand}"
+                         IsVisible="{Binding MyBookings.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                <CollectionView ItemsSource="{Binding MyBookings}"
+                               SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="#EAE5F2"
+                                   CornerRadius="16"
+                                   Margin="15,8"
+                                   Padding="0"
+                                   BackgroundColor="White"
+                                   HasShadow="True">
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      Padding="20">
+                                    <!-- Venue Image -->
+                                    <Image Source="{Binding ImageUrls[0]}"
+                                           Grid.Row="0" Grid.ColumnSpan="2"
+                                           HeightRequest="180"
+                                           Aspect="AspectFill"/>
+
+                                    <!-- Venue Name -->
+                                    <Label Text="{Binding VenueName}"
+                                           Grid.Row="1" Grid.ColumnSpan="2"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#2A1B4D"
+                                           Margin="0,15,0,0"/>
+
+                                    <!-- Location -->
+                                    <Label Text="{Binding Location}"
+                                           Grid.Row="2" Grid.ColumnSpan="2"
+                                           FontSize="14"
+                                           TextColor="#6B7280"
+                                           Margin="0,5,0,0"/>
+
+                                    <!-- Date/Time -->
+                                    <StackLayout Grid.Row="3" Grid.ColumnSpan="2"
+                                                 Margin="0,15,0,0"
+                                                 Spacing="4">
+                                        <Label Text="{Binding StartDateTime, StringFormat='From: {0:MMM dd, yyyy ∙ hh:mm tt}'}"
+                                               FontSize="14"/>
+                                        <Label Text="{Binding EndDateTime, StringFormat='To: {0:MMM dd, yyyy ∙ hh:mm tt}'}"
+                                               FontSize="14"/>
+                                    </StackLayout>
+
+                                    <!-- Details Grid -->
+                                    <Grid Grid.Row="4" Grid.ColumnSpan="2"
+                                          Margin="0,15,0,0"
+                                          ColumnDefinitions="*,*"
+                                          RowDefinitions="Auto,Auto">
+                                        <Label Text="{Binding TotalPrice, StringFormat='Total: {0} JOD'}"
+                                               Grid.Row="0" Grid.Column="0"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#4F378A"/>
+
+                                        <Label Text="{Binding Capacity, StringFormat='Capacity: {0}'}"
+                                               Grid.Row="0" Grid.Column="1"
+                                               FontSize="14"
+                                               TextColor="#6B7280"/>
+
+                                        <Label Text="{Binding VenueEmail, StringFormat='Contact: {0}'}"
+                                               Grid.Row="1" Grid.Column="0"
+                                               FontSize="14"
+                                               TextColor="#6B7280"/>
+
+                                        <Label Text="{Binding CreatedAt, StringFormat='Booked on: {0:MMM dd, yyyy}'}"
+                                               Grid.Row="1" Grid.Column="1"
+                                               FontSize="14"
+                                               TextColor="#6B7280"/>
+                                    </Grid>
+
+                                    <!-- Action Buttons -->
+                                    <Grid Grid.Row="5" Grid.ColumnSpan="2"
+                                          Margin="0,20,0,0"
+                                          ColumnDefinitions="*,*"
+                                          ColumnSpacing="15">
+                                        <Button Text="Edit"
+                                                BackgroundColor="#F3EFFF"
+                                                TextColor="#4F378A"
+                                                CornerRadius="12"
+                                                FontAttributes="Bold"
+                                                HeightRequest="45"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type pages:MyBookings}}, Path=BindingContext.EditBookingCommand}"
+                                                CommandParameter="{Binding .}"/>
+
+                                        <Button Text="Delete"
+                                                Grid.Column="1"
+                                                BackgroundColor="#FFEBEE"
+                                                TextColor="#FF3B30"
+                                                CornerRadius="12"
+                                                FontAttributes="Bold"
+                                                HeightRequest="45"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type pages:MyBookings}}, Path=BindingContext.DeleteBookingCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Grid>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <!-- Empty State - Only shows when no bookings -->
+            <StackLayout IsVisible="{Binding MyBookings.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=true}"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"
+                         Spacing="20"
+                         Padding="40">
+                <Image Source="nobookings.png"
+                       HeightRequest="150"
+                       Aspect="AspectFit"/>
+                <Label Text="No Bookings Yet"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#2A1B4D"
+                       HorizontalOptions="Center"/>
+                <Label Text="Your upcoming bookings will appear here"
+                       FontSize="16"
+                       TextColor="#6B7280"
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>
