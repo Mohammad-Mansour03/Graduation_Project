@@ -28,7 +28,11 @@
             <CollectionView ItemsSource="{Binding SelectedServices}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding Name}" />
+                        <StackLayout Orientation="Vertical" Padding="10">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding TotalPrice}" FontSize="12" TextColor="Gray" />
+                            <Label Text="{Binding Quantity}" FontSize="12" TextColor="Gray" />
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

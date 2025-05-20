@@ -5,6 +5,7 @@ using HojozatyCode.Services;
 using Supabase;
 using System;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace HojozatyCode.ViewModels
@@ -15,7 +16,13 @@ namespace HojozatyCode.ViewModels
 	{
 		//To store the Booking Object
 		[ObservableProperty]
-		private BookingWithVenue booking;
+		private BookingWithVenue booking;	
+		
+		//To store the Booking Object
+		[ObservableProperty]
+		private ObservableCollection<Booking> venueBookings;
+
+	
 
 		//To store the Venue Object
 		[ObservableProperty]
@@ -23,7 +30,9 @@ namespace HojozatyCode.ViewModels
 
 		//To store the all selected services for this booking
 		[ObservableProperty]
-		private ObservableCollection<Service> selectedServices = new();
+		private ObservableCollection<BookingService> selectedServices = new();
+
+		private ObservableCollection<Service> services = new();
 
 		//To store the Start Date time for the booking
 		[ObservableProperty]
@@ -55,6 +64,7 @@ namespace HojozatyCode.ViewModels
 				EndTime = value.EndDateTime.TimeOfDay;
 
 				LoadBookingServices();
+				LoadBookingsAsync(venue.VenueId);
 			}
 			catch (Exception ex) 
 			{
@@ -71,16 +81,23 @@ namespace HojozatyCode.ViewModels
 					.Where(x => x.BookingId == Booking.BookingId)
 					.Get();
 
+				SelectedServices.Clear();
+
+
 				foreach (var bookingService in response.Models)
 				{
+					// Fetch related service
 					var serviceResponse = await SupabaseConfig.SupabaseClient
 						.From<Service>()
-						.Filter("service_id", Supabase.Postgrest.Constants.Operator.Equals, bookingService.ServiceId)
+						.Where(s => s.ServiceId == bookingService.ServiceId)
 						.Single();
 
-					if (serviceResponse != null)
-						SelectedServices.Add(serviceResponse);
+					var service = serviceResponse;
+					bookingService.Name = service?.ServiceName ?? "Unknown Service";
+					SelectedServices.Add(bookingService);
 				}
+
+
 			}
 			catch (Exception ex)
 			{
@@ -88,24 +105,138 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		private DateTime CalculateEndTime()
+		{
+			DateTime newEnd = DateTime.Now;
+
+			//Check if the venue has fixed time or not (To store the right ended time)
+			if (Venue.IsFixedDuration != null && Venue.IsFixedDuration == true)
+			{
+				var duration = (int)Venue.FixedDurationInHours;
+				newEnd = EndDate = StartDate.AddHours(duration);
+			}
+
+			else
+			{
+
+				//Check if the ended time isn't before the started time
+				if (EndTime > StartTime)
+				{
+					newEnd = EndDate = StartDate + EndTime;
+				}
+				else
+				{
+					Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
+					return DateTime.Now;
+				}
+			}
+
+			return newEnd;
+		}
+
+		[RelayCommand]
+		public async Task LoadBookingsAsync(Guid venueId)
+		{
+
+			// Fetch all bookings where venue_id matches
+			var response = await SupabaseConfig.SupabaseClient
+				.From<Booking>()
+				.Where(b => b.VenueId == venueId)
+				.Get();
+
+			if (response.Models != null)
+				VenueBookings = new ObservableCollection<Booking>(response.Models);
+
+		}
+
+		private bool IsDateTimeAvailable(DateTime newBookingStart, DateTime newBookingEnd)
+		{
+			if (VenueBookings == null)
+				return true;
+
+			foreach (var booking in VenueBookings)
+			{
+				//if it's not available return false
+				if (booking.StartDateTime < newBookingEnd && newBookingStart < booking.EndDateTime)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		//Command to check the Availability Booking for this DateTime
+		[RelayCommand]
+		private async Task CheckAvailability()
+		{
+			var newBookingStart = StartDate = StartDate + StartTime;
+
+			var newBookingEnd = CalculateEndTime();
+
+			if (newBookingEnd == DateTime.Now)
+			{
+				return;
+			}
+
+			if (!IsDateTimeAvailable(StartDate.AddHours(3), newBookingEnd.AddHours(3)))
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is reserved  at this time", "OK");
+				return;
+			}
+			else
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is available at this time", "OK");
+				return;
+			}
+		}
 
 		[RelayCommand]
 		private async Task UpdateBooking()
 		{
-			await Shell.Current.DisplayAlert("Prompt", "Inside the Update Booking", "OK");
 			try
 			{
-				Booking.StartDateTime = StartDate.Add(StartTime);
+				var newStart = StartDate.Add(StartTime);
+				var newEnd = CalculateEndTime();
 
-				if (Venue.IsFixedDuration != true)
-					Booking.EndDateTime = EndDate.Add(EndTime);
+				if (newEnd == DateTime.Now)
+				{
+					// Invalid end time due to logic in CalculateEndTime
+					return;
+				}
 
-				var updateBooking = new Booking
+				// Check if selected time is available (excluding current booking)
+				bool isAvailable = true;
+
+				foreach (var booking in VenueBookings)
+				{
+					// Skip the current booking being edited
+					if (booking.BookingId == Booking.BookingId)
+						continue;
+
+					if (booking.StartDateTime < newEnd && newStart < booking.EndDateTime)
+					{
+						isAvailable = false;
+						break;
+					}
+				}
+
+				if (!isAvailable)
+				{
+					await Shell.Current.DisplayAlert("Warning", "This time slot is already booked.", "OK");
+					return;
+				}
+
+				// Proceed with updating the booking
+				Booking.StartDateTime = newStart;
+				Booking.EndDateTime = newEnd;
+
+				var updatedBooking = new Booking
 				{
 					BookingId = Booking.BookingId,
 					CreatedAt = Booking.CreatedAt,
-					EndDateTime = Booking.EndDateTime.AddHours(3),
-					StartDateTime = Booking.StartDateTime.AddHours(3),
+					EndDateTime = newEnd.AddHours(3),
+					StartDateTime = newStart.AddHours(3),
 					TotalPrice = Booking.TotalPrice,
 					VenueId = Booking.VenueId,
 				};
@@ -113,7 +244,7 @@ namespace HojozatyCode.ViewModels
 				var response = await SupabaseConfig.SupabaseClient
 					.From<Booking>()
 					.Where(x => x.BookingId == Booking.BookingId)
-					.Update(updateBooking);
+					.Update(updatedBooking);
 
 				if (response.ResponseMessage.IsSuccessStatusCode)
 				{
@@ -130,5 +261,6 @@ namespace HojozatyCode.ViewModels
 				await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
 			}
 		}
+
 	}
 }

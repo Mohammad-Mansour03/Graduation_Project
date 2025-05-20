@@ -25,6 +25,7 @@ namespace HojozatyCode.Models
 		[Column("quantity")]
 		public int Quantity { get; set; }
 
+		//To store the Service name
 		[IgnoreDataMember]
 		public string Name { get; set; }
 
