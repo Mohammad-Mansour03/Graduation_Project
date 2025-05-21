@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace HojozatyCode.Models
 {
+
+	//Model To dealing with the Specific Booking for the Venue (Booking and the Venue Properties)
 	public class BookingWithVenue
 	{
 		public Guid BookingId { get; set; }

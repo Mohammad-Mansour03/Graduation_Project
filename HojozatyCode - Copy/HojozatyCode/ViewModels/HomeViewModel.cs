@@ -71,20 +71,6 @@ namespace HojozatyCode.ViewModels
         }
 
 
-        // Navigate to notification
-        [RelayCommand]
-        private async Task NavigateToNotifications()
-        {
-            try
-            {
-                await Shell.Current.GoToAsync(nameof(Pages.NotificationsPage));
-            }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Navigation Error", ex.Message, "OK");
-                return;
-            }
-        }
        
         //Navigate to the Categoty Venue page with passing the right category
         [RelayCommand]

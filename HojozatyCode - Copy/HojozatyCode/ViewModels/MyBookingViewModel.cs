@@ -14,12 +14,14 @@ namespace HojozatyCode.ViewModels
 {
     public partial class MyBookingViewModel : ObservableObject
     {
+		//Collcetion to store the all myBookings for the Venue
         [ObservableProperty]
         private ObservableCollection<BookingWithVenue> myBookings = new();
 
+		//Properety to store the UserId
         private Guid userId;
 
-
+		//Command to delete the Booking
 		[RelayCommand]
 		private async Task DeleteBooking(BookingWithVenue booking) 
 		{
@@ -29,7 +31,7 @@ namespace HojozatyCode.ViewModels
 				{
 					"Flexible" => "According to the flexible cancellation policy, you will be refunded the full amount you paid.",
 					"Moderate" => "According to the moderate cancellation policy, you will only be refunded 50% of the amount you paid.",
-					"Strict" => "According to the moderate cancellation policy, you will only be refunded 30% of the amount you paid."
+					"Strict" => "According to the strict cancellation policy, you will only be refunded 30% of the amount you paid."
 				};
 
 				var confirm = await Shell.Current.DisplayAlert(
@@ -56,6 +58,7 @@ namespace HojozatyCode.ViewModels
 
 		}
 
+		//Command to Navigate me to the Edit Page
 		[RelayCommand]
 		private async Task EditBookingAsync(BookingWithVenue booking)
 		{

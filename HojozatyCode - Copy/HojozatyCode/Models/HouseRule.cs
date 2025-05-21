@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HojozatyCode.Models
 {
+	//Model to dealing with Host Rules inside the Add Space
 	public class HouseRule
 	{
 		public string HouseRuleName { get; set; }

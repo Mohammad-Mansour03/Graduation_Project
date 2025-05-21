@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace HojozatyCode.Models
 {
+	//Model to deal with filter inside the Category 
     public class VenueFilter
     {
 		public double MinPrice { get; set; }

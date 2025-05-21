@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HojozatyCode.Models
 {
+	//Model to deal with SubCategories for the Project (Name and Image)
     public class Subcategory
     {
 		public string Name { get; set; }

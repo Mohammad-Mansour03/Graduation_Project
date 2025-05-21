@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace HojozatyCode.Models
 {
+	//Model to deal with Services for Booking
 	public partial class ServiceItem : ObservableObject
 	{
 		public string Name { get; set; }

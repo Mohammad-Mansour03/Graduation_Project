@@ -1,6 +1,7 @@
 ﻿
 namespace HojozatyCode.Models
 {
+    //Enumration to store the All Jordan Cities
     public enum CitieisEnum
     {
         Amman ,
