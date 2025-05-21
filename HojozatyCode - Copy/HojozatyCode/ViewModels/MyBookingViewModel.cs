@@ -20,13 +20,6 @@ namespace HojozatyCode.ViewModels
         private Guid userId;
 
 
-
-        public MyBookingViewModel() 
-        {
-            LoadBooking();
-        }
-
-
 		[RelayCommand]
 		private async Task DeleteBooking(BookingWithVenue booking) 
 		{
@@ -87,7 +80,7 @@ namespace HojozatyCode.ViewModels
 
 
 		//Method to load the all booking related to the user
-		private async Task LoadBooking() 
+		public async Task LoadBooking() 
         {
             try
             {

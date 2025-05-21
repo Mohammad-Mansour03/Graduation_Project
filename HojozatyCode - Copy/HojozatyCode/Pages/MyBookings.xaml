@@ -26,9 +26,6 @@
         <!-- Main Content -->
         <Grid Grid.Row="1">
             <!-- Bookings List -->
-            <RefreshView IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding RefreshBookingsCommand}"
-                         IsVisible="{Binding MyBookings.Count, Converter={StaticResource CountToVisibilityConverter}}">
                 <CollectionView ItemsSource="{Binding MyBookings}"
                                SelectionMode="None">
                     <CollectionView.ItemTemplate>
@@ -129,7 +126,6 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </RefreshView>
 
             <!-- Empty State - Only shows when no bookings -->
             <StackLayout IsVisible="{Binding MyBookings.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=true}"

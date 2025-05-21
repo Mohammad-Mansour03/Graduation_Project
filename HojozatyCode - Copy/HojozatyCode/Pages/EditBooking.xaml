@@ -19,11 +19,12 @@
             <TimePicker Time="{Binding StartTime}" />
 
             <!-- End Date Time -->
-            <Label Text="End Date and Time" />
-            <DatePicker Date="{Binding EndDate}" IsEnabled="{Binding CanEditEndDate}" />
-            <TimePicker Time="{Binding EndTime}" IsEnabled="{Binding CanEditEndDate}" />
-            
-            
+            <Label Text="End Time" IsVisible="{Binding CanEditEndDate}" />
+            <TimePicker Time="{Binding EndTime}" IsVisible="{Binding CanEditEndDate}" />
+
+
+
+
             <Label Text="Selected Services" FontAttributes="Bold" />
             <CollectionView ItemsSource="{Binding SelectedServices}">
                 <CollectionView.ItemTemplate>
@@ -37,11 +38,18 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button Text="Update Booking" 
-                    BackgroundColor="#4CAF50" 
+            <!-- Check Availability Button -->
+            <Button Text="Check Availability"
+                    BackgroundColor="Orange"
                     TextColor="White"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type pages:EditBooking}}, Path=UpdateBookingCommand}"
-             />
+                    Command="{Binding CheckAvailabilityCommand}" />
+
+            <!-- Update Button -->
+            <Button Text="Update Booking"
+            BackgroundColor="#4CAF50"
+            TextColor="White"
+            Command="{Binding UpdateBookingCommand}" />
+        
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
