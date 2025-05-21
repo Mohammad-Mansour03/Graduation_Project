@@ -28,22 +28,16 @@
             <Color x:Key="Outline">#E1E0E9</Color>
             <Color x:Key="TextSecondary">#6B6D7C</Color>
 
-            <!-- Typography -->
-            <x:Double x:Key="TitleFontSize">24</x:Double>
-            <x:Double x:Key="SectionFontSize">18</x:Double>
-            <x:Double x:Key="BodyFontSize">16</x:Double>
-            <x:Double x:Key="LabelFontSize">14</x:Double>
-
             <!-- Component Styles -->
             <Style x:Key="PageTitle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource TitleFontSize}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
                 <Setter Property="Margin" Value="0,0,0,20" />
             </Style>
 
             <Style x:Key="SectionTitle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource SectionFontSize}" />
+                <Setter Property="FontSize" Value="18" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
                 <Setter Property="Margin" Value="0,24,0,12" />
@@ -59,7 +53,7 @@
             </Style>
 
             <Style x:Key="TextInput" TargetType="Entry">
-                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="FontSize" Value="16" />
                 <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
                 <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondary}" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
@@ -69,7 +63,7 @@
             <Style x:Key="PrimaryButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="TextColor" Value="{StaticResource OnPrimary}" />
-                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="FontSize" Value="16" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="CornerRadius" Value="12" />
                 <Setter Property="HeightRequest" Value="50" />
@@ -148,14 +142,14 @@
                                   ColumnSpacing="-20">
                                     <!-- Service Name -->
                                     <Label Text="{Binding Name}"
-                                       FontSize="{StaticResource BodyFontSize}"
+                                       FontSize="16"
                                        TextColor="{StaticResource OnSurface}"
                                        VerticalOptions="Center" />
 
                                     <!-- Service Price -->
                                     <Label Text="{Binding Price, StringFormat='{0} JOD'}"
                                        Grid.Column="1"
-                                       FontSize="{StaticResource BodyFontSize}"
+                                       FontSize="16"
                                        TextColor="{StaticResource Primary}"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center" />
@@ -179,7 +173,7 @@
 
                 <!-- Error Message -->
                 <Label Text="{Binding ErrorMessage}"
-                   FontSize="{StaticResource LabelFontSize}"
+                   FontSize="14"
                    TextColor="{StaticResource Error}"
                    HorizontalOptions="Center"
                    Margin="0,16"
