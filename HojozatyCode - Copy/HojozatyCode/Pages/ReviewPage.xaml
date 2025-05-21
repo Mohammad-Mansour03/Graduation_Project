@@ -1,260 +1,184 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HojozatyCode.Pages.ReviewPage"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              Shell.TabBarIsVisible="False"
-             x:Class="HojozatyCode.Pages.ReviewPage"
-             BackgroundColor="#F9F6FC">
+             BackgroundColor="#F8F7FC">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Color Palette -->
+            <Color x:Key="Primary">#4F378A</Color>
+            <Color x:Key="PrimaryLight">#7A67B8</Color>
+            <Color x:Key="PrimaryLighter">#B5A8DB</Color>
+            <Color x:Key="PrimaryDark">#3A2968</Color>
+            <Color x:Key="Secondary">#FF9E40</Color>
+            <Color x:Key="Background">#F8F7FC</Color>
+            <Color x:Key="Surface">#FFFFFF</Color>
+            <Color x:Key="Error">#E53935</Color>
+            <Color x:Key="OnPrimary">#FFFFFF</Color>
+            <Color x:Key="OnSecondary">#FFFFFF</Color>
+            <Color x:Key="OnBackground">#1A1C2A</Color>
+            <Color x:Key="OnSurface">#1A1C2A</Color>
+            <Color x:Key="Outline">#E1E0E9</Color>
+            <Color x:Key="TextSecondary">#6B6D7C</Color>
 
+            <!-- Font Sizes -->
+            <x:Double x:Key="TitleFontSize">24</x:Double>
+            <x:Double x:Key="SectionFontSize">18</x:Double>
+            <x:Double x:Key="BodyFontSize">16</x:Double>
+            <x:Double x:Key="LabelFontSize">14</x:Double>
+
+            <!-- Styles -->
+            <Style x:Key="PageTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource TitleFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
+                <Setter Property="Margin" Value="0,0,0,20" />
+            </Style>
+
+            <Style x:Key="SectionHeader" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource SectionFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
+                <Setter Property="Margin" Value="0,16,0,8" />
+            </Style>
+
+            <Style x:Key="CardTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+            </Style>
+
+            <Style x:Key="CardValue" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+            </Style>
+
+            <Style x:Key="ItemCard" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+                <Setter Property="BorderColor" Value="{StaticResource Outline}" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="Margin" Value="0,0,0,12" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+
+            <Style x:Key="PrimaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="{StaticResource OnPrimary}" />
+                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="0,24" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Review Your Venue" 
-                   FontSize="32" 
-                   FontAttributes="Bold" 
-                   TextColor="Black"/>
+        <VerticalStackLayout Padding="24" Spacing="0">
+            <!-- Title -->
+            <Label Text="Review Your Venue" Style="{StaticResource PageTitle}" />
 
-             <!-- Images Carousel -->
-            <Label Text="Venue Photos:" FontSize="18" FontAttributes="Bold"/>
-            <Frame HeightRequest="250" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+            <!-- Images Carousel -->
+            <Label Text="Venue Photos" Style="{StaticResource SectionHeader}" />
+
+            <Frame HeightRequest="250"
+                   Padding="0"
+                   CornerRadius="12"
+                   IsClippedToBounds="True"
+                   HasShadow="True"
+                   BackgroundColor="{StaticResource Surface}">
                 <Grid>
-                    <CarouselView HeightRequest="250" 
-                                 ItemsSource="{Binding ImageUrlsList}" 
-                                 IndicatorView="indicatorView">
+                    <CarouselView ItemsSource="{Binding ImageUrlsList}"
+                                  HeightRequest="250"
+                                  IsBounceEnabled="False">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
-                                    <Image Source="{Binding .}" 
-                                          Aspect="AspectFill"
-                                          HorizontalOptions="Fill"
-                                          VerticalOptions="Fill"/>
-                                </Grid>
+                                <Image Source="{Binding .}"
+                                       Aspect="AspectFill"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Fill"/>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
                     </CarouselView>
-                    
+
                     <IndicatorView x:Name="indicatorView"
-                                  HorizontalOptions="Center"
-                                  VerticalOptions="End"
-                                  Margin="0,0,0,10"
-                                  IndicatorColor="LightGray"
-                                  SelectedIndicatorColor="#4F378A"/>
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="End"
+                                   Margin="0,0,0,16"
+                                   IndicatorColor="{StaticResource Outline}"
+                                   SelectedIndicatorColor="{StaticResource Primary}"
+                                   IndicatorSize="8"/>
                 </Grid>
             </Frame>
 
-            <!-- Space Type -->
-            <Label Text="Space Type:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Label Text="{Binding SpaceType}" FontSize="16" TextColor="#454545"/>
+            <!-- Space Details -->
+            <Label Text="Space Details" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
 
-            <!-- Space Name -->
-            <Label Text="Space Name:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Label Text="{Binding SpaceName}" FontSize="16" TextColor="#454545"/>
+            <Frame Style="{StaticResource ItemCard}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Space Type" Style="{StaticResource CardTitle}" />
+                    <Label Text="{Binding SpaceType}" Style="{StaticResource CardValue}" />
 
-            <!-- City -->
-            <Label Text="City:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Label Text="{Binding City}" FontSize="16" TextColor="#454545"/>
+                    <Label Text="Space Name" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
+                    <Label Text="{Binding SpaceName}" Style="{StaticResource CardValue}" />
 
+                    <Label Text="City" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
+                    <Label Text="{Binding City}" Style="{StaticResource CardValue}" />
 
+                    <Label Text="Category" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
+                    <Label Text="{Binding Category}" Style="{StaticResource CardValue}" />
 
-            <!-- Type of Space -->
-            <Label Text="Type of Space:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Label Text="{Binding Category}" FontSize="16" TextColor="#454545"/>
+                    <Label Text="Description" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
+                    <Label Text="{Binding Description}" Style="{StaticResource CardValue}" LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Frame>
 
-            <!-- Description -->
-            <Label Text="Description:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Label Text="{Binding Description}" FontSize="16" TextColor="#454545"/>
-
-            <!-- Services Provided -->
-            <Label Text="Services Provided:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <CollectionView ItemsSource="{Binding Services}">
-
+            <!-- Services -->
+            <Label Text="Services" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
+            <CollectionView ItemsSource="{Binding Services}" EmptyView="No services added">
                 <CollectionView.ItemTemplate>
-
                     <DataTemplate>
-
-                        <!-- Outer Border for a Unified Look -->
-                        <Border Stroke="Gray"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 20"
-                                Padding="10"
-                                Margin="5"
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="FillAndExpand">
-
-                            <Grid ColumnDefinitions="*,Auto,Auto" 
-                                  ColumnSpacing="10">
-
-                                <!-- Name Entry -->
-                                <Entry Grid.Column="0"
-                                       Text="{Binding Name}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="#454545"
-                                       Margin="5"
-                                       HorizontalOptions="FillAndExpand"/>
-
-                                <!-- Price Entry -->
-                                <Entry Grid.Column="1"
-                                       Text="{Binding Price}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="#454545"
-                                       Margin="5"
-                                       WidthRequest="60"
-                                       HorizontalTextAlignment="Center"/>
-
-                                <!-- Delete Button --><!--
-                                <ImageButton Grid.Column="2"
-                                             Source="delete.png"
-                                             BackgroundColor="Transparent"
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, Path=DeleteServiceCommand}"
-                                             CommandParameter="{Binding .}"
-                                             WidthRequest="35"
-                                             HeightRequest="35"
-                                             Padding="5"/>-->
-
+                        <Frame Style="{StaticResource ItemCard}">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Text="{Binding Name}" Style="{StaticResource CardTitle}" />
+                                <Label Text="{Binding Price, StringFormat='{0} JOD'}"
+                                       Grid.Column="1"
+                                       Style="{StaticResource CardValue}"
+                                       FontAttributes="Bold"/>
                             </Grid>
-
-                        </Border>
-
+                        </Frame>
                     </DataTemplate>
-
                 </CollectionView.ItemTemplate>
-
             </CollectionView>
-            
-            <!-- Policies -->
-            <Label Text="Cancellation Policy:" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Label Text="{Binding SelectedPolicy}" FontSize="16" TextColor="#454545"/>
 
-            <!-- House Rules-->
-            <Label Text="House Rules : " FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <CollectionView ItemsSource="{Binding HouseRules}" >
+            <!-- Cancellation Policy -->
+            <Label Text="Cancellation Policy" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
+            <Frame Style="{StaticResource ItemCard}">
+                <Label Text="{Binding SelectedPolicy}" Style="{StaticResource CardValue}" />
+            </Frame>
 
+            <!-- House Rules -->
+            <Label Text="House Rules" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
+            <CollectionView ItemsSource="{Binding HouseRules}" EmptyView="No house rules added">
                 <CollectionView.ItemTemplate>
-
                     <DataTemplate>
-                        <!-- Outer Border for a Unified Look -->
-                        <Border Stroke="Gray"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 20"
-                                Padding="10"
-                                Margin="5"
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="FillAndExpand">  
-
-                            <!-- Vertical StackLayout for House Rule Data -->
-                            <VerticalStackLayout Spacing="5">
-
-                                <!-- House Rule Name -->
-                                <Label Text="House Rule Name:"
-                               FontSize="14"
-                               TextColor="Black"/>
-
-                                <Entry Text="{Binding HouseRuleName}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="#454545"
-                                       Margin="5"
-                                       HorizontalOptions="FillAndExpand"/>
-
-                                <!-- House Rule Description -->
-                                <Label Text="House Rule Description:"
-                                       FontSize="14"
-                                       TextColor="Black"/>   
-
-                                <Entry Text="{Binding HouseRuleDescription}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="#454545"
-                                       Margin="5"
-                                       HorizontalOptions="FillAndExpand"/>
-
-                                <!-- Delete Button --><!--
-                                <ImageButton   Grid.Column="2"
-                                               Source="delete.png"
-                                               BackgroundColor="Transparent"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, 
-                                                            Path=DeleteHostRuleCommand}"
-                                               CommandParameter="{Binding .}"
-                                               WidthRequest="35"
-                                               HeightRequest="35"
-                                               Padding="5"/>-->
-
+                        <Frame Style="{StaticResource ItemCard}">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="{Binding HouseRuleName}" Style="{StaticResource CardTitle}" />
+                                <Label Text="{Binding HouseRuleDescription}" Style="{StaticResource CardValue}" LineBreakMode="WordWrap" />
                             </VerticalStackLayout>
-
-                        </Border>
-                        
+                        </Frame>
                     </DataTemplate>
-                
                 </CollectionView.ItemTemplate>
-
-            </CollectionView>  
-            
-            <!-- Pictures -->
-            <!-- <Label Text="Pictures Space : " FontSize="18" FontAttributes="Bold"/> -->
-            <!--<CollectionView ItemsSource="{Binding SelectedImages}">
-
-                <CollectionView.ItemTemplate>
-
-                    --><!--<DataTemplate>
-                        --><!-- Outer Border for a Unified Look --><!--
-                        <Border Stroke="Gray"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 20"
-                                Padding="10"
-                                Margin="5"
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="FillAndExpand">  
-
-                            --><!-- Vertical StackLayout for House Rule Data --><!--
-                            <VerticalStackLayout Spacing="5">
-
-                                --><!-- House Rule Name --><!--
-                                <Label Text="House Rule Name:"
-                               FontSize="14"
-                               TextColor="Gray"/>
-
-                                <Entry Text="{Binding HouseRuleName}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="Black"
-                                       Margin="5"
-                                       HorizontalOptions="FillAndExpand"/>
-
-                                --><!-- House Rule Description --><!--
-                                <Label Text="House Rule Description:"
-                                       FontSize="14"
-                                       TextColor="Gray"/>   
-
-                                <Entry Text="{Binding HouseRuleDescription}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="Black"
-                                       Margin="5"
-                                       HorizontalOptions="FillAndExpand"/>
-
-                       
-
-                            </VerticalStackLayout>
-
-                        </Border>
-                        
-                    </DataTemplate>--><!--
-                
-                </CollectionView.ItemTemplate>
-
-            </CollectionView>-->
-
-            
+            </CollectionView>
 
             <!-- Submit Button -->
-            <Button Text="Submit"
-                    BackgroundColor="#4F378A"
-                    TextColor="White"
-                    FontSize="18"
-                    CornerRadius="10"
-                    HeightRequest="50"
+            <Button Text="Submit Venue"
+                    Style="{StaticResource PrimaryButton}"
                     Command="{Binding SaveSpaceCommand}"/>
         </VerticalStackLayout>
     </ScrollView>

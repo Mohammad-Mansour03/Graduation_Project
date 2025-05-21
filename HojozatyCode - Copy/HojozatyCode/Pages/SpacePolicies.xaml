@@ -3,301 +3,264 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
-             Shell.TabBarIsVisible="False"
              x:Class="HojozatyCode.Pages.SpacePolicies"
-             BackgroundColor="#F9F6FC">
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#F8F7FC">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+
+            <!-- Colors -->
+            <Color x:Key="Primary">#4F378A</Color>
+            <Color x:Key="PrimaryLight">#7A67B8</Color>
+            <Color x:Key="PrimaryLighter">#B5A8DB</Color>
+            <Color x:Key="Background">#F8F7FC</Color>
+            <Color x:Key="Surface">#FFFFFF</Color>
+            <Color x:Key="Error">#E53935</Color>
+            <Color x:Key="OnPrimary">#FFFFFF</Color>
+            <Color x:Key="OnBackground">#1A1C2A</Color>
+            <Color x:Key="OnSurface">#1A1C2A</Color>
+            <Color x:Key="Outline">#E1E0E9</Color>
+            <Color x:Key="TextSecondary">#6B6D7C</Color>
+
+            <!-- Typography -->
+            <x:Double x:Key="TitleFontSize">24</x:Double>
+            <x:Double x:Key="SectionFontSize">18</x:Double>
+            <x:Double x:Key="BodyFontSize">16</x:Double>
+            <x:Double x:Key="LabelFontSize">14</x:Double>
+
+            <!-- Styles -->
+            <Style x:Key="PageTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource TitleFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
+                <Setter Property="Margin" Value="0,0,0,20" />
+            </Style>
+
+            <Style x:Key="SectionTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource SectionFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
+                <Setter Property="Margin" Value="0,24,0,12" />
+            </Style>
+
+            <Style x:Key="PolicyCard" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+                <Setter Property="BorderColor" Value="{StaticResource Outline}" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="Margin" Value="0,0,0,12" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+
+            <Style x:Key="PolicyTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
+            </Style>
+
+            <Style x:Key="PolicyDescription" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource LabelFontSize}" />
+                <Setter Property="TextColor" Value="{StaticResource Error}" />
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+            </Style>
+
+            <Style x:Key="RadioButton" TargetType="RadioButton">
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="DurationToggle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource Outline}" />
+                <Setter Property="CornerRadius" Value="40" />
+                <Setter Property="HeightRequest" Value="56" />
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+            </Style>
+
+            <Style x:Key="DurationInput" TargetType="Entry">
+                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondary}" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HeightRequest" Value="56" />
+            </Style>
+
+            <Style x:Key="InputBorder" TargetType="Border">
+                <Setter Property="Stroke" Value="{StaticResource Outline}" />
+                <Setter Property="StrokeThickness" Value="1" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+                <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+                <Setter Property="HeightRequest" Value="56" />
+                <Setter Property="Padding" Value="16,0" />
+            </Style>
+
+            <Style x:Key="PrimaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="{StaticResource OnPrimary}" />
+                <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Padding" Value="24,0" />
+            </Style>
+
+            <Style x:Key="RuleCard" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+                <Setter Property="BorderColor" Value="{StaticResource Outline}" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="Margin" Value="0,0,0,12" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+
+            <Style x:Key="DeleteButton" TargetType="ImageButton">
+                <Setter Property="Source" Value="delete_outline.png" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="24" />
+                <Setter Property="HeightRequest" Value="24" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ScrollView>
-        
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="24" Spacing="0">
+            <Label Text="Space Policies" Style="{StaticResource PageTitle}" />
 
-            <!-- Header -->
-            <Label Text="What are your Policies?"
-                   FontSize="32"
-                   FontAttributes="Bold"
-                   TextColor="Black"/>
-            <BoxView HeightRequest="1" Color="#E0DCEC"/>
-
-
-            <!-- Cancellation Policy Section -->
-            <Label Text="Cancellation Policy"
-       FontSize="24"
-       FontAttributes="Bold"
-       TextColor="Black"
-       Margin="0,10,0,0"/>
+            <!-- Cancellation Policy -->
+            <Label Text="Cancellation Policy" Style="{StaticResource SectionTitle}" />
 
             <VerticalStackLayout Spacing="12">
-
-                <!-- Flexible Policy -->
-                <Frame BorderColor="Black"
-           CornerRadius="15"
-           Padding="15"
-           HasShadow="False"
-           BackgroundColor="White">
+                <Frame Style="{StaticResource PolicyCard}">
                     <Grid ColumnDefinitions="*,Auto">
                         <VerticalStackLayout Spacing="4">
-                            <Label Text="Flexible"
-                       FontAttributes="Bold"
-                       FontSize="16"
-                       TextColor="Black"/>
-                            <Label Text="The guest receives a full refund."
-                       FontSize="14"
-                       TextColor="Red"
-                       LineBreakMode="WordWrap"/>
-                            <Label Text="You will not keep any part of the payment if the guest cancels."
-                       FontSize="12"
-                       TextColor="Red"
-                       LineBreakMode="WordWrap"/>
+                            <Label Text="Flexible" Style="{StaticResource PolicyTitle}" />
+                            <Label Text="The guest receives a full refund." Style="{StaticResource PolicyDescription}" />
+                            <Label Text="You will not keep any part of the payment if the guest cancels." Style="{StaticResource PolicyDescription}" />
                         </VerticalStackLayout>
-                        <RadioButton x:Name="FlexibleRadioButton"
-                         GroupName="CancellationPolicy"
-                         IsChecked="{Binding SelectedPolicy, 
-                                     Mode=TwoWay, 
-                                     Converter={StaticResource StringToBoolConverter}, 
-                                     ConverterParameter=Flexible}"
-                         Grid.Column="1"
-                         VerticalOptions="Center"/>
+                        <RadioButton GroupName="CancellationPolicy"
+                                     IsChecked="{Binding SelectedPolicy, Converter={StaticResource StringToBoolConverter}, ConverterParameter=Flexible}"
+                                     Style="{StaticResource RadioButton}"
+                                     Grid.Column="1" />
                     </Grid>
                 </Frame>
 
-                <!-- Moderate Policy -->
-                <Frame BorderColor="Black"
-           CornerRadius="15"
-           Padding="15"
-           HasShadow="False"
-           BackgroundColor="White">
+                <Frame Style="{StaticResource PolicyCard}">
                     <Grid ColumnDefinitions="*,Auto">
                         <VerticalStackLayout Spacing="4">
-                            <Label Text="Moderate"
-                       FontAttributes="Bold"
-                       FontSize="16"
-                       TextColor="Black"/>
-                            <Label Text="The guest receives a 50% refund."
-                       FontSize="14"
-                       TextColor="Red"
-                       LineBreakMode="WordWrap"/>
-                            <Label Text="You will keep half of the reservation amount if the guest cancels."
-                       FontSize="12"
-                       TextColor="Red"
-                       LineBreakMode="WordWrap"/>
+                            <Label Text="Moderate" Style="{StaticResource PolicyTitle}" />
+                            <Label Text="The guest receives a 50% refund." Style="{StaticResource PolicyDescription}" />
+                            <Label Text="You will keep half of the reservation amount if the guest cancels." Style="{StaticResource PolicyDescription}" />
                         </VerticalStackLayout>
-                        <RadioButton x:Name="ModerateRadioButton"
-                         GroupName="CancellationPolicy"
-                         IsChecked="{Binding SelectedPolicy, 
-                                     Mode=TwoWay, 
-                                     Converter={StaticResource StringToBoolConverter}, 
-                                     ConverterParameter=Moderate}"
-                         Grid.Column="1"
-                         VerticalOptions="Center"/>
+                        <RadioButton GroupName="CancellationPolicy"
+                                     IsChecked="{Binding SelectedPolicy, Converter={StaticResource StringToBoolConverter}, ConverterParameter=Moderate}"
+                                     Style="{StaticResource RadioButton}"
+                                     Grid.Column="1" />
                     </Grid>
                 </Frame>
 
-                <!-- Strict Policy -->
-                <Frame BorderColor="Black"
-           CornerRadius="15"
-           Padding="15"
-           HasShadow="False"
-           BackgroundColor="White">
+                <Frame Style="{StaticResource PolicyCard}">
                     <Grid ColumnDefinitions="*,Auto">
                         <VerticalStackLayout Spacing="4">
-                            <Label Text="Strict"
-                       FontAttributes="Bold"
-                       FontSize="16"
-                       TextColor="Black"/>
-                            <Label Text="The guest receives only 30% back."
-                       FontSize="14"
-                       TextColor="Red"
-                       LineBreakMode="WordWrap"/>
-                            <Label Text="You will keep 70% of the payment if the guest cancels."
-                       FontSize="12"
-                       TextColor="Red"
-                       LineBreakMode="WordWrap"/>
+                            <Label Text="Strict" Style="{StaticResource PolicyTitle}" />
+                            <Label Text="The guest receives only 30% back." Style="{StaticResource PolicyDescription}" />
+                            <Label Text="You will keep 70% of the payment if the guest cancels." Style="{StaticResource PolicyDescription}" />
                         </VerticalStackLayout>
-                        <RadioButton x:Name="StrictRadioButton"
-                         GroupName="CancellationPolicy"
-                         IsChecked="{Binding SelectedPolicy, 
-                                     Mode=TwoWay, 
-                                     Converter={StaticResource StringToBoolConverter}, 
-                                     ConverterParameter=Strict}"
-                         Grid.Column="1"
-                         VerticalOptions="Center"/>
+                        <RadioButton GroupName="CancellationPolicy"
+                                     IsChecked="{Binding SelectedPolicy, Converter={StaticResource StringToBoolConverter}, ConverterParameter=Strict}"
+                                     Style="{StaticResource RadioButton}"
+                                     Grid.Column="1" />
                     </Grid>
                 </Frame>
-
             </VerticalStackLayout>
 
-            <!-- Fixed Duration Section -->
-            <Label Text="Is Duration Fixed?"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="Black"
-                   Margin="0,20,0,0" />
-            <Frame CornerRadius="40" Background="LightGray" HeightRequest="70">
-            <Switch IsToggled="{Binding IsFixedDuration}" 
-                      ThumbColor="#673AB7" 
-                      OnColor="#D1C4E9"
-                    BackgroundColor="LightGray" 
-                    />
+            <!-- Fixed Duration -->
+            <Label Text="Fixed Duration" Style="{StaticResource SectionTitle}" Margin="0,24,0,0" />
+
+            <Frame Style="{StaticResource DurationToggle}">
+                <HorizontalStackLayout Spacing="140" VerticalOptions="EndAndExpand" WidthRequest="330">
+                    <Label Text="Is Duration Fixed?" FontSize="{StaticResource BodyFontSize}" TextColor="{StaticResource OnSurface}" />
+                    <Switch IsToggled="{Binding IsFixedDuration}"
+                            ThumbColor="{StaticResource Primary}"
+                            OnColor="{StaticResource PrimaryLighter}"/>
+                </HorizontalStackLayout>
             </Frame>
 
-            <!-- Show this only if IsFixedDuration is true -->
-            <Border Stroke="LightGray"
-                    StrokeThickness="2"
-                    StrokeShape="RoundRectangle 12"
-                    HeightRequest="50"
-                    WidthRequest="350"
-                    IsVisible="{Binding IsFixedDuration}">
-
-                <Entry Placeholder="Enter duration in hours"
-                    Keyboard="Numeric"
-                    Text="{Binding FixedDurationInHours, Mode=TwoWay}"
-                    BackgroundColor="Transparent"
-                    FontSize="16"
-                    PlaceholderColor="Gray"
-                    TextColor="Black"/>
-            
+            <Border Style="{StaticResource InputBorder}" Margin="0,12,0,0" IsVisible="{Binding IsFixedDuration}">
+                <Entry Style="{StaticResource DurationInput}" 
+                       Placeholder="Enter duration in hours"
+                       Keyboard="Numeric"
+                       Text="{Binding FixedDurationInHours, Mode=TwoWay}" />
             </Border>
 
-            <Label Text="Add Venue Rules"
-                   FontSize="24" 
-                   FontAttributes="Bold" 
-                   TextColor="Black"
-                   Margin="0,20,0,0"/>
+            <!-- House Rules -->
+            <Label Text="House Rules" Style="{StaticResource SectionTitle}" Margin="0,24,0,0" />
 
-            <!--Add Host Rule Option-->
-            <VerticalStackLayout Spacing="12" 
-                          VerticalOptions="Start"
-                                 HorizontalOptions="Start">
-
-
-                <!-- Host Rule Name -->
-                <Border Stroke="LightGray"
-                        StrokeThickness="2" 
-                        StrokeShape="RoundRectangle 12" 
-                        HeightRequest="50"
-                        WidthRequest="350">
-
-                    <Entry Placeholder="House Rule" 
-                           Text="{Binding NewHouseRuleName}" 
-                           BackgroundColor="Transparent"
-                           FontSize="16"
-                           PlaceholderColor="Gray"
-                           TextColor="Black"
-                    />
-
+            <VerticalStackLayout Spacing="12" Margin="0,0,0,16">
+                <Border Style="{StaticResource InputBorder}">
+                    <Entry Placeholder="Rule name"
+                           Style="{StaticResource DurationInput}"
+                           Keyboard="Default"
+                           Text="{Binding NewHouseRuleName}" />
                 </Border>
 
-                <!-- Host Rule Description -->
-                <Border  Stroke="LightGray"  
-                         Padding="10"
-                         Margin="0,10,0,0" 
-                         StrokeShape="RoundRectangle 15">
-
-                    <VerticalStackLayout Spacing="5">
-
-                        <Editor Placeholder="Description"
-                                HeightRequest="100"
-                                Text="{Binding NewHouseRuleDescription}"
-                                TextColor="Black"/>
-
-                    </VerticalStackLayout>
-
+                <Border Stroke="{StaticResource Outline}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="{StaticResource Surface}"
+                        Padding="16">
+                    <Editor Placeholder="Rule description"
+                            HeightRequest="100"
+                            Text="{Binding NewHouseRuleDescription}"
+                            FontSize="{StaticResource BodyFontSize}"
+                            TextColor="{StaticResource OnSurface}"
+                            AutoSize="TextChanges" />
                 </Border>
 
-                <!-- Add Button -->
-                <Button Text="ADD"
-        FontSize="Large"
-        Command="{Binding AddHouseRuleCommand}"
-        HeightRequest="50"
-        WidthRequest="150"
-        Margin="0,30,0,0"
-        BackgroundColor="#4F378A"
-        CornerRadius="20"
-        TextColor="White"
-        HorizontalOptions="Center"/>
-                
+                <Button Text="Add Rule"
+                        Style="{StaticResource PrimaryButton}"
+                        Command="{Binding AddHouseRuleCommand}" />
             </VerticalStackLayout>
 
-            <CollectionView ItemsSource="{Binding HouseRules}">
-
+            <CollectionView ItemsSource="{Binding HouseRules}"
+                            EmptyView="No house rules added yet">
                 <CollectionView.ItemTemplate>
-
                     <DataTemplate>
-                        <!-- Outer Border for a Unified Look -->
-                        <Border Stroke="Gray"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 20"
-                                Padding="10"
-                                Margin="5"
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="FillAndExpand">
+                        <Frame Style="{StaticResource RuleCard}">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="{Binding HouseRuleName}"
+                                       FontSize="{StaticResource BodyFontSize}"
+                                       TextColor="{StaticResource OnSurface}"
+                                       FontAttributes="Bold" />
 
-                            <!-- Vertical StackLayout for House Rule Data -->
-                            <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding HouseRuleDescription}"
+                                       FontSize="{StaticResource LabelFontSize}"
+                                       TextColor="{StaticResource OnSurface}"
+                                       LineBreakMode="WordWrap" />
 
-                                <!-- House Rule Name -->
-                                <Label Text="House Rule Name:"
-                                       FontSize="14"
-                                       TextColor="Gray"/>   
-
-                                <Entry Text="{Binding HouseRuleName}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="Black"
-                                       Margin="5"
-                                       HorizontalOptions="FillAndExpand"/>  
-
-                                <!-- House Rule Description -->
-                                <Label Text="House Rule Description:"
-                                       FontSize="14"
-                                       TextColor="Gray"/>   
-
-                                <Entry Text="{Binding HouseRuleDescription}"
-                                       IsReadOnly="True"
-                                       FontSize="16"
-                                       TextColor="Black"
-                                       Margin="5"
-                                       HorizontalOptions="FillAndExpand"/>
-
-                                <!-- Delete Button -->
-                                <ImageButton   Grid.Column="2"
-                                               Source="delete.png"
-                                               BackgroundColor="Transparent"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, 
-                                                            Path=DeleteHostRuleCommand}"
-                                               CommandParameter="{Binding .}"
-                                               WidthRequest="35"
-                                               HeightRequest="35"
-                                               Padding="5"/>
-
+                                <ImageButton Style="{StaticResource DeleteButton}"
+                                             HorizontalOptions="End"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, Path=DeleteHostRuleCommand}"
+                                             CommandParameter="{Binding .}" />
                             </VerticalStackLayout>
-
-                        </Border>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-
             </CollectionView>
-            <!-- Error Message -->
-            <Label Text="{Binding ErrorMessage}" 
-        FontSize="14" 
-        TextColor="Red" 
-        HorizontalOptions="Center" 
-        VerticalOptions="Center" 
-        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
 
-            <!-- Review Button -->
+            <Label Text="{Binding ErrorMessage}"
+                   FontSize="{StaticResource LabelFontSize}"
+                   TextColor="{StaticResource Error}"
+                   HorizontalOptions="Center"
+                   Margin="0,16"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}" />
+
             <Button Text="Review"
-             BackgroundColor="#4F378A" 
-             TextColor="White" 
-             CornerRadius="25"
-             FontSize="Large"
-              HeightRequest="50"
-             WidthRequest="250"
-             Margin="0,30,0,30"
-             Command="{Binding NavigateToReviewPageCommand}"
-             HorizontalOptions="Center"/>
-
+                    Style="{StaticResource PrimaryButton}"
+                    Margin="0,32"
+                    Command="{Binding NavigateToReviewPageCommand}" />
         </VerticalStackLayout>
-        
     </ScrollView>
-
 </ContentPage>
