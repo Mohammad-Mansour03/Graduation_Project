@@ -1,55 +1,177 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.EditBooking"
-             xmlns:pages="clr-namespace:HojozatyCode.Pages"
              xmlns:viewmodels="clr-namespace:HojozatyCode.ViewModels"
-             Title="Edit Booking">
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             BackgroundColor="#FFFBFE">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#4F378A</Color>
+            <Color x:Key="PrimaryLightColor">#E8DEF8</Color>
+            <Color x:Key="InputBackground">#F7F2FA</Color>
+            <Color x:Key="BorderColor">#E7E0EC</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.BindingContext>
         <viewmodels:EditBookingViewModel />
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Edit Booking" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <VerticalStackLayout Padding="24" Spacing="28">
 
-            <!-- Start Date Time -->
-            <Label Text="Start Date and Time" />
-            <DatePicker Date="{Binding StartDate}" />
-            <TimePicker Time="{Binding StartTime}" />
+            <!-- Header -->
+            <VerticalStackLayout Spacing="12">
+                <Label Text="Edit Booking"
+                       FontSize="32"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource PrimaryColor}" />
+            </VerticalStackLayout>
 
-            <!-- End Date Time -->
-            <Label Text="End Time" IsVisible="{Binding CanEditEndDate}" />
-            <TimePicker Time="{Binding EndTime}" IsVisible="{Binding CanEditEndDate}" />
+            <!-- Booking Time -->
+            <Border Stroke="{StaticResource BorderColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Background="White"
+                    Padding="20">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Booking Time"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#1C1B1F" />
+
+                    <!-- Start Date + Time -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                        <!-- Start Date -->
+                        <VerticalStackLayout Spacing="6" Grid.Column="0">
+                            <Label Text="Start Date"
+                                   FontSize="14"
+                                   TextColor="#49454F" />
+                            <Frame Padding="12" 
+                                   HasShadow="False" 
+                                   BorderColor="#CAC4D0" 
+                                   CornerRadius="12"
+                                   BackgroundColor="{StaticResource InputBackground}">
+                                <DatePicker Date="{Binding StartDate}"
+                                            BackgroundColor="Transparent"
+                                            TextColor="#1C1B1F"
+                                            FontSize="14"
+                                            HorizontalOptions="Fill" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Start Time -->
+                        <VerticalStackLayout Spacing="6" Grid.Column="1">
+                            <Label Text="Start Time"
+                                   FontSize="14"
+                                   TextColor="#49454F" />
+                            <Frame Padding="12" 
+                                   HasShadow="False" 
+                                   BorderColor="#CAC4D0" 
+                                   CornerRadius="12"
+                                   BackgroundColor="{StaticResource InputBackground}">
+                                <TimePicker Time="{Binding StartTime}"
+                                            BackgroundColor="Transparent"
+                                            TextColor="#1C1B1F"
+                                            FontSize="14"
+                                            HorizontalOptions="Fill" />
+                            </Frame>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- End Time -->
+                    <VerticalStackLayout Spacing="6" IsVisible="{Binding CanEditEndDate}">
+                        <Label Text="End Time"
+                               FontSize="14"
+                               TextColor="#49454F" />
+                        <Frame Padding="12" 
+                               HasShadow="False" 
+                               BorderColor="#CAC4D0" 
+                               CornerRadius="12"
+                               BackgroundColor="{StaticResource InputBackground}">
+                            <TimePicker Time="{Binding EndTime}"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#1C1B1F"
+                                        FontSize="14"
+                                        HorizontalOptions="Fill" />
+                        </Frame>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Selected Services -->
+            <Border Stroke="{StaticResource BorderColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Background="White"
+                    Padding="20">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Selected Services"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#1C1B1F" />
+
+                    <CollectionView ItemsSource="{Binding SelectedServices}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Stroke="{StaticResource BorderColor}"
+                                        StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 12"
+                                        Background="{StaticResource InputBackground}"
+                                        Padding="16"
+                                        Margin="0,0,0,12">
+                                    <Grid ColumnDefinitions="*,Auto"
+                                          RowDefinitions="Auto,Auto"
+                                          RowSpacing="4">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#1C1B1F"
+                                               Grid.Column="0" Grid.Row="0" />
+
+                                        <Label Text="{Binding TotalPrice, StringFormat='{}{0} JOD'}"
+                                         FontSize="16"
+                                       FontAttributes="Bold"
+                                      TextColor="{StaticResource PrimaryColor}"
+                                      Grid.Column="1" Grid.Row="0"
+                                       HorizontalOptions="End" />
 
 
+                                        <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}"
+                                               FontSize="14"
+                                               TextColor="#49454F"
+                                               Grid.Column="0" Grid.Row="1" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
 
+            <!-- Buttons -->
+            <VerticalStackLayout Spacing="16">
+                <Button Text="Check Availability"
+                        Command="{Binding CheckAvailabilityCommand}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        FontSize="16" />
 
-            <Label Text="Selected Services" FontAttributes="Bold" />
-            <CollectionView ItemsSource="{Binding SelectedServices}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Vertical" Padding="10">
-                            <Label Text="{Binding Name}" FontAttributes="Bold" TextColor="Black"/>
-                            <Label Text="{Binding TotalPrice}" FontSize="12" TextColor="Gray" />
-                            <Label Text="{Binding Quantity}" FontSize="12" TextColor="Gray" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <Button Text="Update Booking"
+                        Command="{Binding UpdateBookingCommand}"
+                        BackgroundColor="{StaticResource PrimaryLightColor}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        FontSize="16" />
+            </VerticalStackLayout>
 
-            <!-- Check Availability Button -->
-            <Button Text="Check Availability"
-                    BackgroundColor="Orange"
-                    TextColor="White"
-                    Command="{Binding CheckAvailabilityCommand}" />
-
-            <!-- Update Button -->
-            <Button Text="Update Booking"
-            BackgroundColor="#4CAF50"
-            TextColor="White"
-            Command="{Binding UpdateBookingCommand}" />
-        
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

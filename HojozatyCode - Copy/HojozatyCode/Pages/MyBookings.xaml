@@ -12,14 +12,14 @@
 
     <Grid RowDefinitions="Auto,*">
         <!-- Header -->
-        <Frame BackgroundColor="#4F378A"
+        <Frame BackgroundColor="white"
                CornerRadius="0"
                Padding="20,10"
-               HasShadow="True">
+               BorderColor="white">
             <Label Text="My Bookings"
-                   FontSize="24"
+                   FontSize="36"
                    FontAttributes="Bold"
-                   TextColor="White"
+                   TextColor="Black"
                    HorizontalOptions="Center"/>
         </Frame>
 

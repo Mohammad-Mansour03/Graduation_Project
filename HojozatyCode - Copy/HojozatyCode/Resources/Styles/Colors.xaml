@@ -17,6 +17,8 @@
     <Color x:Key="SecondaryColor">#6750A4</Color>
     <Color x:Key="SurfaceColor">#FFFFFF</Color>
     <Color x:Key="BorderColor">#E7E0EC</Color>
+    <Color x:Key="PrimaryLightColor">#E8DEF8</Color>
+    <Color x:Key="InputBackground">#F7F2FA</Color>
 
 
     <Color x:Key="White">White</Color>
