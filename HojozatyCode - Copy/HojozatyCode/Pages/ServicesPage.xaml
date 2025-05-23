@@ -5,7 +5,6 @@
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.ServicesPage"
              Shell.TabBarIsVisible="False"
-             x:DataType="viewModels:AddSpaceViewModel"
              BackgroundColor="#F8F7FC">
 
     <ScrollView>
