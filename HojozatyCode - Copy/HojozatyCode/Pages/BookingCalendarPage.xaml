@@ -101,10 +101,7 @@
                 </Border.GestureRecognizers>
                 <Grid Padding="10">
                     <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
-                        <Image Source="approve.png"
-                               HeightRequest="20"
-                               WidthRequest="20" />
-                        <Label Text="Confirm Booking"
+                        <Label Text="Start Booking"
                                FontSize="16"
                                TextColor="White"
                                FontAttributes="Bold" />

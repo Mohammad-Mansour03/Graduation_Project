@@ -95,7 +95,7 @@
                                Margin="0,0,0,12"
                                HasShadow="True">
                             <Grid ColumnDefinitions="*,Auto,Auto"
-                                  ColumnSpacing="-20">
+                                  ColumnSpacing="1">
                                 <!-- Service Name -->
                                 <Label Text="{Binding Name}"
                                        FontSize="16"
@@ -112,7 +112,7 @@
 
                                 <!-- Delete Button -->
                                 <ImageButton Grid.Column="2"
-                                             Source="delete_outline.png"
+                                             Source="trash.png"
                                              BackgroundColor="Transparent"
                                              WidthRequest="24"
                                              HeightRequest="24"
