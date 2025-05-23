@@ -27,7 +27,7 @@
                      Color="#E0DCEC"
                      Margin="0,0,0,15" />
 
-            <Label Text="Upload at least 3 photos (up to 9)" 
+            <Label Text="Upload at least 1 photos (up to 9)" 
                    FontSize="14"
                    TextColor="#6750A4"
                    Margin="0,0,0,20"/>
