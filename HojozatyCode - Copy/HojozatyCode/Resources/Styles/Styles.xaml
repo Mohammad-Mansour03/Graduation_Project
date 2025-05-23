@@ -262,12 +262,6 @@
         <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
     </Style>
 
-    <Style x:Key="PageTitle" TargetType="Label">
-        <Setter Property="FontSize" Value="28" />
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="TextColor" Value="{StaticResource DarkText}" />
-        <Setter Property="Margin" Value="0,0,0,15" />
-    </Style>
 
     <Style x:Key="InputLabel" TargetType="Label">
         <Setter Property="FontSize" Value="14" />
@@ -358,7 +352,6 @@
         </Setter>
     </Style>
 
-
     <Style TargetType="ProgressBar">
         <Setter Property="ProgressColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -375,29 +368,37 @@
         </Setter>
     </Style>
 
-
-  
-
-    <Style x:Key="SectionHeader" TargetType="Label">
-        <Setter Property="FontSize" Value="{StaticResource SectionFontSize}" />
+    <Style x:Key="PageTitle" TargetType="Label">
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
-        <Setter Property="Margin" Value="0,16,0,8" />
+        <Setter Property="Margin" Value="0,0,0,20" />
     </Style>
 
-    <Style x:Key="CardTitle" TargetType="Label">
-        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+    <Style x:Key="SectionTitle" TargetType="Label">
         <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
+        <Setter Property="Margin" Value="0,24,0,12" />
+    </Style>
+
+    <Style x:Key="InputContainer" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource Outline}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="HeightRequest" Value="56" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+
+    <Style x:Key="TextInput" TargetType="Entry">
         <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
-        <Setter Property="Margin" Value="0,0,0,4" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
-    <Style x:Key="CardValue" TargetType="Label">
-        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
-        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
-    </Style>
 
-    <Style x:Key="ItemCard" TargetType="Frame">
+
+    <Style x:Key="ServiceCard" TargetType="Frame">
         <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
         <Setter Property="BorderColor" Value="{StaticResource Outline}" />
         <Setter Property="CornerRadius" Value="12" />
@@ -406,7 +407,13 @@
         <Setter Property="HasShadow" Value="True" />
     </Style>
 
-   
+    <Style x:Key="DeleteButton" TargetType="ImageButton">
+        <Setter Property="Source" Value="delete_outline.png" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="WidthRequest" Value="24" />
+        <Setter Property="HeightRequest" Value="24" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
 
     <Style TargetType="RadioButton">
         <Setter Property="BackgroundColor" Value="Transparent"/>
@@ -483,6 +490,65 @@
         <Setter Property="Opacity" Value="0.5" />
         <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
         <Setter Property="Offset" Value="10,10" />
+    </Style>
+
+
+    <Style x:Key="PolicyCard" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="BorderColor" Value="{StaticResource Outline}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+        <Setter Property="HasShadow" Value="True" />
+    </Style>
+
+    <Style x:Key="PolicyTitle" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
+    </Style>
+
+    <Style x:Key="PolicyDescription" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Error}" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+    </Style>
+
+    <Style x:Key="RadioButton" TargetType="RadioButton">
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="DurationToggle" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource Outline}" />
+        <Setter Property="CornerRadius" Value="40" />
+        <Setter Property="HeightRequest" Value="56" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+    </Style>
+
+    <Style x:Key="DurationInput" TargetType="Entry">
+        <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="HeightRequest" Value="56" />
+    </Style>
+
+    <Style x:Key="InputBorder" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource Outline}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="HeightRequest" Value="56" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+
+    
+
+    <Style x:Key="RuleCard" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="BorderColor" Value="{StaticResource Outline}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+        <Setter Property="HasShadow" Value="True" />
     </Style>
 
     <Style TargetType="Slider">
@@ -613,13 +679,35 @@
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
-    
-    <Style x:Key="SectionTitle" TargetType="Label">
-        <Setter Property="FontSize" Value="20" />
+
+    <Style x:Key="SectionHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource SectionFontSize}" />
         <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="Margin" Value="0,20,0,12" />
-        <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
-        <Setter Property="FontFamily" Value="OpenSans-Bold" />
+        <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
+        <Setter Property="Margin" Value="0,16,0,8" />
     </Style>
+
+    <Style x:Key="CardTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
+        <Setter Property="Margin" Value="0,0,0,4" />
+    </Style>
+
+    <Style x:Key="CardValue" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+    </Style>
+
+    <Style x:Key="ItemCard" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="BorderColor" Value="{StaticResource Outline}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+        <Setter Property="HasShadow" Value="True" />
+    </Style>
+
+
 
 </ResourceDictionary>

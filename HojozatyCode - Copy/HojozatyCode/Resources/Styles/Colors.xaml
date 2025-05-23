@@ -36,6 +36,7 @@
     <Color x:Key="Outline">#E1E0E9</Color>
     <Color x:Key="TextSecondary">#6B6D7C</Color>
 
+
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
     <Color x:Key="Magenta">#D600AA</Color>
