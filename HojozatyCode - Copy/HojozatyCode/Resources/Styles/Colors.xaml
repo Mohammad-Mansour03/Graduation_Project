@@ -19,22 +19,6 @@
     <Color x:Key="BorderColor">#E7E0EC</Color>
     <Color x:Key="PrimaryLightColor">#E8DEF8</Color>
     <Color x:Key="InputBackground">#F7F2FA</Color>
-    <Color x:Key="LightAccent">#E8DEF8</Color>
-    <Color x:Key="DarkText">#1C1B1F</Color>
-    <Color x:Key="LightText">#F4EFF4</Color>
-    <Color x:Key="ErrorColor">#B3261E</Color>
-    <Color x:Key="PlaceholderColor">#F3F0F9</Color>
-    <Color x:Key="PrimaryLight">#7A67B8</Color>
-    <Color x:Key="PrimaryLighter">#B5A8DB</Color>
-    <Color x:Key="Background">#F8F7FC</Color>
-    <Color x:Key="Surface">#FFFFFF</Color>
-    <Color x:Key="Error">#E53935</Color>
-    <Color x:Key="OnPrimary">#FFFFFF</Color>
-    <Color x:Key="OnSecondary">#FFFFFF</Color>
-    <Color x:Key="OnBackground">#1A1C2A</Color>
-    <Color x:Key="OnSurface">#1A1C2A</Color>
-    <Color x:Key="Outline">#E1E0E9</Color>
-    <Color x:Key="TextSecondary">#6B6D7C</Color>
 
 
     <Color x:Key="White">White</Color>
