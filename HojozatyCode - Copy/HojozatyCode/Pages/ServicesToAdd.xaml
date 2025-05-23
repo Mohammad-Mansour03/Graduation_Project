@@ -7,207 +7,256 @@
              BackgroundColor="#F9F6FC">
 
     <Grid RowDefinitions="*,Auto">
-
         <!-- Scrollable Content -->
-        <ScrollView>
-            <VerticalStackLayout Padding="20" Spacing="25">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20,20,20,0" Spacing="30">
 
-                <!-- Header -->
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="Please Choose Your Services"
-                           FontSize="28"
+                <!-- Header with improved spacing -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Customize Your Booking"
+                           FontSize="32"
                            FontAttributes="Bold"
                            TextColor="#2A1B4D"
                            HorizontalOptions="Start"/>
-                    <Label Text="Pick the services you'd like included in your booking"
+
+                    <Label Text="Select services to include in your reservation"
                            FontSize="16"
                            TextColor="#6B7280"
                            HorizontalOptions="Start"/>
                 </VerticalStackLayout>
 
-                <!-- Services List -->
-                <CollectionView ItemsSource="{Binding ServicesVenue}"
-                                IsVisible="{Binding HasServices}"
-                                SelectionMode="None"
-                                EmptyViewTemplate="{StaticResource NoServicesTemplate}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BackgroundColor="White"
-                                    Padding="0"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 20"
-                                    Shadow="{StaticResource CardShadow}">
-                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
-                                      ColumnDefinitions="*,Auto"
-                                      Padding="20">
+                <!-- Services Section with header -->
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Available Services"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#2A1B4D"
+                           Margin="0,0,0,5"/>
 
-                                    <!-- Service Name -->
-                                    <Label Text="{Binding Name}"
-                                           Grid.Row="0" Grid.Column="0"
-                                           FontSize="20"
-                                           FontAttributes="Bold"
-                                           TextColor="#2A1B4D" />
+                    <CollectionView ItemsSource="{Binding ServicesVenue}"
+                                    IsVisible="{Binding HasServices}"
+                                    SelectionMode="None"
+                                    EmptyViewTemplate="{StaticResource NoServicesTemplate}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="White"
+                                        Padding="0"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 16"
+                                        Shadow="{StaticResource CardShadow}">
+                                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
+                                          ColumnDefinitions="*,Auto"
+                                          Padding="20,15">
 
-                                    <!-- Service Description -->
-                                    <Label Text="{Binding Description}"
-                                           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                           FontSize="14"
-                                           TextColor="#6B7280"
-                                           Margin="0,8,0,0"/>
+                                        <!-- Service Name with icon placeholder -->
+                                        <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="10">
+                                            <BoxView Color="#4F378A" 
+                                                    WidthRequest="4" 
+                                                    HeightRequest="24"
+                                                    VerticalOptions="Center"
+                                                    CornerRadius="2"/>
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="18"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#2A1B4D"
+                                                   VerticalOptions="Center"/>
+                                        </HorizontalStackLayout>
 
-                                    <!-- Price -->
-                                    <Label Text="{Binding Price, StringFormat='{0} JOD'}"
-                                           Grid.Row="2" Grid.Column="0"
-                                           FontSize="18"
-                                           FontAttributes="Bold"
-                                           TextColor="#4F378A"
-                                           Margin="0,12,0,0"/>
+                                        <!-- Service Description -->
+                                        <Label Text="{Binding Description}"
+                                               Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                               FontSize="14"
+                                               TextColor="#6B7280"
+                                               Margin="10,8,0,0"/>
 
-                                    <!-- Quantity Selector -->
-                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                                          Margin="0,16,0,0"
-                                          ColumnDefinitions="Auto,*,Auto"
-                                          HeightRequest="40">
+                                        <!-- Price and Quantity in one row -->
+                                        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                              Margin="0,12,0,0"
+                                              ColumnDefinitions="*,Auto"
+                                              VerticalOptions="Center">
 
-                                        <!-- Decrease Button -->
-                                        <Button Text="−"
-                                                Grid.Column="0"
-                                                WidthRequest="40"
-                                                BackgroundColor="#F3EFFF"
-                                                TextColor="#4F378A"
+                                            <Label Text="{Binding Price, StringFormat='{0} JOD'}"
+                                                   Grid.Column="0"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#4F378A"
+                                                   VerticalOptions="Center"/>
+
+                                            <!-- Compact Quantity Selector -->
+                                            <Frame Grid.Column="1"
+                                                   Padding="0"
+                                                   BackgroundColor="#F3EFFF"
+                                                   CornerRadius="12"
+                                                   HeightRequest="36">
+                                                <Grid ColumnDefinitions="Auto,*,Auto"
+                                                      WidthRequest="120">
+
+                                                    <!-- Decrease Button -->
+                                                    <Button Text="−"
+                                                            Grid.Column="0"
+                                                            BackgroundColor="Transparent"
+                                                            TextColor="#4F378A"
+                                                            CornerRadius="0"
+                                                            FontAttributes="Bold"
+                                                            FontSize="14"
+                                                            HeightRequest="36"
+                                                            WidthRequest="36"
+                                                            Command="{Binding DecreasedQuantityCommand}"/>
+
+                                                    <!-- Quantity Display -->
+                                                    <Label Text="{Binding Quantity}"
+                                                           Grid.Column="1"
+                                                           FontSize="14"
+                                                           TextColor="#4F378A"
+                                                           HorizontalTextAlignment="Center"
+                                                           VerticalTextAlignment="Center"/>
+
+                                                    <!-- Increase Button -->
+                                                    <Button Text="+"
+                                                            Grid.Column="2"
+                                                            BackgroundColor="Transparent"
+                                                            TextColor="#4F378A"
+                                                            CornerRadius="0"
+                                                            FontAttributes="Bold"
+                                                            FontSize="14"
+                                                            HeightRequest="36"
+                                                            WidthRequest="36"
+                                                            Command="{Binding IncreaseQuantityCommand}"/>
+                                                </Grid>
+                                            </Frame>
+                                        </Grid>
+
+                                        <!-- Add Button with subtle animation hint -->
+                                        <Button Text="Add to Booking"
+                                                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                                Margin="0,15,0,0"
+                                                BackgroundColor="#4F378A"
+                                                TextColor="White"
                                                 CornerRadius="12"
                                                 FontAttributes="Bold"
-                                                FontSize="16"
-                                                Command="{Binding DecreasedQuantityCommand}" />
-
-                                        <!-- Quantity Entry -->
-                                        <Entry Text="{Binding Quantity}"
-                                               Grid.Column="1"
-                                               Keyboard="Numeric"
-                                               FontSize="16"
-                                               BackgroundColor="White"
-                                               TextColor="#4F378A"
-                                               HorizontalTextAlignment="Center"
-                                               VerticalTextAlignment="Center"
-                                               HeightRequest="40"
-                                               Margin="8,0" />
-
-                                        <!-- Increase Button -->
-                                        <Button Text="+"
-                                                Grid.Column="2"
-                                                WidthRequest="40"
-                                                BackgroundColor="#F3EFFF"
-                                                TextColor="#4F378A"
-                                                CornerRadius="12"
-                                                FontAttributes="Bold"
-                                                FontSize="16"
-                                                Command="{Binding IncreaseQuantityCommand}" />
+                                                FontSize="14"
+                                                HeightRequest="42"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
+                                                CommandParameter="{Binding .}"/>
                                     </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
 
-                                    <!-- Select Button -->
-                                    <Button Text="Add Service"
-                                            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                                            Margin="0,20,0,0"
-                                            BackgroundColor="#4F378A"
-                                            TextColor="White"
-                                            CornerRadius="14"
-                                            FontAttributes="Bold"
-                                            FontSize="16"
-                                            HeightRequest="50"
-                                            Padding="0"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=AddSelectedServiceCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <!-- Selected Services Section with header -->
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Your Selected Services"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#2A1B4D"
+                           Margin="0,0,0,5"/>
 
-                <!-- Fixed Next Button -->
-                <Button Text="Next"
-            Grid.Row="1"
-            Margin="20"
-            BackgroundColor="#4F378A"
-            TextColor="White"
-            CornerRadius="12"
-            FontAttributes="Bold"
-            FontSize="16"
-            HeightRequest="50"
-            Command="{Binding GoToReviewBookingCommand}"/>
-                
-                <!--Services List--> 
-                <CollectionView ItemsSource="{Binding BookingServices}"
-                                IsVisible="{Binding HasServices}"
-                                SelectionMode="None"
-                                EmptyViewTemplate="{StaticResource NoServicesTemplate}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BackgroundColor="White"
-                                    Padding="0"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 20"
-                                    Shadow="{StaticResource CardShadow}">
-                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
-                                      ColumnDefinitions="*,Auto"
-                                      Padding="20">
+                    <CollectionView ItemsSource="{Binding BookingServices}"
+                                    IsVisible="{Binding HasServices}"
+                                    SelectionMode="None"
+                                    EmptyView="No services selected yet">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="White"
+                                        Padding="0"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 16"
+                                        Shadow="{StaticResource CardShadow}">
+                                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" 
+                                          ColumnDefinitions="*,Auto"
+                                          Padding="20,15">
 
-                                     <!--Service Name--> 
-                                    <Label Text="{Binding Name}"
-                                           Grid.Row="0" Grid.Column="0"
-                                           FontSize="20"
-                                           FontAttributes="Bold"
-                                           TextColor="#2A1B4D" />
+                                        <!-- Service Name with quantity -->
+                                        <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="10">
+                                            <BoxView Color="#4F378A" 
+                                                    WidthRequest="4" 
+                                                    HeightRequest="24"
+                                                    VerticalOptions="Center"
+                                                    CornerRadius="2"/>
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="18"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#2A1B4D"
+                                                   VerticalOptions="Center"/>
+                                        </HorizontalStackLayout>
 
-                                     <!--Service Description--> 
-                                    <Label Text="{Binding Quantity}"
-                                           Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                           FontSize="14"
-                                           TextColor="#6B7280"
-                                           Margin="0,8,0,0"/>
+                                        <!-- Quantity and price -->
+                                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                              Margin="10,8,0,0"
+                                              ColumnDefinitions="*,Auto">
+                                            <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}"
+                                                   Grid.Column="0"
+                                                   FontSize="14"
+                                                   TextColor="#6B7280"/>
 
-                                     <!--Price--> 
-                                    <Label Text="{Binding TotalPrice, StringFormat='{0} JOD'}"
-                                           Grid.Row="2" Grid.Column="0"
-                                           FontSize="18"
-                                           FontAttributes="Bold"
-                                           TextColor="#4F378A"
-                                           Margin="0,12,0,0"/>
+                                            <Label Text="{Binding TotalPrice, StringFormat='Total: {0} JOD'}"
+                                                   Grid.Column="1"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#4F378A"/>
+                                        </Grid>
 
-
-                                     <!--Select Button--> 
-                                    <Button Text="Delete Service"
-                                            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                                            Margin="0,20,0,0"
-                                            BackgroundColor="#4F378A"
-                                            TextColor="White"
-                                            CornerRadius="14"
-                                            FontAttributes="Bold"
-                                            FontSize="16"
-                                            HeightRequest="50"
-                                            Padding="0"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=DeleteServiceCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-
-
-
+                                        <!-- Delete Button with warning color -->
+                                        <Button Text="Remove"
+                                                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                Margin="0,12,0,0"
+                                                BackgroundColor="White"
+                                                TextColor="#4F378A"
+                                                BorderColor="#4F378A"
+                                                BorderWidth="1"
+                                                CornerRadius="12"
+                                                FontAttributes="Bold"
+                                                FontSize="14"
+                                                HeightRequest="42"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BookingViewModel}}, Path=DeleteServiceCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-            
         </ScrollView>
+
+        <!-- Sticky Bottom Button Area -->
+        <Border Grid.Row="1"
+                Padding="0"
+                StrokeThickness="0"
+                BackgroundColor="White">
+            <Grid ColumnDefinitions="*,*"
+                  Padding="20,15,20,20"
+                  ColumnSpacing="15">
+
+                <!-- Summary Info -->
+                <Label Text="{Binding TotalServices, StringFormat='{0} services selected'}"
+                       Grid.Column="0"
+                       FontSize="16"
+                       TextColor="#2A1B4D"
+                       VerticalOptions="Center"/>
+
+                <!-- Next Button with chevron -->
+                <Button Grid.Column="1"
+                        Text="Review Booking  →"
+                        BackgroundColor="#4F378A"
+                        TextColor="White"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HeightRequest="50"
+                        Command="{Binding GoToReviewBookingCommand}"/>
+            </Grid>
+        </Border>
     </Grid>
 
-  
     <!-- Resources -->
     <ContentPage.Resources>
         <ResourceDictionary>

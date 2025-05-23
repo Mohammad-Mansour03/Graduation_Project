@@ -10,12 +10,11 @@ namespace HojozatyCode.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int)value > 0 ? "Update Quantity" : "Add Service";
+            if (value is int quantity && quantity > 0)
+                return "Update Service";
+            return "Add Service";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }
