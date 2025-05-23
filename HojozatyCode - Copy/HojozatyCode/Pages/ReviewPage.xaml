@@ -1,90 +1,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HojozatyCode.Pages.ReviewPage"
-             xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#F8F7FC">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <!-- Color Palette -->
-            <Color x:Key="Primary">#4F378A</Color>
-            <Color x:Key="PrimaryLight">#7A67B8</Color>
-            <Color x:Key="PrimaryLighter">#B5A8DB</Color>
-            <Color x:Key="PrimaryDark">#3A2968</Color>
-            <Color x:Key="Secondary">#FF9E40</Color>
-            <Color x:Key="Background">#F8F7FC</Color>
-            <Color x:Key="Surface">#FFFFFF</Color>
-            <Color x:Key="Error">#E53935</Color>
-            <Color x:Key="OnPrimary">#FFFFFF</Color>
-            <Color x:Key="OnSecondary">#FFFFFF</Color>
-            <Color x:Key="OnBackground">#1A1C2A</Color>
-            <Color x:Key="OnSurface">#1A1C2A</Color>
-            <Color x:Key="Outline">#E1E0E9</Color>
-            <Color x:Key="TextSecondary">#6B6D7C</Color>
-
-            <!-- Styles -->
-            <Style x:Key="PageTitle" TargetType="Label">
-                <Setter Property="FontSize" Value="24" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
-                <Setter Property="Margin" Value="0,0,0,20" />
-            </Style>
-
-            <Style x:Key="SectionHeader" TargetType="Label">
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
-                <Setter Property="Margin" Value="0,16,0,8" />
-            </Style>
-
-            <Style x:Key="CardTitle" TargetType="Label">
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
-                <Setter Property="Margin" Value="0,0,0,4" />
-            </Style>
-
-            <Style x:Key="CardValue" TargetType="Label">
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
-            </Style>
-
-            <Style x:Key="ItemCard" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
-                <Setter Property="BorderColor" Value="{StaticResource Outline}" />
-                <Setter Property="CornerRadius" Value="12" />
-                <Setter Property="Padding" Value="16" />
-                <Setter Property="Margin" Value="0,0,0,12" />
-                <Setter Property="HasShadow" Value="True" />
-            </Style>
-
-            <Style x:Key="PrimaryButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="TextColor" Value="{StaticResource OnPrimary}" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="CornerRadius" Value="12" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="Margin" Value="0,24" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="0">
             <!-- Title -->
-            <Label Text="Review Your Venue" Style="{StaticResource PageTitle}" />
+            <Label Text="Review Your Venue"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,0,0,20" />
 
             <!-- Images Carousel -->
-            <Label Text="Venue Photos" Style="{StaticResource SectionHeader}" />
+            <Label Text="Venue Photos"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,16,0,8" />
 
             <Frame HeightRequest="250"
                    Padding="0"
                    CornerRadius="12"
                    IsClippedToBounds="True"
                    HasShadow="True"
-                   BackgroundColor="{StaticResource Surface}">
+                   BackgroundColor="#FFFFFF">
                 <Grid>
                     <CarouselView ItemsSource="{Binding ImageUrlsList}"
                                   HeightRequest="250"
@@ -103,46 +44,69 @@
                                    HorizontalOptions="Center"
                                    VerticalOptions="End"
                                    Margin="0,0,0,16"
-                                   IndicatorColor="{StaticResource Outline}"
-                                   SelectedIndicatorColor="{StaticResource Primary}"
+                                   IndicatorColor="#E1E0E9"
+                                   SelectedIndicatorColor="#4F378A"
                                    IndicatorSize="8"/>
                 </Grid>
             </Frame>
 
             <!-- Space Details -->
-            <Label Text="Space Details" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
+            <Label Text="Space Details"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,24,0,8"/>
 
-            <Frame Style="{StaticResource ItemCard}">
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E1E0E9"
+                   CornerRadius="12"
+                   Padding="16"
+                   Margin="0,0,0,12"
+                   HasShadow="True">
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Space Type" Style="{StaticResource CardTitle}" />
-                    <Label Text="{Binding SpaceType}" Style="{StaticResource CardValue}" />
+                    <Label Text="Space Type" FontSize="16" FontAttributes="Bold" TextColor="#1A1C2A" Margin="0,0,0,4"/>
+                    <Label Text="{Binding SpaceType}" FontSize="16" TextColor="#6B6D7C" />
 
-                    <Label Text="Space Name" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
-                    <Label Text="{Binding SpaceName}" Style="{StaticResource CardValue}" />
+                    <Label Text="Space Name" FontSize="16" FontAttributes="Bold" TextColor="#1A1C2A" Margin="0,12,0,4"/>
+                    <Label Text="{Binding SpaceName}" FontSize="16" TextColor="#6B6D7C" />
 
-                    <Label Text="City" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
-                    <Label Text="{Binding City}" Style="{StaticResource CardValue}" />
+                    <Label Text="City" FontSize="16" FontAttributes="Bold" TextColor="#1A1C2A" Margin="0,12,0,4"/>
+                    <Label Text="{Binding City}" FontSize="16" TextColor="#6B6D7C" />
 
-                    <Label Text="Category" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
-                    <Label Text="{Binding Category}" Style="{StaticResource CardValue}" />
+                    <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="#1A1C2A" Margin="0,12,0,4"/>
+                    <Label Text="{Binding Category}" FontSize="16" TextColor="#6B6D7C" />
 
-                    <Label Text="Description" Style="{StaticResource CardTitle}" Margin="0,12,0,0"/>
-                    <Label Text="{Binding Description}" Style="{StaticResource CardValue}" LineBreakMode="WordWrap"/>
+                    <Label Text="Description" FontSize="16" FontAttributes="Bold" TextColor="#1A1C2A" Margin="0,12,0,4"/>
+                    <Label Text="{Binding Description}" FontSize="16" TextColor="#6B6D7C" LineBreakMode="WordWrap"/>
                 </VerticalStackLayout>
             </Frame>
 
             <!-- Services -->
-            <Label Text="Services" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
+            <Label Text="Services"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,24,0,8" />
+
             <CollectionView ItemsSource="{Binding Services}" EmptyView="No services added">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Style="{StaticResource ItemCard}">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E1E0E9"
+                               CornerRadius="12"
+                               Padding="16"
+                               Margin="0,0,0,12"
+                               HasShadow="True">
                             <Grid ColumnDefinitions="*,Auto">
-                                <Label Text="{Binding Name}" Style="{StaticResource CardTitle}" />
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#1A1C2A" />
                                 <Label Text="{Binding Price, StringFormat='{0} JOD'}"
                                        Grid.Column="1"
-                                       Style="{StaticResource CardValue}"
-                                       FontAttributes="Bold"/>
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#6B6D7C"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>
@@ -150,20 +114,40 @@
             </CollectionView>
 
             <!-- Cancellation Policy -->
-            <Label Text="Cancellation Policy" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
-            <Frame Style="{StaticResource ItemCard}">
-                <Label Text="{Binding SelectedPolicy}" Style="{StaticResource CardValue}" />
+            <Label Text="Cancellation Policy"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,24,0,8" />
+
+            <Frame BackgroundColor="#FFFFFF"
+                   BorderColor="#E1E0E9"
+                   CornerRadius="12"
+                   Padding="16"
+                   Margin="0,0,0,12"
+                   HasShadow="True">
+                <Label Text="{Binding SelectedPolicy}" FontSize="16" TextColor="#6B6D7C" />
             </Frame>
 
             <!-- House Rules -->
-            <Label Text="House Rules" Style="{StaticResource SectionHeader}" Margin="0,24,0,0"/>
+            <Label Text="House Rules"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,24,0,8" />
+
             <CollectionView ItemsSource="{Binding HouseRules}" EmptyView="No house rules added">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Style="{StaticResource ItemCard}">
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E1E0E9"
+                               CornerRadius="12"
+                               Padding="16"
+                               Margin="0,0,0,12"
+                               HasShadow="True">
                             <VerticalStackLayout Spacing="8">
-                                <Label Text="{Binding HouseRuleName}" Style="{StaticResource CardTitle}" />
-                                <Label Text="{Binding HouseRuleDescription}" Style="{StaticResource CardValue}" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding HouseRuleName}" FontSize="16" FontAttributes="Bold" TextColor="#1A1C2A"/>
+                                <Label Text="{Binding HouseRuleDescription}" FontSize="16" TextColor="#6B6D7C" LineBreakMode="WordWrap"/>
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
@@ -172,7 +156,13 @@
 
             <!-- Submit Button -->
             <Button Text="Submit Venue"
-                    Style="{StaticResource PrimaryButton}"
+                    BackgroundColor="#4F378A"
+                    TextColor="#FFFFFF"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    Margin="0,24"
                     Command="{Binding SaveSpaceCommand}"/>
         </VerticalStackLayout>
     </ScrollView>

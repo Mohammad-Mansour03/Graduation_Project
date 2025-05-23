@@ -3,194 +3,129 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              xmlns:converters="clr-namespace:HojozatyCode.Converters"
-             Shell.TabBarIsVisible="True"
              x:Class="HojozatyCode.Pages.SpaceTypeSelectionPage"
+             Shell.TabBarIsVisible="True"
              BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BoolToImageConverter x:Key="BoolToImageConverter" />
             <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
-
-            <!-- Color Palette -->
-            <Color x:Key="PrimaryColor">#4F378A</Color>
-            <Color x:Key="SecondaryColor">#6750A4</Color>
-            <Color x:Key="LightAccent">#E8DEF8</Color>
-            <Color x:Key="DarkText">#1C1B1F</Color>
-            <Color x:Key="LightText">#F4EFF4</Color>
-            <Color x:Key="ErrorColor">#B3261E</Color>
-
-            <!-- Styles -->
-            <Style x:Key="CheckboxButtonStyle" TargetType="ImageButton">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="BorderColor" Value="Transparent" />
-                <Setter Property="WidthRequest" Value="32" />
-                <Setter Property="HeightRequest" Value="32" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="Aspect" Value="AspectFit" />
-            </Style>
-
-            <Style x:Key="SpaceTypeCard" TargetType="Border">
-                <Setter Property="Stroke" Value="{StaticResource LightAccent}" />
-                <Setter Property="StrokeThickness" Value="2" />
-                <Setter Property="Padding" Value="20,15" />
-                <Setter Property="Margin" Value="0,8" />
-                <Setter Property="StrokeShape" Value="RoundRectangle 12" />
-                <Setter Property="BackgroundColor" Value="White" />
-            </Style>
-
-            <Style x:Key="TitleLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="28" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource DarkText}" />
-                <Setter Property="Margin" Value="0,0,0,20" />
-            </Style>
-
-            <Style x:Key="SpaceTypeLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource DarkText}" />
-                <Setter Property="VerticalOptions" Value="Center" />
-            </Style>
-
-            <Style x:Key="PrimaryButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="CornerRadius" Value="25" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="Margin" Value="0,30,0,10" />
-            </Style>
-
-            <Style x:Key="SelectionPreviewLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryColor}" />
-                <Setter Property="Margin" Value="0,15,0,0" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-            </Style>
-
-            <Style x:Key="ErrorMessageLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="TextColor" Value="{StaticResource ErrorColor}" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
-                <Setter Property="Margin" Value="0,10" />
-            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Spacing="0" Padding="20,15">
-            <!-- Page Header -->
+        <VerticalStackLayout Padding="20,15">
             <Label Text="What Kind Of Space Would You Like to Add?"
-                   Style="{StaticResource TitleLabel}" />
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#1C1B1F"
+                   Margin="0,0,0,20" />
 
             <!-- Space Type Cards -->
-            <Border Style="{StaticResource SpaceTypeCard}">
+            <!-- Repeated block with hardcoded styles -->
+            <Border Stroke="#E8DEF8" StrokeThickness="2" Padding="20,15" Margin="0,8"
+                    BackgroundColor="White" StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Meeting" Style="{StaticResource SpaceTypeLabel}" />
-                    <ImageButton Grid.Column="1" 
-                                Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes,
-                                Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Meeting'}"
-                                Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Meeting"/>
+                    <Label Text="Meeting" FontSize="16" FontAttributes="Bold" TextColor="#1C1B1F" VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1" BackgroundColor="Transparent" BorderColor="Transparent"
+                                 WidthRequest="32" HeightRequest="32" Padding="0" Margin="0" Aspect="AspectFit"
+                                 Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Meeting'}"
+                                 Command="{Binding ToggleSpaceTypeCommand}" CommandParameter="Meeting"/>
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource SpaceTypeCard}">
+            <Border Stroke="#E8DEF8" StrokeThickness="2" Padding="20,15" Margin="0,8"
+                    BackgroundColor="White" StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Wedding" Style="{StaticResource SpaceTypeLabel}" />
-                    <ImageButton Grid.Column="1" 
-                                Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes,
-                                Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Wedding'}"
-                                Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Wedding"/>
+                    <Label Text="Wedding" FontSize="16" FontAttributes="Bold" TextColor="#1C1B1F" VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1" BackgroundColor="Transparent" BorderColor="Transparent"
+                                 WidthRequest="32" HeightRequest="32" Padding="0" Margin="0" Aspect="AspectFit"
+                                 Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Wedding'}"
+                                 Command="{Binding ToggleSpaceTypeCommand}" CommandParameter="Wedding"/>
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource SpaceTypeCard}">
+            <Border Stroke="#E8DEF8" StrokeThickness="2" Padding="20,15" Margin="0,8"
+                    BackgroundColor="White" StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Funeral" Style="{StaticResource SpaceTypeLabel}" />
-                    <ImageButton Grid.Column="1" 
-                                Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes,
-                                Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Funeral'}"
-                                Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Funeral"/>
+                    <Label Text="Funeral" FontSize="16" FontAttributes="Bold" TextColor="#1C1B1F" VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1" BackgroundColor="Transparent" BorderColor="Transparent"
+                                 WidthRequest="32" HeightRequest="32" Padding="0" Margin="0" Aspect="AspectFit"
+                                 Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Funeral'}"
+                                 Command="{Binding ToggleSpaceTypeCommand}" CommandParameter="Funeral"/>
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource SpaceTypeCard}">
+            <Border Stroke="#E8DEF8" StrokeThickness="2" Padding="20,15" Margin="0,8"
+                    BackgroundColor="White" StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Entertainment" Style="{StaticResource SpaceTypeLabel}" />
-                    <ImageButton Grid.Column="1" 
-                                Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes,
-                                Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Entertainment'}"
-                                Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Entertainment"/>
+                    <Label Text="Entertainment" FontSize="16" FontAttributes="Bold" TextColor="#1C1B1F" VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1" BackgroundColor="Transparent" BorderColor="Transparent"
+                                 WidthRequest="32" HeightRequest="32" Padding="0" Margin="0" Aspect="AspectFit"
+                                 Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Entertainment'}"
+                                 Command="{Binding ToggleSpaceTypeCommand}" CommandParameter="Entertainment"/>
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource SpaceTypeCard}">
+            <Border Stroke="#E8DEF8" StrokeThickness="2" Padding="20,15" Margin="0,8"
+                    BackgroundColor="White" StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Photography" Style="{StaticResource SpaceTypeLabel}" />
-                    <ImageButton Grid.Column="1" 
-                                Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes,
-                                Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Photography'}"
-                                Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Photography"/>
+                    <Label Text="Photography" FontSize="16" FontAttributes="Bold" TextColor="#1C1B1F" VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1" BackgroundColor="Transparent" BorderColor="Transparent"
+                                 WidthRequest="32" HeightRequest="32" Padding="0" Margin="0" Aspect="AspectFit"
+                                 Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Photography'}"
+                                 Command="{Binding ToggleSpaceTypeCommand}" CommandParameter="Photography"/>
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource SpaceTypeCard}">
+            <Border Stroke="#E8DEF8" StrokeThickness="2" Padding="20,15" Margin="0,8"
+                    BackgroundColor="White" StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Cultural Events" Style="{StaticResource SpaceTypeLabel}" />
-                    <ImageButton Grid.Column="1" 
-                                Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes,
-                                Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Cultural Events'}"
-                                Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Cultural Events"/>
+                    <Label Text="Cultural Events" FontSize="16" FontAttributes="Bold" TextColor="#1C1B1F" VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1" BackgroundColor="Transparent" BorderColor="Transparent"
+                                 WidthRequest="32" HeightRequest="32" Padding="0" Margin="0" Aspect="AspectFit"
+                                 Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Cultural Events'}"
+                                 Command="{Binding ToggleSpaceTypeCommand}" CommandParameter="Cultural Events"/>
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource SpaceTypeCard}">
+            <Border Stroke="#E8DEF8" StrokeThickness="2" Padding="20,15" Margin="0,8"
+                    BackgroundColor="White" StrokeShape="RoundRectangle 12">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Text="Sports" Style="{StaticResource SpaceTypeLabel}" />
-                    <ImageButton Grid.Column="1" 
-                                Style="{StaticResource CheckboxButtonStyle}"
-                                Source="{Binding SelectedSpaceTypes,
-                                Converter={StaticResource BoolToImageConverter},
-                                ConverterParameter='Sports'}"
-                                Command="{Binding ToggleSpaceTypeCommand}"
-                                CommandParameter="Sports"/>
+                    <Label Text="Sports" FontSize="16" FontAttributes="Bold" TextColor="#1C1B1F" VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1" BackgroundColor="Transparent" BorderColor="Transparent"
+                                 WidthRequest="32" HeightRequest="32" Padding="0" Margin="0" Aspect="AspectFit"
+                                 Source="{Binding SelectedSpaceTypes, Converter={StaticResource BoolToImageConverter}, ConverterParameter='Sports'}"
+                                 Command="{Binding ToggleSpaceTypeCommand}" CommandParameter="Sports"/>
                 </Grid>
             </Border>
 
             <!-- Selection Preview -->
             <Label Text="{Binding SpaceType}" 
-                   Style="{StaticResource SelectionPreviewLabel}" />
+                   FontSize="14"
+                   TextColor="#6750A4"
+                   Margin="0,15,0,0"
+                   HorizontalOptions="Center" />
 
             <!-- Error Message -->
             <Label Text="{Binding ErrorMessage}" 
-                   Style="{StaticResource ErrorMessageLabel}"
+                   FontSize="14"
+                   TextColor="#B3261E"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,10"
                    IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}" />
 
-            <!-- Next Button -->
+            <!-- Continue Button -->
             <Button Text="Continue"
-                    Style="{StaticResource PrimaryButton}"
+                    BackgroundColor="#4F378A"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    Margin="0,30,0,10"
                     Command="{Binding NavigateToSpaceInformationCommand}" />
         </VerticalStackLayout>
     </ScrollView>

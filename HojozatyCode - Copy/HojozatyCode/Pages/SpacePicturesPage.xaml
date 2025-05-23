@@ -11,197 +11,210 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
-
-            <!-- Color Palette -->
-            <Color x:Key="PrimaryColor">#4F378A</Color>
-            <Color x:Key="SecondaryColor">#6750A4</Color>
-            <Color x:Key="LightAccent">#E8DEF8</Color>
-            <Color x:Key="DarkText">#1C1B1F</Color>
-            <Color x:Key="LightText">#F4EFF4</Color>
-            <Color x:Key="ErrorColor">#B3261E</Color>
-            <Color x:Key="BorderColor">#E0DCEC</Color>
-            <Color x:Key="SurfaceColor">White</Color>
-            <Color x:Key="PlaceholderColor">#F3F0F9</Color>
-
-            <!-- Styles -->
-            <Style x:Key="PageTitle" TargetType="Label">
-                <Setter Property="FontSize" Value="28" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource DarkText}" />
-                <Setter Property="Margin" Value="0,0,0,15" />
-            </Style>
-
-            <Style x:Key="ImageGridBorder" TargetType="Border">
-                <Setter Property="Stroke" Value="{StaticResource BorderColor}" />
-                <Setter Property="StrokeThickness" Value="1" />
-                <Setter Property="StrokeShape" Value="RoundRectangle 8" />
-                <Setter Property="BackgroundColor" Value="{StaticResource PlaceholderColor}" />
-                <Setter Property="HeightRequest" Value="120" />
-                <Setter Property="WidthRequest" Value="120" />
-            </Style>
-
-            <Style x:Key="ImageButton" TargetType="ImageButton">
-                <Setter Property="Aspect" Value="AspectFill" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="Margin" Value="0" />
-            </Style>
-
-            <Style x:Key="PrimaryButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="CornerRadius" Value="25" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="Margin" Value="0,25,0,10" />
-            </Style>
-
-            <Style x:Key="ErrorMessageLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="TextColor" Value="{StaticResource ErrorColor}" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
-                <Setter Property="Margin" Value="0,10" />
-            </Style>
-
-            <Style x:Key="DividerLine" TargetType="BoxView">
-                <Setter Property="HeightRequest" Value="1" />
-                <Setter Property="Color" Value="{StaticResource BorderColor}" />
-                <Setter Property="Margin" Value="0,0,0,15" />
-            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout Spacing="0" Padding="20,15">
-            <!-- Page Header -->
+
             <Label Text="Add Pictures Of Your Space"
-                   Style="{StaticResource PageTitle}" />
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#1C1B1F"
+                   Margin="0,0,0,15" />
 
-            <BoxView Style="{StaticResource DividerLine}" />
+            <BoxView HeightRequest="1"
+                     Color="#E0DCEC"
+                     Margin="0,0,0,15" />
 
-            <!-- Help Text -->
             <Label Text="Upload at least 3 photos (up to 9)" 
                    FontSize="14"
-                   TextColor="{StaticResource SecondaryColor}"
+                   TextColor="#6750A4"
                    Margin="0,0,0,20"/>
 
-            <!-- Image Grid -->
             <Grid RowDefinitions="Auto,Auto,Auto"
                   ColumnDefinitions="*,*,*"
                   RowSpacing="15"
                   ColumnSpacing="15"
                   HorizontalOptions="Center">
 
-                <!-- Row 1 -->
-                <Border Style="{StaticResource ImageGridBorder}"  Stroke="Purple" 
+                <!-- Image cells -->
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="0" Grid.Column="0">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[0], 
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="0"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[0], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="0"/>
                 </Border>
 
-                <Border Style="{StaticResource ImageGridBorder}"  Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="0" Grid.Column="1">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[1],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="1"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[1], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="1"/>
                 </Border>
 
-                <Border Style="{StaticResource ImageGridBorder}"  Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="0" Grid.Column="2">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[2],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="2"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[2], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="2"/>
                 </Border>
 
                 <!-- Row 2 -->
-                <Border Style="{StaticResource ImageGridBorder}"   Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="1" Grid.Column="0">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[3],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="3"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[3], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="3"/>
                 </Border>
 
-                <Border Style="{StaticResource ImageGridBorder}" Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="1" Grid.Column="1">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[4],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="4"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[4], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="4"/>
                 </Border>
 
-                <Border Style="{StaticResource ImageGridBorder}" Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="1" Grid.Column="2">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[5],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="5"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[5], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="5"/>
                 </Border>
 
                 <!-- Row 3 -->
-                <Border Style="{StaticResource ImageGridBorder}" Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="2" Grid.Column="0">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[6],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="6"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[6], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="6"/>
                 </Border>
 
-                <Border Style="{StaticResource ImageGridBorder}" Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="2" Grid.Column="1">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[7],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="7"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[7], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="7"/>
                 </Border>
 
-                <Border Style="{StaticResource ImageGridBorder}" Stroke="Purple" 
+                <Border Stroke="#E0DCEC" StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#F3F0F9"
+                        HeightRequest="120"
+                        WidthRequest="120"
                         Grid.Row="2" Grid.Column="2">
-                    <ImageButton Style="{StaticResource ImageButton}" WidthRequest="70" HeightRequest="70"
-                                Source="{Binding ImagePreviewSources[8],
-                                TargetNullValue='addphoto.png'}"
-                                Command="{Binding AddImageCommand}"
-                                CommandParameter="8"/>
+                    <ImageButton Aspect="AspectFill"
+                                 BackgroundColor="Transparent"
+                                 Padding="0"
+                                 Margin="0"
+                                 WidthRequest="70" HeightRequest="70"
+                                 Source="{Binding ImagePreviewSources[8], TargetNullValue='addphoto.png'}"
+                                 Command="{Binding AddImageCommand}"
+                                 CommandParameter="8"/>
                 </Border>
             </Grid>
 
-            <!-- Image Tips -->
             <Label Text="Tip: Add high-quality photos showing different angles of your space"
                    FontSize="12"
-                   TextColor="{StaticResource SecondaryColor}"
+                   TextColor="#6750A4"
                    HorizontalOptions="Center"
                    Margin="0,20,0,0"/>
 
-            <!-- Error Message -->
             <Label Text="{Binding ErrorMessage}" 
-                   Style="{StaticResource ErrorMessageLabel}"
+                   FontSize="14"
+                   TextColor="#B3261E"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,10"
                    IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
 
-            <!-- Next Button -->
             <Button Text="Continue"
-                    Style="{StaticResource PrimaryButton}"
+                    BackgroundColor="#4F378A"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    Margin="0,25,0,10"
                     Command="{Binding NavigateToServicesPageCommand}"/>
 
-            <!-- Loading Indicator -->
             <ActivityIndicator IsRunning="{Binding IsLoading}" 
-                             IsVisible="{Binding IsLoading}"
-                             Color="{StaticResource PrimaryColor}"
-                             HorizontalOptions="Center"
-                             Margin="0,20"/>
+                               IsVisible="{Binding IsLoading}"
+                               Color="#4F378A"
+                               HorizontalOptions="Center"
+                               Margin="0,20"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

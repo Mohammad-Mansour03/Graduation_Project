@@ -8,173 +8,140 @@
              x:DataType="viewModels:AddSpaceViewModel"
              BackgroundColor="#F8F7FC">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
-
-            <!-- Color Palette with #4F378A as Primary -->
-            <Color x:Key="Primary">#4F378A</Color>
-            <Color x:Key="PrimaryLight">#7A67B8</Color>
-            <Color x:Key="PrimaryLighter">#B5A8DB</Color>
-            <Color x:Key="PrimaryDark">#3A2968</Color>
-            <Color x:Key="Secondary">#FF9E40</Color>
-            <Color x:Key="Background">#F8F7FC</Color>
-            <Color x:Key="Surface">#FFFFFF</Color>
-            <Color x:Key="Error">#E53935</Color>
-            <Color x:Key="OnPrimary">#FFFFFF</Color>
-            <Color x:Key="OnSecondary">#FFFFFF</Color>
-            <Color x:Key="OnBackground">#1A1C2A</Color>
-            <Color x:Key="OnSurface">#1A1C2A</Color>
-            <Color x:Key="Outline">#E1E0E9</Color>
-            <Color x:Key="TextSecondary">#6B6D7C</Color>
-
-            <!-- Component Styles -->
-            <Style x:Key="PageTitle" TargetType="Label">
-                <Setter Property="FontSize" Value="24" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
-                <Setter Property="Margin" Value="0,0,0,20" />
-            </Style>
-
-            <Style x:Key="SectionTitle" TargetType="Label">
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="TextColor" Value="{StaticResource OnBackground}" />
-                <Setter Property="Margin" Value="0,24,0,12" />
-            </Style>
-
-            <Style x:Key="InputContainer" TargetType="Border">
-                <Setter Property="Stroke" Value="{StaticResource Outline}" />
-                <Setter Property="StrokeThickness" Value="1" />
-                <Setter Property="StrokeShape" Value="RoundRectangle 12" />
-                <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
-                <Setter Property="HeightRequest" Value="56" />
-                <Setter Property="Padding" Value="16,0" />
-            </Style>
-
-            <Style x:Key="TextInput" TargetType="Entry">
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="TextColor" Value="{StaticResource OnSurface}" />
-                <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondary}" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="VerticalOptions" Value="Center" />
-            </Style>
-
-            <Style x:Key="PrimaryButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="TextColor" Value="{StaticResource OnPrimary}" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="CornerRadius" Value="12" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="Padding" Value="24,0" />
-            </Style>
-
-            <Style x:Key="ServiceCard" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
-                <Setter Property="BorderColor" Value="{StaticResource Outline}" />
-                <Setter Property="CornerRadius" Value="12" />
-                <Setter Property="Padding" Value="16" />
-                <Setter Property="Margin" Value="0,0,0,12" />
-                <Setter Property="HasShadow" Value="True" />
-            </Style>
-
-            <Style x:Key="DeleteButton" TargetType="ImageButton">
-                <Setter Property="Source" Value="delete_outline.png" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="WidthRequest" Value="24" />
-                <Setter Property="HeightRequest" Value="24" />
-                <Setter Property="Padding" Value="0" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="0">
             <!-- Header -->
             <Label Text="Add Your Services"
-                   Style="{StaticResource PageTitle}" />
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,0,0,20" />
 
             <!-- Add Service Section -->
             <Label Text="Add New Service"
-                   Style="{StaticResource SectionTitle}" />
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,24,0,12" />
 
             <!-- Input Fields Row -->
             <Grid ColumnDefinitions="*,120"
                   ColumnSpacing="12"
                   Margin="0,0,0,16">
                 <!-- Service Name -->
-                <Border Style="{StaticResource InputContainer}"
+                <Border Stroke="#E1E0E9"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="#FFFFFF"
+                        HeightRequest="56"
+                        Padding="16,0"
                         Grid.Column="0">
                     <Entry Placeholder="Service name"
-                           Style="{StaticResource TextInput}"
+                           FontSize="16"
+                           TextColor="#1A1C2A"
+                           PlaceholderColor="#6B6D7C"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center"
                            Text="{Binding NewServiceName}" />
                 </Border>
 
                 <!-- Price -->
-                <Border Style="{StaticResource InputContainer}"
+                <Border Stroke="#E1E0E9"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        BackgroundColor="#FFFFFF"
+                        HeightRequest="56"
+                        Padding="16,0"
                         Grid.Column="1">
                     <Entry Placeholder="Price"
-                           Style="{StaticResource TextInput}"
-                           Text="{Binding NewServicePrice}"
+                           FontSize="16"
+                           TextColor="#1A1C2A"
+                           PlaceholderColor="#6B6D7C"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center"
                            Keyboard="Numeric"
-                           HorizontalTextAlignment="End" />
+                           HorizontalTextAlignment="End"
+                           Text="{Binding NewServicePrice}" />
                 </Border>
             </Grid>
 
-            <!-- Add Button with proper spacing -->
+            <!-- Add Button -->
             <Button Text="Add Service"
-                    Style="{StaticResource PrimaryButton}"
-                Command="{Binding AddServiceCommand}" />
+                    BackgroundColor="#4F378A"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    Padding="24,0"
+                    Command="{Binding AddServiceCommand}" />
 
-                <!-- Services List Section -->
-                <Label Text="Your Services"
-                   Style="{StaticResource SectionTitle}"
+            <!-- Services List Section -->
+            <Label Text="Your Services"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#1A1C2A"
+                   Margin="0,24,0,12"
                    IsVisible="{Binding Services.Count, Converter={StaticResource StringNotEmptyConverter}}" />
 
-                <CollectionView ItemsSource="{Binding Services}"
-                           EmptyView="No services added yet"
-                           Margin="0,12,0,0">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame Style="{StaticResource ServiceCard}">
-                                <Grid ColumnDefinitions="*,Auto,Auto"
+            <CollectionView ItemsSource="{Binding Services}"
+                            EmptyView="No services added yet"
+                            Margin="0,12,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#FFFFFF"
+                               BorderColor="#E1E0E9"
+                               CornerRadius="12"
+                               Padding="16"
+                               Margin="0,0,0,12"
+                               HasShadow="True">
+                            <Grid ColumnDefinitions="*,Auto,Auto"
                                   ColumnSpacing="-20">
-                                    <!-- Service Name -->
-                                    <Label Text="{Binding Name}"
+                                <!-- Service Name -->
+                                <Label Text="{Binding Name}"
                                        FontSize="16"
-                                       TextColor="{StaticResource OnSurface}"
+                                       TextColor="#1A1C2A"
                                        VerticalOptions="Center" />
 
-                                    <!-- Service Price -->
-                                    <Label Text="{Binding Price, StringFormat='{0} JOD'}"
+                                <!-- Service Price -->
+                                <Label Text="{Binding Price, StringFormat='{0} JOD'}"
                                        Grid.Column="1"
                                        FontSize="16"
-                                       TextColor="{StaticResource Primary}"
+                                       TextColor="#4F378A"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center" />
 
-                                    <!-- Delete Button -->
-                                    <ImageButton Grid.Column="2"
-                                             Style="{StaticResource DeleteButton}"
+                                <!-- Delete Button -->
+                                <ImageButton Grid.Column="2"
+                                             Source="delete_outline.png"
+                                             BackgroundColor="Transparent"
+                                             WidthRequest="24"
+                                             HeightRequest="24"
+                                             Padding="0"
                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:AddSpaceViewModel}}, Path=DeleteServiceCommand}"
                                              CommandParameter="{Binding .}" />
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-                <!-- Continue Button -->
-                <Button Text="Continue"
-                    Style="{StaticResource PrimaryButton}"
+            <!-- Continue Button -->
+            <Button Text="Continue"
+                    BackgroundColor="#4F378A"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    Padding="24,0"
                     Margin="0,32"
                     Command="{Binding NavigateToSpacePoliciesPageCommand}" />
 
-                <!-- Error Message -->
-                <Label Text="{Binding ErrorMessage}"
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}"
                    FontSize="14"
-                   TextColor="{StaticResource Error}"
+                   TextColor="#E53935"
                    HorizontalOptions="Center"
                    Margin="0,16"
                    IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}" />
