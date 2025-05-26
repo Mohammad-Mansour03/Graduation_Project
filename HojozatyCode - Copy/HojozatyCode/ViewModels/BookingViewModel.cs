@@ -137,32 +137,8 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
-		//Command to check the Availability Booking for this DateTime
-		[RelayCommand]
-		private async Task CheckAvailability() 
-		{
-			var newBookingStart = SelectedDateTime = SelectedDate + SelectedTime;
 
-			var newBookingEnd = CalculateEndTime();
-
-			if (newBookingEnd == DateTime.Now) 
-			{
-				return;
-			}
-
-			if (!IsDateTimeAvailable(SelectedDateTime.AddHours(3), newBookingEnd.AddHours(3)))
-			{
-				await Shell.Current.DisplayAlert("Warning", $"Venue is reserved  at this time", "OK");
-				return;
-			}
-			else 
-			{
-				await Shell.Current.DisplayAlert("Warning", $"Venue is available at this time", "OK");
-				return;
-			}
-		}
-
-		private DateTime CalculateEndTime() 
+		private DateTime? CalculateEndTime()
 		{
 			DateTime newEnd = DateTime.Now;
 
@@ -184,12 +160,38 @@ namespace HojozatyCode.ViewModels
 				else
 				{
 					Shell.Current.DisplayAlert("Warning", "Please Select Appropriate Ending Time", "OK");
-					return DateTime.Now;
+					return null;
 				}
 			}
 
 			return newEnd;
 		}
+
+		//Command to check the Availability Booking for this DateTime
+		[RelayCommand]
+		private async Task CheckAvailability() 
+		{
+			var newBookingStart = SelectedDateTime = SelectedDate + SelectedTime;
+
+			var newBookingEnd = CalculateEndTime();
+
+			if (newBookingEnd == null) 
+			{
+				return;
+			}
+
+			if (!IsDateTimeAvailable(SelectedDateTime.AddHours(3), newBookingEnd.Value.AddHours(3)))
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is reserved  at this time", "OK");
+				return;
+			}
+			else 
+			{
+				await Shell.Current.DisplayAlert("Warning", $"Venue is available at this time", "OK");
+				return;
+			}
+		}
+
 
 		//To add the service for booking
 		[RelayCommand]
@@ -324,12 +326,14 @@ namespace HojozatyCode.ViewModels
 					return;
 				}
 
-				EndedDateTime = CalculateEndTime();
+				var calculatedEnded = CalculateEndTime();
 
-				if (EndedDateTime == DateTime.Now)
+				if (calculatedEnded == null)
 				{
 					return;
 				}
+
+				EndedDateTime = calculatedEnded.Value;
 
 				var newBookingStart = SelectedDateTime.AddHours(3);
 				var newBookingEnd = EndedDateTime.AddHours(3);
