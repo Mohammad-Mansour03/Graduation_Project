@@ -216,6 +216,8 @@ namespace HojozatyCode.ViewModels
 					Name = service.Name
 				};
 
+				
+
 				BookingServices.Add(bookingService);
 
 				//Insert the Booking Service
@@ -275,6 +277,7 @@ namespace HojozatyCode.ViewModels
 			if (response.Models != null)
 				VenueBookings = new ObservableCollection<Booking>(response.Models);
 
+			BookingServices.Clear();
 		}
 
 		/// <summary>
