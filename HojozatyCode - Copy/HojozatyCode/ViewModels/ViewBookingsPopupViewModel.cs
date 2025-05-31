@@ -54,7 +54,7 @@ namespace HojozatyCode.ViewModels
 				foreach (var book in Bookings)
 				{
 					userDict.TryGetValue(book.UserId, out var user);
-					var fullName = user != null ? $"{user.FirstNameC} {user.LastNameC}" : "غير معروف";
+					var fullName = user != null ? $"{user.FirstNameC} {user.LastNameC}" : "Anyonumys";
 
 					UserBookings.Add(new UserBooking
 					{
