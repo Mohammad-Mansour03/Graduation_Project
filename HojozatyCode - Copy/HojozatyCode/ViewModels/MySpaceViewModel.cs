@@ -9,6 +9,8 @@ using Microsoft.Maui.Controls;
 using System;
 using HojozatyCode.Pages;
 using Microsoft.Maui.Devices;
+using System.Reactive.Linq;
+using CommunityToolkit.Maui.Core.Extensions;
 
 namespace HojozatyCode.ViewModels
 {
@@ -189,6 +191,34 @@ namespace HojozatyCode.ViewModels
 			catch (Exception ex) 
 			{
 				await Shell.Current.DisplayAlert("Error" , ex.Message, "OK");	
+			}
+		}
+
+		private async Task<ObservableCollection<Booking>> LoadVenueBooking(Guid venueId) 
+		{
+			var bookings = await SupabaseConfig.SupabaseClient
+				.From<Booking>()
+				.Where(x => x.VenueId == venueId)
+				.Get();
+
+			if (bookings.Models.Count > 0)
+				return bookings.Models.ToObservableCollection();
+
+			return null;
+		}
+
+
+		[RelayCommand]
+		private async Task ViewBookings(Venue venue)
+		{
+			var bookings = await LoadVenueBooking(venue.VenueId);
+			if (bookings != null && bookings.Count > 0)
+			{
+				await Shell.Current.Navigation.PushModalAsync(new ViewBookingsPopup(bookings));
+			}
+			else
+			{
+				await Shell.Current.DisplayAlert("تنبيه", "لا توجد حجوزات لهذا المكان.", "موافق");
 			}
 		}
 

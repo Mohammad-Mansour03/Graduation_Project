@@ -107,6 +107,20 @@
                                                         </OnPlatform>
                                                     </Label.FontFamily>
                                                 </Label>
+                                            </HorizontalStackLayout> 
+                                            
+                                            <!-- Location -->
+                                            <HorizontalStackLayout Grid.Row="2" Grid.Column="0" Spacing="10">
+                                                <Label Text="{Binding Status}"
+                                                       FontSize="13"
+                                                       TextColor="#7F8C8D">
+                                                    <Label.FontFamily>
+                                                        <OnPlatform x:TypeArguments="x:String">
+                                                            <On Platform="iOS" Value="SF Pro Text" />
+                                                            <On Platform="Android" Value="sans-serif-medium" />
+                                                        </OnPlatform>
+                                                    </Label.FontFamily>
+                                                </Label>
                                             </HorizontalStackLayout>
                                             
                                             <!-- Price -->
@@ -156,6 +170,21 @@
                                                         FontSize="13"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}}, 
                                                                     Path=DeleteVenueCommand}"
+                                                        CommandParameter="{Binding .}" />   
+                                                
+                                                <!-- Delete Button -->
+                                                <Button Text="ViewBookings"
+                                                        BackgroundColor="White"
+                                                        TextColor="#E74C3C"
+                                                        BorderColor="#E74C3C"
+                                                        BorderWidth="1"
+                                                        CornerRadius="20"
+                                                        Padding="20,8"
+                                                        Margin="0,0,10,0"
+                                                        FontAttributes="Bold"
+                                                        FontSize="13"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MySpaceViewModel}}, 
+                                                                    Path=ViewBookingsCommand}"
                                                         CommandParameter="{Binding .}" />
                                             </FlexLayout>
                                         </Grid>
