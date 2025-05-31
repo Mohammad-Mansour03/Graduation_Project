@@ -1,3 +1,4 @@
+using Android.Gms.Common.Apis;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HojozatyCode.Models;
@@ -160,41 +161,48 @@ namespace HojozatyCode.ViewModels
 				// Try to sign up
 				var response = await SupabaseConfig.SupabaseClient.Auth.SignUp(EmailF, PasswordF);
 
-				if (response.User != null)
+				if (response != null)
 				{
-					if (!response.User.ConfirmedAt.HasValue)
-					{
-						await Shell.Current.DisplayAlert("Confirmation Required",
-							"A confirmation email has been sent. Please check your inbox to verify your email.",
-							"OK");
-
-						// Poll every 3 seconds to check if user confirmed their email
-						for (int i = 0; i < 20; i++) // 20 attempts = ~1 minute
-						{
-							await Task.Delay(11000); // Wait 11 seconds
-
-							var session = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailF, PasswordF);
-
-							if (session != null && session.User?.ConfirmedAt != null)
-							{
-								await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
-								return;
-							}
-						}
-
-						await Shell.Current.DisplayAlert("Still Not Confirmed",
-							"Email not confirmed yet. Please confirm your email before continuing.", "OK");
-					}
-					else
-					{
-						await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
-					}
+					//Message = "OTP has been sent to your email.";
+					await Shell.Current.DisplayAlert("Prompt", "OTP has been sent to your email.", "OK");
+					await Shell.Current.GoToAsync($"{nameof(Pages.EnterOTPPage)}?email={EmailF}");
 				}
-				else
-				{
-					await Shell.Current.DisplayAlert("Sign Up Failed",
-						"An unknown error occurred during sign up. Please try again.", "OK");
-				}
+
+				//if (response.User != null)
+				//{
+				//	if (!response.User.ConfirmedAt.HasValue)
+				//	{
+				//		await Shell.Current.DisplayAlert("Confirmation Required",
+				//			"A confirmation email has been sent. Please check your inbox to verify your email.",
+				//			"OK");
+
+				//		// Poll every 3 seconds to check if user confirmed their email
+				//		for (int i = 0; i < 20; i++) // 20 attempts = ~1 minute
+				//		{
+				//			await Task.Delay(11000); // Wait 11 seconds
+
+				//			var session = await SupabaseConfig.SupabaseClient.Auth.SignIn(EmailF, PasswordF);
+
+				//			if (session != null && session.User?.ConfirmedAt != null)
+				//			{
+				//				await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
+				//				return;
+				//			}
+				//		}
+
+				//		await Shell.Current.DisplayAlert("Still Not Confirmed",
+				//			"Email not confirmed yet. Please confirm your email before continuing.", "OK");
+				//	}
+				//	else
+				//	{
+				//		await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
+				//	}
+				//}
+				//else
+				//{
+				//	await Shell.Current.DisplayAlert("Sign Up Failed",
+				//		"An unknown error occurred during sign up. Please try again.", "OK");
+				//}
 			}
 			catch (Exception ex)
 			{

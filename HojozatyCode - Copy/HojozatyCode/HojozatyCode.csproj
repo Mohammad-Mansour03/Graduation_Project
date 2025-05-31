@@ -112,6 +112,9 @@
     <MauiXaml Update="Pages\EnterOTPPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Pages\EnterOTPSignUp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Pages\FavouritePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

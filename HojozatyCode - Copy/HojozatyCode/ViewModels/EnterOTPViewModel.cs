@@ -49,4 +49,35 @@ public partial class EnterOtpViewModel : ObservableObject
 		}
 	
 	}
+	
+	[RelayCommand]
+	public async Task VerifyOtpSignUp()
+	{
+		try
+		{
+			var session = await SupabaseConfig.SupabaseClient.Auth.VerifyOTP(
+				email: EmailL,
+				token: OtpCode,
+				type: Supabase.Gotrue.Constants.EmailOtpType.Email
+			);
+
+			if (session != null)
+			{
+				Message = "OTP verified successfully!";
+
+				await Shell.Current.GoToAsync(nameof(Pages.ProfileInfo));
+			}
+			else 
+			{
+				Message = "OTP verification failed. Please try again.";
+				await Shell.Current.GoToAsync(nameof(Pages.LoginSignupPage));
+			}
+		}
+
+		catch (Exception ex)
+		{
+			Message = $"Verification failed:Token has expired or is invalid.\n{ex.Message}";
+		}
+	
+	}
 }
