@@ -1,29 +1,119 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
-             x:Class="HojozatyCode.Pages.ViewBookingsPopup"   
-             BackgroundColor="White"
-             Padding="20"
-             Title="ViewBookingsPopup">
-    
-    <VerticalStackLayout>
-        <Label Text="الحجوزات" FontSize="20" HorizontalOptions="Center" />
-        <CollectionView x:Name="BookingsListView" ItemsSource="{Binding UserBookings}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame BorderColor="Gray" Padding="10" Margin="5">
-                        <StackLayout>
-                            <Label Text="{Binding CustomerName}" />
-                            <Label Text="{Binding StartDateTime }" />
-                            <Label Text="{Binding EndDateTime }" />
-                            <!-- أضف المزيد حسب خصائص الحجز -->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:vm="clr-namespace:HojozatyCode.ViewModels"  
+             x:Class="HojozatyCode.Pages.ViewBookingsPopup"  
+             BackgroundColor="#F9F6FC"  
+             Title="Bookings">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <!-- Header Section -->
+            <StackLayout Spacing="5" HorizontalOptions="Center">
+                <Label Text="Bookings"  
+                       FontSize="24"  
+                       FontAttributes="Bold"  
+                       TextColor="#2C3E50"/>
+                <BoxView HeightRequest="3"   
+                         WidthRequest="60"  
+                         Color="#4F378A"  
+                         HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <!-- Bookings List -->
+            <CollectionView x:Name="BookingsListView"  
+                            ItemsSource="{Binding UserBookings}"  
+                            EmptyView="No bookings found"  
+                            SelectionMode="None">
+
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <StackLayout VerticalOptions="Center"  
+                                     HorizontalOptions="Center"  
+                                     HeightRequest="200">
+                            <Label Text="No bookings available"  
+                                   FontSize="16"  
+                                   TextColor="#7F8C8D"  
+                                   HorizontalOptions="Center"/>
                         </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Button Text="إغلاق" Clicked="ClosePopup" />
-    </VerticalStackLayout>
-    
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#E0E0E0"  
+                                StrokeThickness="1"  
+                                StrokeShape="RoundRectangle 10"  
+                                BackgroundColor="White"  
+                                Margin="0,0,0,10"  
+                                Padding="0">
+                            <Border.Shadow>
+                                <Shadow Brush="#4F378A10"  
+                                        Offset="0,3"  
+                                        Radius="8"  
+                                        Opacity="0.2"/>
+                            </Border.Shadow>
+
+                            <Grid ColumnDefinitions="*,Auto"  
+                                  RowDefinitions="Auto,Auto,Auto"  
+                                  Padding="15"  
+                                  RowSpacing="8">
+
+                                <!-- Customer Name -->
+                                <Label Text="{Binding CustomerName}"  
+                                       FontSize="16"  
+                                       FontAttributes="Bold"  
+                                       TextColor="#2C3E50"  
+                                       Grid.Row="0"  
+                                       Grid.Column="0"/>
+
+                                <!-- Date -->
+                                <Label Text="{Binding StartDateTime, StringFormat='{}{0:ddd, MMM dd}'}"  
+                                       FontSize="14"  
+                                       TextColor="#4F378A"  
+                                       Grid.Row="1"  
+                                       Grid.Column="0"/>
+
+                                <!-- Time Slot -->
+                                <Label Grid.Row="2" Grid.Column="0">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0:hh:mm tt} - {1:hh:mm tt}">
+                                            <Binding Path="StartDateTime"/>
+                                            <Binding Path="EndDateTime"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+
+                                <!-- Status Badge -->
+                                <Border BackgroundColor="#4F378A20"  
+                                        StrokeShape="RoundRectangle 12"  
+                                        Padding="10,5"  
+                                        HorizontalOptions="End"  
+                                        VerticalOptions="Center"  
+                                        Grid.Row="0"  
+                                        Grid.Column="1"  
+                                        Grid.RowSpan="3">
+                                    <Label Text="{Binding Status}"  
+                                           TextColor="#4F378A"  
+                                           FontSize="12"  
+                                           FontAttributes="Bold"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Close Button -->
+            <Button Text="Close"  
+                    BackgroundColor="#4F378A"  
+                    TextColor="White"  
+                    FontAttributes="Bold"  
+                    FontSize="14"  
+                    HeightRequest="45"  
+                    CornerRadius="20"  
+                    Margin="40,10"  
+                    Clicked="ClosePopup"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

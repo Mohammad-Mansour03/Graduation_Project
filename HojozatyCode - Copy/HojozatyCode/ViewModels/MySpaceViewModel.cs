@@ -218,7 +218,7 @@ namespace HojozatyCode.ViewModels
 			}
 			else
 			{
-				await Shell.Current.DisplayAlert("تنبيه", "لا توجد حجوزات لهذا المكان.", "موافق");
+				await Shell.Current.DisplayAlert("Alert","There are no bookings for this venue.","OK");
 			}
 		}
 
