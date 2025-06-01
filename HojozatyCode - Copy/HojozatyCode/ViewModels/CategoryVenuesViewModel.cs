@@ -63,7 +63,7 @@ namespace HojozatyCode.ViewModels
                         new Subcategory { Name = "Halls", ImageUrl = "halls.png" },
                         new Subcategory { Name = "Farms", ImageUrl = "farms.jpg" },
                         new Subcategory { Name = "Hotels", ImageUrl = "hotel1.jpg" },
-                        new Subcategory { Name = "Outdoors", ImageUrl = "outdoors.jpg" }
+                        new Subcategory { Name = "Outdoor Space", ImageUrl = "outdoors.jpg" }
                     }
                 },
                 { "Entertainment", new List<Subcategory>

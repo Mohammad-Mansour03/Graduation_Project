@@ -34,7 +34,7 @@ namespace HojozatyCode.ViewModels
 		//Dictionary to sotore the SpaceTypes for every space category
 		private readonly Dictionary<string, List<string>> SpaceTypeCategories = new()
 		{
-			{ "Wedding", new List<string> { "Halls", "Farms", "Hotels", "Outdoors" } },
+			{ "Wedding", new List<string> { "Halls", "Farms", "Hotels", "Outdoor Space" } },
 
 			{ "Entertainment", new List<string> { "Farms", "Adventure Spots", "WorkShops" } },
 
