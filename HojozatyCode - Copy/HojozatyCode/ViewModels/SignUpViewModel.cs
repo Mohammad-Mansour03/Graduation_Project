@@ -165,7 +165,7 @@ namespace HojozatyCode.ViewModels
 				{
 					//Message = "OTP has been sent to your email.";
 					await Shell.Current.DisplayAlert("Prompt", "OTP has been sent to your email.", "OK");
-					await Shell.Current.GoToAsync($"{nameof(Pages.EnterOTPPage)}?email={EmailF}");
+					await Shell.Current.GoToAsync($"{nameof(Pages.EnterOTPSignUp)}?email={EmailF}");
 				}
 
 				//if (response.User != null)

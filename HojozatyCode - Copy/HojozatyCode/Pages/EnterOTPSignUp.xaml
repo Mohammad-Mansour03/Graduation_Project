@@ -48,7 +48,7 @@
 
             <!-- Verify Button -->
             <Button Text="VERIFY CODE" 
-                  Command="{Binding VerifyOtpCommand}"
+                  Command="{Binding VerifyOtpSignUpCommand}"
                   BackgroundColor="#4F378A"
                   TextColor="White"
                   FontAttributes="Bold"

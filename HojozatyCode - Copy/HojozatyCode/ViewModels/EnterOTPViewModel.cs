@@ -20,10 +20,11 @@ public partial class EnterOtpViewModel : ObservableObject
 	string message;
 
 	[RelayCommand]
-	public async Task VerifyOtpAsync()
+	private async Task Verify()
 	{
 		try
 		{
+			await Shell.Current.DisplayAlert("Prompt", "Inside method navigate me to the Reset Password", "OK");
 			var session = await SupabaseConfig.SupabaseClient.Auth.VerifyOTP(
 				email: EmailL,
 				token: OtpCode,
@@ -50,11 +51,14 @@ public partial class EnterOtpViewModel : ObservableObject
 	
 	}
 	
+
 	[RelayCommand]
-	public async Task VerifyOtpSignUp()
+	private async Task VerifyOtpSignUp()
 	{
 		try
 		{
+			await Shell.Current.DisplayAlert("Prompt", "Inside method navigate me to the Profile info Password", "OK");
+
 			var session = await SupabaseConfig.SupabaseClient.Auth.VerifyOTP(
 				email: EmailL,
 				token: OtpCode,
