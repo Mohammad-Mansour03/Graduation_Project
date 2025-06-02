@@ -3,13 +3,17 @@
              xmlns:viewModels="clr-namespace:HojozatyCode.ViewModels"
              xmlns:models="clr-namespace:HojozatyCode.Models"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
+             xmlns:local="clr-namespace:HojozatyCode.Converters"
              x:Class="HojozatyCode.Pages.FiltersPage"
              Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#F9F6FC">
 
     <ContentPage.Resources>
-        <!-- Color Palette -->
+        <ResourceDictionary>
+            <local:ListContainsConverter x:Key="ListContainsConverter" />
+        </ResourceDictionary>
+        <!-- Colors -->
         <Color x:Key="PrimaryColor">#4F378A</Color>
         <Color x:Key="LightPrimaryColor">#6750A4</Color>
         <Color x:Key="SurfaceColor">#FFFFFF</Color>
@@ -17,13 +21,12 @@
         <Color x:Key="SecondaryColor">#625B71</Color>
         <Color x:Key="BackgroundColor">#FAFAFA</Color>
 
-        <!-- Base Label -->
+        <!-- Styles -->
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
             <Setter Property="FontFamily" Value="OpenSans-Regular" />
         </Style>
 
-        <!-- Entry with uniform vertical spacing; internal padding removed -->
         <Style TargetType="Entry">
             <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
             <Setter Property="TextColor" Value="{StaticResource OnSurfaceColor}" />
@@ -33,7 +36,6 @@
             <Setter Property="Margin" Value="0,8" />
         </Style>
 
-        <!-- Primary Button -->
         <Style TargetType="Button">
             <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
             <Setter Property="TextColor" Value="White" />
@@ -44,7 +46,6 @@
             <Setter Property="HeightRequest" Value="48" />
         </Style>
 
-        <!-- Section Titles -->
         <Style x:Key="SectionTitle" TargetType="Label">
             <Setter Property="FontSize" Value="18" />
             <Setter Property="FontAttributes" Value="Bold" />
@@ -53,7 +54,6 @@
             <Setter Property="FontFamily" Value="OpenSans-Bold" />
         </Style>
 
-        <!-- Container Border for each section -->
         <Style x:Key="OptionBorder" TargetType="Border">
             <Setter Property="StrokeShape">
                 <Setter.Value>
@@ -64,28 +64,18 @@
             <Setter Property="Stroke" Value="#E7E0EC" />
             <Setter Property="Padding" Value="16" />
         </Style>
-        
     </ContentPage.Resources>
 
-   
     <ScrollView>
-
         <VerticalStackLayout Padding="16" Spacing="24">
-            
-
             <!-- PRICE RANGE -->
             <Label Text="Price Range" Style="{StaticResource SectionTitle}" />
             <Border Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Min Price" />
-                    <Entry Text="{Binding MinPrice}"
-                           Placeholder="e.g. 100"
-                           Keyboard="Numeric"/>
-
+                    <Entry Text="{Binding MinPrice}" Placeholder="e.g. 100" Keyboard="Numeric" />
                     <Label Text="Max Price" />
-                    <Entry Text="{Binding MaxPrice}"
-                           Placeholder="e.g. 5000"
-                           Keyboard="Numeric"/>
+                    <Entry Text="{Binding MaxPrice}" Placeholder="e.g. 5000" Keyboard="Numeric" />
                 </VerticalStackLayout>
             </Border>
 
@@ -94,28 +84,23 @@
             <Border Style="{StaticResource OptionBorder}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Min Capacity" />
-                    <Entry Text="{Binding MinCapacity}"
-                           Placeholder="e.g. 50"
-                           Keyboard="Numeric"/>
-
+                    <Entry Text="{Binding MinCapacity}" Placeholder="e.g. 50" Keyboard="Numeric" />
                     <Label Text="Max Capacity" />
-                    <Entry Text="{Binding MaxCapacity}"
-                           Placeholder="e.g. 300"
-                           Keyboard="Numeric"/>
+                    <Entry Text="{Binding MaxCapacity}" Placeholder="e.g. 300" Keyboard="Numeric" />
                 </VerticalStackLayout>
             </Border>
 
-
+            <!-- CATEGORIES -->
             <Label Text="Categories" Style="{StaticResource SectionTitle}" />
             <Border Style="{StaticResource OptionBorder}">
-                <CollectionView ItemsSource="{Binding AvailableCategories}"
-                    SelectionMode="None">
+                <CollectionView ItemsSource="{Binding AvailableCategories}" SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <HorizontalStackLayout Padding="4,8">
-                                <CheckBox IsChecked="{Binding Source={RelativeSource AncestorType={x:Type viewModels:FilterVenueViewModel}},
-                                    Path=SelectedCategories, Mode=TwoWay, Converter={StaticResource ListContainsConverter}, ConverterParameter={Binding .}}"
-                              CheckedChanged="OnCategoryCheckedChanged"/>
+                                <CheckBox
+                                    BindingContext="{Binding .}"
+                                    IsChecked="{Binding Source={RelativeSource AncestorType={x:Type vm:FilterVenueViewModel}}, Path=SelectedCategories, Mode=OneWay, Converter={StaticResource ListContainsConverter}, ConverterParameter={Binding .}}"
+                                    CheckedChanged="OnCategoryCheckedChanged"/>
                                 <Label Text="{Binding .}" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
@@ -123,27 +108,25 @@
                 </CollectionView>
             </Border>
 
-
+            <!-- CITY PICKER -->
             <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
                 <Picker ItemsSource="{Binding FiltersCities}"
-               SelectedItem="{Binding FilterCity, Mode=TwoWay}" FontSize="Medium" 
-               Title="Choose City" />
+                        SelectedItem="{Binding FilterCity, Mode=TwoWay}" 
+                        FontSize="Medium" 
+                        Title="Choose City" />
                 <Image Source="location.png" HeightRequest="16" WidthRequest="16" />
             </HorizontalStackLayout>
 
-            <!-- Error Message -->
+            <!-- ERROR MESSAGE -->
             <Label Text="{Binding ErrorMessage}" 
-                FontSize="14" 
-                TextColor="Red" 
-                HorizontalOptions="Center" 
-                VerticalOptions="Center" 
-        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
-            
-            
-            
-            <!-- ACTION BUTTONS -->
-            <HorizontalStackLayout Spacing="16"
-                                   Margin="0,8,0,24">
+                   FontSize="14" 
+                   TextColor="Red" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <!-- BUTTONS -->
+            <HorizontalStackLayout Spacing="16" Margin="0,8,0,24">
                 <Button Text="Clear All"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource PrimaryColor}"
@@ -152,13 +135,12 @@
                         CornerRadius="10"
                         Padding="16,10"
                         WidthRequest="120"
-                        Command="{Binding ClearFiltersCommand}"/>
+                        Command="{Binding ClearFiltersCommand}" />
 
                 <Button Text="View Spaces"
                         HorizontalOptions="FillAndExpand"
-                        Command="{Binding ApplyFiltersCommand}"/>
+                        Command="{Binding ApplyFiltersCommand}" />
             </HorizontalStackLayout>
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -12,7 +12,7 @@
                 </ResourceDictionary.MergedDictionaries>
                   <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
                   <converters:GenderToBooleanConverter x:Key="GenderToBooleanConverter"/>
-                  <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
+               <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
