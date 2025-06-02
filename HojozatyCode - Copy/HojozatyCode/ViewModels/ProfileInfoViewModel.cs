@@ -48,7 +48,9 @@ namespace HojozatyCode.ViewModels
 		//Method to validate if the phone have the correct number
 		private bool IsPhoneValid(string phone) 
 		{
-			return Regex.IsMatch(PhoneP, @"^(?:\+962|0)7[789]\d{7}$");
+			string pattern = @"^(?:\+962|0)7[789]\d{7}$|^(?:\+962|0)6\d{7}$";
+
+			return Regex.IsMatch(PhoneP, pattern);
 		}
 		
 		//The Command to sotre the user information in the Profile table in database 

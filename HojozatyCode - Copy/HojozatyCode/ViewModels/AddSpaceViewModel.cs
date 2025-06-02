@@ -209,6 +209,14 @@ namespace HojozatyCode.ViewModels
 			}
 		}
 
+		//Method to validate if the phone have the correct number
+		private bool IsPhoneValid(string phone)
+		{
+			string pattern = @"^(?:\+962|0)7[789]\d{7}$|^(?:\+962|0)6\d{7}$";
+
+			return Regex.IsMatch(phone, pattern);
+		}
+
 
 		#region Navigation Commands
 
@@ -261,7 +269,7 @@ namespace HojozatyCode.ViewModels
 
 			//Check if the Phone number has Correct format
 			else
-			if (!Regex.IsMatch(Phone, @"^(?:\+962|0)7[789]\d{7}$"))
+			if (!IsPhoneValid(Phone))
 			{
 				ErrorMessage = "Please Enter Valid Phone Number";
 				return;
