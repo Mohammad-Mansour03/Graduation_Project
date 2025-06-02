@@ -164,7 +164,7 @@ namespace HojozatyCode.ViewModels
 
 			var cityConvert = Enum.GetName(typeof(CitieisEnum), filter.FilterCity);
 
-		
+            await Shell.Current.DisplayAlert("Prompt", $"{filter.SelectedCategories.Count}", "OK");
 
             // Reture the all venues that related to the category
 			var response = await SupabaseConfig.SupabaseClient
@@ -174,24 +174,67 @@ namespace HojozatyCode.ViewModels
 					.Filter("type", Supabase.Postgrest.Constants.Operator.ILike, $"%{SelectedCategory}%")
 					.Get();
 
-            var filtered = response.Models;
-            
-            // Filtering the Venues depending on your data 
-			 filtered = response.Models				
-	                    .Where(v =>
-		                    (filter.MinPrice == 0 || v.InitialPrice >= filter.MinPrice) &&
-		                    (filter.MaxPrice == 0 || v.InitialPrice <= filter.MaxPrice) &&
-		                    (filter.MinCapacity == 0 || v.Capacity >= filter.MinCapacity) &&
-		                    (filter.MaxCapacity == 0 || v.Capacity <= filter.MaxCapacity)
-	                    )
-	                    .ToList();
+			var allVenues = response.Models;
 
-           	Venues.Clear();
+			var venueIds = allVenues.Select(v => v.VenueId).ToList();
 
-            foreach (var venue in filtered)
-            {
-                Venues.Add(venue);
-            }
+			var categoryResponse = await SupabaseConfig.SupabaseClient
+				.From<Category>()
+				.Filter("venue_id", Supabase.Postgrest.Constants.Operator.In, venueIds)
+				.Get();
+
+			var allCategories = categoryResponse.Models;
+
+			List<Guid> matchedVenueIds = venueIds;
+
+
+			if (filter.SelectedCategories != null && filter.SelectedCategories.Count > 0)
+			{
+				matchedVenueIds = allCategories
+					.Where(c => filter.SelectedCategories.Contains(c.Name)) // Assuming Category.Name holds the category name
+					.Select(c => c.VenueId)
+					.Distinct()
+					.ToList();
+			}
+
+			var filteredVenues = allVenues
+	                  .Where(v =>
+		                  matchedVenueIds.Contains(v.VenueId) &&
+		                  (filter.MinPrice == 0 || v.InitialPrice >= filter.MinPrice) &&
+		                  (filter.MaxPrice == 0 || v.InitialPrice <= filter.MaxPrice) &&
+		                  (filter.MinCapacity == 0 || v.Capacity >= filter.MinCapacity) &&
+		                  (filter.MaxCapacity == 0 || v.Capacity <= filter.MaxCapacity)
+	                  )
+	                  .ToList();
+
+			Venues.Clear();
+
+			foreach (var venue in filteredVenues)
+			{
+				Venues.Add(venue);
+			}
+
+			//var filtered = response.Models;
+
+			//         // Filtering the Venues depending on your data 
+			// filtered = response.Models				
+			//                  .Where(v =>
+			//                   (filter.MinPrice == 0 || v.InitialPrice >= filter.MinPrice) &&
+			//                   (filter.MaxPrice == 0 || v.InitialPrice <= filter.MaxPrice) &&
+			//                   (filter.MinCapacity == 0 || v.Capacity >= filter.MinCapacity) &&
+			//                   (filter.MaxCapacity == 0 || v.Capacity <= filter.MaxCapacity)&&
+			//		    	(filter.SelectedCategories == null || filter.SelectedCategories.Count == 0 
+			//                             || filter.SelectedCategories.Contains(v.Type)) // 👈 category filtering
+
+			//			)
+			//			.ToList();
+
+			//        	Venues.Clear();
+
+			//         foreach (var venue in filtered)
+			//         {
+			//             Venues.Add(venue);
+			//         }
 
 		}
 

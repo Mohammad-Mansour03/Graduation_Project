@@ -11,8 +11,22 @@ using System.Threading.Tasks;
 
 namespace HojozatyCode.ViewModels
 {
+	[QueryProperty(nameof(SpaceType), "category")]
 	public partial class FilterVenueViewModel : ObservableObject
 	{
+		private readonly Dictionary<string, List<string>> SpaceTypeCategories = new()
+		{
+			{ "Wedding", new List<string> { "Halls", "Farms", "Hotels", "Outdoor Space" } },
+			{ "Entertainment", new List<string> { "Farms", "Adventure Spots", "WorkShops" } },
+			{ "Meeting", new List<string> { "ClassRooms/Office Spaces", "Farms", "Outdoor Space", "Majls" } },
+			{ "Funeral", new List<string> { "Diwan", "Dedicated Funeral Halls" } },
+			{ "Photography", new List<string> { "Photography Studios", "Outdoor Photography Spaces", "Product Photography Spaces" } },
+			{ "Sports", new List<string> { "Staduim" } },
+			{ "Cultural Events", new List<string> { "Farms", "Majls", "Cultrual Evening Venues", "Theaters and Cultural halls" } }
+		};
+		public ObservableCollection<string> AvailableCategories { get; } = new();
+		public ObservableCollection<string> SelectedCategories { get; } = new();
+
 
 		//Properties Related to the Filter
 		[ObservableProperty]
@@ -33,83 +47,41 @@ namespace HojozatyCode.ViewModels
 		[ObservableProperty]
 		private string errorMessage;
 
+		// Automatically populates AvailableCategories when SpaceType is set
+		[ObservableProperty]
+		private string spaceType;
+
+
 		//Collection to store the all cities
 		public ObservableCollection<CitieisEnum> FiltersCities { get; set; } =
 			new ObservableCollection<CitieisEnum>((CitieisEnum[])Enum.
 			GetValues(typeof(CitieisEnum)));
 
-	
 
-		//public void ApplyQueryAttributes(IDictionary<string, object> query)
-		//{
-		//	if (query.TryGetValue("category", out var cat))
-		//	{
-		//		string category = cat?.ToString() ?? "";
+		partial void OnSpaceTypeChanged(string value)
+		{
+			LoadAvailableCategories(value);
+		}
 
-		//		List<SpaceType> types = category switch
-		//		{
-		//			"Wedding" => new()
-		//		{
-		//			new SpaceType { Name = "Halls" },
-		//			new SpaceType { Name = "Farms" },
-		//			new SpaceType { Name = "Hotels" },
-		//			new SpaceType { Name = "Outdoors"}
-		//		},
-		//			"Entertainment" => new()
-		//		{
-		//			new SpaceType { Name = "Farms" },
-		//			new SpaceType { Name = "Adventure Spots" },
-		//			new SpaceType { Name = "WorkShops" },
-		//		},
-		//			"Meeting" => new()
-		//		{
-		//			new SpaceType { Name = "ClassRooms/Office Spaces" },
-		//			new SpaceType { Name = "Farms" },
-		//			new SpaceType { Name = "Outdoor Space" },
-		//			new SpaceType { Name = "Majls" },
-		//		},
-		//			"Funeral" => new()
-		//		{
-		//			new SpaceType { Name = "Diwan" },
-		//			new SpaceType { Name = "Dedicated Funeral Halls"  },
-					
-		//		},
-		//			"Photography" => new()
-		//		{
-		//			new SpaceType { Name = "Photography Studios" },
-		//			new SpaceType { Name = "Outdoor Photography Spaces" },
-		//			new SpaceType { Name = "Product Photography Spaces" },
-		//		},
-		//			"Sport" => new()
-		//		{
-		//			new SpaceType { Name = "Staduim" },
-				
-		//		},
-		//			"Cultural Events" => new()
-		//		{
-		//			new SpaceType { Name = "Farms" },
-		//			new SpaceType { Name = "Majls" },
-		//			new SpaceType { Name = "Cultural Evening Venues" },
-		//			new SpaceType { Name = "Theaters and Cultural Halls" },
-		//		},
-		//			_ => new() 
-		//			{
-		//				new SpaceType{ Name = "No Category Value"}
-		//			}
-		//		};
+		private void LoadAvailableCategories(string type)
+		{
+			AvailableCategories.Clear();
 
-		//		// Update on the UI thread for immediate refresh
-		//		MainThread.BeginInvokeOnMainThread(() => {
-		//			SpaceTypes = new ObservableCollection<SpaceType>(types);
-		//		});
-				
-		//		// Add this to verify the collection is populated
-		//		Shell.Current.DisplayAlert("Prompt",$"{SpaceTypes?.Count}","OK");
-		//	}
-		//}
+			if (!string.IsNullOrWhiteSpace(type) && SpaceTypeCategories.TryGetValue(type, out var categories))
+			{
+				foreach (var category in categories)
+				{
+					AvailableCategories.Add(category);
+				}
+			}
+			else
+			{
+				ErrorMessage = $"No categories found for space type: {type}";
+			}
+		}
 
 
-        [RelayCommand]
+		[RelayCommand]
         private async Task NavigateBack()
         {
             await Shell.Current.GoToAsync(nameof(Pages.CategoryVenuesPage));
@@ -154,6 +126,7 @@ namespace HojozatyCode.ViewModels
 				MinCapacity = MinCapacity,
 				MaxCapacity = MaxCapacity,
 				FilterCity = FilterCity,
+				SelectedCategories = SelectedCategories.ToList()
 			};
 
 			// We will move to the previous page with filtered data

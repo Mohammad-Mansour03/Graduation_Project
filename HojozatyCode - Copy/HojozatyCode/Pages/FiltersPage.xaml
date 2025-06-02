@@ -4,7 +4,6 @@
              xmlns:models="clr-namespace:HojozatyCode.Models"
              xmlns:vm="clr-namespace:HojozatyCode.ViewModels"
              x:Class="HojozatyCode.Pages.FiltersPage"
-             x:DataType="viewModels:FilterVenueViewModel"
              Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#F9F6FC">
@@ -106,6 +105,25 @@
                 </VerticalStackLayout>
             </Border>
 
+
+            <Label Text="Categories" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource OptionBorder}">
+                <CollectionView ItemsSource="{Binding AvailableCategories}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Padding="4,8">
+                                <CheckBox IsChecked="{Binding Source={RelativeSource AncestorType={x:Type viewModels:FilterVenueViewModel}},
+                                    Path=SelectedCategories, Mode=TwoWay, Converter={StaticResource ListContainsConverter}, ConverterParameter={Binding .}}"
+                              CheckedChanged="OnCategoryCheckedChanged"/>
+                                <Label Text="{Binding .}" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+
             <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
                 <Picker ItemsSource="{Binding FiltersCities}"
                SelectedItem="{Binding FilterCity, Mode=TwoWay}" FontSize="Medium" 
@@ -120,6 +138,9 @@
                 HorizontalOptions="Center" 
                 VerticalOptions="Center" 
         IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+            
+            
+            
             <!-- ACTION BUTTONS -->
             <HorizontalStackLayout Spacing="16"
                                    Margin="0,8,0,24">

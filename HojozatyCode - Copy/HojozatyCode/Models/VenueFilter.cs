@@ -16,5 +16,8 @@ namespace HojozatyCode.Models
 		public int MaxCapacity { get; set; }
 		public CitieisEnum FilterCity { get; set; }
 
+		public List<string> SelectedCategories { get; set; }
+
+
 	}
 }
