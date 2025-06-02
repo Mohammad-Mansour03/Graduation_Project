@@ -164,7 +164,7 @@ namespace HojozatyCode.ViewModels
 
 			var cityConvert = Enum.GetName(typeof(CitieisEnum), filter.FilterCity);
 
-            await Shell.Current.DisplayAlert("Prompt", $"{filter.SelectedCategories.Count}", "OK");
+         //   await Shell.Current.DisplayAlert("Prompt", $"{filter.SelectedCategories.Count}", "OK");
 
             // Reture the all venues that related to the category
 			var response = await SupabaseConfig.SupabaseClient
