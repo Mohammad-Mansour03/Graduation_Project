@@ -17,16 +17,13 @@ Hojozaty is a modern and user-friendly venue booking application designed to sim
 
 ### General Features:
 - **Secure Payments**: Supports multiple payment gateways.
-- **Notifications**: Real-time alerts for booking confirmations and updates.
 - **User Reviews and Ratings**: Build trust with genuine feedback from customers.
 
 ## Technologies Used
 
-- **Frontend**: .NET MAUI for cross-platform mobile and desktop app development.
-- **Backend**: .NET with ASP.NET Core Web API.
-- **Database**: SQL Server for data storage and management.
-- **Authentication**: OAuth 2.0 for secure user authentication.
-- **Deployment**: Azure for hosting and scalability.
+- **Frontend**: .NET MAUI using XAML.
+- **Backend**:C# with MVVM design pattern.
+- **Database**: Supabase.
 
 ## Getting Started
 
